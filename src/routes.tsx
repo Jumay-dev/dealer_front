@@ -5,6 +5,9 @@ import Login from "./pages/Login";
 import Clinics from "./pages/Clinics";
 import CommercialOffer from "./pages/CommercialOffer"
 import CompanyProfile from "./pages/CompanyProfile"
+import ProjectsList from "./pages/ProjectsList"
+import Coworkers from './pages/Coworkers'
+import Project from './pages/Project'
 
 import mainLayout from "./layouts/mainLayout"
 import emptyLayout from "./layouts/emptyLayout"
@@ -16,6 +19,9 @@ export const routes = (
       <RouteWrapper exact path="/clinics" component={Clinics} layout={mainLayout} />
       <RouteWrapper exact path="/offer" component={CommercialOffer} layout={mainLayout} />
       <RouteWrapper exact path="/company" component={CompanyProfile} layout={mainLayout} />
+      <RouteWrapper exact path="/projects" component={ProjectsList} layout={mainLayout} />
+      <RouteWrapper exact path="/newproject" component={Project} layout={mainLayout} />
+      <RouteWrapper exact path="/coworkers" component={Coworkers} layout={mainLayout} />
     </Switch>
 );
 

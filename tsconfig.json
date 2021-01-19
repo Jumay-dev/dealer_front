@@ -16,9 +16,8 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "resolveJsonModule": true,
-    "noFallthroughCasesInSwitch": true
+    "jsx": "react",
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules",
