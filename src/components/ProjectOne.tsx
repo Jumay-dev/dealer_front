@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button'
 import Accordion from '@material-ui/core/Accordion'
 import Grid from '@material-ui/core/Grid';
 
+import CommercialOffer from "./ModalCommercialOffer"
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -15,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     gridInfo: {
-
+        background: "#D6D2C4"
     },
 
     gridTools: {
@@ -25,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
     gridButtons: {
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        background: "#D6D2C4"
     }
   }),
 );
@@ -35,7 +38,7 @@ function ProjectOne() {
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} sm={4} className={classes.gridInfo}>
                     <Typography variant="subtitle1" paragraph>
                         # 0000000000
                     </Typography>
@@ -62,7 +65,7 @@ function ProjectOne() {
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} sm={4} className={classes.gridTools}>
                     <Typography variant="subtitle1" paragraph>
                         # 0000000000
                     </Typography>
@@ -91,9 +94,7 @@ function ProjectOne() {
 
                 <Grid item xs={12} sm={4} className={classes.gridButtons}>
 
-                    <Button variant="contained" color="primary">
-                        Сформирвать КП для клиента
-                    </Button>
+                    <CommercialOffer />
                     <Button variant="contained" color="primary">
                         Скачать КП дилера
                     </Button>
