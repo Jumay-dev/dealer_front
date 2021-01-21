@@ -1,9 +1,10 @@
 import React from 'react'
+import DataTable from '../components/DataTable'
 
 function Coworkers() {
     return (
         <>
-        Coworkers
+            <DataTable />
         </>
     )
 }

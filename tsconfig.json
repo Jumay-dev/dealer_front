@@ -25,7 +25,7 @@
     "src/**/*.spec.*"
   ],
   "include": [
-    "src",
-    "typings"
+    "typings",
+    "src/**/*"
   ]
 }

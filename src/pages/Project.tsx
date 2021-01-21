@@ -1,9 +1,17 @@
 import React from 'react'
+import CustomerReq from "../components/CustomerReq"
+import CompanyReq from "../components/CompanyReq"
+import Paper from '@material-ui/core/Paper'
 
 function Project() {
     return (
         <>
-        project
+            <Paper>
+                <CustomerReq />
+            </Paper>
+            <Paper>
+                <CompanyReq />
+            </Paper>
         </>
     )
 }
