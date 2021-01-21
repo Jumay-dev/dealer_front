@@ -1,9 +1,13 @@
 import React from 'react'
+import ProjectOne from "../components/ProjectOne"
 
 function ProjectsList() {
     return (
         <>
-        projectsList
+            <ProjectOne />
+            <ProjectOne />
+            <ProjectOne />
+            <ProjectOne />
         </>
     )
 }
