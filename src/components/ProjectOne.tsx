@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Accordion from '@material-ui/core/Accordion'
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom'
 
 import CommercialOfferList from "./ModalCommercialOffer"
 
@@ -38,7 +39,7 @@ function ProjectOne() {
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
-                <Grid item xs={12} sm={4} className={classes.gridInfo}>
+                <Grid item xs={12} lg={3} className={classes.gridInfo}>
                     <Typography variant="subtitle1" paragraph>
                         # 0000000000
                     </Typography>
@@ -65,42 +66,51 @@ function ProjectOne() {
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} sm={4} className={classes.gridTools}>
+                <Grid item xs={12} lg={6} className={classes.gridTools}>
                     <Typography variant="subtitle1" paragraph>
-                        # 0000000000
+                        Авторизовано
+                    </Typography>
+                    
+                    <Typography variant="subtitle1" paragraph>
+                        Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Зарегистрирован 4.01.2021
+                        Многофункциональный монитор пациента Votem VP-1200 
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Дилер: ООО "ААА" 
+                        Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Сотрудник: Иванов Иван Иванович 
+                        Многофункциональный монитор пациента Votem VP-1200 
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Клиент: "Доктор Айболит", г.Москва 
+                        Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Актуализирован: 10.01.2021
+                        Многофункциональный монитор пациента Votem VP-1200 
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        В реестре до 20.02.2021 
+                        Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Менеджер: Даэсмедов Михаил Алексеевич 
+                        Многофункциональный монитор пациента Votem VP-1200 
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} sm={4} className={classes.gridButtons}>
+                <Grid item xs={12} lg={3} className={classes.gridButtons}>
 
                     <CommercialOfferList />
+                    
                     <Button variant="contained" color="primary">
                         Скачать КП дилера
                     </Button>
-                    <Button variant="contained" color="primary">
-                        Подробнее о проекте
-                    </Button>
+
+                    <Link to="/newproject">
+                        <Button variant="contained" color="primary">
+                            Подробнее о проекте
+                        </Button>
+                    </Link>
+
                     <Button variant="contained" color="primary">
                         Чат с менеджером
                     </Button>

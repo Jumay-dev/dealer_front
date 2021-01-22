@@ -19,8 +19,8 @@ function Main() {
     return (
         <>
           <Paper className={classes.paper}>
-            <Chart />
             <Slider />
+            <Chart />
           </Paper>
           
         </>

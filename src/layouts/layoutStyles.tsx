@@ -33,7 +33,7 @@ export const layoutStyles = makeStyles((theme) => ({
       }),
     },
     menuButton: {
-      marginRight: 36,
+      marginRight: 36
     },
     menuButtonHidden: {
       display: 'none',

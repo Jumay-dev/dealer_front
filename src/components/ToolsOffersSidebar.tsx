@@ -2,26 +2,16 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 import AuthorisedPosition from './AuthorisedPosition'
 
-const drawerWidth = 400;
+const drawerWidth = 500;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,14 +65,6 @@ export default function PersistentDrawerRight({children}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   return (
     <div className={classes.root}>
         <Button onClick={() => setOpen(!open)} variant="contained" color="primary">Выбрать оборудование</Button>
@@ -96,18 +78,29 @@ export default function PersistentDrawerRight({children}) {
             paper: classes.drawerPaper,
         }}
         >
-        
-        <List>
-            <AuthorisedPosition />
-            <AuthorisedPosition />
-            <AuthorisedPosition />
-            <AuthorisedPosition />
-            <AuthorisedPosition />
-            <AuthorisedPosition />
-            <AuthorisedPosition />
-            <AuthorisedPosition />
-            <AuthorisedPosition />
-        </List>
+            <List>
+            <Typography>
+                Авторизованное оборудование
+            </Typography>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={1}
+            >
+                <MenuItem value={1}>Рентген-аппараты</MenuItem>
+                <MenuItem value={2}>Мониторы пациента</MenuItem>
+                <MenuItem value={3}>Мамммографы</MenuItem>
+            </Select>
+                <AuthorisedPosition />
+                <AuthorisedPosition />
+                <AuthorisedPosition />
+                <AuthorisedPosition />
+                <AuthorisedPosition />
+                <AuthorisedPosition />
+                <AuthorisedPosition />
+                <AuthorisedPosition />
+                <AuthorisedPosition />
+            </List>
         
         </Drawer>
         <main

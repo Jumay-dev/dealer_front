@@ -1,17 +1,35 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button, SliderClassKey } from '@material-ui/core'
+import { Paper, Button, SliderClassKey, Typography } from '@material-ui/core'
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      width: "100vw",
+      height: "40vh",
+      position: "relative"
+    },
+    sliderImage: {
+        maxWidth: "100%",
+        maxHeight: "100%",
+        position: "absolute"
+    }
+  }),
+);
 
 function Slider(props)
 {
     var items = [
         {
-            name: "Random Name #1",
-            description: "Probably the most random thing you have ever seen!"
+            name: "Рентген-аппараты",
+            description: "Скидка 40% при заказе до 30 января 2021 года!",
+            image: "https://ds-med.ru/wp-content/uploads/2020/05/listem-2.jpg"
         },
         {
-            name: "Random Name #2",
-            description: "Hello World!"
+            name: "Мониторы пациента",
+            description: "Скидка 40% при заказе до 30 января 2021 года!",
+            image: "https://ds-med.ru/wp-content/uploads/2020/05/votem-2.jpg"
         }
     ]
 
@@ -24,15 +42,20 @@ function Slider(props)
     )
 }
 
-function Item(props)
-{
+function Item(props) {
+    const classes = useStyles()
     return (
-        <Paper>
-            <h2>{props.item.name}</h2>
-            <p>{props.item.description}</p>
+        <Paper className={classes.paper}>
+            <img src={props.item.image} alt="..." className={classes.sliderImage}/>
+            <Typography component="h1" variant="h4" align="center">
+                {props.item.name}
+            </Typography>
+            <Typography variant="subtitle1">
+                {props.item.description}
+            </Typography>
 
-            <Button className="CheckButton">
-                Check it out!
+            <Button type="button" variant="contained" color="primary">
+                Создать проект
             </Button>
         </Paper>
     )

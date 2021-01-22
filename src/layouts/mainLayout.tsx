@@ -19,6 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MailIcon from '@material-ui/icons/MailOutline';
+import UserDropdown from '../components/UserDropdown'
 import { MainListItems } from '../components/MenuItems';
 import { layoutStyles } from './layoutStyles'
 
@@ -62,7 +63,7 @@ function MainLayout({children}) {
                 <MailIcon />
               </Badge>
             </IconButton>
-
+            <UserDropdown />
           </Toolbar>
         </AppBar>
 

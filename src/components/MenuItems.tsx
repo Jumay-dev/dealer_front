@@ -20,7 +20,7 @@ const blue600 = blue["800"];
 const useStyles = makeStyles(() =>
   createStyles({
     menuItem: {
-      color: blue600,
+      color: "black",
       fontWeight: 800,
       paddingTop: "0.2em",
       paddingBottom: "0.2em",
@@ -40,35 +40,35 @@ export function MainListItems() {
     return (
     <div>
     <Link key={`link_1`} to="/" className="MuiListItem-button">
-        <MenuItem key={1} className="MuiListItem-button" >
-        <ListItemIcon ><DashboardIcon /></ListItemIcon>
-        <ListItemText primary="Главная"/>
+        <MenuItem key={1} className={styles.menuItem }>
+            <ListItemIcon ><DashboardIcon /></ListItemIcon>
+            <ListItemText primary="Главная"/>
         </MenuItem>
     </Link>
 
     <Link key={`link_1`} to="/projects" className="MuiListItem-button">
-        <MenuItem key={1} className="MuiListItem-button">
+        <MenuItem key={2} className={styles.menuItem}>
         <ListItemIcon ><DashboardIcon /></ListItemIcon>
         <ListItemText primary="Управление проектами"/>
         </MenuItem>
     </Link>
 
     <Link key={`link_1`} to="/newproject" className="MuiListItem-button">
-        <MenuItem key={1} className="MuiListItem-button">
+        <MenuItem key={3} className={styles.menuItem}>
         <ListItemIcon ><DashboardIcon /></ListItemIcon>
         <ListItemText primary="Новый проект"/>
         </MenuItem>
     </Link>
 
     <Link key={`link_1`} to="/coworkers" className="MuiListItem-button">
-        <MenuItem key={1} className="MuiListItem-button">
+        <MenuItem key={4} className={styles.menuItem}>
         <ListItemIcon ><DashboardIcon /></ListItemIcon>
         <ListItemText primary="Сотрудники"/>
         </MenuItem>
     </Link>
 
     <Link key={`link_1`} to="/clinics" className="MuiListItem-button">
-        <MenuItem key={1} className="MuiListItem-button">
+        <MenuItem key={5} className={styles.menuItem}>
         <ListItemIcon ><DashboardIcon /></ListItemIcon>
         <ListItemText primary="Лечебные учреждения"/>
         </MenuItem>

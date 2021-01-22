@@ -51,7 +51,24 @@ export default function CommercialOffer() {
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Управление КП для клиента</h2>
       <p id="simple-modal-description">
-        <DataTable />
+        <DataTable 
+        headers={["Название", "Создано", "Актуально до"]}
+        rows={[
+          {
+            name: 1,
+            cells: ['КП №28736837', '21.01.2021', '30.02.2021'],
+          },
+          {
+            name: 2,
+            cells: ['КП №28736823', '21.01.2021', '30.02.2021'],
+          },
+          {
+            name: 3,
+            cells: ['КП №28723188', '21.01.2021', '30.02.2021'],
+          }
+        ]}
+        actions={['delete', 'download']}
+        />
       </p>
       <Link to="/newoffer">
         <Button type="button" variant="contained" color="primary">
