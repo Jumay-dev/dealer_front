@@ -9,6 +9,7 @@ import ProjectsList from "./pages/ProjectsList"
 import Coworkers from './pages/Coworkers'
 import Project from './pages/Project'
 import NewOffer from './pages/NewOffer'
+import User from './pages/User'
 
 import mainLayout from "./layouts/mainLayout"
 import emptyLayout from "./layouts/emptyLayout"
@@ -23,6 +24,7 @@ export const routes = (
       <RouteWrapper exact path="/projects" component={ProjectsList} layout={mainLayout} />
       <RouteWrapper exact path="/newproject" component={Project} layout={mainLayout} />
       <RouteWrapper exact path="/coworkers" component={Coworkers} layout={mainLayout} />
+      <RouteWrapper exact path="/user" component={User} layout={mainLayout} />
       
       <RouteWrapper exact path="/newoffer" component={NewOffer} layout={mainLayout} />
     </Switch>

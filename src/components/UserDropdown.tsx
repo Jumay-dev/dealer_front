@@ -5,6 +5,7 @@ import { blue, common } from "@material-ui/core/colors";
 import SettingsPower from "@material-ui/icons/SettingsPower";
 import VpnKey from "@material-ui/icons/VpnKey";
 import ContentFilter from "@material-ui/icons/FilterList";
+import { Link } from 'react-router-dom'
 
 const blue600 = blue["900"];
 const drawerWidth = 400;
@@ -69,15 +70,17 @@ const withMenu = ({
       onClose={handleClose}
     >
       <MenuItem onClick={signoutClick}>
+        <Link to="/user">
+            <VpnKey />
+            <Typography style={{ paddingLeft: "1em" }} variant="inherit">
+                Профиль
+            </Typography>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={changePassClick}>
         <SettingsPower />
         <Typography style={{ paddingLeft: "1em" }} variant="inherit">
           Выйти
-        </Typography>
-      </MenuItem>
-      <MenuItem onClick={changePassClick}>
-        <VpnKey />
-        <Typography style={{ paddingLeft: "1em" }} variant="inherit">
-          Профиль
         </Typography>
       </MenuItem>
     </Menu>
