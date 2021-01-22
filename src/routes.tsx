@@ -8,6 +8,7 @@ import CompanyProfile from "./pages/CompanyProfile"
 import ProjectsList from "./pages/ProjectsList"
 import Coworkers from './pages/Coworkers'
 import Project from './pages/Project'
+import NewOffer from './pages/NewOffer'
 
 import mainLayout from "./layouts/mainLayout"
 import emptyLayout from "./layouts/emptyLayout"
@@ -22,6 +23,8 @@ export const routes = (
       <RouteWrapper exact path="/projects" component={ProjectsList} layout={mainLayout} />
       <RouteWrapper exact path="/newproject" component={Project} layout={mainLayout} />
       <RouteWrapper exact path="/coworkers" component={Coworkers} layout={mainLayout} />
+      
+      <RouteWrapper exact path="/newoffer" component={NewOffer} layout={mainLayout} />
     </Switch>
 );
 

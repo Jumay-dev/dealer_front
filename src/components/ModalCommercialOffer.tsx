@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import DataTable from "./DataTable"
+import {Link} from 'react-router-dom';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -52,9 +53,11 @@ export default function CommercialOffer() {
       <p id="simple-modal-description">
         <DataTable />
       </p>
-      <Button type="button" variant="contained" color="primary">
-        Сформировать новое КП
-      </Button>
+      <Link to="/newoffer">
+        <Button type="button" variant="contained" color="primary">
+          Сформировать новое КП
+        </Button>
+      </Link>
     </div>
   );
 

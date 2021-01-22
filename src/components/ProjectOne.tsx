@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import Accordion from '@material-ui/core/Accordion'
 import Grid from '@material-ui/core/Grid';
 
-import CommercialOffer from "./ModalCommercialOffer"
+import CommercialOfferList from "./ModalCommercialOffer"
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
@@ -94,7 +94,7 @@ function ProjectOne() {
 
                 <Grid item xs={12} sm={4} className={classes.gridButtons}>
 
-                    <CommercialOffer />
+                    <CommercialOfferList />
                     <Button variant="contained" color="primary">
                         Скачать КП дилера
                     </Button>
