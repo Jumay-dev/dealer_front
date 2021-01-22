@@ -1,18 +1,21 @@
 import React from 'react'
 import CommercialOfferPositionMain from '../components/CommercialOfferPositionMain'
-
+import ToolsOffersSidebar from '../components/ToolsOffersSidebar'
 function NewOffer() {
     return (
         <>
-            <CommercialOfferPositionMain 
-                primary={true}
-            />
-            <CommercialOfferPositionMain />
-            <CommercialOfferPositionMain 
-                primary={true}
-            />
-            <CommercialOfferPositionMain />
-            <CommercialOfferPositionMain />
+            <ToolsOffersSidebar>
+                <CommercialOfferPositionMain 
+                    primary={true}
+                />
+                <CommercialOfferPositionMain />
+                <CommercialOfferPositionMain 
+                    primary={true}
+                />
+                <CommercialOfferPositionMain />
+                <CommercialOfferPositionMain />
+                </ToolsOffersSidebar>
+
         </>
     )
 }
