@@ -7,8 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-
-
+import CommercialOfferPositionMain from '../components/CommercialOfferPositionMain'
 import AuthorisedPosition from './AuthorisedPosition'
 
 const drawerWidth = 500;
@@ -60,10 +59,31 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function PersistentDrawerRight({children}) {
+export default function PersistentDrawerRight({ authorised }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const [selectedCategory, setSelectedCategory] = React.useState(0)
+  const [positionsTree, setPositionsTree] = React.useState([])
+
+  React.useEffect(() => {
+    if (authorised && authorised.length !== 0) {
+      setPositionsTree(treeBuilding(authorised))
+    }
+  }, [authorised])
+
+  // функция строит дерево, O(n^2)
+  function treeBuilding(arr: Array<any>) {
+    let roots = []
+    arr.forEach( item => {
+      if (item.parent === null) {
+        item.children = arr.filter( elem => elem.parent === item.id)
+        roots.push(item)
+      }
+    })
+    return roots
+  }
 
   return (
     <div className={classes.root}>
@@ -85,21 +105,18 @@ export default function PersistentDrawerRight({children}) {
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={1}
+                value={0}
             >
+                <MenuItem value={0}>Все</MenuItem>
                 <MenuItem value={1}>Рентген-аппараты</MenuItem>
                 <MenuItem value={2}>Мониторы пациента</MenuItem>
                 <MenuItem value={3}>Мамммографы</MenuItem>
             </Select>
-                <AuthorisedPosition />
-                <AuthorisedPosition />
-                <AuthorisedPosition />
-                <AuthorisedPosition />
-                <AuthorisedPosition />
-                <AuthorisedPosition />
-                <AuthorisedPosition />
-                <AuthorisedPosition />
-                <AuthorisedPosition />
+                {positionsTree ? positionsTree.map( position => (
+                  <AuthorisedPosition 
+                    position={position}
+                  />
+                )) : null}
             </List>
         
         </Drawer>
@@ -108,8 +125,16 @@ export default function PersistentDrawerRight({children}) {
             [classes.contentShift]: open,
         })}
         >
-        <div className={classes.drawerHeader} />
-        {children}
+          <div className={classes.drawerHeader} />
+          <CommercialOfferPositionMain 
+            primary={true}
+          />
+          <CommercialOfferPositionMain />
+          <CommercialOfferPositionMain 
+            primary={true}
+          />
+          <CommercialOfferPositionMain />
+          <CommercialOfferPositionMain />
         </main>
     </div>
   );

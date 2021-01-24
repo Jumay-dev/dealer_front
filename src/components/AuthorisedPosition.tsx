@@ -40,13 +40,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function Subposition() {
+function Subposition({child}) {
     const classes = useStyles();
     return (
         <Paper className={classes.secondaryPosition}>
-            <img className={classes.image} src="https://ds-med.ru/wp-content/uploads/2019/05/850-650-RF222-2.png" alt="..."/>
+            <img className={classes.image} src={child.image ? child.image : null} alt="..."/>
             <Typography variant="subtitle2" paragraph>
-                Стул пациента
+                {child.name ? child.name : null}
             </Typography>
             <Button 
                 variant="contained" 
@@ -56,7 +56,7 @@ function Subposition() {
     )
 }
 
-function AuthorisedPosition() {
+function AuthorisedPosition({ position }) {
     const classes = useStyles();
     return (
         <React.Fragment>
@@ -68,14 +68,12 @@ function AuthorisedPosition() {
                 id="panel1a-header"
                 className={classes.mainPosition}
                 >
-                    <img className={classes.image} src="https://ds-med.ru/wp-content/uploads/2019/05/850-650-RF222-2.png" alt="..."/>
+                    <img className={classes.image} src={position.image ? position.image : null} alt="..."/>
                     <div className={classes.text}>
                         <Typography variant="subtitle2" paragraph>
-                        Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
+                        {position.name}
                         </Typography>
-                        <Typography variant="subtitle2" paragraph>
-                        Подробнее
-                        </Typography>
+                        <a href={position.wiki}>Подробнее</a>
                     </div>
                     <Button 
                         variant="contained" 
@@ -83,10 +81,7 @@ function AuthorisedPosition() {
                     >Добавить в КП</Button>
                 </AccordionSummary>
                 <AccordionDetails className={classes.content}>
-                    <Subposition />
-                    <Subposition />
-                    <Subposition />
-                    <Subposition />
+                    {position.children ? position.children.map( child => <Subposition child={child}/>) : <p>У этой позиции нет дополнительного оборудования</p>}
                 </AccordionDetails>
             </Accordion>
             </ListItem>
