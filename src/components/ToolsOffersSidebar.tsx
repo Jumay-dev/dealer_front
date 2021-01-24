@@ -135,7 +135,11 @@ export default function PersistentDrawerRight({ authorised }) {
         })}
         >
           <div className={classes.drawerHeader} />
-          {addedTools ? addedTools.map( tool => <CommercialOfferPositionMain primary={true}/>) : null}
+          {addedTools ? addedTools.map( tool => 
+          <CommercialOfferPositionMain 
+          primary={true}
+          tool={tool}
+          />) : null}
         </main>
     </div>
   );

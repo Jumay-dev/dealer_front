@@ -63,7 +63,7 @@ const StyledTableRowClient = withStyles((theme: Theme) =>
   }),
 )(TableRow);
 
-function CommercialOfferPositionMain(props) {
+function CommercialOfferPositionMain({ primary, tool }) {
   const basePrice: number = 300000
   const [dealerDiscount, setDealerDiscount] = React.useState<number>(30)
   const [dealerPrice, setDealerPrice] = React.useState<number>(basePrice - (basePrice/100)*dealerDiscount)
@@ -88,11 +88,11 @@ function CommercialOfferPositionMain(props) {
   }
 
   return (
-      <Paper className={props.primary ? classes.mainPaper : classes.secondaryPaper}>
+      <Paper className={primary ? classes.mainPaper : classes.secondaryPaper}>
           <Grid container spacing={1}>
               <Grid lg={2}>
                   <Typography variant="subtitle1" paragraph>
-                      Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
+                      {tool && tool.name ? tool.name : null}
                   </Typography>
               </Grid>
               <Grid lg={1}>
