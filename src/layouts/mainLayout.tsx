@@ -23,6 +23,9 @@ import UserDropdown from '../components/UserDropdown'
 import { MainListItems } from '../components/MenuItems';
 import { layoutStyles } from './layoutStyles'
 
+import NotificationsMenu from '../components/NotificationsMenu'
+import MailsMenu from '../components/MailsMenu'
+
 function MainLayout({children}) {
     const classes = layoutStyles();
     const [open, setOpen] = useState(true);
@@ -52,17 +55,10 @@ function MainLayout({children}) {
               DS.Med
             </Typography>
 
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <NotificationsMenu />
             
-            <IconButton color="inherit">
-              <Badge badgeContent={2} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
+            <MailsMenu />
+            
             <UserDropdown />
           </Toolbar>
         </AppBar>
