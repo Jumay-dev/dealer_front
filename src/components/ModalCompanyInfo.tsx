@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function CommercialOffer() {
+export default function ModalCompanyInfo() {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -46,38 +46,23 @@ export default function CommercialOffer() {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Управление КП для клиента</h2>
-      <p id="simple-modal-description">
-        <DataTable 
-        headers={["Название", "Создано", "Актуально до"]}
-        rows={[
-          {
-            name: 1,
-            cells: ['КП №28736837', '21.01.2021', '30.02.2021'],
-          },
-          {
-            name: 2,
-            cells: ['КП №28736823', '21.01.2021', '30.02.2021'],
-          },
-          {
-            name: 3,
-            cells: ['КП №28723188', '21.01.2021', '30.02.2021'],
-          }
-        ]}
-        actions={['delete', 'download']}
-        />
-      </p>
-      <Link to="/newoffer">
+        <p>
+            Тут будут поля с подробной информацией об организации
+        </p>
+      
         <Button type="button" variant="contained" color="primary">
-          Сформировать новое КП
+          Сохранить
         </Button>
-      </Link>
+        <Button type="button" variant="contained" color="primary" onClick={() => setOpen(false)}>
+          Отменить
+        </Button>
     </div>
   );
 
   return (
     <>
       <Button type="button" onClick={handleOpen} variant="contained" color="primary">
-        КП клиенту
+        Подробнее
       </Button>
       <Modal
         open={open}

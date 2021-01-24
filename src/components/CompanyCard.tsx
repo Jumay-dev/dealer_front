@@ -8,6 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import ModalCompanyInfo from '../components/ModalCompanyInfo'
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -32,20 +34,26 @@ export default function ImgMediaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            ААА
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            ИНН 7802589471
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Адрес 197110, Россия, САНКТ-ПЕТЕРБУРГ, МАРТЫНОВА, ДОМ 4, ЛИТЕРА А, ПОМЕЩЕНИЕ 2Н ОФИС1
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Сокращенное наименование организации ООО "ГРАНД МЕДИКАЛ"
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Отв. лицо: Беззубенков Иван Геннадьевич
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
+        <ModalCompanyInfo />
         <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
+          Удалить
         </Button>
       </CardActions>
     </Card>
