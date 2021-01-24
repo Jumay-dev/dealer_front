@@ -1,9 +1,11 @@
 import React from 'react'
 import DataTable from '../components/DataTable'
+import Search from '../components/Search'
 
 function Coworkers() {
     return (
         <>
+            <Search />
             <DataTable
                 headers={["Имя", "Зарегистрирован", "Роль"]}
                 rows={[

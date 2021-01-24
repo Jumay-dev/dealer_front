@@ -47,13 +47,6 @@ function Item(props) {
     return (
         <Paper className={classes.paper}>
             <img src={props.item.image} alt="..." className={classes.sliderImage}/>
-            <Typography component="h1" variant="h4" align="center">
-                {props.item.name}
-            </Typography>
-            <Typography variant="subtitle1">
-                {props.item.description}
-            </Typography>
-
             <Button type="button" variant="contained" color="primary">
                 Создать проект
             </Button>
