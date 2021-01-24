@@ -77,6 +77,14 @@ const withMenu = ({
             </Typography>
         </Link>
       </MenuItem>
+      <MenuItem onClick={signoutClick}>
+        <Link to="/Company">
+            <VpnKey />
+            <Typography style={{ paddingLeft: "1em" }} variant="inherit">
+                Страница организации
+            </Typography>
+        </Link>
+      </MenuItem>
       <MenuItem onClick={changePassClick}>
         <SettingsPower />
         <Typography style={{ paddingLeft: "1em" }} variant="inherit">

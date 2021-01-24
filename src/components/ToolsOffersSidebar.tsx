@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginRight: drawerWidth + theme.spacing(3),
+      marginRight: drawerWidth + theme.spacing(1),
     },
   }),
 );
