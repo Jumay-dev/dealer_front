@@ -63,7 +63,7 @@ export default function PersistentDrawerRight({ authorised }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const [addedTools, setAddedTools] = React.useState([])
   const [selectedCategory, setSelectedCategory] = React.useState(0)
   const [positionsTree, setPositionsTree] = React.useState([])
 
@@ -83,6 +83,14 @@ export default function PersistentDrawerRight({ authorised }) {
       }
     })
     return roots
+  }
+
+  function positionSelectHandler(item) {
+    let currentTools = addedTools.splice(0)
+    let {children, ...handledItem} = item
+    currentTools.push(handledItem)
+    setAddedTools(currentTools)
+    console.log('click', handledItem)
   }
 
   return (
@@ -115,6 +123,7 @@ export default function PersistentDrawerRight({ authorised }) {
                 {positionsTree ? positionsTree.map( position => (
                   <AuthorisedPosition 
                     position={position}
+                    positionSelectHandler={positionSelectHandler}
                   />
                 )) : null}
             </List>
@@ -126,15 +135,7 @@ export default function PersistentDrawerRight({ authorised }) {
         })}
         >
           <div className={classes.drawerHeader} />
-          <CommercialOfferPositionMain 
-            primary={true}
-          />
-          <CommercialOfferPositionMain />
-          <CommercialOfferPositionMain 
-            primary={true}
-          />
-          <CommercialOfferPositionMain />
-          <CommercialOfferPositionMain />
+          {addedTools ? addedTools.map( tool => <CommercialOfferPositionMain primary={true}/>) : null}
         </main>
     </div>
   );

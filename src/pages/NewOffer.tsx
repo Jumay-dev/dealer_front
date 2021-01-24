@@ -36,8 +36,6 @@ function NewOffer() {
         },
     ])
 
-    const [addedTools, setAddedTools] = React.useState([])
-
     return (
         <div>
             <ToolsOffersSidebar

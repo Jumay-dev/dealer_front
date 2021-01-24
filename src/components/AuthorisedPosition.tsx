@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function Subposition({child}) {
+function Subposition({child, positionSelectHandler}) {
     const classes = useStyles();
     return (
         <Paper className={classes.secondaryPosition}>
@@ -51,12 +51,13 @@ function Subposition({child}) {
             <Button 
                 variant="contained" 
                 color="primary"
+                onClick={() => positionSelectHandler(child)}
             >Добавить в КП</Button>
         </Paper>
     )
 }
 
-function AuthorisedPosition({ position }) {
+function AuthorisedPosition({ position, positionSelectHandler }) {
     const classes = useStyles();
     return (
         <React.Fragment>
@@ -78,10 +79,11 @@ function AuthorisedPosition({ position }) {
                     <Button 
                         variant="contained" 
                         color="primary"
+                        onClick={() => positionSelectHandler(position)}
                     >Добавить в КП</Button>
                 </AccordionSummary>
                 <AccordionDetails className={classes.content}>
-                    {position.children ? position.children.map( child => <Subposition child={child}/>) : <p>У этой позиции нет дополнительного оборудования</p>}
+                    {position.children ? position.children.map( child => <Subposition child={child} positionSelectHandler={positionSelectHandler}/>) : <p>У этой позиции нет дополнительного оборудования</p>}
                 </AccordionDetails>
             </Accordion>
             </ListItem>
