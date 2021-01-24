@@ -3,7 +3,7 @@ import CommercialOfferPositionMain from '../components/CommercialOfferPositionMa
 import ToolsOffersSidebar from '../components/ToolsOffersSidebar'
 function NewOffer() {
     return (
-        <>
+        <div>
             <ToolsOffersSidebar>
                 <CommercialOfferPositionMain 
                     primary={true}
@@ -14,9 +14,9 @@ function NewOffer() {
                 />
                 <CommercialOfferPositionMain />
                 <CommercialOfferPositionMain />
-                </ToolsOffersSidebar>
+            </ToolsOffersSidebar>
 
-        </>
+        </div>
     )
 }
 
