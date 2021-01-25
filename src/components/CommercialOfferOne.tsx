@@ -1,11 +1,11 @@
 import React from 'react'
 import CommercialOfferPositionMain from '../components/CommercialOfferPositionMain'
 
-function CommercialOfferOne({ offers }) {
+function CommercialOfferOne({ offers, deleteTool }) {
     return (
         <React.Fragment>
-            <CommercialOfferPositionMain primary={true} tool={offers}/>
-            {offers.children ? offers.children.map( child => <CommercialOfferPositionMain tool={child} primary={false}/>) : null}
+            <CommercialOfferPositionMain primary={true} tool={offers} deleteTool={deleteTool}/>
+            {offers.children ? offers.children.map( child => <CommercialOfferPositionMain tool={child} primary={false} deleteTool={deleteTool}/>) : null}
         </React.Fragment>
     )
 }

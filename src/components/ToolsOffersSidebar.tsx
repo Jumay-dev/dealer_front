@@ -12,6 +12,7 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import CommercialOfferOne from '../components/CommercialOfferOne'
 import AuthorisedPosition from './AuthorisedPosition'
+import { isTypeNode } from 'typescript';
 
 const drawerWidth = 500;
 
@@ -99,7 +100,27 @@ export default function PersistentDrawerRight({ authorised }) {
     let {children, ...handledItem} = item
     currentTools.push(handledItem)
     setAddedTools(currentTools)
-    console.log('click', handledItem)
+  }
+
+  // Удалить КП и его дочерние компоненты, если существуют
+  function deleteTool(id) {
+    let currentTools = addedTools.splice(0)
+    // Это работает, но некрасиво
+    const idx = currentTools.findIndex(obj => obj.id === id)
+    if (idx > -1) {
+      currentTools.splice(idx, 1);
+      const idchild = currentTools.findIndex(obj => obj.parent === id)
+      currentTools.splice(idchild, 1);
+    }
+    setAddedTools(currentTools)
+
+    // let newTools = currentTools.filter(item => (item.id !== id))
+    // console.log(currentTools)
+    // let newTools = currentTools.filter(function(item) {
+    //   if (item.id !== id) return true
+    //   // if (item.parent !== id) return true
+    // })
+    // setAddedTools(newTools)
   }
 
   function TabPanel(props) {
@@ -195,6 +216,7 @@ export default function PersistentDrawerRight({ authorised }) {
             </Select>
             {offersTree && offersTree.length !== 0 ? offersTree.map( tool => 
             <CommercialOfferOne
+            deleteTool={deleteTool}
             offers={tool}
             />) : <Typography>Нажмите "Выбрать оборудование", чтобы начать создание коммерческого предложения для клиента</Typography>}
           </TabPanel>
