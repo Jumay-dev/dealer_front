@@ -93,12 +93,10 @@ function CommercialOfferPositionMain({ primary, tool, deleteTool }) {
   return (
       <Paper className={primary ? classes.mainPaper : classes.secondaryPaper}>
           <Grid container spacing={1}>
-              <Grid lg={2}  xs={6} item>
+              <Grid lg={3}  xs={6} item>
                   <Typography variant="subtitle1" paragraph>
                       {tool && tool.name ? tool.name : null}
                   </Typography>
-              </Grid>
-              <Grid lg={1} xs={6} item>
                   <Typography variant="subtitle1" paragraph>
                       Количество
                   </Typography>
