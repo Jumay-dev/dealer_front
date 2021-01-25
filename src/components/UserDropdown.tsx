@@ -18,13 +18,13 @@ drawerPaper: {
 },
 avatarDiv: {
     padding: "15px 0 10px 10px" as TODO,
-    width: 250
+    width: 250,
 },
 avatarIcon: {
     float: "left" as TODO,
     display: "block" as TODO,
     marginRight: 15,
-    boxShadow: "0px 0px 0px 8px rgba(0,0,0,0.2)" as TODO,
+    boxShadow: "0px 0px 0px 3px rgba(0,0,0,0.2)" as TODO,
 },
 avatarSpan: {
     paddingTop: 0,
@@ -32,11 +32,10 @@ avatarSpan: {
     color: "purple",
     fontWeight: 400,
     fontSize: 12,
-    textShadow: "1px 1px #444",
 },
 user: {
     fontSize: 14,
-    color: common.white,
+    color: common.black,
 },
 menuItem: {
     color: blue600,

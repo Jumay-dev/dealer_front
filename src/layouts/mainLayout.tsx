@@ -59,7 +59,7 @@ function MainLayout({children}) {
             
             <MailsMenu />
             
-            <UserDropdown />
+            
           </Toolbar>
         </AppBar>
 
@@ -71,6 +71,7 @@ function MainLayout({children}) {
           open={open}
         >
           <div className={classes.toolbarIcon}>
+          <UserDropdown />
             <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon />
             </IconButton>

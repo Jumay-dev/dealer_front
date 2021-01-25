@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     table: {
         width: "100%",
+        height: "100%",
     },
   }),
 );

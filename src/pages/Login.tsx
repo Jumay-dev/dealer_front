@@ -59,7 +59,7 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Вход в систему
         </Typography>
-        <form className={classes.form} noValidate>
+        <div className={classes.form}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -107,7 +107,7 @@ export default function Login() {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
       <Box mt={8}>
         <Copyright />

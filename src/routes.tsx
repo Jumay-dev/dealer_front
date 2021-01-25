@@ -13,18 +13,29 @@ import User from './pages/User'
 import mainLayout from "./layouts/mainLayout"
 import emptyLayout from "./layouts/emptyLayout"
 
+const isAuthetificated = true
+
 export const routes = (
     <Switch>
-      <RouteWrapper exact path="/" component={Main} layout={mainLayout}/>
-      <RouteWrapper exact path="/login" component={Login} layout={emptyLayout} />
-      <RouteWrapper exact path="/clinics" component={Clinics} layout={mainLayout} />
-      <RouteWrapper exact path="/company" component={CompanyProfile} layout={mainLayout} />
-      <RouteWrapper exact path="/projects" component={ProjectsList} layout={mainLayout} />
-      <RouteWrapper exact path="/newproject" component={Project} layout={mainLayout} />
-      <RouteWrapper exact path="/coworkers" component={Coworkers} layout={mainLayout} />
-      <RouteWrapper exact path="/user" component={User} layout={mainLayout} />
-      
-      <RouteWrapper exact path="/newoffer" component={NewOffer} layout={mainLayout} />
+      {isAuthetificated && (
+        <>
+          <RouteWrapper exact path="/" component={Main} layout={mainLayout}/>
+          <RouteWrapper exact path="/clinics" component={Clinics} layout={mainLayout} />
+          <RouteWrapper exact path="/company" component={CompanyProfile} layout={mainLayout} />
+          <RouteWrapper exact path="/projects" component={ProjectsList} layout={mainLayout} />
+          <RouteWrapper exact path="/newproject" component={Project} layout={mainLayout} />
+          <RouteWrapper exact path="/coworkers" component={Coworkers} layout={mainLayout} />
+          <RouteWrapper exact path="/user" component={User} layout={mainLayout} />
+          <RouteWrapper exact path="/newoffer" component={NewOffer} layout={mainLayout} />
+        </>
+      )}
+
+      {!isAuthetificated && (
+        <>
+          <RouteWrapper component={Login} layout={emptyLayout} />
+        </>
+      )}
+
     </Switch>
 );
 
