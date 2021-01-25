@@ -95,11 +95,16 @@ export default function PersistentDrawerRight({ authorised }) {
     return roots
   }
 
+  // Добавление из авторизованных в КП
+  // Валидация: если id уже есть в КП -> не добавлять
   function positionSelectHandler(item) {
     let currentTools = addedTools.splice(0)
-    let {children, ...handledItem} = item
-    currentTools.push(handledItem)
-    setAddedTools(currentTools)
+    const idx = currentTools.findIndex(obj => obj.id === item.id)
+    if(idx === -1) {
+      let {children, ...handledItem} = item
+      currentTools.push(handledItem)
+      setAddedTools(currentTools)
+    }
   }
 
   // Удалить КП и его дочерние компоненты, если существуют
