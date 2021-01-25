@@ -98,9 +98,10 @@ export default function PersistentDrawerRight({ authorised }) {
   // Добавление из авторизованных в КП
   // Валидация: если id уже есть в КП -> не добавлять
   function positionSelectHandler(item) {
-    let currentTools = addedTools.splice(0)
-    const idx = currentTools.findIndex(obj => obj.id === item.id)
+    console.log(item)
+    const idx = addedTools.findIndex(obj => obj.id === item.id)
     if(idx === -1) {
+      let currentTools = addedTools.splice(0)
       let {children, ...handledItem} = item
       currentTools.push(handledItem)
       setAddedTools(currentTools)
@@ -112,20 +113,12 @@ export default function PersistentDrawerRight({ authorised }) {
     let currentTools = addedTools.splice(0)
     // Это работает, но некрасиво
     const idx = currentTools.findIndex(obj => obj.id === id)
+    let newTools
     if (idx > -1) {
       currentTools.splice(idx, 1);
-      const idchild = currentTools.findIndex(obj => obj.parent === id)
-      currentTools.splice(idchild, 1);
+      newTools = currentTools.filter(obj => obj.parent !== id)
     }
-    setAddedTools(currentTools)
-
-    // let newTools = currentTools.filter(item => (item.id !== id))
-    // console.log(currentTools)
-    // let newTools = currentTools.filter(function(item) {
-    //   if (item.id !== id) return true
-    //   // if (item.parent !== id) return true
-    // })
-    // setAddedTools(newTools)
+    setAddedTools(newTools)
   }
 
   function TabPanel(props) {

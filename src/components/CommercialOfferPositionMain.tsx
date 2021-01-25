@@ -93,18 +93,18 @@ function CommercialOfferPositionMain({ primary, tool, deleteTool }) {
   return (
       <Paper className={primary ? classes.mainPaper : classes.secondaryPaper}>
           <Grid container spacing={1}>
-              <Grid lg={2}  xs={6}>
+              <Grid lg={2}  xs={6} item>
                   <Typography variant="subtitle1" paragraph>
                       {tool && tool.name ? tool.name : null}
                   </Typography>
               </Grid>
-              <Grid lg={1} xs={6}>
+              <Grid lg={1} xs={6} item>
                   <Typography variant="subtitle1" paragraph>
                       Количество
                   </Typography>
                   <Input type="number" defaultValue={1} name="count" onChange={changeHandler}/>
               </Grid>
-              <Grid lg={4} xs={12}>
+              <Grid lg={4} xs={12} item>
                   <Table className={classes.table} aria-label="customized table">
                       <TableBody>
                           <StyledTableRowDealer>
@@ -127,7 +127,7 @@ function CommercialOfferPositionMain({ primary, tool, deleteTool }) {
                       </TableBody>
                   </Table>
               </Grid>
-              <Grid lg={4} xs={12}>
+              <Grid lg={4} xs={12} item>
                   <Table className={classes.table} aria-label="customized table">
                       <TableBody>
                           <StyledTableRowClient>
@@ -164,7 +164,7 @@ function CommercialOfferPositionMain({ primary, tool, deleteTool }) {
                       </TableBody>
                   </Table>                    
               </Grid>
-              <Grid md={12} sm={12} xs={12} lg={1}>
+              <Grid md={12} sm={12} xs={12} lg={1} item>
               <Tooltip title="Удалить" aria-label="delete" onClick={() => deleteTool(tool.id)}>
                 <Fab
                   size="small"

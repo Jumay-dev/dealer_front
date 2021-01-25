@@ -3,7 +3,7 @@ import CommercialOfferPositionMain from '../components/CommercialOfferPositionMa
 
 function CommercialOfferOne({ offers, deleteTool }) {
     return (
-        <React.Fragment>
+        <React.Fragment key={offers.id}>
             <CommercialOfferPositionMain primary={true} tool={offers} deleteTool={deleteTool}/>
             {offers.children ? offers.children.map( child => <CommercialOfferPositionMain tool={child} primary={false} deleteTool={deleteTool}/>) : null}
         </React.Fragment>
