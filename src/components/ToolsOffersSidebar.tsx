@@ -7,7 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import CommercialOfferPositionMain from '../components/CommercialOfferPositionMain'
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+import CommercialOfferOne from '../components/CommercialOfferOne'
 import AuthorisedPosition from './AuthorisedPosition'
 
 const drawerWidth = 500;
@@ -66,12 +69,18 @@ export default function PersistentDrawerRight({ authorised }) {
   const [addedTools, setAddedTools] = React.useState([])
   const [selectedCategory, setSelectedCategory] = React.useState(0)
   const [positionsTree, setPositionsTree] = React.useState([])
+  const [offersTree, setOffersTree] = React.useState([])
+  const [activeTab, setActiveTab] = React.useState(0);
 
   React.useEffect(() => {
     if (authorised && authorised.length !== 0) {
       setPositionsTree(treeBuilding(authorised))
     }
   }, [authorised])
+
+  React.useEffect(() => {
+    setOffersTree(treeBuilding(addedTools))
+  }, [addedTools])
 
   // функция строит дерево, O(n^2)
   function treeBuilding(arr: Array<any>) {
@@ -91,6 +100,33 @@ export default function PersistentDrawerRight({ authorised }) {
     currentTools.push(handledItem)
     setAddedTools(currentTools)
     console.log('click', handledItem)
+  }
+
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`wrapped-tabpanel-${index}`}
+        aria-labelledby={`wrapped-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  function a11yProps(index) {
+    return {
+      id: `wrapped-tab-${index}`,
+      'aria-controls': `wrapped-tabpanel-${index}`,
+    };
   }
 
   return (
@@ -135,11 +171,37 @@ export default function PersistentDrawerRight({ authorised }) {
         })}
         >
           <div className={classes.drawerHeader} />
-          {addedTools ? addedTools.map( tool => 
-          <CommercialOfferPositionMain 
-          primary={true}
-          tool={tool}
-          />) : null}
+          <Tabs
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="disabled tabs example"
+            value={activeTab}
+            onChange={(e, newValue) => setActiveTab(newValue)}
+          >
+            <Tab label="Коммерческое предложение" {...a11yProps(0)}/>
+            <Tab label="Рекомендованные" {...a11yProps(1)}/>
+          </Tabs>
+
+          <TabPanel value={activeTab} index={0}>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={0}
+            >
+                <MenuItem value={0}>Все</MenuItem>
+                <MenuItem value={1}>Рентген-аппараты</MenuItem>
+                <MenuItem value={2}>Мониторы пациента</MenuItem>
+                <MenuItem value={3}>Мамммографы</MenuItem>
+            </Select>
+            {offersTree && offersTree.length !== 0 ? offersTree.map( tool => 
+            <CommercialOfferOne
+            offers={tool}
+            />) : <Typography>Нажмите "Выбрать оборудование", чтобы начать создание коммерческого предложения для клиента</Typography>}
+          </TabPanel>
+          <TabPanel value={activeTab} index={1}>
+            Здесь будут рекомендованные позиции по выбраным из авторизованных
+          </TabPanel>
+
         </main>
     </div>
   );

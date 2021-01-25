@@ -7,9 +7,12 @@ import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+
+import ActionDelete from "@material-ui/icons/Delete";
+import Tooltip from '@material-ui/core/Tooltip';
+import Fab from "@material-ui/core/Fab";
+import Icon from "@material-ui/core/Icon"
 
 import Input from '@material-ui/core/Input';
 
@@ -161,10 +164,14 @@ function CommercialOfferPositionMain({ primary, tool }) {
                       </TableBody>
                   </Table>                    
               </Grid>
-              <Grid lg={1}>
-                  <Button variant="contained" color="primary">
-                      Удалить
-                  </Button>
+              <Grid md={12} sm={12} xs={12} lg={1}>
+              <Tooltip title="Удалить" aria-label="delete">
+                <Fab
+                  size="small"
+                >
+                  <ActionDelete />
+                </Fab>
+              </Tooltip>
               </Grid>
           </Grid>
       </Paper>
