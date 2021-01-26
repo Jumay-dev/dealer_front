@@ -9,39 +9,28 @@ import Coworkers from '../pages/Coworkers'
 import Project from '../pages/Project'
 import NewOffer from '../pages/NewOffer'
 import UserPage from '../pages/User'
-
 import mainLayout from "../layouts/mainLayout"
-import emptyLayout from "../layouts/emptyLayout"
 
 import { connect } from "react-redux";
 import { User } from "../types";
-
 import { thunkAuth } from "../services/thunks";
-import { SIGN_IN, HttpMethod, SIGN_OUT } from "../store/types";
+import { SIGN_IN, SIGN_OUT } from "../store/types";
 
 // const isAuthetificated = true
 
 function App(props) {
-    const { isAuthenticated, signInUser } = props
+  const { isAuthenticated, signInUser } = props
 
-    let signInAction = {
-        type: SIGN_IN,
-        endpoint: "login/",
-        data: {},
-    };
+  let signInAction = {
+      type: SIGN_IN,
+      endpoint: "login/",
+      data: {},
+  };
 
-    let signOutAction = {
-        type: SIGN_OUT,
-        endpoint: "logout/",
-        data: {},
-    };
-
-    function userLoginAction(action) {
-        signInAction.data = {login: props.login, password: props.password}
-        props.signInUser(signInAction)
-        // thunkAuth(signInAction)
-        console.log('logged')
-    }
+  function userLoginAction(login, password) {
+      signInAction.data = {login, password}
+      props.signInUser(signInAction)
+  }
 
   return (
     <Switch>
@@ -59,7 +48,7 @@ function App(props) {
       )}
 
       {!isAuthenticated && (
-          <Login userLoginAction={userLoginAction} />
+        <Login userLoginAction={userLoginAction} />
       )}
     </Switch>
   )

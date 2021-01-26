@@ -7,6 +7,11 @@ import VpnKey from "@material-ui/icons/VpnKey";
 import ContentFilter from "@material-ui/icons/FilterList";
 import { Link } from 'react-router-dom'
 
+import { connect } from "react-redux";
+import { LoginUser } from "../types";
+import { thunkAuth } from "../services/thunks";
+import { SIGN_OUT } from "../store/types";
+
 const blue600 = blue["900"];
 const drawerWidth = 400;
 
@@ -50,7 +55,6 @@ const withMenu = ({
     anchorEl,
     open,
     signoutClick,
-    changePassClick,
     handleClose,
   }) => (
     <Menu
@@ -76,7 +80,7 @@ const withMenu = ({
             </Typography>
         </Link>
       </MenuItem>
-      <MenuItem onClick={signoutClick}>
+      <MenuItem>
         <Link to="/Company">
             <VpnKey />
             <Typography style={{ paddingLeft: "1em" }} variant="inherit">
@@ -84,9 +88,9 @@ const withMenu = ({
             </Typography>
         </Link>
       </MenuItem>
-      <MenuItem onClick={changePassClick}>
+      <MenuItem onClick={signoutClick}>
         <SettingsPower />
-        <Typography style={{ paddingLeft: "1em" }} variant="inherit">
+        <Typography style={{ paddingLeft: "1em" }} variant="inherit" >
           Выйти
         </Typography>
       </MenuItem>
@@ -94,68 +98,85 @@ const withMenu = ({
   );
 
 interface AppUserMenuProps {
-username?: string;
-onSignoutClick?: () => void;
-onChangePassClick?: () => void;
+  username?: string;
+  onSignoutClick?: () => void;
+  onChangePassClick?: () => void;
 }
 
 function UserDropdown<AppUserMenuProps>({
-    username = 'Даэсмедов Михаил',
-    onSignoutClick = () => console.log('signout'),
-    onChangePassClick = () => console.log('signin'),
+    user,
+    signOutUser,
+    getUser,
 }) {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  let signOutAction = {
+    type: SIGN_OUT,
+    endpoint: "logout/",
+    data: {},
+  };
   
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-    
-    const signoutClick = (event: React.ChangeEvent<unknown>) => {
-      event.preventDefault();
-      onSignoutClick();
-    };
-  
-    const changePassClick = (event: React.ChangeEvent<unknown>) => {
-      event.preventDefault();
-      onChangePassClick();
-      handleClose()
-    };
-  
-    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl(event.currentTarget);
-      console.log('click')
-    };
-    return (
-        <div style={styles.avatarDiv}>
-            <Avatar
-            src={"https://peopletalk.ru/wp-content/uploads/2017/11/1480331127.jpg?opt=true"}
-            style={styles.avatarIcon}
-            />
-            <span style={styles.avatarSpan}>
-            <Typography style={styles.user} variant="inherit">
-                {username}
-            </Typography>
-    
-            <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="secondary"
-            >
-                <ContentFilter />
-            </IconButton>
-            {withMenu({
-                anchorEl,
-                open,
-                signoutClick,
-                changePassClick,
-                handleClose,
-            })}
-            </span>
-        </div>
-    )
+  const signoutClick = (event: React.ChangeEvent<unknown>) => {
+    event.preventDefault();
+    console.log('logout UserDropdown')
+    signOutUser(signOutAction);
+  };
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    console.log('click')
+  };
+  return (
+    <div style={styles.avatarDiv}>
+      <Avatar
+      src={"https://peopletalk.ru/wp-content/uploads/2017/11/1480331127.jpg?opt=true"}
+      style={styles.avatarIcon}
+      />
+      <span style={styles.avatarSpan}>
+      <Typography style={styles.user} variant="inherit">
+        {user !== undefined ? user.firstname : null}
+      </Typography>
+
+      <IconButton
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
+        onClick={handleMenu}
+        color="secondary"
+      >
+        <ContentFilter />
+      </IconButton>
+      {withMenu({
+        anchorEl,
+        open,
+        signoutClick,
+        handleClose,
+      })}
+      </span>
+    </div>
+  )
 }
 
-export default UserDropdown
+function mapStateToProps(state) {
+  const { auth } = state
+  const { isAuthenticated, user } = auth
+
+  return {
+    isAuthenticated,
+    user
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    signInUser: (action: TODO) => dispatch(thunkAuth(action)),
+    signOutUser: (action: TODO) => dispatch(thunkAuth(action)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDropdown)

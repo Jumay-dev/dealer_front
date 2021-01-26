@@ -16,6 +16,13 @@ export interface Category extends Entity {
 //   tasks: string[];
 // }
 
+export interface LoginUser {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+}
+
 export interface User extends Entity {
   firstname: string;
   lastname: string;

@@ -12,8 +12,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { connect } from "react-redux";
-
 
 function Copyright() {
   return (
@@ -102,7 +100,7 @@ function Login(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => props.userLoginAction({login, password})}
+            onClick={() => props.userLoginAction(login, password)}
           >
             Войти
           </Button>

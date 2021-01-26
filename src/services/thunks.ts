@@ -14,24 +14,31 @@ export const thunkAuth = (
   apiAction?: ApiAction
 ): ThunkAction<void, AppState, null, Action<string>> => async (dispatch) => {
   let response;
+  console.log('logout in thunksAuth')
 
-  const { type, endpoint, data, filters } = apiAction;
+  const { type, endpoint, data } = apiAction;
+
+  console.log('apiAction', apiAction)
   
   response = data;
-  if (type == SIGN_IN) {
+  if (type === SIGN_IN) {
     response = await login(endpoint, data);
   }
+
+  console.log('type', type)
 
   dispatchSignIn(dispatch, type, response);
 };
 
 function dispatchSignIn(dispatch, type, response) {
+  console.log('logout in thunks dispatchSignIn')
   switch (type) {
     case SIGN_IN:
+      console.log('sign in case')
       dispatch(signIn(response));
-      console.log('dispatch')
       break;
     case SIGN_OUT:
+      console.log('sign out case')
       dispatch(signOut(response));
       break;
   }

@@ -21,8 +21,9 @@ function setTokenUser(token, user) {
 }
 
 function removeTokenUser(){
-      localStorage.removeItem("react-crm-token");
-    localStorage.removeItem("react-crm-user");
+  console.log('logout reducer')
+  localStorage.removeItem("react-crm-token");
+  localStorage.removeItem("react-crm-user");
 }
 
 // The auth reducer. The starting state sets authentication
