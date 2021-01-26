@@ -46,28 +46,28 @@ export function MainListItems() {
         </MenuItem>
     </Link>
 
-    <Link key={`link_1`} to="/projects" className="MuiListItem-button">
+    <Link key={`link_2`} to="/projects" className="MuiListItem-button">
         <MenuItem key={2} className={styles.menuItem}>
         <ListItemIcon ><DashboardIcon /></ListItemIcon>
         <ListItemText primary="Управление проектами"/>
         </MenuItem>
     </Link>
 
-    <Link key={`link_1`} to="/newproject" className="MuiListItem-button">
+    <Link key={`link_3`} to="/newproject" className="MuiListItem-button">
         <MenuItem key={3} className={styles.menuItem}>
         <ListItemIcon ><DashboardIcon /></ListItemIcon>
         <ListItemText primary="Новый проект"/>
         </MenuItem>
     </Link>
 
-    <Link key={`link_1`} to="/coworkers" className="MuiListItem-button">
+    <Link key={`link_4`} to="/coworkers" className="MuiListItem-button">
         <MenuItem key={4} className={styles.menuItem}>
         <ListItemIcon ><DashboardIcon /></ListItemIcon>
         <ListItemText primary="Сотрудники"/>
         </MenuItem>
     </Link>
 
-    <Link key={`link_1`} to="/clinics" className="MuiListItem-button">
+    <Link key={`link_5`} to="/clinics" className="MuiListItem-button">
         <MenuItem key={5} className={styles.menuItem}>
         <ListItemIcon ><DashboardIcon /></ListItemIcon>
         <ListItemText primary="Лечебные учреждения"/>

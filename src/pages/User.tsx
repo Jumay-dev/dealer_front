@@ -11,6 +11,10 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Search from '../components/Search'
 import ProjectOne from '../components/ProjectOne'
 
+import { thunkAuth, thunkProjects } from "../services/thunks";
+import { connect } from "react-redux";
+import { LIST_PROJECTS } from "../store/types";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
@@ -20,8 +24,18 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function User() {
+function User({ getProjects, projectsList }) {
     const classes = useStyles()
+    let projectListAction = {
+        type: LIST_PROJECTS,
+        endpoint: "projects/",
+        data: {},
+      };
+    
+      React.useEffect( () => {
+        getProjects(projectListAction)
+        console.log('pr', projectsList)
+      }, [])
     return (
         <>
         <Paper className={classes.paper}>
@@ -105,10 +119,7 @@ function User() {
 
                 <Grid item xs={12} lg={12}>
                     <Search />
-                    <ProjectOne />
-                    <ProjectOne />
-                    <ProjectOne />
-                    <ProjectOne />
+                    {projectsList.map(item => <ProjectOne item={item} />)}
                 </Grid>
 
             </Grid>
@@ -117,4 +128,16 @@ function User() {
     )
 }
 
-export default User
+function mapStateToProps(state) {
+    return {
+      projectsList: state.project.projectsList
+    }
+  }
+    
+    function mapDispatchToProps(dispatch) {
+      return {
+         getProjects: (action: TODO) => dispatch(thunkProjects(action)),
+      };
+    }
+    
+    export default connect(mapStateToProps, mapDispatchToProps)(User)

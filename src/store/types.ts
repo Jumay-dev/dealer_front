@@ -46,6 +46,10 @@ export const GET_PROJECT = "GET_PROJECT"
 export const NEW_PROJECT = "NEW_PROJECT"
 export const EDIT_PROJECT = "EDIT_PROJECT"
 
+export interface ProjectState {
+  list: Project[];
+}
+
 interface ListProjectsAction {
   type: typeof LIST_PROJECTS;
   payload: Project[];

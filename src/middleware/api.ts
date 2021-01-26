@@ -92,7 +92,7 @@ export function login(action: string, data: TODO): Promise<TODO> {
 
 export function getData(action: string): Promise<TODO> {
   switch (action) {
-    case 'GET_PROJECTS':
+    case 'LIST_PROJECTS':
       return new Promise((resolve, _reject) => {
         let error = false
         if (!error) {

@@ -34,35 +34,35 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function ProjectOne() {
+function ProjectOne({ item }) {
     const classes = useStyles()
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
                 <Grid item xs={12} lg={3} className={classes.gridInfo}>
                     <Typography variant="subtitle1" paragraph>
-                        # 0000000000
+                        # {item.id}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Зарегистрирован 4.01.2021
+                        Зарегистрирован {item.added}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Дилер: ООО "ААА" 
+                        Дилер: {item.dealer} 
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Сотрудник: Иванов Иван Иванович 
+                        Сотрудник: {item.employee}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Клиент: "Доктор Айболит", г.Москва 
+                        Клиент: {item.client} 
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Актуализирован: 10.01.2021
+                        Актуализирован: {item.actualised}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        В реестре до 20.02.2021 
+                        В реестре до {item.expires}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                        Менеджер: Даэсмедов Михаил Алексеевич 
+                        Менеджер: {item.manager} 
                     </Typography>
                 </Grid>
 
