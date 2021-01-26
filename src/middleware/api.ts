@@ -1,31 +1,6 @@
 /* eslint-disable */
 const EXPAND = "_expand"
 
-function getModel(action: string) {
-  if (action.includes("/")) {
-    return action.substring(0, action.indexOf("/"))
-  }
-  else {
-    return action;
-  }
-}
-
-function getId(action: string): number {
-  if (action.includes("/")) {
-    return parseInt(action.substring(action.indexOf("/") + 1))
-  }
-  else {
-    return 0
-  }
-}
-
-function getExpand(qs: TODO) {
-  if (EXPAND in qs) {
-    return qs[EXPAND];
-  }
-  else return ''
-}
-
 // fakeUser kinda from backend
 const ds = {
   token: { 
@@ -34,10 +9,73 @@ const ds = {
   }
 }
 
+const projects = [
+  {
+    id: 0,
+    externalId: 23,
+    added: "4.01.2021",
+    dealer: "ООО 'ААА'",
+    employee: 'Иванов Иван',
+    client: '"Доктор Айболит", г.Москва"',
+    actualised: '10.01.2021',
+    expires: '20.02.2021',
+    manager: 'Даэсмедов Михаил Алексеевич',
+  },
+  {
+    id: 1,
+    externalId: 22,
+    added: "4.01.2021",
+    dealer: "ООО 'ААА'",
+    employee: 'Петров Петр',
+    client: '"ГП №5, г. Коломна"',
+    actualised: '12.01.2021',
+    expires: '25.02.2021',
+    manager: 'Даэсмедов Михаил Алексеевич',
+  },
+  {
+    id: 2,
+    externalId: 25,
+    added: "4.01.2021",
+    dealer: "ООО 'ААА'",
+    employee: 'Иванов Иван',
+    client: '"Доктор Айболит", г.Москва"',
+    actualised: '10.01.2021',
+    expires: '20.02.2021',
+    manager: 'Даэсмедов Михаил Алексеевич',
+  },
+  {
+    id: 3,
+    externalId: 19,
+    added: "4.01.2021",
+    dealer: "ООО 'ААА'",
+    employee: 'Петров Петр',
+    client: '"ГП №5, г. Коломна"',
+    actualised: '12.01.2021',
+    expires: '25.02.2021',
+    manager: 'Даэсмедов Михаил Алексеевич',
+  },
+  {
+    id: 4,
+    externalId: 28,
+    added: "4.01.2021",
+    dealer: "ООО 'ААА'",
+    employee: 'Иванов Иван',
+    client: '"Доктор Айболит", г.Москва"',
+    actualised: '10.01.2021',
+    expires: '20.02.2021',
+    manager: 'Даэсмедов Михаил Алексеевич',
+  },
+]
+
+const authorisedTools = [
+  {
+
+  }
+]
+
 export function login(action: string, data: TODO): Promise<TODO> {
   return new Promise(function (resolve, _reject) {
     if (data.login === "admin@test.com" && data.password === "password") {
-    // if (true) {
       const { accessToken: accessToken, user } = ds.token;
       setTimeout(resolve, 300, {
         token: accessToken,
@@ -50,6 +88,27 @@ export function login(action: string, data: TODO): Promise<TODO> {
       });
     }
   });
+}
+
+export function getData(action: string): Promise<TODO> {
+  switch (action) {
+    case 'GET_PROJECTS':
+      return new Promise((resolve, _reject) => {
+        let error = false
+        if (!error) {
+          setTimeout(resolve, 300, projects)
+        }
+      })
+    
+    case 'GET_AUTH_TOOLS':
+      return new Promise((resolve, _reject) => {
+        let error = false
+        if (!error) {
+          setTimeout(resolve, 300, authorisedTools)
+        }
+      })
+    default: return null
+  }
 }
 
 export const CALL_API = Symbol("Call API")

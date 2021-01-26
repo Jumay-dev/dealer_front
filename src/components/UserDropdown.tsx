@@ -8,7 +8,6 @@ import ContentFilter from "@material-ui/icons/FilterList";
 import { Link } from 'react-router-dom'
 
 import { connect } from "react-redux";
-import { LoginUser } from "../types";
 import { thunkAuth } from "../services/thunks";
 import { SIGN_OUT } from "../store/types";
 
@@ -72,7 +71,7 @@ const withMenu = ({
       open={open}
       onClose={handleClose}
     >
-      <MenuItem onClick={signoutClick}>
+      <MenuItem>
         <Link to="/user">
             <VpnKey />
             <Typography style={{ paddingLeft: "1em" }} variant="inherit">

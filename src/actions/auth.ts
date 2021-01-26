@@ -3,7 +3,6 @@ import {
   SIGN_OUT,
   AuthActions,
   ApiAction,
-  HttpMethod,
 } from "../store/types";
 import { Entity } from "../types";
 
