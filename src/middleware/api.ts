@@ -1,9 +1,4 @@
 /* eslint-disable */
-import { Entity } from '../types';
-import url from 'url';
-import querystring from 'querystring';
-import { HttpMethod } from "../store/types";
-
 const EXPAND = "_expand"
 
 function getModel(action: string) {
@@ -39,7 +34,7 @@ const ds = {
   }
 }
 
-export function login(action: string, _method: HttpMethod, data: TODO): Promise<TODO> {
+export function login(action: string, data: TODO): Promise<TODO> {
   return new Promise(function (resolve, _reject) {
     if (data.username === "admin@test.com" && data.password === "password") {
       const { accessToken: accessToken, user } = ds.token;

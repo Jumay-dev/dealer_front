@@ -34,13 +34,11 @@ export function getAction(
       return {
         type: SIGN_IN,
         endpoint: "login/",
-        method: HttpMethod.POST,
       };
     case SIGN_OUT:
       return {
         type: SIGN_OUT,
         endpoint: "logout/" + id,
-        method: HttpMethod.GET,
       };
   }
 }

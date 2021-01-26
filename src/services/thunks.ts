@@ -15,11 +15,11 @@ export const thunkAuth = (
 ): ThunkAction<void, AppState, null, Action<string>> => async (dispatch) => {
   let response;
 
-  const { type, endpoint, method, data, filters } = apiAction;
+  const { type, endpoint, data, filters } = apiAction;
   
   response = data;
   if (type == SIGN_IN) {
-    response = await login(endpoint, method, data);
+    response = await login(endpoint, data);
   }
 
   dispatchSignIn(dispatch, type, response);
@@ -29,6 +29,7 @@ function dispatchSignIn(dispatch, type, response) {
   switch (type) {
     case SIGN_IN:
       dispatch(signIn(response));
+      console.log('dispatch')
       break;
     case SIGN_OUT:
       dispatch(signOut(response));

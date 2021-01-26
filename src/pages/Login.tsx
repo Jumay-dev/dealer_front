@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { connect } from "react-redux";
+
 
 function Copyright() {
   return (
@@ -46,8 +48,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+function Login(props) {
   const classes = useStyles();
+  const [login, setLogin] = React.useState('admin@test.com')
+  const [password, setPassword] = React.useState('password')
+
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -70,6 +76,8 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => setLogin(e.target.value)}
+            value={login}
           />
           <TextField
             variant="outlined"
@@ -81,6 +89,8 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -92,6 +102,7 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => props.userLoginAction({login, password})}
           >
             Войти
           </Button>
@@ -115,3 +126,5 @@ export default function Login() {
     </Container>
   );
 }
+
+export default Login
