@@ -36,7 +36,7 @@ function App(props) {
         data: {},
     };
 
-    function userLoginAction(props) {
+    function userLoginAction(action) {
         signInAction.data = {login: props.login, password: props.password}
         props.signInUser(signInAction)
         // thunkAuth(signInAction)

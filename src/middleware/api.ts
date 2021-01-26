@@ -36,7 +36,8 @@ const ds = {
 
 export function login(action: string, data: TODO): Promise<TODO> {
   return new Promise(function (resolve, _reject) {
-    if (data.username === "admin@test.com" && data.password === "password") {
+    // if (data.username === "admin@test.com" && data.password === "password") {
+    if (true) {
       const { accessToken: accessToken, user } = ds.token;
       setTimeout(resolve, 300, {
         token: accessToken,
