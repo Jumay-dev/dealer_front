@@ -4,18 +4,17 @@ import {
 } from '../store/types'
 
 export function toolReducer(
-    action: ToolsActionsTypes,
-    state: {
+    state = {
         toolsList: []
-    }
+    },
+    action: ToolsActionsTypes,
 ) {
     switch (action.type) {
-        case LIST_TOOLS:
+        case LIST_TOOLS: {
             return Object.assign({}, state, {
                 toolsList: action.payload
             })
-        default: return {
-            toolsList: []
         }
+        default: return state
     }
 }

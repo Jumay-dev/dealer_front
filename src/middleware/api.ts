@@ -2,8 +2,7 @@
 import { projects_json } from './dealer_projects'
 import { tools, tools_block, tools_subblock } from './infods5i_dealers'
 import { projects_tools } from './dealer_projects_tools'
-
-import { Project } from '../types'
+import { LIST_PROJECTS, LIST_TOOLS } from '../store/types'
 
 const EXPAND = "_expand"
 // fakeUser kinda from backend
@@ -79,7 +78,7 @@ export function login(action: string, data: TODO): Promise<TODO> {
 export function getData(action: string): Promise<TODO> {
   console.log('action', action)
   switch (action) {
-    case 'LIST_PROJECTS':
+    case LIST_PROJECTS:
       return new Promise((resolve, _reject) => {
         let error = false
         if (!error) {
@@ -87,13 +86,14 @@ export function getData(action: string): Promise<TODO> {
         }
       })
     
-    case 'LIST_TOOLS':
+    case LIST_TOOLS:
       return new Promise((resolve, _reject) => {
         let error = false
         if (!error) {
-          setTimeout(resolve, 300, authorisedTools)
+          setTimeout(resolve, 300, tools)
         }
       })
+    
     default: return null
   }
 }

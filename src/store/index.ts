@@ -8,6 +8,7 @@ import { toolReducer } from "../reducers/tool";
 const rootReducer = combineReducers({
     auth: authReducer,
     project: projectReducer,
+    tool: toolReducer
 })
 
 export type AppState = ReturnType<typeof rootReducer>;

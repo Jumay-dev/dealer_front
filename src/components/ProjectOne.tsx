@@ -50,9 +50,9 @@ function ProjectOne({ item, toolsList, getTools }) {
         data: {},
     };
 
-    // React.useEffect(() => {
-    //     getTools(toolsListAction)
-    // }, [])
+    React.useEffect(() => {
+        getTools(toolsListAction)
+    }, [])
 
     function ToolResolver({toolid}) {
         let tool = tools.find( item => +item.id === +toolid)
@@ -131,14 +131,15 @@ function ProjectOne({ item, toolsList, getTools }) {
 }
 
 function mapStateToProps(state) {
+    console.log(state)
     return {
-    //   toolsList: state.tool.toolsList,
+      toolsList: state.tool.toolsList,
     }
   }
     
 function mapDispatchToProps(dispatch) {
     return {
-        // getTools: (action: TODO) => {dispatch(thunkData(action))},
+        getTools: (action: TODO) => {dispatch(thunkData(action))},
         // getTools: (action: TODO) => dispatch(action)
     };
 }

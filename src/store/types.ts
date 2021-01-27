@@ -48,11 +48,6 @@ export const LIST_PROJECTS = "LIST_PROJECTS"
 export const GET_PROJECT = "GET_PROJECT"
 export const NEW_PROJECT = "NEW_PROJECT"
 export const EDIT_PROJECT = "EDIT_PROJECT"
-
-export interface ProjectState {
-  list: Project[];
-}
-
 interface ListProjectsAction {
   type: typeof LIST_PROJECTS;
   payload: Project[];
@@ -62,6 +57,10 @@ interface NewProjectAction {
   type: typeof NEW_PROJECT
   payload: Project;
   error?: string;
+}
+
+export interface ProjectState {
+  projectsList: Project[];
 }
 
 export type ProjectActions = 
@@ -86,8 +85,7 @@ interface ListToolsAction {
   payload: Tool[];
 }
 
-export type ToolsActions = string
-  // | typeof LIST_TOOLS
+export type ToolsActions = typeof LIST_TOOLS
 
 export type ToolsActionsTypes = 
 | ListToolsAction

@@ -1,10 +1,11 @@
 import {
+    ProjectState,
     ProjectActionTypes,
     LIST_PROJECTS
 } from '../store/types'
 
 export function projectReducer(
-    state: {
+    state: ProjectState = {
         projectsList: []
     },
     action: ProjectActionTypes
@@ -15,8 +16,6 @@ export function projectReducer(
                 projectsList: action.payload
             })
         }
-        default: return {
-            projectsList: []
-        }
+        default: return state
     }
 }
