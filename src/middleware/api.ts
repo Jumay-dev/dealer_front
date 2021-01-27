@@ -69,8 +69,25 @@ const projects = [
 
 const authorisedTools = [
   {
-
-  }
+    id: 0,
+    projectId: 1,
+    name: 'Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY'
+  },
+  {
+    id: 1,
+    projectId: 1,
+    name: 'Многофункциональный монитор пациента Votem VP-1200'
+  },
+  {
+    id: 2,
+    projectId: 1,
+    name: 'Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY'
+  },
+  {
+    id: 3,
+    projectId: 1,
+    name: 'Многофункциональный монитор пациента Votem VP-1200'
+  },
 ]
 
 export function login(action: string, data: TODO): Promise<TODO> {
@@ -91,6 +108,7 @@ export function login(action: string, data: TODO): Promise<TODO> {
 }
 
 export function getData(action: string): Promise<TODO> {
+  console.log('action', action)
   switch (action) {
     case 'LIST_PROJECTS':
       return new Promise((resolve, _reject) => {
@@ -100,7 +118,7 @@ export function getData(action: string): Promise<TODO> {
         }
       })
     
-    case 'GET_AUTH_TOOLS':
+    case 'LIST_TOOLS':
       return new Promise((resolve, _reject) => {
         let error = false
         if (!error) {

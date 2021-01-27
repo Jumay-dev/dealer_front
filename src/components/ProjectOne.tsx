@@ -5,10 +5,13 @@ import Button from '@material-ui/core/Button'
 import Accordion from '@material-ui/core/Accordion'
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom'
-
 import CommercialOfferList from "./ModalCommercialOffer"
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+import { thunkData } from "../services/thunks";
+import { connect } from "react-redux";
+import { LIST_TOOLS } from "../store/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,8 +37,18 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function ProjectOne({ item }) {
+function ProjectOne({ item, toolsList, getTools }) {
     const classes = useStyles()
+    let toolsListAction = {
+        type: LIST_TOOLS,
+        endpoint: "tools/",
+        data: {},
+    };
+
+    React.useEffect(() => {
+        getTools(toolsListAction)
+    }, [])
+
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
@@ -71,30 +84,8 @@ function ProjectOne({ item }) {
                         Авторизовано
                     </Typography>
                     
-                    <Typography variant="subtitle1" paragraph>
-                        Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
-                    </Typography>
-                    <Typography variant="subtitle1" paragraph>
-                        Многофункциональный монитор пациента Votem VP-1200 
-                    </Typography>
-                    <Typography variant="subtitle1" paragraph>
-                        Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
-                    </Typography>
-                    <Typography variant="subtitle1" paragraph>
-                        Многофункциональный монитор пациента Votem VP-1200 
-                    </Typography>
-                    <Typography variant="subtitle1" paragraph>
-                        Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
-                    </Typography>
-                    <Typography variant="subtitle1" paragraph>
-                        Многофункциональный монитор пациента Votem VP-1200 
-                    </Typography>
-                    <Typography variant="subtitle1" paragraph>
-                        Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY
-                    </Typography>
-                    <Typography variant="subtitle1" paragraph>
-                        Многофункциональный монитор пациента Votem VP-1200 
-                    </Typography>
+                    {toolsList.length !== 0 ? toolsList.map(item => <Typography variant="subtitle1" paragraph>{item.name}</Typography>) 
+                    : <Typography variant="subtitle1" paragraph>Нет авторизованных позиций</Typography>}
                 </Grid>
 
                 <Grid item xs={12} lg={3} className={classes.gridButtons}>
@@ -121,4 +112,16 @@ function ProjectOne({ item }) {
     )
 }
 
-export default ProjectOne
+function mapStateToProps(state) {
+    return {
+      toolsList: state.tool.toolsList,
+    }
+  }
+    
+  function mapDispatchToProps(dispatch) {
+    return {
+        getTools: (action: TODO) => {dispatch(thunkData(action))},
+    };
+  }
+    
+  export default connect(mapStateToProps, mapDispatchToProps)(ProjectOne)

@@ -1,6 +1,7 @@
 import {
   User,
-  Project
+  Project,
+  Tool
 } from "../types";
   
 export interface ApiAction {
@@ -41,6 +42,8 @@ export type AuthActionTypes = SignInAction | SignOutAction;
 
 export type AuthActions = typeof SIGN_IN | typeof SIGN_OUT;
 
+
+// Project types
 export const LIST_PROJECTS = "LIST_PROJECTS"
 export const GET_PROJECT = "GET_PROJECT"
 export const NEW_PROJECT = "NEW_PROJECT"
@@ -70,3 +73,21 @@ export type ProjectActions =
 export type ProjectActionTypes = 
   | ListProjectsAction
   | NewProjectAction
+
+// Tools types
+export const LIST_TOOLS = "LIST_TOOLS"
+
+export interface ToolsState {
+  list: Tool[];
+}
+
+interface ListToolsAction {
+  type: typeof LIST_TOOLS;
+  payload: Tool[];
+}
+
+export type ToolsActions = 
+  | typeof LIST_TOOLS
+
+export type ToolsActionsTypes = 
+| ListToolsAction

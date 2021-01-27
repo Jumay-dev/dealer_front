@@ -28,7 +28,7 @@ export interface User extends Entity {
 }
 
 export interface Project {
-  id: number,
+  id: number;
   externalId: number;
   added: string;
   dealer: string;
@@ -37,4 +37,10 @@ export interface Project {
   actualised: string;
   expires: string;
   manager: string;
+}
+
+export interface Tool {
+  id: number;
+  projectId: number;
+  name: string;
 }

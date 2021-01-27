@@ -11,7 +11,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Search from '../components/Search'
 import ProjectOne from '../components/ProjectOne'
 
-import { thunkAuth, thunkProjects } from "../services/thunks";
+import { thunkAuth, thunkData } from "../services/thunks";
 import { connect } from "react-redux";
 import { LIST_PROJECTS } from "../store/types";
 
@@ -134,10 +134,10 @@ function mapStateToProps(state) {
     }
   }
     
-    function mapDispatchToProps(dispatch) {
-      return {
-         getProjects: (action: TODO) => dispatch(thunkProjects(action)),
-      };
-    }
-    
-    export default connect(mapStateToProps, mapDispatchToProps)(User)
+function mapDispatchToProps(dispatch) {
+    return {
+        getProjects: (action: TODO) => dispatch(thunkData(action)),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(User)

@@ -1,10 +1,7 @@
 import {
     ProjectActionTypes,
-    LIST_PROJECTS,
-    NEW_PROJECT
+    LIST_PROJECTS
 } from '../store/types'
-
-import { Project } from "../types";
 
 export function projectReducer(
     state: {
@@ -14,7 +11,6 @@ export function projectReducer(
 ) {
     switch (action.type) {
         case LIST_PROJECTS: {
-            console.log(action.payload)
             return Object.assign({}, state, {
                 projectsList: action.payload
             })
