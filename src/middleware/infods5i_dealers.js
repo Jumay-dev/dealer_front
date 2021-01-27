@@ -1,13 +1,4 @@
-[
-{"type":"header","version":"4.9.7","comment":"Export to JSON plugin for PHPMyAdmin"},
-{"type":"database","name":"infods5i_dealers"},
-{"type":"table","name":"dealer_project_type","database":"infods5i_dealers","data":
-[
-{"id":"1","title":"Частная организация"},
-{"id":"2","title":"Бюджетная организация"}
-]
-}
-,{"type":"table","name":"dealer_tools","database":"infods5i_dealers","data":
+export const tools = 
 [
 {"id":"1","tool_name":"ЛОР-комбайн Medstar UE-3000 базовая версия","view_all":"1","disabled":"0","view_dealer":"1","csdsmd":"0","tool_send_by":"1","tool_view_block":"1","tool_sort":"1","tool_view_sub_block":"9","group_tools":"","js_roole":""},
 {"id":"2","tool_name":"ЛОР-комбайн New Millennium Grand","view_all":"1","disabled":"0","view_dealer":"1","csdsmd":"0","tool_send_by":"1","tool_view_block":"1","tool_sort":"4","tool_view_sub_block":"9","group_tools":"","js_roole":""},
@@ -118,8 +109,8 @@
 {"id":"109","tool_name":"Резектоскопы: монополярный и биполярный","view_all":"1","disabled":"0","view_dealer":"1","csdsmd":"0","tool_send_by":"1","tool_view_block":"1","tool_sort":"100","tool_view_sub_block":"11","group_tools":"","js_roole":""},
 {"id":"110","tool_name":"Уретротом","view_all":"1","disabled":"0","view_dealer":"1","csdsmd":"0","tool_send_by":"1","tool_view_block":"1","tool_sort":"110","tool_view_sub_block":"11","group_tools":"","js_roole":""}
 ]
-}
-,{"type":"table","name":"dealer_tools_block","database":"infods5i_dealers","data":
+
+export const tools_block = 
 [
 {"id":"1","block_name":"Обязательная авторизация проекта. Эксклюзивное оборудование","view_all":"1","view_dealer":"1"},
 {"id":"2","block_name":"Обязательная авторизация проекта","view_all":"1","view_dealer":"1"},
@@ -134,8 +125,8 @@
 {"id":"11","block_name":"11 - Электрохирургические аппараты","view_all":"0","view_dealer":"1"},
 {"id":"12","block_name":"12 - Гибкая ЛОР эндоскопия","view_all":"0","view_dealer":"1"}
 ]
-}
-,{"type":"table","name":"dealer_tools_sub_block","database":"infods5i_dealers","data":
+
+export const tools_subblock = 
 [
 {"id":"1","block_name":"Рентгены Listem","view_all":"1","view_dealer":"1","sort":"1","parent_id":"1"},
 {"id":"2","block_name":"Видеосистемы DS.Vision и оборудование для комплектации эндостоек (гистеро-, уро-, лапаро-, артро- прокто- стойки)","view_all":"1","view_dealer":"1","sort":"1","parent_id":"1"},
@@ -149,5 +140,4 @@
 {"id":"10","block_name":"Маммографы","view_all":"1","view_dealer":"1","sort":"1","parent_id":"3"},
 {"id":"11","block_name":"Оборудование Mahe medical (Германия)","view_all":"1","view_dealer":"1","sort":"1","parent_id":"1"}
 ]
-}
-]
+

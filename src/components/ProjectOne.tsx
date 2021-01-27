@@ -13,6 +13,8 @@ import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
 import { LIST_TOOLS } from "../store/types";
 
+import { tools } from '../middleware/infods5i_dealers'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
@@ -52,6 +54,17 @@ function ProjectOne({ item, toolsList, getTools }) {
     //     getTools(toolsListAction)
     // }, [])
 
+    function ToolResolver({toolid}) {
+        let tool = tools.find( item => +item.id === +toolid)
+        if (tool) {
+            return (
+                <p>
+                    {tool.tool_name}
+                </p>
+            )
+        }
+    }
+
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
@@ -86,6 +99,8 @@ function ProjectOne({ item, toolsList, getTools }) {
                     <Typography variant="subtitle1" paragraph>
                         Авторизовано
                     </Typography>
+
+                    {item.tools.map(elem => <ToolResolver toolid={elem.tools_id}/>)}
                     
                     {/* {toolsList.length !== 0 ? toolsList.map(item => <Typography variant="subtitle1" paragraph>{item.name}</Typography>) 
                     : <Typography variant="subtitle1" paragraph>Нет авторизованных позиций</Typography>} */}

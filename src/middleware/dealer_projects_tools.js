@@ -1,7 +1,4 @@
-[
-{"type":"header","version":"4.9.7","comment":"Export to JSON plugin for PHPMyAdmin"},
-{"type":"database","name":"infods5i_dealers"},
-{"type":"table","name":"dealer_projects_tools","database":"infods5i_dealers","data":
+export const projects_tools = 
 [
 {"id":"1","project_id":"1","tools_id":"1","status_id":"6","query_auth":"1"},
 {"id":"2","project_id":"1","tools_id":"6","status_id":"6","query_auth":"1"},
@@ -103,6 +100,4 @@
 {"id":"98","project_id":"28","tools_id":"7","status_id":"6","query_auth":"1"},
 {"id":"99","project_id":"28","tools_id":"8","status_id":"6","query_auth":"1"},
 {"id":"100","project_id":"29","tools_id":"1","status_id":"6","query_auth":"1"}
-]
-}
 ]

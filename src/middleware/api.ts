@@ -1,6 +1,11 @@
 /* eslint-disable */
-const EXPAND = "_expand"
+import { projects_json } from './dealer_projects'
+import { tools, tools_block, tools_subblock } from './infods5i_dealers'
+import { projects_tools } from './dealer_projects_tools'
 
+import { Project } from '../types'
+
+const EXPAND = "_expand"
 // fakeUser kinda from backend
 const ds = {
   token: { 
@@ -9,63 +14,27 @@ const ds = {
   }
 }
 
-const projects = [
-  {
-    id: 0,
-    externalId: 23,
-    added: "4.01.2021",
-    dealer: "ООО 'ААА'",
-    employee: 'Иванов Иван',
-    client: '"Доктор Айболит", г.Москва"',
-    actualised: '10.01.2021',
-    expires: '20.02.2021',
-    manager: 'Даэсмедов Михаил Алексеевич',
-  },
-  {
-    id: 1,
-    externalId: 22,
-    added: "4.01.2021",
-    dealer: "ООО 'ААА'",
-    employee: 'Петров Петр',
-    client: '"ГП №5, г. Коломна"',
-    actualised: '12.01.2021',
-    expires: '25.02.2021',
-    manager: 'Даэсмедов Михаил Алексеевич',
-  },
-  {
-    id: 2,
-    externalId: 25,
-    added: "4.01.2021",
-    dealer: "ООО 'ААА'",
-    employee: 'Иванов Иван',
-    client: '"Доктор Айболит", г.Москва"',
-    actualised: '10.01.2021',
-    expires: '20.02.2021',
-    manager: 'Даэсмедов Михаил Алексеевич',
-  },
-  {
-    id: 3,
-    externalId: 19,
-    added: "4.01.2021",
-    dealer: "ООО 'ААА'",
-    employee: 'Петров Петр',
-    client: '"ГП №5, г. Коломна"',
-    actualised: '12.01.2021',
-    expires: '25.02.2021',
-    manager: 'Даэсмедов Михаил Алексеевич',
-  },
-  {
-    id: 4,
-    externalId: 28,
-    added: "4.01.2021",
-    dealer: "ООО 'ААА'",
-    employee: 'Иванов Иван',
-    client: '"Доктор Айболит", г.Москва"',
-    actualised: '10.01.2021',
-    expires: '20.02.2021',
-    manager: 'Даэсмедов Михаил Алексеевич',
-  },
-]
+function projectReducer(arr) {
+  let projects = []
+  arr.forEach(item => {
+    let currentItem = item
+    let projectTools = projects_tools.filter( elem => +elem.project_id === +currentItem.id)
+    console.log('tools', projectTools)
+    projects.push({
+      id: currentItem.id,
+      externalId: 28,
+      added: "4.01.2021",
+      dealer: "ООО 'ААА'",
+      employee: 'Иванов Иван',
+      client: currentItem.brend_name,
+      actualised: '10.01.2021',
+      expires: '20.02.2021',
+      manager: 'Даэсмедов Михаил Алексеевич',
+      tools: projectTools
+    })
+  })
+  return projects
+}
 
 const authorisedTools = [
   {
@@ -114,7 +83,7 @@ export function getData(action: string): Promise<TODO> {
       return new Promise((resolve, _reject) => {
         let error = false
         if (!error) {
-          setTimeout(resolve, 300, projects)
+          setTimeout(resolve, 300, projectReducer(projects_json))
         }
       })
     

@@ -14,6 +14,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import { tools_block, tools } from '../middleware/infods5i_dealers'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -33,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function AccordionOfTools(props) {
     const classes = useStyles();
+    let toolsInAccordion = tools.filter( tool => +tool.tool_view_block === +props.id)
     return (
         <React.Fragment>
             <Accordion>
@@ -53,38 +56,12 @@ function AccordionOfTools(props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow key="1">
-                                <TableCell component="th" scope="row">Центральная станция мониторинга Votem VC-2000</TableCell>
+                            {toolsInAccordion.map( oneTool => (
+                            <TableRow key={oneTool.id}>
+                                <TableCell component="th" scope="row">{oneTool.tool_name}</TableCell>
                                 <TableCell align="center" scope="row" component="th"><Checkbox /></TableCell>
                             </TableRow>
-                            <TableRow key="2">
-                                <TableCell>Многофункциональный монитор пациента Votem VP-1200</TableCell>
-                                <TableCell align="center"><Checkbox /></TableCell>
-                            </TableRow>
-                            <TableRow key="3">
-                                <TableCell component="th" scope="row">Центральная станция мониторинга Votem VC-2000</TableCell>
-                                <TableCell align="center"><Checkbox /></TableCell>
-                            </TableRow>
-                            <TableRow key="4">
-                                <TableCell>Многофункциональный монитор пациента Votem VP-1200</TableCell>
-                                <TableCell align="center"><Checkbox /></TableCell>
-                            </TableRow>
-                            <TableRow key="5">
-                                <TableCell component="th" scope="row">Центральная станция мониторинга Votem VC-2000</TableCell>
-                                <TableCell align="center"><Checkbox /></TableCell>
-                            </TableRow>
-                            <TableRow key="6">
-                                <TableCell>Многофункциональный монитор пациента Votem VP-1200</TableCell>
-                                <TableCell align="center"><Checkbox /></TableCell>
-                            </TableRow>
-                            <TableRow key="7">
-                                <TableCell component="th" scope="row">Центральная станция мониторинга Votem VC-2000</TableCell>
-                                <TableCell align="center"><Checkbox /></TableCell>
-                            </TableRow>
-                            <TableRow key="8">
-                                <TableCell>Многофункциональный монитор пациента Votem VP-1200</TableCell>
-                                <TableCell align="center"><Checkbox /></TableCell>
-                            </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                     </Typography>
@@ -102,10 +79,7 @@ function ToolsTable() {
             <Typography component="h2" variant="h4" align="center">
                 Авторизуемое оборудование
             </Typography>
-            <AccordionOfTools categoryName={"Рентген аппараты"}/>
-            <AccordionOfTools categoryName={"Мониторы пациента"}/>
-            <AccordionOfTools categoryName={"ЛОР-комбайны"}/>
-            <AccordionOfTools categoryName={"Маммографы"}/>
+            {tools_block.map(block => <AccordionOfTools categoryName={block.block_name} id={block.id}/>)}
         </React.Fragment>
     )
 }
