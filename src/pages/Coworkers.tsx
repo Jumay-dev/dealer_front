@@ -2,8 +2,20 @@ import React from 'react'
 import DataTable from '../components/DataTable'
 import Search from '../components/Search'
 import Pagination from '@material-ui/lab/Pagination';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+        marginBottom: theme.spacing(1),
+        overflow: "hidden",
+        marginTop: 10,
+    },
+  }),
+);
 
 function Coworkers() {
+    const classes = useStyles()
     return (
         <>
             <Search />
