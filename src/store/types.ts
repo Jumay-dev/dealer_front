@@ -86,8 +86,8 @@ interface ListToolsAction {
   payload: Tool[];
 }
 
-export type ToolsActions = 
-  | typeof LIST_TOOLS
+export type ToolsActions = string
+  // | typeof LIST_TOOLS
 
 export type ToolsActionsTypes = 
 | ListToolsAction

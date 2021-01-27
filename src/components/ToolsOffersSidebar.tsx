@@ -12,7 +12,7 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import CommercialOfferOne from '../components/CommercialOfferOne'
 import AuthorisedPosition from './AuthorisedPosition'
-import { isTypeNode } from 'typescript';
+import FixedCalcBottom from './FixedCalcBottom'
 
 const drawerWidth = 500;
 
@@ -221,7 +221,8 @@ export default function PersistentDrawerRight({ authorised }) {
           <TabPanel value={activeTab} index={1}>
             Здесь будут рекомендованные позиции по выбраным из авторизованных
           </TabPanel>
-
+          
+          {activeTab === 0 ? <FixedCalcBottom /> : null}
         </main>
     </div>
   );

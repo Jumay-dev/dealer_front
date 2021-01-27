@@ -9,13 +9,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import Icon from "@material-ui/core/Icon"
 import Fab from "@material-ui/core/Fab";
 import ContentCreate from "@material-ui/icons/Create";
 import ActionDelete from "@material-ui/icons/Delete";
-import CheckCircle from "@material-ui/icons/CheckCircle";
-import Cancel from "@material-ui/icons/Cancel";
 import Download from "@material-ui/icons/ArrowDownward";
+import Checkbox from '@material-ui/core/Checkbox';
 
 import { pink, grey, green, common } from "@material-ui/core/colors";
 
@@ -103,6 +101,12 @@ function ActionReturner({actionName}) {
           <Download />
         </Fab>
       </Tooltip>
+    )
+  }
+  if (actionName === 'checkbox') {
+    return (
+      <Checkbox
+      />
     )
   }
 }

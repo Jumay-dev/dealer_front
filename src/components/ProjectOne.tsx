@@ -45,9 +45,9 @@ function ProjectOne({ item, toolsList, getTools }) {
         data: {},
     };
 
-    React.useEffect(() => {
-        getTools(toolsListAction)
-    }, [])
+    // React.useEffect(() => {
+    //     getTools(toolsListAction)
+    // }, [])
 
     return (
         <Paper className={classes.paper}>
@@ -84,8 +84,8 @@ function ProjectOne({ item, toolsList, getTools }) {
                         Авторизовано
                     </Typography>
                     
-                    {toolsList.length !== 0 ? toolsList.map(item => <Typography variant="subtitle1" paragraph>{item.name}</Typography>) 
-                    : <Typography variant="subtitle1" paragraph>Нет авторизованных позиций</Typography>}
+                    {/* {toolsList.length !== 0 ? toolsList.map(item => <Typography variant="subtitle1" paragraph>{item.name}</Typography>) 
+                    : <Typography variant="subtitle1" paragraph>Нет авторизованных позиций</Typography>} */}
                 </Grid>
 
                 <Grid item xs={12} lg={3} className={classes.gridButtons}>
@@ -114,14 +114,15 @@ function ProjectOne({ item, toolsList, getTools }) {
 
 function mapStateToProps(state) {
     return {
-      toolsList: state.tool.toolsList,
+    //   toolsList: state.tool.toolsList,
     }
   }
     
-  function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
     return {
-        getTools: (action: TODO) => {dispatch(thunkData(action))},
+        // getTools: (action: TODO) => {dispatch(thunkData(action))},
+        // getTools: (action: TODO) => dispatch(action)
     };
-  }
-    
-  export default connect(mapStateToProps, mapDispatchToProps)(ProjectOne)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectOne)

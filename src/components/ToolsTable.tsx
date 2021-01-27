@@ -13,6 +13,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,22 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     table: {
         minWidth: 650,
+        width: "100%"
     },
   }),
 );
-
-function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 
 
 function AccordionOfTools(props) {
@@ -55,33 +44,51 @@ function AccordionOfTools(props) {
                 >
                 <Typography className={classes.heading}>{props.categoryName}</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                <Typography>
-                <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.name}>
-                        <TableCell component="th" scope="row">
-                            {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.protein}</TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-                </Typography>
+                <AccordionDetails >
+                    <Typography className={classes.root}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Название</TableCell>
+                                <TableCell align="center"><Checkbox /></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow key="1">
+                                <TableCell component="th" scope="row">Центральная станция мониторинга Votem VC-2000</TableCell>
+                                <TableCell align="center" scope="row" component="th"><Checkbox /></TableCell>
+                            </TableRow>
+                            <TableRow key="2">
+                                <TableCell>Многофункциональный монитор пациента Votem VP-1200</TableCell>
+                                <TableCell align="center"><Checkbox /></TableCell>
+                            </TableRow>
+                            <TableRow key="3">
+                                <TableCell component="th" scope="row">Центральная станция мониторинга Votem VC-2000</TableCell>
+                                <TableCell align="center"><Checkbox /></TableCell>
+                            </TableRow>
+                            <TableRow key="4">
+                                <TableCell>Многофункциональный монитор пациента Votem VP-1200</TableCell>
+                                <TableCell align="center"><Checkbox /></TableCell>
+                            </TableRow>
+                            <TableRow key="5">
+                                <TableCell component="th" scope="row">Центральная станция мониторинга Votem VC-2000</TableCell>
+                                <TableCell align="center"><Checkbox /></TableCell>
+                            </TableRow>
+                            <TableRow key="6">
+                                <TableCell>Многофункциональный монитор пациента Votem VP-1200</TableCell>
+                                <TableCell align="center"><Checkbox /></TableCell>
+                            </TableRow>
+                            <TableRow key="7">
+                                <TableCell component="th" scope="row">Центральная станция мониторинга Votem VC-2000</TableCell>
+                                <TableCell align="center"><Checkbox /></TableCell>
+                            </TableRow>
+                            <TableRow key="8">
+                                <TableCell>Многофункциональный монитор пациента Votem VP-1200</TableCell>
+                                <TableCell align="center"><Checkbox /></TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                    </Typography>
                 </AccordionDetails>
             </Accordion>
         </React.Fragment>
