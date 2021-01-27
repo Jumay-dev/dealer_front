@@ -51,9 +51,12 @@ const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      marginRight: theme.spacing(3),
+      // marginRight: theme.spacing(3),
+      marginRight: 0,
+      width: "100%"
     },
     contentShift: {
+      width: "auto",
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,

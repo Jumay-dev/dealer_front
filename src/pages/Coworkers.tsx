@@ -1,11 +1,13 @@
 import React from 'react'
 import DataTable from '../components/DataTable'
 import Search from '../components/Search'
+import Pagination from '@material-ui/lab/Pagination';
 
 function Coworkers() {
     return (
         <>
             <Search />
+            <Pagination count={10} color="secondary" size="large"/>
             <DataTable
                 headers={["Имя", "Зарегистрирован", "Роль"]}
                 rows={[
@@ -24,6 +26,7 @@ function Coworkers() {
                 ]}
                 actions={['delete', 'edit']}
             />
+            <Pagination count={10} color="secondary" size="large"/>
         </>
     )
 }

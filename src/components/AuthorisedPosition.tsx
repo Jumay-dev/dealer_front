@@ -23,7 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     secondaryPosition: {
         display: "flex",
-        marginBottom: theme.spacing(1)
+        marginBottom: theme.spacing(1),
+        padding: theme.spacing(1),
+        justifyContent: "space-between"
     },
     image: {
         height: 100,
@@ -32,6 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
     text: {
         display: "flex",
         flexDirection: "column"
+    },
+    secondaryContainer: {
+        display: "flex",
     },
     content: {
         display: "flex",
@@ -44,10 +49,18 @@ function Subposition({child, positionSelectHandler}) {
     const classes = useStyles();
     return (
         <Paper className={classes.secondaryPosition}>
-            <img className={classes.image} src={child.image ? child.image : null} alt="..."/>
-            <Typography variant="subtitle2" paragraph>
-                {child.name ? child.name : null}
-            </Typography>
+            <div className={classes.secondaryContainer}>
+                <img className={classes.image} src={child.image ? child.image : null} alt="..."/>
+                <Typography variant="subtitle2">
+                    <p>
+                        {child.name ? child.name : null}
+                    </p>
+                    <p>
+                        {child.wiki ? <a href={child.wiki}>Подробнее</a> : null}
+                    </p>
+                </Typography>
+            </div>
+
             <Button 
                 variant="contained" 
                 color="primary"

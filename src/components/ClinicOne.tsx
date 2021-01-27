@@ -12,22 +12,25 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
         marginBottom: theme.spacing(1),
-        padding: theme.spacing(2),
+        marginTop: theme.spacing(1),
+        overflow: "hidden"
     },
 
     gridInfo: {
-        background: "gray"
+        background: "gray",
+        padding: "10px !important",
     },
 
     gridTools: {
-        
+        padding: "10px !important",
     },
 
     gridButtons: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "gray"
+        background: "gray",
+        padding: "10px !important",
     }
   }),
 );
@@ -38,44 +41,44 @@ function ClinicOne() {
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
                 <Grid item xs={12} lg={3} className={classes.gridInfo}>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         ProMED
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         г. Москва, ул.Пушкина, д.1, к.1
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         ИНН: 123456789000
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Юр. лицо: ООО “Промед”
                     </Typography>
                 </Grid>
 
                 <Grid item xs={12} lg={6} className={classes.gridTools}>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Проекты учреждения
                     </Typography>
                     
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Проект №239475874576 от 10.01.2021
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Проект №239475874576 от 10.01.2021
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Проект №239475874576 от 10.01.2021
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Проект №239475874576 от 10.01.2021 (завершено 30.02.2021)
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Проект №239475874576 от 10.01.2021 (завершено 30.02.2021)
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Проект №239475874576 от 10.01.2021 (завершено 30.02.2021)
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Проект №239475874576 от 10.01.2021 (завершено 30.02.2021)
                     </Typography>
 

@@ -2,6 +2,8 @@ import React from 'react'
 import ProjectOne from "../components/ProjectOne"
 import Typography from '@material-ui/core/Typography'
 import Search from '../components/Search'
+import Pagination from '@material-ui/lab/Pagination';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
@@ -24,7 +26,9 @@ function ProjectsList({ getProjects, projectsList }) {
               Список проектов
           </Typography>
           <Search />
-          {projectsList.length !== 0 ? projectsList.map(item => <ProjectOne item={item} key={item.id}/>) : <Typography>Пока нет проектов</Typography>}
+          <Pagination count={10} color="secondary" size="large"/>
+          {projectsList.length !== 0 ? projectsList.map(item => <ProjectOne item={item} key={item.id}/>) : <CircularProgress color="secondary"/>}
+          <Pagination count={10} color="secondary" size="large"/>
       </>
   )
 }

@@ -17,22 +17,25 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
         marginBottom: theme.spacing(1),
-        padding: theme.spacing(2),
+        overflow: "hidden",
+        marginTop: 10,
     },
 
     gridInfo: {
-        background: "#D6D2C4"
+        background: "#D6D2C4",
+        padding: "10px !important",
     },
 
     gridTools: {
-        
+        padding: "10px !important",
     },
 
     gridButtons: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "#D6D2C4"
+        background: "#D6D2C4",
+        padding: "10px !important",
     }
   }),
 );
@@ -53,28 +56,28 @@ function ProjectOne({ item, toolsList, getTools }) {
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
                 <Grid item xs={12} lg={3} className={classes.gridInfo}>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         # {item.id}
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Зарегистрирован {item.added}
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Дилер: {item.dealer} 
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Сотрудник: {item.employee}
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Клиент: {item.client} 
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Актуализирован: {item.actualised}
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         В реестре до {item.expires}
                     </Typography>
-                    <Typography variant="subtitle1" paragraph>
+                    <Typography variant="subtitle1">
                         Менеджер: {item.manager} 
                     </Typography>
                 </Grid>

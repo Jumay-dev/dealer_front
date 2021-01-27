@@ -28,7 +28,7 @@ function FixedCalcBottom() {
             <p>Всего позиций: 17</p>
             <p>Итого: 1200000 ₽</p>
             <Button variant="contained" color="primary">
-                Добавить КП
+                Сформировать КП
             </Button>
         </Paper>
         </div>
