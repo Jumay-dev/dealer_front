@@ -68,7 +68,7 @@ const StyledTableRowClient = withStyles((theme: Theme) =>
 )(TableRow);
 
 function CommercialOfferPositionMain({ primary, tool, deleteTool }) {
-  const basePrice: number = 300000
+  const basePrice: number = tool.price
   const [dealerDiscount, setDealerDiscount] = React.useState<number>(30)
   const [dealerPrice, setDealerPrice] = React.useState<number>(basePrice - (basePrice/100)*dealerDiscount)
 

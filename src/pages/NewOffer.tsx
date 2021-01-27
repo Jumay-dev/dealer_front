@@ -8,7 +8,8 @@ function NewOffer() {
             parent: null,
             name: 'Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY',
             image: 'https://ds-med.ru/wp-content/uploads/2019/05/850-650-RF222-2.png',
-            wiki: 'https://ds-med.ru/product/listem-rex-650rf-fluoroscopy/'
+            wiki: 'https://ds-med.ru/product/listem-rex-650rf-fluoroscopy/',
+            price: 300000
         },
         {
             id: 1,
@@ -16,7 +17,8 @@ function NewOffer() {
             category: 1,
             name: 'Цифровой рентгеновский аппарат Listem PROGEN-650R: DRS',
             image: 'https://ds-med.ru/wp-content/uploads/2020/04/650-R-DRS.png',
-            wiki: 'https://ds-med.ru/product/listem-progen-650r-drs/'
+            wiki: 'https://ds-med.ru/product/listem-progen-650r-drs/',
+            price: 300000
         },
         {
             id: 2,
@@ -24,7 +26,8 @@ function NewOffer() {
             category: 1,
             name: 'Кресло врача',
             image: 'https://ds-med.ru/wp-content/uploads/2020/04/650-R-DRS.png',
-            wiki: 'https://ds-med.ru/product/listem-progen-650r-drs/'
+            wiki: 'https://ds-med.ru/product/listem-progen-650r-drs/',
+            price: 300000
         },
         {
             id: 3,
@@ -32,7 +35,8 @@ function NewOffer() {
             category: 1,
             name: 'Рабочее место врача',
             image: 'https://ds-med.ru/wp-content/uploads/2020/04/650-R-DRS.png',
-            wiki: 'https://ds-med.ru/product/listem-progen-650r-drs/'
+            wiki: 'https://ds-med.ru/product/listem-progen-650r-drs/',
+            price: 300000
         },
     ])
 

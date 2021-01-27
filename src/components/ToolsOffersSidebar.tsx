@@ -75,6 +75,8 @@ export default function PersistentDrawerRight({ authorised }) {
   const [positionsTree, setPositionsTree] = React.useState([])
   const [offersTree, setOffersTree] = React.useState([])
   const [activeTab, setActiveTab] = React.useState(0);
+  const [positionsCount, setPositionsCount] = React.useState(0)
+  const [positionsPrice, setPositionsPrice] = React.useState(0)
 
   React.useEffect(() => {
     if (authorised && authorised.length !== 0) {
@@ -84,6 +86,17 @@ export default function PersistentDrawerRight({ authorised }) {
 
   React.useEffect(() => {
     setOffersTree(treeBuilding(addedTools))
+    setPositionsCount(addedTools.length)
+    if (addedTools.length >= 2) {
+      let initialValue = 0
+      let sum = addedTools.reduce((accumulator, currentValue) => +accumulator + +currentValue.price, initialValue);
+      console.log(sum)
+      setPositionsPrice(sum)
+    } else {
+      if (addedTools.length === 1) {
+        setPositionsPrice(addedTools[0].price)
+      }
+    }
   }, [addedTools])
 
   // функция строит дерево, O(n^2)
@@ -101,7 +114,6 @@ export default function PersistentDrawerRight({ authorised }) {
   // Добавление из авторизованных в КП
   // Валидация: если id уже есть в КП -> не добавлять
   function positionSelectHandler(item) {
-    console.log(item)
     const idx = addedTools.findIndex(obj => obj.id === item.id)
     if(idx === -1) {
       let currentTools = addedTools.splice(0)
@@ -216,16 +228,17 @@ export default function PersistentDrawerRight({ authorised }) {
                 <MenuItem value={3}>Мамммографы</MenuItem>
             </Select>
             {offersTree && offersTree.length !== 0 ? offersTree.map( tool => 
-            <CommercialOfferOne
-            deleteTool={deleteTool}
-            offers={tool}
-            />) : <Typography>Нажмите "Выбрать оборудование", чтобы начать создание коммерческого предложения для клиента</Typography>}
+              <CommercialOfferOne
+              key={tool.id}
+              deleteTool={deleteTool}
+              offers={tool}
+              />) : <Typography>Нажмите "Выбрать оборудование", чтобы начать создание коммерческого предложения для клиента</Typography>}
           </TabPanel>
           <TabPanel value={activeTab} index={1}>
             Здесь будут рекомендованные позиции по выбраным из авторизованных
           </TabPanel>
           
-          {activeTab === 0 ? <FixedCalcBottom /> : null}
+          {activeTab === 0 ? <FixedCalcBottom positionsCount={positionsCount} positionsPrice={positionsPrice} /> : null}
         </main>
     </div>
   );
