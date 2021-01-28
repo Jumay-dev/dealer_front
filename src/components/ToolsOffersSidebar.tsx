@@ -107,26 +107,26 @@ export default function PersistentDrawerRight({ authorised }) {
 
   // функция строит дерево авторизованных позиций, O(n^2)
   function authorisedPositionsTreeBuilding(arr: Array<any>) {
-    let roots = []
+    let tree = []
     arr.forEach( item => {
       if (item.parent === null) {
         item.children = arr.filter( elem => elem.parent === item.id)
-        roots.push(item)
+        tree.push(item)
       }
     })
-    return roots
+    return tree
   }
 
   // функция строит дерево коммерческого предложения, O(n^2)
   function commercialOfferTreeBuilding(arr: Array<any>) {
-    let roots = []
+    let tree = []
     arr.forEach( item => {
       if (item.parent === null) {
         item.children = arr.filter( elem => elem.parent === item.id)
-        roots.push(item)
+        tree.push(item)
       }
     })
-    return roots
+    return tree
   }
 
   // Добавление из авторизованных в КП
@@ -148,8 +148,9 @@ export default function PersistentDrawerRight({ authorised }) {
 
   // Удалить КП и его дочерние компоненты, если существуют
   function deleteTool(uid, id) {
-    console.log('called by', uid)
     const currentTools = addedTools.splice(0)
+    console.log('called by', uid)
+    console.log('currentTools', currentTools)
     const newTools = currentTools.filter(elem => elem.uid !== uid && elem.parent !== id)
     setAddedTools(newTools)
   }
