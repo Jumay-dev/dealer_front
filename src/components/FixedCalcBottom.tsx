@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function FixedCalcBottom({ positionsCount, positionsPrice }) {
+function FixedCalcBottom({ positionsCount, positionsPrice, addedTools }) {
     const classes = useStyles()
     return (
         <div className={classes.wrapper}>
@@ -27,7 +27,7 @@ function FixedCalcBottom({ positionsCount, positionsPrice }) {
             <TextField id="code" label="Код дилера" />
             <p>Всего позиций: {positionsCount}</p>
             <p>Итого: {positionsPrice} ₽</p>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={() => console.log(addedTools)}>
                 Сформировать КП
             </Button>
         </Paper>

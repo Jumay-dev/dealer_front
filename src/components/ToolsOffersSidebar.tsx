@@ -80,27 +80,45 @@ export default function PersistentDrawerRight({ authorised }) {
 
   React.useEffect(() => {
     if (authorised && authorised.length !== 0) {
-      setPositionsTree(treeBuilding(authorised))
+      setPositionsTree(authorisedPositionsTreeBuilding(authorised))
     }
   }, [authorised])
 
   React.useEffect(() => {
-    setOffersTree(treeBuilding(addedTools))
+    setOffersTree(commercialOfferTreeBuilding(addedTools))
     setPositionsCount(addedTools.length)
-    if (addedTools.length >= 2) {
-      let initialValue = 0
-      let sum = addedTools.reduce((accumulator, currentValue) => +accumulator + +currentValue.price, initialValue);
-      console.log(sum)
-      setPositionsPrice(sum)
-    } else {
-      if (addedTools.length === 1) {
-        setPositionsPrice(addedTools[0].price)
-      }
-    }
+    setPositionsPrice(totalClientPriceCalculating(addedTools))
   }, [addedTools])
 
-  // функция строит дерево, O(n^2)
-  function treeBuilding(arr: Array<any>) {
+  // считает сумму для клиента
+  // TODO: переделать
+  function totalClientPriceCalculating(arr) {
+    if (arr.length >= 2) {
+      let initialValue = 0
+      return arr.reduce((accumulator, currentValue) => +accumulator + +currentValue.price, initialValue);
+      
+    } else {
+      if (arr.length === 1) {
+        return arr[0].price
+      }
+    }
+    return 0
+  }
+
+  // функция строит дерево авторизованных позиций, O(n^2)
+  function authorisedPositionsTreeBuilding(arr: Array<any>) {
+    let roots = []
+    arr.forEach( item => {
+      if (item.parent === null) {
+        item.children = arr.filter( elem => elem.parent === item.id)
+        roots.push(item)
+      }
+    })
+    return roots
+  }
+
+  // функция строит дерево коммерческого предложения, O(n^2)
+  function commercialOfferTreeBuilding(arr: Array<any>) {
     let roots = []
     arr.forEach( item => {
       if (item.parent === null) {
@@ -114,25 +132,25 @@ export default function PersistentDrawerRight({ authorised }) {
   // Добавление из авторизованных в КП
   // Валидация: если id уже есть в КП -> не добавлять
   function positionSelectHandler(item) {
-    const idx = addedTools.findIndex(obj => obj.id === item.id)
-    if(idx === -1) {
-      let currentTools = addedTools.splice(0)
+    let currentTools = addedTools.splice(0)
+    const isOfferExist = currentTools.find( elem => elem.id === item.id)
+    if(!isOfferExist) {
       let {children, ...handledItem} = item
+      const parent = currentTools.find( el => el.id === handledItem.parent)
+      if (!parent) {
+        handledItem.parent = null
+      }
+      handledItem.uid = Date.now()
       currentTools.push(handledItem)
       setAddedTools(currentTools)
     }
   }
 
   // Удалить КП и его дочерние компоненты, если существуют
-  function deleteTool(id) {
-    let currentTools = addedTools.splice(0)
-    // Это работает, но некрасиво
-    const idx = currentTools.findIndex(obj => obj.id === id)
-    let newTools
-    if (idx > -1) {
-      currentTools.splice(idx, 1);
-      newTools = currentTools.filter(obj => obj.parent !== id)
-    }
+  function deleteTool(uid, id) {
+    console.log('called by', uid)
+    const currentTools = addedTools.splice(0)
+    const newTools = currentTools.filter(elem => elem.uid !== uid && elem.parent !== id)
     setAddedTools(newTools)
   }
 
@@ -238,7 +256,7 @@ export default function PersistentDrawerRight({ authorised }) {
             Здесь будут рекомендованные позиции по выбраным из авторизованных
           </TabPanel>
           
-          {activeTab === 0 ? <FixedCalcBottom positionsCount={positionsCount} positionsPrice={positionsPrice} /> : null}
+          {activeTab === 0 ? <FixedCalcBottom positionsCount={positionsCount} positionsPrice={positionsPrice} addedTools={addedTools}/> : null}
         </main>
     </div>
   );

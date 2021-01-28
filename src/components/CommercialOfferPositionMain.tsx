@@ -164,9 +164,10 @@ function CommercialOfferPositionMain({ primary, tool, deleteTool }) {
                   </Table>                    
               </Grid>
               <Grid md={12} sm={12} xs={12} lg={1} item>
-              <Tooltip title="Удалить" aria-label="delete" onClick={() => deleteTool(tool.id)}>
+              <Tooltip title="Удалить" aria-label="delete" >
                 <Fab
                   size="small"
+                  onClick={() => deleteTool(tool.uid, tool.id)}
                 >
                   <ActionDelete />
                 </Fab>
