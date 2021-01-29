@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import TocIcon from '@material-ui/icons/Toc';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+
 
 import { Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Typography, ListItemIcon } from "@material-ui/core";
-import { blue } from "@material-ui/core/colors";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-
-const blue600 = blue["800"];
+import { ListItemIcon } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -48,28 +43,28 @@ export function MainListItems() {
 
     <Link key={`link_2`} to="/projects" className="MuiListItem-button">
         <MenuItem key={2} className={styles.menuItem}>
-        <ListItemIcon ><DashboardIcon /></ListItemIcon>
+        <ListItemIcon ><TocIcon /></ListItemIcon>
         <ListItemText primary="Управление проектами"/>
         </MenuItem>
     </Link>
 
     <Link key={`link_3`} to="/newproject" className="MuiListItem-button">
         <MenuItem key={3} className={styles.menuItem}>
-        <ListItemIcon ><DashboardIcon /></ListItemIcon>
+        <ListItemIcon ><AddCircleIcon /></ListItemIcon>
         <ListItemText primary="Новый проект"/>
         </MenuItem>
     </Link>
 
     <Link key={`link_4`} to="/coworkers" className="MuiListItem-button">
         <MenuItem key={4} className={styles.menuItem}>
-        <ListItemIcon ><DashboardIcon /></ListItemIcon>
+        <ListItemIcon ><PeopleIcon /></ListItemIcon>
         <ListItemText primary="Сотрудники"/>
         </MenuItem>
     </Link>
 
     <Link key={`link_5`} to="/clinics" className="MuiListItem-button">
         <MenuItem key={5} className={styles.menuItem}>
-        <ListItemIcon ><DashboardIcon /></ListItemIcon>
+        <ListItemIcon ><LocalHospitalIcon /></ListItemIcon>
         <ListItemText primary="Лечебные учреждения"/>
         </MenuItem>
     </Link>      

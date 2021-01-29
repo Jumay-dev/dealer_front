@@ -7,6 +7,10 @@ import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom'
 import CommercialOfferList from "./ModalCommercialOffer"
 
+import GetAppIcon from '@material-ui/icons/GetApp';
+import ChatIcon from '@material-ui/icons/Chat';
+import InfoIcon from '@material-ui/icons/Info';
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import { thunkData } from "../services/thunks";
@@ -38,6 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
         justifyContent: "space-between",
         background: "#D6D2C4",
         padding: "10px !important",
+    },
+    button: {
+        display: "flex",
+        justifyContent: "space-between"
     }
   }),
 );
@@ -68,7 +76,7 @@ function ProjectOne({ item, toolsList, getTools }) {
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
-                <Grid item xs={12} lg={3} className={classes.gridInfo}>
+                <Grid item xs={12} lg={4} className={classes.gridInfo}>
                     <Typography variant="subtitle1">
                         # {item.id}
                     </Typography>
@@ -101,26 +109,26 @@ function ProjectOne({ item, toolsList, getTools }) {
                     </Typography>
 
                     {item.tools.map(elem => <ToolResolver toolid={elem.tools_id}/>)}
-                    
-                    {/* {toolsList.length !== 0 ? toolsList.map(item => <Typography variant="subtitle1" paragraph>{item.name}</Typography>) 
-                    : <Typography variant="subtitle1" paragraph>Нет авторизованных позиций</Typography>} */}
                 </Grid>
 
-                <Grid item xs={12} lg={3} className={classes.gridButtons}>
+                <Grid item xs={12} lg={2} className={classes.gridButtons}>
 
                     <CommercialOfferList />
                     
-                    <Button variant="contained" color="primary">
+                    <Button variant="contained" color="primary" className={classes.button}>
+                        <GetAppIcon />
                         Скачать КП дилера
                     </Button>
 
                     <Link to="/newproject">
-                        <Button variant="contained" color="primary">
+                        <Button variant="contained" color="primary" style={{width: "100%"}} className={classes.button}>
+                            <InfoIcon />
                             Подробнее о проекте
                         </Button>
                     </Link>
 
-                    <Button variant="contained" color="primary">
+                    <Button variant="contained" color="primary" className={classes.button}>
+                        <ChatIcon />
                         Чат с менеджером
                     </Button>
 
@@ -131,7 +139,6 @@ function ProjectOne({ item, toolsList, getTools }) {
 }
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
       toolsList: state.tool.toolsList,
     }

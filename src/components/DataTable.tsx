@@ -14,8 +14,9 @@ import ContentCreate from "@material-ui/icons/Create";
 import ActionDelete from "@material-ui/icons/Delete";
 import Download from "@material-ui/icons/ArrowDownward";
 import Checkbox from '@material-ui/core/Checkbox';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
-import { pink, grey, green, common } from "@material-ui/core/colors";
+import { pink, grey, green, common, red } from "@material-ui/core/colors";
 
 const grey500 = grey["500"];
 const green400 = green["400"];
@@ -25,9 +26,6 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
-});
-
-const styles = {
   searchButton: {
     marginRight: 20,
   },
@@ -39,9 +37,14 @@ const styles = {
   editButtonIcon: {
     fill: white,
   },
+  downloadButton: {
+    fill: green400,
+    margin: 5
+  },
   deleteButton: {
     color: "grey",
-    fill: grey500,
+    fill: red['400'],
+    margin: 5
   },
   columns: {
     width10: {
@@ -57,7 +60,7 @@ const styles = {
     margin: "0 auto",
     paddingTop: 10,
   },
-};
+});
 
 interface DataTableProps {
   model?: string;
@@ -67,12 +70,13 @@ interface DataTableProps {
 }
 
 function ActionReturner({actionName}) {
+  const classes = useStyles();
   if (actionName === 'edit') {
     return (
       <Tooltip title="Edit" aria-label="edit">
         <Fab
           size="small"
-          style={styles.editButton}
+          className={classes.editButton}
         >
           <ContentCreate />
         </Fab>
@@ -84,7 +88,7 @@ function ActionReturner({actionName}) {
       <Tooltip title="Delete" aria-label="delete">
         <Fab
           size="small"
-          style={styles.deleteButton}
+          className={classes.deleteButton}
         >
           <ActionDelete />
         </Fab>
@@ -96,9 +100,9 @@ function ActionReturner({actionName}) {
       <Tooltip title="Download" aria-label="download">
         <Fab
           size="small"
-          style={styles.deleteButton}
+          className={classes.deleteButton}
         >
-          <Download />
+          <ListAltIcon />
         </Fab>
       </Tooltip>
     )

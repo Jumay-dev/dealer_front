@@ -3,7 +3,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import DataTable from "./DataTable"
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
 function getModalStyle() {
   const top = 50;
@@ -77,6 +78,7 @@ export default function CommercialOffer() {
   return (
     <>
       <Button type="button" onClick={handleOpen} variant="contained" color="primary">
+        <ListAltIcon />
         КП клиенту
       </Button>
       <Modal

@@ -10,6 +10,8 @@ import { connect } from "react-redux";
 import { LIST_PROJECTS } from "../store/types";
 
 function ProjectsList({ getProjects, projectsList }) {
+  const [page, setPage] = React.useState(1)
+  
   let projectListAction = {
     type: LIST_PROJECTS,
     endpoint: "projects/",
@@ -26,9 +28,9 @@ function ProjectsList({ getProjects, projectsList }) {
               Список проектов
           </Typography>
           <Search />
-          <Pagination count={10} color="secondary" size="large"/>
+          <Pagination count={10} color="secondary" size="large" page={page} onChange={(e, page) => setPage(page)}/>
           {projectsList.length !== 0 ? projectsList.map(item => <ProjectOne item={item} key={item.id}/>) : <CircularProgress color="secondary"/>}
-          <Pagination count={10} color="secondary" size="large"/>
+          <Pagination count={10} color="secondary" size="large" page={page} onChange={(e, page) => setPage(page)}/>
       </>
   )
 }

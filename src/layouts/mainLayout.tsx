@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,6 +17,9 @@ import { layoutStyles } from './layoutStyles'
 
 import NotificationsMenu from '../components/NotificationsMenu'
 import MailsMenu from '../components/MailsMenu'
+
+import logo from '../assets/logo.png'
+import '../css/index.css'
 
 function MainLayout({children}) {
     const classes = layoutStyles();
@@ -44,8 +46,9 @@ function MainLayout({children}) {
             >
               <MenuIcon />
             </IconButton>
+            <img src={logo} alt='' style={{width: 100, marginBottom: 10}}/>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              DS.Med
+              Система авторизации оборудования
             </Typography>
 
             <NotificationsMenu />

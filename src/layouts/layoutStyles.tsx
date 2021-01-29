@@ -40,6 +40,9 @@ export const layoutStyles = makeStyles((theme) => ({
     },
     title: {
       flexGrow: 1,
+      marginLeft: 10,
+      fontFamily: '"Europe", "Roboto", "Helvetica", "Arial", sans-serif',
+      fontStyle: "italic"
     },
     drawerPaper: {
       position: 'relative',
