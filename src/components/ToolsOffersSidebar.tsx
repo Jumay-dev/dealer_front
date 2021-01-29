@@ -135,7 +135,7 @@ export default function PersistentDrawerRight({ authorised }) {
         item.children = arr.filter( elem => elem.parent === item.id)
         tree.push(item)
       } else {
-        const parent = arr.find( elem => item.id === elem.parent)
+        const parent = arr.find( elem => item.parent === elem.id)
         if (!parent) {
           tree.push(item)
         }
@@ -151,12 +151,6 @@ export default function PersistentDrawerRight({ authorised }) {
     const isOfferExist = currentTools.find( elem => elem.id === item.id)
     if(!isOfferExist) {
       let {children, ...handledItem} = item
-      const parent = currentTools.find( el => el.id === handledItem.parent)
-      if (!parent) {
-        handledItem.withoutParent = true
-      } else {
-        handledItem.withoutParent = false
-      }
       handledItem.uid = Date.now()
       currentTools.push(handledItem)
       setAddedTools(currentTools)
