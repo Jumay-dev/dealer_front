@@ -42,6 +42,8 @@ export default function ModalCommercialOfferPresend({addedTools}) {
     setOpen(false);
   };
 
+  console.log(addedTools)
+
   function rowsForDataTableMaker(tools) {
     let reducedRows = []
     console.log(tools)
@@ -49,7 +51,7 @@ export default function ModalCommercialOfferPresend({addedTools}) {
         tools.forEach( tool => {
             reducedRows.push({
                 name: tool.id,
-                cells: [tool.name, tool.price, "1", "300000"]
+                cells: [tool.name, tool.clientPrice, tool.count, tool.clientDiscount, tool.clientPrice*tool.count]
             })
         })
     }
@@ -70,10 +72,13 @@ export default function ModalCommercialOfferPresend({addedTools}) {
         <div style={modalStyle} className={classes.paper}>
             <h2 id="simple-modal-title">КП для клиента</h2>
             <DateTable 
-                headers={['Название позиции', 'Цена', "Количество", "Сумма"]}
+                headers={['Название позиции', 'Цена', "Количество", "Скидка", "Сумма"]}
                 rows={rowsForDataTableMaker(addedTools)}
                 actions={[]}
             />
+          <Button type="button" variant="contained" color="primary">
+            Отправить на формирование
+          </Button>
         </div>
       </Modal>
     </>

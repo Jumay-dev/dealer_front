@@ -67,28 +67,51 @@ const StyledTableRowClient = withStyles((theme: Theme) =>
   }),
 )(TableRow);
 
-function CommercialOfferPositionMain({ primary, tool, deleteTool }) {
-  const basePrice: number = tool.price
-  const [dealerDiscount, setDealerDiscount] = React.useState<number>(30)
+function CommercialOfferPositionMain(
+  { primary, 
+    tool, 
+    deleteTool,
+    addedTools,
+    setAddedTools
+   }) {
+  const basePrice: number = tool.dealerPrice
+  const [dealerDiscount, setDealerDiscount] = React.useState<number>(tool.dealerDiscount)
   const [dealerPrice, setDealerPrice] = React.useState<number>(basePrice - (basePrice/100)*dealerDiscount)
 
-  const [clientPrice, setClientPrice] = React.useState<number>(290000)
-  const [clientDiscount, setClientDiscount] = React.useState<number>(10)
-  const [count, setCount] = React.useState<number>(1)
+  const [clientPrice, setClientPrice] = React.useState<number>(tool.clientPrice)
+  const [clientDiscount, setClientDiscount] = React.useState<number>(tool.clientDiscount)
+  const [count, setCount] = React.useState<number>(tool.count)
   const classes = useStyles()
 
   function changeHandler(e) {
+    let currentTools = addedTools.splice(0)
     if (e.target.name === 'clientDiscount') {
-      setClientDiscount(e.target.value)
-      setClientPrice(basePrice - (basePrice * (e.target.value / 100)))
+      const newClientDiscount = e.target.value
+      const newClientPrice = basePrice - (basePrice * (e.target.value / 100))
+
+      let newTools = outerToolsRewriter(currentTools, 'clientDiscount', newClientDiscount)
+      newTools = outerToolsRewriter(currentTools, 'clientPrice', newClientPrice)
+      setClientDiscount(newClientDiscount)
+      setClientPrice(newClientPrice)
+      setAddedTools(newTools)
     }
     if (e.target.name === 'clientPrice') {
       setClientPrice(e.target.value)
       setClientDiscount((basePrice - e.target.value) / (basePrice / 100))
     }
     if (e.target.name === "count") {
+      let newTools = outerToolsRewriter(currentTools, 'count', e.target.value)
       setCount(e.target.value)
+      setAddedTools(newTools)
     }
+  }
+
+  function outerToolsRewriter(clonedTools, field, value) {
+    const ind = clonedTools.findIndex( obj => obj.id === tool.id)
+    let foundTool = clonedTools[ind]
+    foundTool[field] = value
+    clonedTools[ind] = foundTool
+    return clonedTools
   }
 
   return (
@@ -101,7 +124,7 @@ function CommercialOfferPositionMain({ primary, tool, deleteTool }) {
                   <Typography variant="subtitle1" paragraph>
                       Количество
                   </Typography>
-                  <Input type="number" defaultValue={1} name="count" onChange={changeHandler}/>
+                  <Input type="number" value={count} name="count" onChange={changeHandler}/>
               </Grid>
               <Grid lg={4} xs={12} item>
                   <Table className={classes.table} aria-label="customized table">

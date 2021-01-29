@@ -262,6 +262,8 @@ export default function PersistentDrawerRight({ authorised }) {
               key={tool.id}
               deleteTool={deleteTool}
               offers={tool}
+              addedTools={addedTools}
+              setAddedTools={setAddedTools}
               />) : <Typography>Нажмите "Выбрать оборудование", чтобы начать создание коммерческого предложения для клиента</Typography>}
           </TabPanel>
           <TabPanel value={activeTab} index={1}>
