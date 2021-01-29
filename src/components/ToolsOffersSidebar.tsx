@@ -118,12 +118,27 @@ export default function PersistentDrawerRight({ authorised }) {
   }
 
   // функция строит дерево коммерческого предложения, O(n^2)
+  // function commercialOfferTreeBuilding(arr: Array<any>) {
+  //   let tree = []
+  //   arr.forEach( item => {
+  //     if (item.parent === null) {
+  //       item.children = arr.filter( elem => elem.parent === item.id)
+  //       tree.push(item)
+  //     }
+  //   })
+  //   return tree
+  // }
   function commercialOfferTreeBuilding(arr: Array<any>) {
     let tree = []
     arr.forEach( item => {
       if (item.parent === null) {
         item.children = arr.filter( elem => elem.parent === item.id)
         tree.push(item)
+      } else {
+        const parent = arr.find( elem => item.id === elem.parent)
+        if (!parent) {
+          tree.push(item)
+        }
       }
     })
     return tree
@@ -138,7 +153,9 @@ export default function PersistentDrawerRight({ authorised }) {
       let {children, ...handledItem} = item
       const parent = currentTools.find( el => el.id === handledItem.parent)
       if (!parent) {
-        handledItem.parent = null
+        handledItem.withoutParent = true
+      } else {
+        handledItem.withoutParent = false
       }
       handledItem.uid = Date.now()
       currentTools.push(handledItem)

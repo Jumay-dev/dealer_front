@@ -12,9 +12,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Fab from "@material-ui/core/Fab";
 import ContentCreate from "@material-ui/icons/Create";
 import ActionDelete from "@material-ui/icons/Delete";
-import Download from "@material-ui/icons/ArrowDownward";
 import Checkbox from '@material-ui/core/Checkbox';
-import ListAltIcon from '@material-ui/icons/ListAlt';
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 import { pink, grey, green, common, red } from "@material-ui/core/colors";
 
@@ -102,7 +101,7 @@ function ActionReturner({actionName}) {
           size="small"
           className={classes.deleteButton}
         >
-          <ListAltIcon />
+          <GetAppIcon />
         </Fab>
       </Tooltip>
     )
