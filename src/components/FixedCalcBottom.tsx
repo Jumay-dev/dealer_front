@@ -2,6 +2,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import ModalCommercialOfferPresend from './ModalCommercialOfferPresend'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,9 +28,7 @@ function FixedCalcBottom({ positionsCount, positionsPrice, addedTools }) {
             <TextField id="code" label="Код дилера" />
             <p>Всего позиций: {positionsCount}</p>
             <p>Итого: {positionsPrice} ₽</p>
-            <Button variant="contained" color="primary" onClick={() => console.log(addedTools)}>
-                Сформировать КП
-            </Button>
+            <ModalCommercialOfferPresend addedTools={addedTools}/>
         </Paper>
         </div>
     )
