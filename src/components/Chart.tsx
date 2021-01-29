@@ -7,10 +7,20 @@ import {
   CartesianGrid, 
   Line, 
   ResponsiveContainer,
-  
+  AreaChart, 
+  Area,
+  Tooltip,
+  PieChart, 
+  Pie, 
+  Sector, 
+  Cell,
+  Legend,
+  Bar,
+  ComposedChart
  } from 'recharts';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { curveCardinal } from 'd3-shape';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,44 +32,94 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function LineChartWrapper(data) {
+const cardinal = curveCardinal.tension(0.2);
+
+function LineChartWrapper({data}) {
   return (
-    <LineChart 
-    data={data}
-    margin={{
-      top: 10, right: 30, left: 0, bottom: 0,
-    }}
-    >
-      <XAxis dataKey="name"/>
-      <YAxis/>
-      <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-      <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-      <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-    </LineChart>
+    <ResponsiveContainer>
+      <LineChart 
+      data={data}
+      margin={{
+        top: 10, right: 30, left: 0, bottom: 0,
+      }}
+      >
+        <XAxis dataKey="name"/>
+        <YAxis/>
+        <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+        <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+      </LineChart>
+    </ResponsiveContainer>
   )
 }
 
-function AreaChartWrapper(data) {
+function AreaChartWrapper({data}) {
   return (
-    <AreaChart
-    width={500}
-    height={400}
-    data={data}
-    margin={{
-      top: 10, right: 30, left: 0, bottom: 0,
-    }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
-      <Area type={cardinal} dataKey="uv" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.3} />
-    </AreaChart>
+    <ResponsiveContainer>
+      <AreaChart
+        data={data}
+        margin={{
+          top: 10, right: 30, left: 0, bottom: 0,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+      </AreaChart>
+    </ResponsiveContainer>
   )
 }
 
-function 
+function ComposedChartWrapper({data}) {
+  return (
+    <ResponsiveContainer>
+      <ComposedChart
+        data={data}
+        margin={{
+          top: 20, right: 20, bottom: 20, left: 20,
+        }}
+      >
+        <CartesianGrid stroke="#f5f5f5" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="uv" barSize={20} fill="#413ea0" />
+        <Line type="monotone" dataKey="uv" stroke="#ff7300" />
+      </ComposedChart>
+    </ResponsiveContainer>
+  )
+}
+
+function PieChartWrapper({data}) {
+  const data01 = data.data01
+  const data02 = data.data02
+  return (
+    <ResponsiveContainer>
+      <PieChart>
+        <Pie dataKey="value" isAnimationActive={false} data={data01} outerRadius={80} fill="#8884d8" label />
+        <Pie dataKey="value" data={data02} innerRadius={40} outerRadius={80} fill="#82ca9d" />
+        <Tooltip />
+      </PieChart>
+    </ResponsiveContainer>
+  );
+}
+
+function ChartRenderer({chartType, data}) {
+  switch(chartType) {
+    case 'line':
+      return <LineChartWrapper data={data}/>
+    case 'area':
+      return <AreaChartWrapper data={data}/>
+    case 'pie':
+      return <PieChartWrapper data={data}/>
+    case 'composed':
+      return <ComposedChartWrapper data={data}/>
+    default: return null
+  }
+}
 
 export default function Chart({header, chartType, data}) {
   const classes = useStyles();
@@ -69,9 +129,7 @@ export default function Chart({header, chartType, data}) {
       <Typography variant="h5" align="center">
         {header}
       </Typography>
-      <ResponsiveContainer>
- 
-      </ResponsiveContainer>
+      <ChartRenderer data={data} chartType={chartType}/>
     </div>
   );
 }

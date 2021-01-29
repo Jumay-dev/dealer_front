@@ -38,6 +38,18 @@ const data = [
   },
 ];
 
+const data01 = [
+  { name: 'Group A', value: 400 }, { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 }, { name: 'Group D', value: 200 },
+  { name: 'Group E', value: 278 }, { name: 'Group F', value: 189 },
+];
+
+const data02 = [
+  { name: 'Group A', value: 2400 }, { name: 'Group B', value: 4567 },
+  { name: 'Group C', value: 1398 }, { name: 'Group D', value: 9800 },
+  { name: 'Group E', value: 3908 }, { name: 'Group F', value: 4800 },
+];
+
 function Main() {
   const classes = useStyles()
     return (
@@ -51,11 +63,16 @@ function Main() {
                 <Chart header={"Статистика продаж"} chartType={"line"} data={data}/>
               </Grid>
               <Grid item lg={6}>
-                <Chart header={"Динамика авторизаций"} chartType={"line"} data={data}/>
+                <Chart header={"Динамика авторизаций"} chartType={"area"} data={data}/>
+              </Grid>
+              <Grid item lg={6}>
+                <Chart header={"Направления"} chartType={"pie"} data={{data01, data02}}/>
+              </Grid>
+              <Grid item lg={6}>
+                <Chart header={"Проектная активность"} chartType={"composed"} data={data}/>
               </Grid>
             </Grid>
           </Paper>
-          
         </>
     )
 }
