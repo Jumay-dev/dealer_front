@@ -38,6 +38,18 @@ const useStyles = makeStyles((theme: Theme) =>
         justifyContent: "space-between",
         background: "#D6D2C4",
         padding: "10px !important",
+    },
+    dateBlock: {
+        margin: 2,
+        padding: 2
+    },
+    dealerBlock: {
+        margin: 2,
+        padding: 2
+    },
+    managerBlock: {
+        margin: 2,
+        padding: 2
     }
   }),
 );
@@ -72,27 +84,36 @@ function ProjectOne({ item, toolsList, getTools }) {
                     <Typography variant="subtitle1">
                         # {item.id}
                     </Typography>
-                    <Typography variant="subtitle1">
-                        Зарегистрирован {item.added}
-                    </Typography>
-                    <Typography variant="subtitle1">
-                        Дилер: {item.dealer} 
-                    </Typography>
-                    <Typography variant="subtitle1">
-                        Сотрудник: {item.employee}
-                    </Typography>
-                    <Typography variant="subtitle1">
-                        Клиент: {item.client} 
-                    </Typography>
-                    <Typography variant="subtitle1">
-                        Актуализирован: {item.actualised}
-                    </Typography>
-                    <Typography variant="subtitle1">
-                        В реестре до {item.expires}
-                    </Typography>
+                    
+                    <Paper className={classes.dateBlock}>
+                        <Typography variant="subtitle1">
+                            Зарегистрирован {item.added}
+                        </Typography>
+                        <Typography variant="subtitle1">
+                            Продлен до: {item.actualised}
+                        </Typography>
+                        <Typography variant="subtitle1">
+                            В реестре до {item.expires}
+                        </Typography>
+                    </Paper>
+
+                    <Paper className={classes.dealerBlock}>
+                        <Typography variant="subtitle1">
+                            Клиент: {item.client} 
+                        </Typography>
+                        <Typography variant="subtitle1">
+                            Дилер: {item.dealer} 
+                        </Typography>
+                        <Typography variant="subtitle1">
+                            Сотрудник: {item.employee}
+                        </Typography>
+                    </Paper>
+
+                    <Paper className={classes.managerBlock}>
                     <Typography variant="subtitle1">
                         Менеджер: {item.manager} 
                     </Typography>
+                    </Paper>
                 </Grid>
 
                 <Grid item xs={12} lg={6} className={classes.gridTools}>
