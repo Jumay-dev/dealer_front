@@ -13,6 +13,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
 
 import { tools_block, tools } from '../middleware/infods5i_dealers'
 
@@ -29,6 +30,10 @@ const useStyles = makeStyles((theme: Theme) =>
         minWidth: 650,
         width: "100%"
     },
+    accordionSummaryStyle: {
+        display: 'flex',
+        alignItems: "space-between"
+    }
   }),
 );
 
@@ -43,8 +48,10 @@ function AccordionOfTools(props) {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
+                className={classes.accordionSummaryStyle}
                 >
                 <Typography className={classes.heading}>{props.categoryName}</Typography>
+                <Button>Выбрать направление</Button>
                 </AccordionSummary>
                 <AccordionDetails >
                     <Typography className={classes.root}>
