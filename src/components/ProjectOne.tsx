@@ -89,7 +89,7 @@ function ProjectOne({ item, toolsList, getTools }) {
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
                 <Grid item xs={12} lg={4} className={classes.gridInfo}>
-                    <Typography variant="subtitle1">
+                    <Typography variant="subtitle1" style={{color: 'white', fontWeight: "bold"}}>
                         # {item.id}
                     </Typography>
                     

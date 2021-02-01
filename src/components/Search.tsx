@@ -20,21 +20,19 @@ function Search() {
     function SelectorForSearchByToolsType() {
         return (
             <Select
-                value={searchType}
+                value={0}
                 id="select"
             >   
-                <MenuItem value={0}>Мониторы пациента</MenuItem>
-                <MenuItem value={1}>Рентген-аппараты</MenuItem>
+                <MenuItem value={0}>Всё оборудование</MenuItem>
+                <MenuItem value={1}>Мониторы пациента</MenuItem>
+                <MenuItem value={2}>Рентген-аппараты</MenuItem>
             </Select>
         )
     }
 
     function DatePickerForSearchByDate() {
-        const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
-
-        const handleDateChange = (date) => {
-          setSelectedDate(date);
-        };
+        const [startRangeDate, setStartRangeDate] = React.useState(new Date('2014-08-18T21:11:54'));
+        const [endRangeDate, setEndRangeDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
         return (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -44,13 +42,27 @@ function Search() {
                     format="MM/dd/yyyy"
                     margin="normal"
                     id="date-picker-inline"
-                    label="Date picker inline"
-                    value={selectedDate}
-                    onChange={handleDateChange}
+                    label="С какой даты"
+                    value={startRangeDate}
+                    onChange={date => setStartRangeDate(date)}
                     KeyboardButtonProps={{
                     'aria-label': 'change date',
-                }}
-            />
+                    }}
+                />
+                <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="MM/dd/yyyy"
+                    margin="normal"
+                    id="date-picker-inline"
+                    label="До какой даты"
+                    value={endRangeDate}
+                    onChange={date => setEndRangeDate(date)}
+                    KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                    }}
+                    style={{marginLeft: "1em"}}
+                />
           </MuiPickersUtilsProvider>
         )
     }
