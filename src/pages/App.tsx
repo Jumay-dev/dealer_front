@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Main from "../pages/Main";
 import Login from "../pages/Login";
-import Clinics from "../pages/Clinics";
 import CompanyProfile from "../pages/CompanyProfile"
 import ProjectsList from "../pages/ProjectsList"
 import Coworkers from '../pages/Coworkers'
