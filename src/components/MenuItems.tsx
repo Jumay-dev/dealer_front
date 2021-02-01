@@ -60,14 +60,7 @@ export function MainListItems() {
         <ListItemIcon ><PeopleIcon /></ListItemIcon>
         <ListItemText primary="Сотрудники"/>
         </MenuItem>
-    </Link>
-
-    <Link key={`link_5`} to="/clinics" className="MuiListItem-button">
-        <MenuItem key={5} className={styles.menuItem}>
-        <ListItemIcon ><LocalHospitalIcon /></ListItemIcon>
-        <ListItemText primary="Лечебные учреждения"/>
-        </MenuItem>
-    </Link>      
+    </Link>     
     </div>
     )
 }

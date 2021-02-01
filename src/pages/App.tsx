@@ -37,7 +37,6 @@ function App(props) {
       {isAuthenticated && (
         <div>
           <RouteWrapper exact path="/" component={Main} layout={mainLayout}/>
-          <RouteWrapper exact path="/clinics" component={Clinics} layout={mainLayout} />
           <RouteWrapper exact path="/company" component={CompanyProfile} layout={mainLayout} />
           <RouteWrapper exact path="/projects" component={ProjectsList} layout={mainLayout} />
           <RouteWrapper exact path="/newproject" component={Project} layout={mainLayout} />
