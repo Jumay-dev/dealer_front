@@ -15,6 +15,45 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const testUserListReducedToRows = [
+    {
+        name: 1,
+        cells: ['Иванов Иван Иванович', '21.01.2021', '+7 (800) 555-35-35', "ivanov@aaa.ru", 'Сотрудник']
+    },
+    {
+        name: 2,
+        cells: ['Петров Петр Петрович', '21.01.2021', '+7 (800) 555-35-35', "petrov@aaa.ru", 'Сотрудник']
+    },
+    {
+        name: 3,
+        cells: ['Генералов Алексей Иванович', '21.01.2021', '+7 (800) 555-35-35', "generalov@aaa.ru", 'Нач. отдела']
+    },
+    {
+        name: 4,
+        cells: ['Иванов Иван Иванович', '21.01.2021', '+7 (800) 555-35-35', "ivanov@aaa.ru", 'Сотрудник']
+    },
+    {
+        name: 5,
+        cells: ['Петров Петр Петрович', '21.01.2021', '+7 (800) 555-35-35', "petrov@aaa.ru", 'Сотрудник']
+    },
+    {
+        name: 6,
+        cells: ['Генералов Алексей Иванович', '21.01.2021', '+7 (800) 555-35-35', "generalov@aaa.ru", 'Нач. отдела']
+    },
+    {
+        name: 7,
+        cells: ['Иванов Иван Иванович', '21.01.2021', '+7 (800) 555-35-35', "ivanov@aaa.ru", 'Сотрудник']
+    },
+    {
+        name: 8,
+        cells: ['Петров Петр Петрович', '21.01.2021', '+7 (800) 555-35-35', "petrov@aaa.ru", 'Сотрудник']
+    },
+    {
+        name: 9,
+        cells: ['Генералов Алексей Иванович', '21.01.2021', '+7 (800) 555-35-35', "generalov@aaa.ru", 'Нач. отдела']
+    },
+]
+
 function Coworkers() {
     const classes = useStyles()
     return (
@@ -26,20 +65,7 @@ function Coworkers() {
             <Pagination count={10} color="secondary" size="large" style={{marginBottom: 10}}/>
             <DataTable
                 headers={["Имя", "Зарегистрирован", "Телефон", "Почта", "Роль"]}
-                rows={[
-                    {
-                        name: 1,
-                        cells: ['Иванов Иван Иванович', '21.01.2021', '+7 (800) 555-35-35', "ivanov@aaa.ru", 'Сотрудник']
-                    },
-                    {
-                        name: 2,
-                        cells: ['Петров Петр Петрович', '21.01.2021', '+7 (800) 555-35-35', "petrov@aaa.ru", 'Сотрудник']
-                    },
-                    {
-                        name: 3,
-                        cells: ['Генералов Алексей Иванович', '21.01.2021', '+7 (800) 555-35-35', "generalov@aaa.ru", 'Нач. отдела']
-                    }
-                ]}
+                rows={testUserListReducedToRows}
                 actions={['delete', 'edit']}
             />
             <Pagination count={10} color="secondary" size="large" style={{marginTop: 10}}/>
