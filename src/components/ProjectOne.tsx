@@ -43,11 +43,10 @@ const useStyles = makeStyles((theme: Theme) =>
         background: "#D6D2C4",
         padding: "10px !important",
     },
-<<<<<<< HEAD
     button: {
         display: "flex",
         justifyContent: "space-between"
-=======
+    },
     dateBlock: {
         margin: 2,
         padding: 2
@@ -59,7 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
     managerBlock: {
         margin: 2,
         padding: 2
->>>>>>> newedits
     }
   }),
 );

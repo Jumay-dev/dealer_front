@@ -2,6 +2,7 @@ import React from 'react'
 import DataTable from '../components/DataTable'
 import Search from '../components/Search'
 import Pagination from '@material-ui/lab/Pagination';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -18,27 +19,30 @@ function Coworkers() {
     const classes = useStyles()
     return (
         <>
+            <Typography component="h1" variant="h4">
+                Мои сотрудники
+            </Typography>
             <Search />
-            <Pagination count={10} color="secondary" size="large"/>
+            <Pagination count={10} color="secondary" size="large" style={{marginBottom: 10}}/>
             <DataTable
-                headers={["Имя", "Зарегистрирован", "Роль"]}
+                headers={["Имя", "Зарегистрирован", "Телефон", "Почта", "Роль"]}
                 rows={[
                     {
                         name: 1,
-                        cells: ['Иванов Иван Иванович', '21.01.2021', '30.02.2021']
+                        cells: ['Иванов Иван Иванович', '21.01.2021', '+7 (800) 555-35-35', "ivanov@aaa.ru", 'Сотрудник']
                     },
                     {
                         name: 2,
-                        cells: ['Петров Петр Петрович', '21.01.2021', '30.02.2021']
+                        cells: ['Петров Петр Петрович', '21.01.2021', '+7 (800) 555-35-35', "petrov@aaa.ru", 'Сотрудник']
                     },
                     {
                         name: 3,
-                        cells: ['Сидоров Сидор Сидорович', '21.01.2021', '30.02.2021']
+                        cells: ['Генералов Алексей Иванович', '21.01.2021', '+7 (800) 555-35-35', "generalov@aaa.ru", 'Нач. отдела']
                     }
                 ]}
                 actions={['delete', 'edit']}
             />
-            <Pagination count={10} color="secondary" size="large"/>
+            <Pagination count={10} color="secondary" size="large" style={{marginTop: 10}}/>
         </>
     )
 }
