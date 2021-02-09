@@ -1,5 +1,8 @@
 import React from 'react'
 import ToolsOffersSidebar from '../components/ToolsOffersSidebar'
+import Configurator from '../components/Configurator'
+import ComOffer from '../components/ComOffer'
+
 function NewOffer() {
     // TestData
     const [authorised, setAuthorised] = React.useState([
@@ -53,10 +56,11 @@ function NewOffer() {
     ])
 
     return (
-        <div>
-            <ToolsOffersSidebar
-                authorised={authorised}
-            />
+        <div style={{
+            display: "flex",
+        }}>
+            <Configurator />
+            <ComOffer />
         </div>
     )
 }
