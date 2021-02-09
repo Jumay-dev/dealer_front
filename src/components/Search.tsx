@@ -39,7 +39,7 @@ function Search() {
                 <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
-                    format="MM/dd/yyyy"
+                    format="dd.mm.yyyy"
                     margin="normal"
                     id="date-picker-inline"
                     label="С какой даты"
@@ -48,11 +48,12 @@ function Search() {
                     KeyboardButtonProps={{
                     'aria-label': 'change date',
                     }}
+                    style={{margin: 0}}
                 />
                 <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
-                    format="MM/dd/yyyy"
+                    format="dd.mm.yyyy"
                     margin="normal"
                     id="date-picker-inline"
                     label="До какой даты"
@@ -61,7 +62,7 @@ function Search() {
                     KeyboardButtonProps={{
                     'aria-label': 'change date',
                     }}
-                    style={{marginLeft: "1em"}}
+                    style={{margin: 0, marginLeft: "1em"}}
                 />
           </MuiPickersUtilsProvider>
         )

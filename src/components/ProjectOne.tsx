@@ -88,7 +88,7 @@ function ProjectOne({ item, toolsList, getTools }) {
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
-                <Grid item xs={12} lg={4} className={classes.gridInfo}>
+                <Grid item xs={12} lg={4} sm={12} md={6} className={classes.gridInfo}>
                     <Typography variant="subtitle1" style={{color: 'white', fontWeight: "bold"}}>
                         # {item.id}
                     </Typography>
@@ -124,7 +124,7 @@ function ProjectOne({ item, toolsList, getTools }) {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12} lg={6} className={classes.gridTools}>
+                <Grid item xs={12} lg={6} className={classes.gridTools} sm={12} md={6}>
                     <Typography variant="subtitle1" paragraph>
                         Авторизовано
                     </Typography>
@@ -132,7 +132,7 @@ function ProjectOne({ item, toolsList, getTools }) {
                     {item.tools.map(elem => <ToolResolver toolid={elem.tools_id}/>)}
                 </Grid>
 
-                <Grid item xs={12} lg={2} className={classes.gridButtons}>
+                <Grid item xs={12} lg={2} className={classes.gridButtons} sm={12} md={12}>
 
                     <CommercialOfferList />
                     

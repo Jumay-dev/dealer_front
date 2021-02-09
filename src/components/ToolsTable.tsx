@@ -32,7 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     accordionSummaryStyle: {
         display: 'flex',
-        alignItems: "space-between"
+        justifyContent: "space-between !important",
+        width: "100%",
+        height: "100%",
+        background: 'gray'
     }
   }),
 );
@@ -40,7 +43,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function AccordionOfTools(props) {
     const classes = useStyles();
-    let toolsInAccordion = tools.filter( tool => +tool.tool_view_block === +props.id)
+    let toolsInAccordion = props.tools
+    console.log(toolsInAccordion)
     return (
         <React.Fragment>
             <Accordion>
@@ -48,10 +52,15 @@ function AccordionOfTools(props) {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                className={classes.accordionSummaryStyle}
                 >
-                <Typography className={classes.heading}>{props.categoryName}</Typography>
-                <Button>Выбрать направление</Button>
+                    <div className={classes.accordionSummaryStyle}>
+                    <Typography className={classes.heading}>{props.categoryName}</Typography>
+                    <Button 
+                    variant="contained" 
+                    color="primary"
+                    >Выбрать направление</Button>
+                    </div>
+
                 </AccordionSummary>
                 <AccordionDetails >
                     <Typography className={classes.root}>
@@ -59,16 +68,18 @@ function AccordionOfTools(props) {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Название</TableCell>
-                                <TableCell align="center"><Checkbox /></TableCell>
+                                <TableCell align="center"><Checkbox/></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {toolsInAccordion.map( oneTool => (
-                            <TableRow key={oneTool.id}>
-                                <TableCell component="th" scope="row">{oneTool.tool_name}</TableCell>
-                                <TableCell align="center" scope="row" component="th"><Checkbox /></TableCell>
-                            </TableRow>
-                            ))}
+                            {toolsInAccordion ? toolsInAccordion.map( oneTool => (
+                                <TableRow key={oneTool.id}>
+                                    <TableCell component="th" scope="row">{oneTool.tool_name}</TableCell>
+                                    <TableCell align="center" scope="row" component="th">
+                                        <Checkbox checked={oneTool.isChecked} onChange={() => console.log(oneTool.isChecked)}/>
+                                    </TableCell>
+                                </TableRow>
+                            )) : null}
                         </TableBody>
                     </Table>
                     </Typography>
@@ -80,13 +91,32 @@ function AccordionOfTools(props) {
 
 function ToolsTable() {
     const classes = useStyles();
+    const [categories, setCategories] = React.useState(tools_block)
+    const [toolsList, setToolsList] = React.useState(tools)
+
+    React.useEffect( () => {
+        let currentTools = toolsList.splice(0)
+        currentTools.forEach( item => item.isChecked = true)
+        setToolsList(currentTools)
+    }, [])
+
+    function getFilteredToolsByCategory(tools, categoryID) {
+        if (Array.isArray(tools) && tools.length !== 0) {
+            return tools.filter(tool => +tool.tool_view_block === +categoryID)
+        }
+    }
     
     return (
         <React.Fragment>
             <Typography component="h2" variant="h4" align="center">
                 Авторизуемое оборудование
             </Typography>
-            {tools_block.map(block => <AccordionOfTools categoryName={block.block_name} id={block.id}/>)}
+            {categories.map(category => 
+            <AccordionOfTools 
+            categoryName={category.block_name} 
+            id={category.id} 
+            tools={getFilteredToolsByCategory(toolsList, category.id)}
+            />)}
         </React.Fragment>
     )
 }
