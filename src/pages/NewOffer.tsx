@@ -21,7 +21,7 @@ function NewOffer() {
             id: 1,
             parent: null,
             category: 1,
-            name: 'Цифровой рентгеновский аппарат Listem PROGEN-650R: DRS',
+            name: 'Центральная станция мониторинга Votem VC-2000',
             image: 'https://ds-med.ru/wp-content/uploads/2020/04/650-R-DRS.png',
             wiki: 'https://ds-med.ru/product/listem-progen-650r-drs/',
             dealerPrice: 300000,

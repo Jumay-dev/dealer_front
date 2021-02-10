@@ -11,11 +11,8 @@ import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
 
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -48,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%"
     },
     selectedToolStyle: {
-      background: "#D8CEDF",
+      background: "#D8CEDF"
     },
     addingStyle: {
       minWidth: 275,
@@ -110,6 +107,9 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       backgroundColor: red[500],
     },
+    selectedPositionImg: {
+      height: 300
+    }
   }),
 );
 
@@ -255,11 +255,12 @@ function ToolCard({toolName, img, description, selected}) {
           title={toolName}
           subheader="10 000 $"
         />
-        <CardMedia
+        {!selected ? <CardMedia
           className={classes.media}
           image={img}
           title="Paella dish"
-        />
+        /> :
+        <img src={img} className={classes.selectedPositionImg}/>}
         <CardActions disableSpacing>
           {selected ? <Button variant="contained" color="secondary">Удалить</Button> : <Button variant="contained" color="secondary">Выбрать</Button>}
           {selected ? (
