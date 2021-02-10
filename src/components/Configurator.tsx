@@ -19,6 +19,10 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -88,17 +92,33 @@ function Configurator() {
 function AuthTools() {
     const classes = useStyles();
     return (
-        <Grid container className={classes.toolsContainer}>
-            <Grid item xs={6}>
-                <ToolCard />
-            </Grid>
-            <Grid item xs={6}>
-                <ToolCard />
-            </Grid>
-            <Grid item xs={6}>
-                <ToolCard />
-            </Grid>
-        </Grid>
+        
+        
+            <Accordion>
+                <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                className={classes.toolsContainer}
+                >
+                    <Typography>Мониторы пациента</Typography>
+                </AccordionSummary>
+                <AccordionDetails className={classes.toolsContainer}>
+                <Grid container>
+                    <Grid item xs={6}>
+                        <ToolCard />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <ToolCard />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <ToolCard />
+                    </Grid>
+                </Grid>
+                </AccordionDetails>
+            </Accordion>
+
+        
     )
 }
 
