@@ -6,10 +6,11 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PeopleIcon from '@material-ui/icons/People';
 import NotificationsMenu from '../components/NotificationsMenu'
 import MailsMenu from '../components/MailsMenu'
+import Divider from '@material-ui/core/Divider';
 
 import { Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
-import { ListItemIcon } from "@material-ui/core";
+import { ListItemIcon, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() =>
@@ -34,40 +35,43 @@ export function MainListItems() {
     }
     return (
     <div>
-    <Link key={`link_1`} to="/" className="MuiListItem-button">
-        <MenuItem key={1} className={styles.menuItem }>
-            <ListItemIcon ><DashboardIcon /></ListItemIcon>
-            <ListItemText primary="Главная"/>
-        </MenuItem>
-    </Link>
+        <Typography>Общее</Typography>
+        <Link key={`link_1`} to="/" className="MuiListItem-button">
+            <MenuItem key={1} className={styles.menuItem }>
+                <ListItemIcon ><DashboardIcon /></ListItemIcon>
+                <ListItemText primary="Статистика"/>
+            </MenuItem>
+        </Link>
+        <Link key={`link_4`} to="/coworkers" className="MuiListItem-button">
+            <MenuItem key={4} className={styles.menuItem}>
+            <ListItemIcon ><PeopleIcon /></ListItemIcon>
+            <ListItemText primary="Сотрудники"/>
+            </MenuItem>
+        </Link>
 
-    <Link key={`link_2`} to="/projects" className="MuiListItem-button">
-        <MenuItem key={2} className={styles.menuItem}>
-        <ListItemIcon ><TocIcon /></ListItemIcon>
-        <ListItemText primary="Управление проектами"/>
-        </MenuItem>
-    </Link>
+        <Divider />
+        <Typography>Проекты</Typography>
+        <Link key={`link_2`} to="/projects" className="MuiListItem-button">
+            <MenuItem key={2} className={styles.menuItem}>
+            <ListItemIcon ><TocIcon /></ListItemIcon>
+            <ListItemText primary="Управление проектами"/>
+            </MenuItem>
+        </Link>
+        <Link key={`link_3`} to="/newproject" className="MuiListItem-button">
+            <MenuItem key={3} className={styles.menuItem}>
+            <ListItemIcon ><AddCircleIcon /></ListItemIcon>
+            <ListItemText primary="Новый проект"/>
+            </MenuItem>
+        </Link>
 
-    <Link key={`link_3`} to="/newproject" className="MuiListItem-button">
-        <MenuItem key={3} className={styles.menuItem}>
-        <ListItemIcon ><AddCircleIcon /></ListItemIcon>
-        <ListItemText primary="Новый проект"/>
+        <Divider />
+        <Typography>Оповещение</Typography>
+        <MenuItem className={styles.menuItem }>
+            <NotificationsMenu />
         </MenuItem>
-    </Link>
-
-    <Link key={`link_4`} to="/coworkers" className="MuiListItem-button">
-        <MenuItem key={4} className={styles.menuItem}>
-        <ListItemIcon ><PeopleIcon /></ListItemIcon>
-        <ListItemText primary="Сотрудники"/>
-        </MenuItem>
-    </Link>
-
-    <MenuItem className={styles.menuItem }>
-        <NotificationsMenu />
-    </MenuItem>
-    <MenuItem className={styles.menuItem }>
-        <MailsMenu />
-    </MenuItem>    
+        <MenuItem className={styles.menuItem }>
+            <MailsMenu />
+        </MenuItem>    
     </div>
     )
 }

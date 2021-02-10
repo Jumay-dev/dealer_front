@@ -22,7 +22,9 @@ drawerPaper: {
 },
 avatarDiv: {
     padding: "15px 0 10px 10px" as TODO,
-    width: 250,
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between"
 },
 avatarIcon: {
     float: "left" as TODO,
@@ -32,7 +34,6 @@ avatarIcon: {
 },
 avatarSpan: {
     paddingTop: 0,
-    display: "block",
     color: "purple",
     fontWeight: 400,
     fontSize: 12,
@@ -132,30 +133,35 @@ function UserDropdown<AppUserMenuProps>({
   };
   return (
     <div style={styles.avatarDiv}>
-      <Avatar
-      src={"https://peopletalk.ru/wp-content/uploads/2017/11/1480331127.jpg?opt=true"}
-      style={styles.avatarIcon}
-      />
+      <span style={{
+        display: "flex",
+        alignItems: "center"
+      }}>
+        <Avatar
+        src={"https://peopletalk.ru/wp-content/uploads/2017/11/1480331127.jpg?opt=true"}
+        style={styles.avatarIcon}
+        />
+        <Typography style={styles.user} variant="inherit">
+          {user !== undefined ? user.firstname : null}
+        </Typography>
+      </span>
       <span style={styles.avatarSpan}>
-      <Typography style={styles.user} variant="inherit">
-        {user !== undefined ? user.firstname : null}
-      </Typography>
 
-      <IconButton
-        aria-label="account of current user"
-        aria-controls="menu-appbar"
-        aria-haspopup="true"
-        onClick={handleMenu}
-        color="secondary"
-      >
-        <ContentFilter />
-      </IconButton>
-      {withMenu({
-        anchorEl,
-        open,
-        signoutClick,
-        handleClose,
-      })}
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="secondary"
+        >
+          <ContentFilter />
+        </IconButton>
+        {withMenu({
+          anchorEl,
+          open,
+          signoutClick,
+          handleClose,
+        })}
       </span>
     </div>
   )
