@@ -60,7 +60,7 @@ function NewOffer() {
             display: "flex",
         }}>
             <Configurator />
-            <ComOffer />
+            <ComOffer authorised={authorised}/>
         </div>
     )
 }
