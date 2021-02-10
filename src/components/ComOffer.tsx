@@ -5,6 +5,7 @@ import CommercialOfferOne from "./CommercialOfferOne"
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
+import FixedCalcBottom from './FixedCalcBottom'
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
@@ -156,10 +157,12 @@ function ComOffer({authorised}) {
               setAddedTools={setAddedTools}
               />) : <Typography>Не добавлено ни одной позиции</Typography>}
             </TabPanel>
-            
+
             <TabPanel value={activeTab} index={1}>
               Здесь будут рекомендованные позиции по выбраным из авторизованных
             </TabPanel>
+
+            {activeTab === 0 ? <FixedCalcBottom positionsCount={positionsCount} positionsPrice={positionsPrice} addedTools={addedTools}/> : null}
         </Paper>
     )
 }
