@@ -2,6 +2,9 @@ import React from 'react'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import CommercialOfferOne from "./CommercialOfferOne"
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
@@ -22,6 +25,7 @@ function ComOffer({authorised}) {
     const [positionsCount, setPositionsCount] = React.useState(0)
     const [positionsPrice, setPositionsPrice] = React.useState(0)
     const [positionsTree, setPositionsTree] = React.useState([])
+    const [activeTab, setActiveTab] = React.useState(0);
 
     React.useEffect(() => {
       if (authorised && authorised.length !== 0) {
@@ -101,9 +105,48 @@ function ComOffer({authorised}) {
       return 0
     }
 
+    function TabPanel(props) {
+      const { children, value, index, ...other } = props;
+    
+      return (
+        <div
+          role="tabpanel"
+          hidden={value !== index}
+          id={`wrapped-tabpanel-${index}`}
+          aria-labelledby={`wrapped-tab-${index}`}
+          {...other}
+        >
+          {value === index && (
+            <Box p={3}>
+              <Typography>{children}</Typography>
+            </Box>
+          )}
+        </div>
+      );
+    }
+  
+    function a11yProps(index) {
+      return {
+        id: `wrapped-tab-${index}`,
+        'aria-controls': `wrapped-tabpanel-${index}`,
+      };
+    }
+
     return (
         <Paper className={classes.paper}>
             <Typography variant="h5" component="h2">Коммерческое предложение для клиента</Typography>
+            <Tabs
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="disabled tabs example"
+            value={activeTab}
+            onChange={(e, newValue) => setActiveTab(newValue)}
+            >
+              <Tab label="Коммерческое предложение" {...a11yProps(0)}/>
+              <Tab label="Рекомендованные" {...a11yProps(1)}/>
+            </Tabs>
+
+            <TabPanel value={activeTab} index={0}>
             {offersTree && offersTree.length !== 0 ? offersTree.map( tool => 
               <CommercialOfferOne
               key={tool.id}
@@ -112,6 +155,11 @@ function ComOffer({authorised}) {
               addedTools={addedTools}
               setAddedTools={setAddedTools}
               />) : <Typography>Не добавлено ни одной позиции</Typography>}
+            </TabPanel>
+            
+            <TabPanel value={activeTab} index={1}>
+              Здесь будут рекомендованные позиции по выбраным из авторизованных
+            </TabPanel>
         </Paper>
     )
 }

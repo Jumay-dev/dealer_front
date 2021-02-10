@@ -258,18 +258,13 @@ function AddingCard({toolName, img, description}) {
   return (
     <Card className={classes.addingStyle}>
       <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
         title={toolName}
-        subheader="September 14, 2016"
+        subheader="+ 1000 $"
       />
       <CardMedia
         className={classes.media}
@@ -277,12 +272,8 @@ function AddingCard({toolName, img, description}) {
         title="Paella dish"
       />
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <Button variant="contained" color="secondary">В доп.</Button>
+        <Button variant="contained" color="secondary" style={{marginLeft: 10}}>В рекомендованное</Button>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
