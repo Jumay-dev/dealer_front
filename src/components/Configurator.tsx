@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 5,
       height: "100%"
     },
+    selectedToolStyle: {
+      background: "#D8CEDF",
+    },
     addingStyle: {
       minWidth: 275,
       background: "#F2CEAA",
@@ -88,6 +91,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     media: {
       height: 0,
+      paddingTop: '56.25%', // 16:9
+    },
+    selectedMedia: {
+      height: 300,
       paddingTop: '56.25%', // 16:9
     },
     expand: {
@@ -132,25 +139,43 @@ function AuthTools() {
               <Typography>Мониторы пациента</Typography>
           </AccordionSummary>
           <AccordionDetails className={classes.toolsContainer}>
-            <ChoosenTool />
             <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                     <ToolCard
                     toolName={'Центральная станция мониторинга Votem VC-2000'}
+                    selected={true}
                     img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
                     description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                     <ToolCard
                     toolName={'Многофункциональный монитор пациента Votem VP-1200'}
+                    selected={false}
                     img="https://ds-med.ru/wp-content/uploads/2019/05/votem_1200.jpg"
                     description="Монитор пациента VP-1200 компании VOTEM (Южная Корея) — модель с расширенными функциональными возможностями. Диагональ экрана составляет 12,1 дюйма. Опционально доступны функции мультигаз, оценки глубины наркоза и капнометрии EtCO2. Низкая стоимость комплектующих делает VP-1200 экономически выгодным решением при регулярном проведении оценки глубины анестезии."
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                     <ToolCard
                     toolName={'Многофункциональный монитор пациента Votem VP-1000'}
+                    selected={false}
+                    img="https://ds-med.ru/wp-content/uploads/2019/05/VP-1000-3.jpg"
+                    description="Монитор пациента VP-1000 - продвинутая модель в линейке мониторов VOTEM (Южная Корея). Имеет диагональ 10,4 дюйма. Опционально доступны функции капнометрии EtCO2 и сердечного выброса. Широкий функционал и оптимальная цена делает VP-1000 популярным выбором среди отделений реанимации и интенсивной терапии. Мониторы пациента VotemМониторы пациента Votem"
+                    />
+                </Grid>
+                <Grid item xs={4}>
+                    <ToolCard
+                    toolName={'Многофункциональный монитор пациента Votem VP-1000'}
+                    selected={false}
+                    img="https://ds-med.ru/wp-content/uploads/2019/05/VP-1000-3.jpg"
+                    description="Монитор пациента VP-1000 - продвинутая модель в линейке мониторов VOTEM (Южная Корея). Имеет диагональ 10,4 дюйма. Опционально доступны функции капнометрии EtCO2 и сердечного выброса. Широкий функционал и оптимальная цена делает VP-1000 популярным выбором среди отделений реанимации и интенсивной терапии. Мониторы пациента VotemМониторы пациента Votem"
+                    />
+                </Grid>
+                <Grid item xs={4}>
+                    <ToolCard
+                    toolName={'Многофункциональный монитор пациента Votem VP-1000'}
+                    selected={false}
                     img="https://ds-med.ru/wp-content/uploads/2019/05/VP-1000-3.jpg"
                     description="Монитор пациента VP-1000 - продвинутая модель в линейке мониторов VOTEM (Южная Корея). Имеет диагональ 10,4 дюйма. Опционально доступны функции капнометрии EtCO2 и сердечного выброса. Широкий функционал и оптимальная цена делает VP-1000 популярным выбором среди отделений реанимации и интенсивной терапии. Мониторы пациента VotemМониторы пациента Votem"
                     />
@@ -159,92 +184,6 @@ function AuthTools() {
           </AccordionDetails>
       </Accordion>
     )
-}
-
-function ChoosenTool() {
-  const classes = useStyles();
-  return (
-    <Accordion>
-      <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
-      aria-controls="panel1a-content"
-      id="panel1a-header"
-      className={classes.addingsContainerHeader}
-      >
-        <Typography>Центральная станция мониторинга Votem VC-2000</Typography>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value="0"
-          style={{
-            marginLeft: 10
-          }}
-        >
-          <MenuItem value={0}>Комплектация 1</MenuItem>
-          <MenuItem value={1}>Комплектация 2</MenuItem>
-          <MenuItem value={2}>Комплектация 3</MenuItem>
-        </Select>
-      </AccordionSummary>
-      <AccordionDetails className={classes.addingsContainer}>
-        <Typography variant="h6" component="h2">Манжеты</Typography>
-        <Grid container spacing={2}>
-            <Grid item xs={6}>
-                <AddingCard
-                toolName={'Манжета для НИАД (манжета взрослая, одноразовая (25-17))'}
-                img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
-                description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
-                />
-            </Grid>
-            <Grid item xs={6}>
-                <AddingCard
-                toolName={'Манжета для НИАД (манжета детская, одноразовая (22-15))'}
-                img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
-                description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
-                />
-            </Grid>
-            <Grid item xs={6}>
-                <AddingCard
-                toolName={'Манжета для НИАД (манжета неонатальная, одноразовая (15-8,9))'}
-                img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
-                description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
-                />
-            </Grid>
-        </Grid>
-
-        <Typography variant="h6" component="h2">Датчики</Typography>
-        <Grid container spacing={2}>
-            <Grid item xs={6}>
-                <AddingCard
-                toolName={'Датчик пульсоксиметрии напалечный (SpO2: (кабель + датчик на палец) для взрослых)'}
-                img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
-                description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
-                />
-            </Grid>
-            <Grid item xs={6}>
-                <AddingCard
-                toolName={'Датчик пульсоксиметрии напалечный (SpO2: (кабель + датчик на палец) для детей)'}
-                img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
-                description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
-                />
-            </Grid>
-            <Grid item xs={6}>
-                <AddingCard
-                toolName={'Датчик пульсоксиметрии SpO2: (кабель + датчик ректальный)'}
-                img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
-                description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
-                />
-            </Grid>
-            <Grid item xs={6}>
-                <AddingCard
-                toolName={'Датчик пульсоксиметрии SpO2: (кабель + датчик на ухо) '}
-                img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
-                description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
-                />
-            </Grid>
-        </Grid>
-      </AccordionDetails>
-  </Accordion>
-  )
 }
 
 function AddingCard({toolName, img, description}) {
@@ -297,7 +236,7 @@ function AddingCard({toolName, img, description}) {
   );
 }
 
-function ToolCard({toolName, img, description}) {
+function ToolCard({toolName, img, description, selected}) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
   
@@ -306,7 +245,7 @@ function ToolCard({toolName, img, description}) {
     };
 
     return (
-      <Card className={classes.toolStyle}>
+      <Card className={selected ? classes.selectedToolStyle : classes.toolStyle}>
         <CardHeader
           action={
             <IconButton aria-label="settings">
@@ -322,7 +261,21 @@ function ToolCard({toolName, img, description}) {
           title="Paella dish"
         />
         <CardActions disableSpacing>
-          <Button variant="contained" color="secondary">Выбрать</Button>
+          {selected ? <Button variant="contained" color="secondary">Удалить</Button> : <Button variant="contained" color="secondary">Выбрать</Button>}
+          {selected ? (
+                    <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value="0"
+                    style={{
+                      marginLeft: 10
+                    }}
+                    >
+                      <MenuItem value={0}>Комплектация 1</MenuItem>
+                      <MenuItem value={1}>Комплектация 2</MenuItem>
+                      <MenuItem value={2}>Комплектация 3</MenuItem>
+                    </Select>
+          ) : null}
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
@@ -336,9 +289,68 @@ function ToolCard({toolName, img, description}) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Характеристики</Typography>
+            {selected ? <Typography variant="h6" component="h2">Дополнительное оборудование</Typography> : <Typography variant="h6" component="h2">Характеристики</Typography>}
             <Typography paragraph>
-              {description}
+              {selected ? (
+                <>
+                  <Typography variant="h6" component="h2">Манжеты</Typography>
+                  <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                          <AddingCard
+                          toolName={'Манжета для НИАД (манжета взрослая, одноразовая (25-17))'}
+                          img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
+                          description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
+                          />
+                      </Grid>
+                      <Grid item xs={6}>
+                          <AddingCard
+                          toolName={'Манжета для НИАД (манжета детская, одноразовая (22-15))'}
+                          img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
+                          description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
+                          />
+                      </Grid>
+                      <Grid item xs={6}>
+                          <AddingCard
+                          toolName={'Манжета для НИАД (манжета неонатальная, одноразовая (15-8,9))'}
+                          img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
+                          description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
+                          />
+                      </Grid>
+                  </Grid>
+
+                  <Typography variant="h6" component="h2">Датчики</Typography>
+                  <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                          <AddingCard
+                          toolName={'Датчик пульсоксиметрии напалечный (SpO2: (кабель + датчик на палец) для взрослых)'}
+                          img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
+                          description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
+                          />
+                      </Grid>
+                      <Grid item xs={6}>
+                          <AddingCard
+                          toolName={'Датчик пульсоксиметрии напалечный (SpO2: (кабель + датчик на палец) для детей)'}
+                          img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
+                          description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
+                          />
+                      </Grid>
+                      <Grid item xs={6}>
+                          <AddingCard
+                          toolName={'Датчик пульсоксиметрии SpO2: (кабель + датчик ректальный)'}
+                          img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
+                          description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
+                          />
+                      </Grid>
+                      <Grid item xs={6}>
+                          <AddingCard
+                          toolName={'Датчик пульсоксиметрии SpO2: (кабель + датчик на ухо) '}
+                          img="https://ds-med.ru/wp-content/uploads/2020/04/votem_station.jpg"
+                          description="VC-2000 позволяет вести наблюдение за жизненно важными функциями пациента в режиме реального времени, отображая числовые данные и графики волн, передаваемые от мониторов серии VP."
+                          />
+                      </Grid>
+                  </Grid>
+                </>
+              ): description}
             </Typography>
           </CardContent>
         </Collapse>
