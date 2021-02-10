@@ -1,9 +1,10 @@
 import React from 'react'
-import { Typography, Menu, Avatar, IconButton } from "@material-ui/core";
+import { Menu, IconButton } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import { blue, common } from "@material-ui/core/colors";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
+import { ListItemIcon, ListItemText} from "@material-ui/core";
 
 const blue600 = blue["900"];
 const drawerWidth = 400;
@@ -117,11 +118,10 @@ function NotificationsMenu<NotificationsMenuProps>({
     };
     return (
         <div>
-            <IconButton color="inherit" onClick={handleMenu}>
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <div color="inherit" onClick={handleMenu} style={{display: "flex", alignItems: "center"}}>
+              <ListItemIcon><NotificationsIcon /></ListItemIcon>
+              <ListItemText primary="Уведомления"/>
+            </div>
             {withMenu({
                 anchorEl,
                 open,

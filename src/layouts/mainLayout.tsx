@@ -2,21 +2,15 @@ import React, {useState} from 'react'
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import UserDropdown from '../components/UserDropdown'
 import { MainListItems } from '../components/MenuItems';
 import { layoutStyles } from './layoutStyles'
-
-import NotificationsMenu from '../components/NotificationsMenu'
-import MailsMenu from '../components/MailsMenu'
 
 import logo from '../assets/logo.png'
 import '../css/index.css'
@@ -35,30 +29,6 @@ function MainLayout({children}) {
 
         <CssBaseline />
 
-        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-          <Toolbar className={classes.toolbar}>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <img src={logo} alt='' style={{width: 100, marginBottom: 10}}/>
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              Система авторизации оборудования
-            </Typography>
-
-            <NotificationsMenu />
-            
-            <MailsMenu />
-            
-            
-          </Toolbar>
-        </AppBar>
-
         <Drawer
           variant="permanent"
           classes={{
@@ -67,17 +37,18 @@ function MainLayout({children}) {
           open={open}
         >
           <div className={classes.toolbarIcon}>
-          <UserDropdown />
+            <img src="https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png" alt="..." style={{width: "80%"}}/>
             <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
           <Divider />
+          <UserDropdown />
+            <Divider />
           <List><MainListItems /></List>
         </Drawer>
 
         <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
           <Container maxWidth="xl" className={classes.container}>
             {children}
           </Container>

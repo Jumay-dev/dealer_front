@@ -4,8 +4,8 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import TocIcon from '@material-ui/icons/Toc';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PeopleIcon from '@material-ui/icons/People';
-import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-
+import NotificationsMenu from '../components/NotificationsMenu'
+import MailsMenu from '../components/MailsMenu'
 
 import { Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -60,7 +60,14 @@ export function MainListItems() {
         <ListItemIcon ><PeopleIcon /></ListItemIcon>
         <ListItemText primary="Сотрудники"/>
         </MenuItem>
-    </Link>     
+    </Link>
+
+    <MenuItem className={styles.menuItem }>
+        <NotificationsMenu />
+    </MenuItem>
+    <MenuItem className={styles.menuItem }>
+        <MailsMenu />
+    </MenuItem>    
     </div>
     )
 }
