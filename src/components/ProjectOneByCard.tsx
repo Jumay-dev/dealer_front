@@ -142,7 +142,7 @@ export default function RecipeReviewCard() {
         </Button>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
+        <CardContent style={{paddingTop: 0, border: "1px solid black"}}>
             <Table
                 size="small"
             >
