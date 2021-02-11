@@ -127,8 +127,8 @@ export default function RecipeReviewCard() {
           <InfoIcon />
         </IconButton>
         
-        <Button onClick={handleExpandClick} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-            <span>Оборудование</span>
+        <Button onClick={handleExpandClick} style={{display: "flex", alignItems: "center", justifyContent: "center"}} variant="outlined">
+            <span>Показать оборудование</span>
             <div
             className={clsx(classes.expand, {
                 [classes.expandOpen]: expanded,
@@ -137,7 +137,7 @@ export default function RecipeReviewCard() {
             aria-expanded={expanded}
             aria-label="show more"
             >
-                <ExpandMoreIcon />
+                <ExpandMoreIcon style={{margin: 0, padding: 0}}/>
             </div>
         </Button>
       </CardActions>
@@ -148,45 +148,45 @@ export default function RecipeReviewCard() {
             >
                 <TableBody>
                     <TableRow>
-                        <TableCell style={{background: "#9aff9a"}}>
+                        <TableCell style={{background: "#dcfcd8"}}>
                             <span style={{fontWeight: "bolder", color: "#666b73"}}>Авторизовано</span>
                         </TableCell>
                         <TableCell style={{background: "#ffe1e1"}}>
                             <span style={{fontWeight: "bolder", color: "#666b73"}}>Не авторизовано</span>
                         </TableCell>
-                        <TableCell style={{background: "#ffff9a"}}>
+                        <TableCell style={{background: "#fbfcd8"}}>
                             <span style={{fontWeight: "bolder", color: "#666b73"}}>На авторизации</span>
                         </TableCell>
                     </TableRow>
 
                     <TableRow>
                         <TableCell>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
+                            <span style={{color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
                         </TableCell>
                         <TableCell>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
+                            <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
                         </TableCell>
                         <TableCell>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>Dr. Camscope DCS-102 - видеокольпоскоп</span>
-                        </TableCell>
-                        <TableCell>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>Dr. Camscope DCS-103R - видеоректоскоп</span>
-                        </TableCell>
-                        <TableCell>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
+                            <span style={{color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
                         </TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>Dr. Camscope DCS-105 - видеодерматоскоп</span>
+                            <span style={{color: "#666b73"}}>Dr. Camscope DCS-102 - видеокольпоскоп</span>
                         </TableCell>
                         <TableCell>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
+                            <span style={{color: "#666b73"}}>Dr. Camscope DCS-103R - видеоректоскоп</span>
+                        </TableCell>
+                        <TableCell>
+                            <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>
+                            <span style={{color: "#666b73"}}>Dr. Camscope DCS-105 - видеодерматоскоп</span>
+                        </TableCell>
+                        <TableCell>
+                            <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
                         </TableCell>
                     </TableRow>
                 </TableBody>

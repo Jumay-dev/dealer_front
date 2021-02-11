@@ -79,7 +79,7 @@ export default function CommercialOffer() {
     <>
       <Button type="button" onClick={handleOpen} variant="outlined" color="primary" style={{display: "flex", justifyContent: "space-between", color: "#688cbc"}}>
         <ListAltIcon />
-        <span>КП для клиента</span>
+        <span>Сформировать КП для клиента</span>
       </Button>
       <Modal
         open={open}
