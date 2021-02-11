@@ -83,4 +83,10 @@ export const layoutStyles = makeStyles((theme) => ({
     fixedHeight: {
       height: 240,
     },
+    logoContainer: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100%"
+    }
   }));

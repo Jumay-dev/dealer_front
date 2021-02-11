@@ -32,10 +32,13 @@ function MainLayout({children}) {
           }}
           open={true}
         >
-          <img src="https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png" alt="..." style={{width: "80%"}}/>
+          <div className={classes.logoContainer}>
+            <img src="https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png" alt="..." style={{width: "80%"}}/>
+          </div>
+          
           <Divider />
-          <UserDropdown />
-            <Divider />
+          {/* <UserDropdown />
+          <Divider /> */}
           <List><MainListItems /></List>
         </Drawer>
 
