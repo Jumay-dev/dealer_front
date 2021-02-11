@@ -19,16 +19,18 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(() =>
   createStyles({
     menuItem: {
-      color: "black",
       fontWeight: 800,
       paddingTop: "0.2em",
       paddingBottom: "0.2em",
       fontSize: 16,
-      textDecoration: "none"
+      textDecoration: "none",
+      color: "gray"
     },
     categoryTitle: {
         fontWeight: "bolder",
-        color: "gray"
+        color: "gray",
+        display: 'inline-block',
+        marginRight: '10px'
     }
   })
 );
@@ -43,22 +45,15 @@ export function MainListItems() {
     }
     return (
     <div>
-        <Typography className={styles.categoryTitle}>Общее</Typography>
+        <InlineDivider text="Общее"/>
         <Link key={`link_1`} to="/" className={styles.menuItem}>
             <MenuItem key={1}>
                 <ListItemIcon ><DashboardIcon /></ListItemIcon>
                 <ListItemText primary="Статистика" />
             </MenuItem>
         </Link>
-        <Link key={`link_4`} to="/coworkers" className={styles.menuItem}>
-            <MenuItem key={4} className={styles.menuItem}>
-            <ListItemIcon ><PeopleIcon /></ListItemIcon>
-            <ListItemText primary="Сотрудники"/>
-            </MenuItem>
-        </Link>
 
-        <Divider />
-        <Typography className={styles.categoryTitle}>Проекты</Typography>
+        <InlineDivider text="Проекты"/>
         <Link key={`link_2`} to="/projects" className={styles.menuItem}>
             <MenuItem key={2} className={styles.menuItem}>
             <ListItemIcon ><TocIcon /></ListItemIcon>
@@ -72,12 +67,17 @@ export function MainListItems() {
             </MenuItem>
         </Link>
 
-        <Divider />
-        <Typography className={styles.categoryTitle}>Организация</Typography>
+        <InlineDivider text="Организация"/>
         <Link to="/user" className={styles.menuItem }>
             <MenuItem className={styles.menuItem}>
                 <ListItemIcon><PersonIcon /></ListItemIcon>
                 <ListItemText primary="Мой кабинет"/>
+            </MenuItem>
+        </Link>
+        <Link key={`link_4`} to="/coworkers" className={styles.menuItem}>
+            <MenuItem key={4} className={styles.menuItem}>
+            <ListItemIcon ><PeopleIcon /></ListItemIcon>
+            <ListItemText primary="Сотрудники"/>
             </MenuItem>
         </Link>
         <Link to="/Company" className={styles.menuItem }>
@@ -87,8 +87,7 @@ export function MainListItems() {
             </MenuItem>
         </Link>
 
-        <Divider />
-        <Typography className={styles.categoryTitle}>Оповещение</Typography>
+        <InlineDivider text="Оповещение"/>
         <MenuItem className={styles.menuItem }>
             <NotificationsMenu />
         </MenuItem>
@@ -96,5 +95,33 @@ export function MainListItems() {
             <MailsMenu />
         </MenuItem>    
     </div>
+    )
+}
+
+function InlineDivider({text}) {
+    const useStyles = makeStyles(() =>
+    createStyles({
+        categoryTitle: {
+            fontWeight: "bolder",
+            color: "gray",
+            display: 'inline-block',
+            marginRight: '10px',
+        },
+        wrapper: {
+            display: "flex", 
+            alignItems: 'center',
+            marginTop: "2em"
+        }
+    })
+    );
+
+    const classes = useStyles();
+    return (
+        <div className={classes.wrapper}>
+            <Typography className={classes.categoryTitle}>{text}</Typography>
+            <Divider style={{
+                width: "70%"
+            }}/>
+        </div>
     )
 }
