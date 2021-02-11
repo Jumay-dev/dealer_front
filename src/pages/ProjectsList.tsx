@@ -1,5 +1,6 @@
 import React from 'react'
 import ProjectOne from "../components/ProjectOne"
+import ProjectOneByCard from "../components/ProjectOneByCard"
 import Typography from '@material-ui/core/Typography'
 import Search from '../components/Search'
 import Pagination from '@material-ui/lab/Pagination';
@@ -58,6 +59,11 @@ function ProjectsList({ getProjects, projectsList }) {
             <Search />
             <Pagination style={{alignSelf: "right"}} className={classes.pagination} variant="outlined" count={10} size="large" page={page} onChange={(e, page) => setPage(page)}/>
           </div>
+
+          <ProjectOneByCard />
+          <ProjectOneByCard />
+          <ProjectOneByCard />
+          <ProjectOneByCard />
 
           {projectsList.length !== 0 ? projectsList.map(item => <ProjectOne item={item} key={item.id}/>) : <CircularProgress color="secondary"/>}
           <Pagination variant="outlined" count={10} className={classes.pagination} size="large" page={page} onChange={(e, page) => setPage(page)}/>

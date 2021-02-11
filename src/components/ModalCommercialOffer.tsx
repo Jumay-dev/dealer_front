@@ -77,7 +77,7 @@ export default function CommercialOffer() {
 
   return (
     <>
-      <Button type="button" onClick={handleOpen} variant="contained" color="primary" style={{display: "flex", justifyContent: "space-between"}}>
+      <Button type="button" onClick={handleOpen} variant="outlined" color="primary" style={{display: "flex", justifyContent: "space-between", color: "#688cbc"}}>
         <ListAltIcon />
         <span>КП для клиента</span>
       </Button>
