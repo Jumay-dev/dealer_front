@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
     accordionSummaryStyle: {
         display: 'flex',
         justifyContent: "space-between !important",
+        alignItems: "center",
         width: "100%",
         height: "100%",
-        background: 'gray'
     }
   }),
 );

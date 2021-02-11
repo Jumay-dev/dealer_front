@@ -37,7 +37,7 @@ const useStyles = makeStyles(() =>
 
 
 export function MainListItems() {
-    const [active, setActive] = useState('main')
+    const [selectedIndex, setSelectedIndex] = React.useState(1);
     const styles = useStyles();
 
     function clickHandler(e, data) {
@@ -47,7 +47,9 @@ export function MainListItems() {
     <div>
         <InlineDivider text="Общее"/>
         <Link key={`link_1`} to="/" className={styles.menuItem}>
-            <StyledMenuItem key={1}>
+            <StyledMenuItem 
+            key={1}
+            >
                 <ListItemIcon ><DashboardIcon /></ListItemIcon>
                 <ListItemText primary="Статистика" />
             </StyledMenuItem>
@@ -133,4 +135,4 @@ const StyledMenuItem = withStyles((theme) => ({
         color: "#688cbc",
       },
     },
-  }))(MenuItem);
+}))(MenuItem);

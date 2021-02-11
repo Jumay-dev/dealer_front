@@ -11,9 +11,11 @@ function Search() {
 
     function GetSearchFieldByType(searchType: number) {
         switch(searchType) {
-            case 4: return <SelectorForSearchByToolsType />
-            case 5: return <DatePickerForSearchByDate />
-            default: return <DefaultTextField />
+            case 4: return <div style={{display: "inline-block", flex: "1 0 auto"}}><SelectorForSearchByToolsType /></div>
+            case 5: return <div style={{display: "inline-block", flex: "1 0 auto"}}><DatePickerForSearchByDate /></div>
+            default: return (
+                <div style={{display: "inline-block", flex: "1 0 auto"}}><DefaultTextField /></div>
+            )
         }
     }
     
@@ -80,7 +82,9 @@ function Search() {
     return (
         <div style={{
             display: "flex",
-            marginBottom: '1em'
+            marginBottom: '1em',
+            flex: "1 0 auto",
+            marginRight: "2em"
         }}>
             <Select
                 value={searchType}

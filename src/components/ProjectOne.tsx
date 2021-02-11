@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     gridInfo: {
-        background: "#D6D2C4",
+        background: "#e1edff",
         padding: "10px !important",
     },
 
@@ -40,12 +40,14 @@ const useStyles = makeStyles((theme: Theme) =>
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "#D6D2C4",
+        background: "#e1edff",
         padding: "10px !important",
     },
     button: {
         display: "flex",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        background: "#688cbc",
+        color: "white"
     },
     dateBlock: {
         margin: 2,
@@ -89,7 +91,7 @@ function ProjectOne({ item, toolsList, getTools }) {
         <Paper className={classes.paper}>
             <Grid container spacing={1}>
                 <Grid item xs={12} lg={4} sm={12} md={6} className={classes.gridInfo}>
-                    <Typography variant="subtitle1" style={{color: 'white', fontWeight: "bold"}}>
+                    <Typography variant="subtitle1" style={{color: "#688cbc", fontWeight: "bold"}}>
                         # {item.id}
                     </Typography>
                     
@@ -136,19 +138,19 @@ function ProjectOne({ item, toolsList, getTools }) {
 
                     <CommercialOfferList />
                     
-                    <Button variant="contained" color="primary" className={classes.button}>
+                    <Button variant="contained" className={classes.button}>
                         <GetAppIcon />
                         Скачать КП дилера
                     </Button>
 
                     <Link to="/newproject">
-                        <Button variant="contained" color="primary" style={{width: "100%"}} className={classes.button}>
+                        <Button variant="contained" style={{width: "100%"}} className={classes.button}>
                             <InfoIcon />
                             Подробнее о проекте
                         </Button>
                     </Link>
 
-                    <Button variant="contained" color="primary" className={classes.button}>
+                    <Button variant="contained" className={classes.button}>
                         <ChatIcon />
                         Чат с менеджером
                     </Button>
