@@ -115,7 +115,7 @@ export default function RecipeReviewCard() {
             </TableBody>
         </Table>
       </CardContent>
-      <CardActions disableSpacing style={{display: "flex", justifyContent: "flex-end"}}>
+      <CardActions disableSpacing style={{display: "flex", justifyContent: "flex-end", paddingBottom: 0,}}>
         <CommercialOfferList />
         <IconButton aria-label="add to favorites">
             <GetAppIcon />
@@ -127,7 +127,7 @@ export default function RecipeReviewCard() {
           <InfoIcon />
         </IconButton>
         
-        <Button onClick={handleExpandClick} style={{display: "flex", alignItems: "center", justifyContent: "center"}} variant="outlined">
+        <Button onClick={handleExpandClick} style={{display: "flex", alignItems: "center", justifyContent: "center", boxSizing: "border-box", alignSelf: "flex-end"}} variant="outlined">
             <span>Показать оборудование</span>
             <div
             className={clsx(classes.expand, {
@@ -142,7 +142,8 @@ export default function RecipeReviewCard() {
         </Button>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent style={{paddingTop: 0, border: "1px solid black"}}>
+        <CardContent style={{padding: "8px", paddingTop: 0}}>
+            <div style={{ border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: "4px"}}>
             <Table
                 size="small"
             >
@@ -191,6 +192,7 @@ export default function RecipeReviewCard() {
                     </TableRow>
                 </TableBody>
             </Table>
+            </div>
         </CardContent>
       </Collapse>
     </Card>
