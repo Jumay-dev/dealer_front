@@ -120,7 +120,7 @@ function InlineDivider({text}) {
         <div className={classes.wrapper}>
             <Typography className={classes.categoryTitle}>{text}</Typography>
             <Divider style={{
-                width: "70%"
+                flex: "1 0 auto"
             }}/>
         </div>
     )
