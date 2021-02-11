@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import Search from '../components/Search'
 import Pagination from '@material-ui/lab/Pagination';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import TablePagination from '@material-ui/core/TablePagination';
 
 import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
@@ -30,7 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     subheaderWrapper: {
       display: "flex",
-      width: "100%"
+      width: "100%",
+      justifyContent: "space-between"
     }
   }),
 );
@@ -57,7 +59,15 @@ function ProjectsList({ getProjects, projectsList }) {
           </Typography>
           <div className={classes.subheaderWrapper}>
             <Search />
-            <Pagination style={{alignSelf: "right"}} className={classes.pagination} variant="outlined" count={10} size="large" page={page} onChange={(e, page) => setPage(page)}/>
+            {/* <Pagination style={{alignSelf: "right"}} className={classes.pagination} variant="outlined" count={10} size="large" page={page} onChange={(e, page) => setPage(page)}/> */}
+            <TablePagination
+              component="div"
+              count={100}
+              page={page}
+              onChangePage={(e, page) => setPage(page)}
+              rowsPerPage={10}
+              onChangeRowsPerPage={(e) => console.log(e)}
+            />
           </div>
 
           <ProjectOneByCard />

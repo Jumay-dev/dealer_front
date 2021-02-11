@@ -83,7 +83,8 @@ function Search() {
         <div style={{
             display: "flex",
             marginBottom: '1em',
-            flex: "1 0 auto",
+            // flex: "1 0 auto",
+            width: "600px",
             marginRight: "2em"
         }}>
             <Select
