@@ -34,7 +34,8 @@ const useStyles = makeStyles(() =>
       "&.Mui-selected": {
           fontWeight: "bolder",
           backgroundColor: "#e1edff",
-          borderLeft: "4px solid rgb(104, 140, 188)"
+          borderLeft: "4px solid rgb(104, 140, 188)", 
+          boxSizing: "border-box"
       }
     },
     categoryTitle: {
@@ -79,8 +80,8 @@ export function MainListItems() {
             </StyledMenuItem>
         </Link>
         
-        <Link key={`link_3`} to="/newproject" className={styles.linkItem} selected={window.location.pathname === "/newproject"}>
-            <StyledMenuItem key={3} className={styles.menuItem}>
+        <Link key={`link_3`} to="/newproject" className={styles.linkItem}>
+            <StyledMenuItem key={3} className={styles.menuItem} selected={window.location.pathname === "/newproject"}>
             <ListItemIcon ><img src={NewProjectIcon} /></ListItemIcon>
             <ListItemText primary="Новый проект"/>
             </StyledMenuItem>

@@ -5,7 +5,7 @@ import { blue, common } from "@material-ui/core/colors";
 // import MailIcon from '@material-ui/icons/MailOutline';
 import Badge from '@material-ui/core/Badge';
 import { ListItemIcon, ListItemText} from "@material-ui/core";
-import MailIcon from "../assets/icons/Inbox.svg"
+import MailIcon from "../assets/icons/Email.svg"
 
 const blue600 = blue["900"];
 const drawerWidth = 400;

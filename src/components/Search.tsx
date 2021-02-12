@@ -10,6 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -22,6 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
         display: "flex",
         flexDirection: "row",
         alignItems: "space-between"
+    },
+    root: {
+
+        fontWeight: "bolder", 
+        color: "#666b73",
+        fontSize: "0.85rem !important"
     }
   }),
 );
@@ -131,20 +138,22 @@ function Search() {
     ]
     return (
         <Grid container>
-            <Grid item lg={6}>
-                <Grid container>
+            <Grid item lg={8}>
+                <Typography style={{fontWeight: "bolder", color: "rgb(104, 140, 188)", marginRight: 5}}>Статусы проектов:</Typography>
+                <Grid container style={{display: "flex", alignItems: "center"}}>
                     {possibleProjectStatus.map(status => (
-                        <Grid item lg={3}>
+                        <Grid item lg={2}>
                             <FormControlLabel
-                                control={<Checkbox name="checkedA" />}
+                                control={<Checkbox size="small" name="checkedA" />}
                                 label={status.name}
+                                className={classes.root}
                             />
                         </Grid>
                     ))}
                 </Grid>
             </Grid>
-            
-            <Grid item lg={6}>
+
+            <Grid item lg={4} style={{display: "flex", alignItems: "center"}}>
                 <FormControl className={classes.formControl}>
                     <InputLabel id="select_filter">Искать</InputLabel>
                     <Select
