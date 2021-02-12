@@ -22,6 +22,12 @@ import ChatIcon from '@material-ui/icons/Chat';
 import InfoIcon from '@material-ui/icons/Info';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import { thunkData } from "../services/thunks";
+import { connect } from "react-redux";
+import { LIST_TOOLS } from "../store/types";
+
+import { tools } from '../middleware/infods5i_dealers'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -48,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function RecipeReviewCard() {
+function ProjectOneByCard({ item, toolsList, getTools }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -66,16 +72,16 @@ export default function RecipeReviewCard() {
                 <TableRow style={{background: "#e1edff"}}>
                     <TableCell style={{background: "#688cbc"}} align="center">
                         <Typography variant="subtitle1" style={{color: "white", fontWeight: "bold"}}>
-                            # 12312
+                            # {item.id}
                         </Typography>
                     </TableCell>
                     <TableCell>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Клиент:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>Аконит-М</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.client}</span>
                     </TableCell>
                     <TableCell>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Зарегистрирован:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>4.01.2021</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.added}</span>
                     </TableCell>
                     <TableCell>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Статус:</span>
@@ -90,26 +96,26 @@ export default function RecipeReviewCard() {
                     </TableCell>
                     <TableCell>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Продлен до:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>4.01.2021</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.actualised}</span>
                     </TableCell>
                     <TableCell>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Менеджер:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>Даэсмедов Михаил Алексеевич</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.manager}</span>
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell></TableCell>
                     <TableCell> 
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Дилер:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>ООО "ААА"</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.dealer}</span>
                     </TableCell>
                     <TableCell>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>В реестре до:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>4.01.2021</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.expires}</span>
                     </TableCell>
                     <TableCell>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Сотрудник дилера:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>Иванов Иван</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.employee}</span>
                     </TableCell>
                 </TableRow>
             </TableBody>
@@ -135,7 +141,10 @@ export default function RecipeReviewCard() {
             justifyContent: "center", 
             boxSizing: "border-box", 
             alignSelf: "flex-end",
-            boxShadow: "none"
+            boxShadow: "none",
+            color: "white",
+            background: "#688cbc",
+            borderRadius: "4px 4px 0px 0px"
             }} 
             variant="contained"
         >
@@ -148,13 +157,13 @@ export default function RecipeReviewCard() {
             aria-expanded={expanded}
             aria-label="show more"
             >
-                <ExpandMoreIcon style={{margin: 0, padding: 0}}/>
+            <ExpandMoreIcon style={{margin: 0, padding: 0}}/>
             </div>
         </Button>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent style={{padding: "8px", paddingTop: 0}}>
-            <div style={{ border: "1px solid #e0e0e0", borderRadius: "4px", background: "#e0e0e0"}}>
+            <div style={{ border: "2px solid #688cbc", borderRadius: "4px 0px 4px 4px", }}>
             <Table
                 size="small"
             >
@@ -209,3 +218,18 @@ export default function RecipeReviewCard() {
     </Card>
   );
 }
+
+function mapStateToProps(state) {
+    return {
+      toolsList: state.tool.toolsList,
+    }
+  }
+    
+function mapDispatchToProps(dispatch) {
+    return {
+        getTools: (action: TODO) => {dispatch(thunkData(action))},
+        // getTools: (action: TODO) => dispatch(action)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectOneByCard)

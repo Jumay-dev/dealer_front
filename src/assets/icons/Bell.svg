@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" width="25" height="25">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { opacity: 0;fill: #000000 } 
+		.shp1 { fill: none;stroke: #333333;stroke-linecap:round;stroke-linejoin:round;stroke-width: 2 } 
+	</style>
+	<g id="Faticons">
+		<g id="Bell">
+			<path id="Rectangle" class="shp0" d="M1 1L25 1L25 25L1 25L1 1Z" />
+			<path id="Stroke 1" class="shp1" d="M18 11L18 9.37C18 6.96 16.04 5 13.62 5L12.37 5C9.96 5 8 6.96 8 9.37L8 11C8 14.37 6 15 6 16C6 17 8.25 18 13 18C17.75 18 20 17 20 16C20 15 18 13.62 18 11Z" />
+			<path id="Stroke 3" class="shp1" d="M12 21L14 21" />
+		</g>
+	</g>
+</svg>

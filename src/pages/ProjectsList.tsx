@@ -69,14 +69,18 @@ function ProjectsList({ getProjects, projectsList }) {
               onChangeRowsPerPage={(e) => console.log(e)}
             />
           </div>
-
-          <ProjectOneByCard />
-          <ProjectOneByCard />
-          <ProjectOneByCard />
-          <ProjectOneByCard />
-
-          {projectsList.length !== 0 ? projectsList.map(item => <ProjectOne item={item} key={item.id}/>) : <CircularProgress color="secondary"/>}
-          <Pagination variant="outlined" count={10} className={classes.pagination} size="large" page={page} onChange={(e, page) => setPage(page)}/>
+          {projectsList.length !== 0 ? projectsList.map(item => <ProjectOneByCard item={item} key={item.id}/>) : <CircularProgress color="secondary"/>}
+          <div>
+            <TablePagination
+              component="div"
+              count={100}
+              page={page}
+              onChangePage={(e, page) => setPage(page)}
+              rowsPerPage={10}
+              onChangeRowsPerPage={(e) => console.log(e)}
+            />
+          </div>
+          
       </>
   )
 }
