@@ -18,8 +18,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
 import GetAppIcon from '@material-ui/icons/GetApp';
-// import ChatIcon from '@material-ui/icons/Chat';
-// import InfoIcon from '@material-ui/icons/Info';
+
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import InfoIcon from "../assets/icons/Info circle.svg"
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       maxWidth: "100%",
-      marginBottom: 10
+      marginBottom: 20
     },
     media: {
       height: 0,
@@ -66,77 +65,100 @@ function ProjectOneByCard({ item, toolsList, getTools }) {
     setExpanded(!expanded);
   };
 
+  function getStylesByProjectStatus(item) {
+      console.log(item)
+      switch (item.status) {
+            case "1": return {
+                labelColor: "#9cd69b",
+                statusText: "Авторизовано"
+            }
+            case "2": return {
+                labelColor: "#e8df6b",
+                statusText: "Авторизовано частично"
+            }
+            case "3": return {
+                labelColor: "#efb6b6",
+                statusText: "Не авторизовано"
+            }
+            case "4": return {
+                labelColor: "#688cbc",
+                statusText: "На авторизации"
+            }
+            default: return {
+                labelColor: "black",
+                statusText: "Ошибка определения статуса"
+            }
+      }
+  }
+
+  const projectStatusStyles = getStylesByProjectStatus(item)
+
+  const autoPadding = 4
+
   return (
     <Card className={classes.root}>
-      <CardContent>
+      <CardContent style={{paddingBottom: 8}}>
         <Table
             size="small"
         >
             <TableBody>
                 <TableRow style={{background: "#e1edff"}}>
-                    <TableCell style={{background: "#688cbc"}} align="center">
-                        <Typography variant="subtitle1" style={{color: "white", fontWeight: "bold"}}>
+                    <TableCell style={{background: "#688cbc", paddingTop: autoPadding, paddingBottom: autoPadding}} align="center">
+                        <Typography variant="subtitle2" style={{color: "white", fontWeight: "bold"}}>
                             # {item.id}
                         </Typography>
                     </TableCell>
-                    <TableCell>
-                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Клиент:</span>
+                    <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
+                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Конечный клиент:</span>
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.client}</span>
                     </TableCell>
-                    <TableCell>
-                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Зарегистрирован:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.added}</span>
+                    <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
+                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Актуален до:</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.actualised}</span>
                     </TableCell>
-                    <TableCell>
+                    <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Статус:</span>
-                        <span style={{fontWeight: "bolder", color: "orange"}}>Авторизовано частично</span>
+                        <span style={{fontWeight: "bolder", background: projectStatusStyles.labelColor, color: "white", borderRadius: "2px", padding: 2}}>{projectStatusStyles.statusText}</span>
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell></TableCell>
-                    <TableCell>
+                    <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Адрес клиента:</span>
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>г. Москва, Ленинградское ш., д.25</span>
                     </TableCell>
-                    <TableCell>
-                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Продлен до:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.actualised}</span>
+                    <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
+                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Зарегистрирован:</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.added}</span>
                     </TableCell>
-                    <TableCell>
+                    <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Куратор:</span>
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.manager}</span>
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell></TableCell>
-                    <TableCell> 
-                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Дилер:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.dealer}</span>
-                    </TableCell>
-                    <TableCell>
-                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>В реестре до:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.expires}</span>
-                    </TableCell>
-                    <TableCell>
+                    <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Сотрудник дилера:</span>
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.employee}</span>
                     </TableCell>
+
                 </TableRow>
             </TableBody>
         </Table>
       </CardContent>
       <CardActions disableSpacing style={{display: "flex", justifyContent: "flex-end", padding: 0}}>
-        <CommercialOfferList />
         <IconButton aria-label="add to favorites">
             <img src={DownloadIcon} />
         </IconButton>
         <IconButton aria-label="share">
-          <img src={ChatIcon} />
+        <img src={ChatIcon} />
         </IconButton>
         <IconButton aria-label="share">
             <img src={InfoIcon} />
         </IconButton>
-        
+
+        <CommercialOfferList />        
         <Button 
         onClick={handleExpandClick} 
         style={{

@@ -22,13 +22,20 @@ import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() =>
   createStyles({
+    linkItem: {
+        textDecoration: "none",
+        fontWeight: 800,
+        paddingTop: "0.2em",
+        paddingBottom: "0.2em",
+        fontSize: 16,
+        color: "gray",
+    },
     menuItem: {
-      fontWeight: 800,
-      paddingTop: "0.2em",
-      paddingBottom: "0.2em",
-      fontSize: 16,
-      textDecoration: "none",
-      color: "gray"
+      "&.Mui-selected": {
+          fontWeight: "bolder",
+          backgroundColor: "#e1edff",
+          borderLeft: "4px solid rgb(104, 140, 188)"
+      }
     },
     categoryTitle: {
         fontWeight: "bolder",
@@ -39,9 +46,8 @@ const useStyles = makeStyles(() =>
   })
 );
 
-
 export function MainListItems() {
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
     const styles = useStyles();
 
     function clickHandler(e, data) {
@@ -50,9 +56,11 @@ export function MainListItems() {
     return (
     <div>
         <InlineDivider text="Общее"/>
-        <Link key={`link_1`} to="/" className={styles.menuItem}>
+        <Link key={`link_1`} to="/" className={styles.linkItem}>
             <StyledMenuItem 
-            key={1}
+            key={0}
+            selected={window.location.pathname === "/"}
+            className={styles.menuItem}
             >
                 <ListItemIcon ><img src={StatisticIcon} /></ListItemIcon>
                 <ListItemText primary="Статистика" />
@@ -60,13 +68,18 @@ export function MainListItems() {
         </Link>
 
         <InlineDivider text="Проекты"/>
-        <Link key={`link_2`} to="/projects" className={styles.menuItem}>
-            <StyledMenuItem key={2} className={styles.menuItem}>
+        <Link key={`link_2`} to="/projects" className={styles.linkItem}>
+            <StyledMenuItem 
+            key={2} 
+            className={styles.menuItem}
+            selected={window.location.pathname === "/projects"}
+            >
             <ListItemIcon ><img src={ProjectsListIcon} /></ListItemIcon>
             <ListItemText primary="Проекты"/>
             </StyledMenuItem>
         </Link>
-        <Link key={`link_3`} to="/newproject" className={styles.menuItem}>
+        
+        <Link key={`link_3`} to="/newproject" className={styles.linkItem} selected={window.location.pathname === "/newproject"}>
             <StyledMenuItem key={3} className={styles.menuItem}>
             <ListItemIcon ><img src={NewProjectIcon} /></ListItemIcon>
             <ListItemText primary="Новый проект"/>
@@ -74,20 +87,20 @@ export function MainListItems() {
         </Link>
 
         <InlineDivider text="Организация"/>
-        <Link to="/user" className={styles.menuItem }>
-            <StyledMenuItem className={styles.menuItem}>
+        <Link to="/user" className={styles.linkItem }>
+            <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/user"}>
                 <ListItemIcon><img src={UserIcon} /></ListItemIcon>
                 <ListItemText primary="Мой кабинет"/>
             </StyledMenuItem>
         </Link>
-        <Link key={`link_4`} to="/coworkers" className={styles.menuItem}>
-            <StyledMenuItem key={4} className={styles.menuItem}>
+        <Link key={`link_4`} to="/coworkers" className={styles.linkItem}>
+            <StyledMenuItem key={4} className={styles.menuItem} selected={window.location.pathname === "/coworkers"}>
             <ListItemIcon ><img src={UsersGroupIcon} /></ListItemIcon>
             <ListItemText primary="Сотрудники"/>
             </StyledMenuItem>
         </Link>
-        <Link to="/Company" className={styles.menuItem }>
-            <StyledMenuItem className={styles.menuItem}>
+        <Link to="/company" className={styles.linkItem }>
+            <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/company"}>
                 <ListItemIcon><img src={HomeIcon} /></ListItemIcon>
                 <ListItemText primary="Организация"/>
             </StyledMenuItem>
@@ -116,7 +129,8 @@ function InlineDivider({text}) {
         wrapper: {
             display: "flex", 
             alignItems: 'center',
-            marginTop: "2em"
+            marginTop: "2em",
+            marginLeft: "1em"
         }
     })
     );

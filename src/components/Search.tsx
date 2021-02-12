@@ -6,19 +6,22 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
-      margin: theme.spacing(1),
       minWidth: 120
     },
     formContainer: {
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+        alignItems: "space-between"
     }
   }),
 );
@@ -27,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
 function Search() {
     const classes = useStyles();
     const [searchType, setSearchType] = React.useState(0)
-    const [statusType, setStatusType] = React.useState(0)
 
     function GetSearchFieldByType(searchType: number) {
         switch(searchType) {
@@ -100,48 +102,71 @@ function Search() {
         />
         )
     }
-    
+    const [authorised, setAuthorised] = React.useState(false)
+    const possibleProjectStatus = [
+        {
+            id: 1,
+            name: "Авторизовано"
+        },
+        {
+            id: 2,
+            name: "Авторизовано частично"
+        },
+        {
+            id: 3,
+            name: "Не авторизовано"
+        },
+        {
+            id: 4,
+            name: "На авторизации"
+        },
+        {
+            id: 5,
+            name: "Запрос актуальности"
+        },
+        {
+            id: 6,
+            name: "Завершено"
+        },
+    ]
     return (
-        <div className={classes.formContainer}>
-            <FormControl className={classes.formControl}>
-                <InputLabel id="status">Статус проекта</InputLabel>
-                <Select
-                    value={statusType}
-                    id="status"
-                    onChange={(e) => setStatusType(+e.target.value)}
+        <Grid container>
+            <Grid item lg={6}>
+                <Grid container>
+                    {possibleProjectStatus.map(status => (
+                        <Grid item lg={3}>
+                            <FormControlLabel
+                                control={<Checkbox name="checkedA" />}
+                                label={status.name}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Grid>
+            
+            <Grid item lg={6}>
+                <FormControl className={classes.formControl}>
+                    <InputLabel id="select_filter">Искать</InputLabel>
+                    <Select
+                    value={searchType}
+                    id="select_filter"
+                    onChange={(e) => setSearchType(+e.target.value)}
                     style={{
                         marginRight: "1em"
                     }}
-                >   
-                    <MenuItem value={0} >Любой</MenuItem>
-                    <MenuItem value={1} style={{fontWeight: "bolder", color: "green"}}>Авторизованые</MenuItem>
-                    <MenuItem value={2} style={{fontWeight: "bolder", color: "orange"}}>Авторизованные частично</MenuItem>
-                    <MenuItem value={3} style={{fontWeight: "bolder", color: "blue"}}>На авторизации</MenuItem>
-                    <MenuItem value={4} style={{fontWeight: "bolder", color: "red"}}>Не авторизованные</MenuItem>
-                </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-                <InputLabel id="select_filter">Искать</InputLabel>
-                <Select
-                value={searchType}
-                id="select_filter"
-                onChange={(e) => setSearchType(+e.target.value)}
-                style={{
-                    marginRight: "1em"
-                }}
-                >   
-                    <MenuItem value={0}>Все проекты</MenuItem>
-                    <MenuItem value={1}>По ИНН</MenuItem>
-                    <MenuItem value={2}>По КЛАДР</MenuItem>
-                    <MenuItem value={3}>По оборудованию</MenuItem>
-                    <MenuItem value={4}>По типу оборудования</MenuItem>
-                    <MenuItem value={5}>По датам</MenuItem>
-                    <MenuItem value={6}>По названию ЛУ</MenuItem>
-                </Select>
-            </FormControl>
-            {GetSearchFieldByType(searchType)}
-        </div>
-        
+                    >   
+                        <MenuItem value={0}>Все проекты</MenuItem>
+                        <MenuItem value={1}>По ИНН</MenuItem>
+                        <MenuItem value={2}>По КЛАДР</MenuItem>
+                        <MenuItem value={3}>По оборудованию</MenuItem>
+                        <MenuItem value={4}>По типу оборудования</MenuItem>
+                        <MenuItem value={5}>По датам</MenuItem>
+                        <MenuItem value={6}>По названию ЛУ</MenuItem>
+                    </Select>
+                </FormControl>
+                {GetSearchFieldByType(searchType)}
+            </Grid>
+        </Grid>
     )
 }
 

@@ -32,7 +32,13 @@ const useStyles = makeStyles((theme: Theme) =>
     subheaderWrapper: {
       display: "flex",
       width: "100%",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
+      background: "#e3ecf7",
+      height: 120,
+      padding: 18
+    },
+    content: {
+      padding: "16px"
     }
   }),
 );
@@ -54,33 +60,22 @@ function ProjectsList({ getProjects, projectsList }) {
 
   return (
       <>
-          <Typography component="h1" variant="h4">
-              Список проектов
-          </Typography>
-          <div className={classes.subheaderWrapper}>
-            <Search />
-            {/* <Pagination style={{alignSelf: "right"}} className={classes.pagination} variant="outlined" count={10} size="large" page={page} onChange={(e, page) => setPage(page)}/> */}
-            <TablePagination
-              component="div"
-              count={100}
-              page={page}
-              onChangePage={(e, page) => setPage(page)}
-              rowsPerPage={10}
-              onChangeRowsPerPage={(e) => console.log(e)}
-            />
-          </div>
+        <div className={classes.subheaderWrapper}>
+          <Search />
+        </div>
+        <div className={classes.content}>
           {projectsList.length !== 0 ? projectsList.map(item => <ProjectOneByCard item={item} key={item.id}/>) : <CircularProgress color="secondary"/>}
-          <div>
-            <TablePagination
-              component="div"
-              count={100}
-              page={page}
-              onChangePage={(e, page) => setPage(page)}
-              rowsPerPage={10}
-              onChangeRowsPerPage={(e) => console.log(e)}
-            />
-          </div>
-          
+        </div>
+        <div>
+          <TablePagination
+            component="div"
+            count={100}
+            page={page}
+            onChangePage={(e, page) => setPage(page)}
+            rowsPerPage={10}
+            onChangeRowsPerPage={(e) => console.log(e)}
+          />
+        </div>
       </>
   )
 }

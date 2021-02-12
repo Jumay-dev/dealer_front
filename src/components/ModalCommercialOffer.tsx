@@ -78,7 +78,7 @@ export default function CommercialOffer() {
 
   return (
     <>
-      <Button type="button" onClick={handleOpen} variant="outlined" color="primary" style={{display: "flex", justifyContent: "space-between", color: "#688cbc"}}>
+      <Button type="button" onClick={handleOpen} variant="outlined" color="primary" style={{display: "flex", justifyContent: "space-between", color: "#688cbc", marginRight: 10}}>
       <img src={OfferIcon} />
         <span>Сформировать КП для клиента</span>
       </Button>

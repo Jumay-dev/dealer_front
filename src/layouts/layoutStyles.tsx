@@ -8,7 +8,7 @@ export const layoutStyles = makeStyles((theme) => ({
       display: 'flex',
     },
     toolbar: {
-      paddingRight: 24, // keep right padding when drawer closed
+      
     },
     toolbarIcon: {
       display: 'flex',
@@ -17,21 +17,7 @@ export const layoutStyles = makeStyles((theme) => ({
       padding: '0 8px',
       ...theme.mixins.toolbar,
     },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
+
     menuButton: {
       marginRight: 36
     },
@@ -47,7 +33,6 @@ export const layoutStyles = makeStyles((theme) => ({
     drawerPaper: {
       position: 'relative',
       whiteSpace: 'nowrap',
-      padding: "1em",
       width: drawerWidth,
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -69,10 +54,11 @@ export const layoutStyles = makeStyles((theme) => ({
       flexGrow: 1,
       height: '100vh',
       overflow: 'auto',
+      padding: 0
     },
     container: {
-      paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
+      padding: 0
     },
     paper: {
       padding: theme.spacing(2),
@@ -87,6 +73,8 @@ export const layoutStyles = makeStyles((theme) => ({
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      width: "100%"
+      width: "100%",
+      height: 120,
+      background: "#f3f6f9"
     }
   }));

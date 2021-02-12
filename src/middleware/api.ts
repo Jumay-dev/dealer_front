@@ -20,6 +20,7 @@ function projectReducer(arr) {
     let projectTools = projects_tools.filter( elem => +elem.project_id === +currentItem.id)
     console.log('tools', projectTools)
     projects.push({
+      status: item.status,
       id: currentItem.id,
       externalId: 28,
       added: "4.01.2021",
