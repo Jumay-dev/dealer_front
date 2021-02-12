@@ -5,6 +5,7 @@ import { blue, common } from "@material-ui/core/colors";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
 import { ListItemIcon, ListItemText} from "@material-ui/core";
+import BellIcon from "../assets/icons/Bell.svg"
 
 const blue600 = blue["900"];
 const drawerWidth = 400;
@@ -119,7 +120,7 @@ function NotificationsMenu<NotificationsMenuProps>({
     return (
         <div>
             <div color="inherit" onClick={handleMenu} style={{display: "flex", alignItems: "center"}}>
-              <ListItemIcon><NotificationsIcon /></ListItemIcon>
+              <ListItemIcon><img src={BellIcon} /></ListItemIcon>
               <ListItemText primary="Уведомления"/>
             </div>
             {withMenu({

@@ -8,8 +8,12 @@ import NotificationsMenu from '../components/NotificationsMenu'
 import MailsMenu from '../components/MailsMenu'
 import Divider from '@material-ui/core/Divider';
 
-import PersonIcon from '@material-ui/icons/Person';
-import BusinessIcon from '@material-ui/icons/Business';
+import UserIcon from "../assets/icons/User.svg"
+import UsersGroupIcon from "../assets/icons/Users.svg"
+import HomeIcon from "../assets/icons/Home.svg"
+import StatisticIcon from "../assets/icons/Chart bar.svg"
+import NewProjectIcon from "../assets/icons/File plus.svg"
+import ProjectsListIcon from "../assets/icons/Vector.svg"
 
 import { Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -50,7 +54,7 @@ export function MainListItems() {
             <StyledMenuItem 
             key={1}
             >
-                <ListItemIcon ><DashboardIcon /></ListItemIcon>
+                <ListItemIcon ><img src={StatisticIcon} /></ListItemIcon>
                 <ListItemText primary="Статистика" />
             </StyledMenuItem>
         </Link>
@@ -58,13 +62,13 @@ export function MainListItems() {
         <InlineDivider text="Проекты"/>
         <Link key={`link_2`} to="/projects" className={styles.menuItem}>
             <StyledMenuItem key={2} className={styles.menuItem}>
-            <ListItemIcon ><TocIcon /></ListItemIcon>
+            <ListItemIcon ><img src={ProjectsListIcon} /></ListItemIcon>
             <ListItemText primary="Управление проектами"/>
             </StyledMenuItem>
         </Link>
         <Link key={`link_3`} to="/newproject" className={styles.menuItem}>
             <StyledMenuItem key={3} className={styles.menuItem}>
-            <ListItemIcon ><AddCircleIcon /></ListItemIcon>
+            <ListItemIcon ><img src={NewProjectIcon} /></ListItemIcon>
             <ListItemText primary="Новый проект"/>
             </StyledMenuItem>
         </Link>
@@ -72,19 +76,19 @@ export function MainListItems() {
         <InlineDivider text="Организация"/>
         <Link to="/user" className={styles.menuItem }>
             <StyledMenuItem className={styles.menuItem}>
-                <ListItemIcon><PersonIcon /></ListItemIcon>
+                <ListItemIcon><img src={UserIcon} /></ListItemIcon>
                 <ListItemText primary="Мой кабинет"/>
             </StyledMenuItem>
         </Link>
         <Link key={`link_4`} to="/coworkers" className={styles.menuItem}>
             <StyledMenuItem key={4} className={styles.menuItem}>
-            <ListItemIcon ><PeopleIcon /></ListItemIcon>
+            <ListItemIcon ><img src={UsersGroupIcon} /></ListItemIcon>
             <ListItemText primary="Сотрудники"/>
             </StyledMenuItem>
         </Link>
         <Link to="/Company" className={styles.menuItem }>
             <StyledMenuItem className={styles.menuItem}>
-                <ListItemIcon><BusinessIcon /></ListItemIcon>
+                <ListItemIcon><img src={HomeIcon} /></ListItemIcon>
                 <ListItemText primary="Страница организации"/>
             </StyledMenuItem>
         </Link>

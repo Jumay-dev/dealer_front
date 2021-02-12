@@ -2,9 +2,10 @@ import React from 'react'
 import { Typography, Menu, Avatar, IconButton } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import { blue, common } from "@material-ui/core/colors";
-import MailIcon from '@material-ui/icons/MailOutline';
+// import MailIcon from '@material-ui/icons/MailOutline';
 import Badge from '@material-ui/core/Badge';
 import { ListItemIcon, ListItemText} from "@material-ui/core";
+import MailIcon from "../assets/icons/Inbox.svg"
 
 const blue600 = blue["900"];
 const drawerWidth = 400;
@@ -82,7 +83,7 @@ function MailsMenu<MailsMenuProps>({
     return (
         <div>
             <div onClick={handleMenu} style={{display: "flex", alignItems: "center"}}>
-              <ListItemIcon><MailIcon /></ListItemIcon>
+              <ListItemIcon><img src={MailIcon} /></ListItemIcon>
               <ListItemText primary="Личные сообщения"/>
             </div>
             {withMenu({

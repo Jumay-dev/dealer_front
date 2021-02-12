@@ -18,9 +18,13 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
 import GetAppIcon from '@material-ui/icons/GetApp';
-import ChatIcon from '@material-ui/icons/Chat';
-import InfoIcon from '@material-ui/icons/Info';
+// import ChatIcon from '@material-ui/icons/Chat';
+// import InfoIcon from '@material-ui/icons/Info';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+import InfoIcon from "../assets/icons/Info circle.svg"
+import ChatIcon from "../assets/icons/Chat left.svg"
+import DownloadIcon from "../assets/icons/Download.svg"
 
 import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
@@ -121,16 +125,16 @@ function ProjectOneByCard({ item, toolsList, getTools }) {
             </TableBody>
         </Table>
       </CardContent>
-      <CardActions disableSpacing style={{display: "flex", justifyContent: "flex-end", paddingBottom: 0,}}>
+      <CardActions disableSpacing style={{display: "flex", justifyContent: "flex-end", padding: 0}}>
         <CommercialOfferList />
         <IconButton aria-label="add to favorites">
-            <GetAppIcon />
+            <img src={DownloadIcon} />
         </IconButton>
         <IconButton aria-label="share">
-          <ChatIcon />
+          <img src={ChatIcon} />
         </IconButton>
         <IconButton aria-label="share">
-          <InfoIcon />
+            <img src={InfoIcon} />
         </IconButton>
         
         <Button 
@@ -144,7 +148,7 @@ function ProjectOneByCard({ item, toolsList, getTools }) {
             boxShadow: "none",
             color: "white",
             background: "#688cbc",
-            borderRadius: "4px 4px 0px 0px"
+            borderRadius: "4px 0px 0px 0px"
             }} 
             variant="contained"
         >
@@ -162,8 +166,8 @@ function ProjectOneByCard({ item, toolsList, getTools }) {
         </Button>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent style={{padding: "8px", paddingTop: 0}}>
-            <div style={{ border: "2px solid #688cbc", borderRadius: "4px 0px 4px 4px", }}>
+        <CardContent style={{ padding: 0, background: "rgba(104, 140, 188, 0.06)"}}>
+            <div style={{ borderTop: "2px solid #688cbc",  padding: "16px"}}>
             <Table
                 size="small"
             >

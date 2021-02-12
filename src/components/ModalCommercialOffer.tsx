@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import DataTable from "./DataTable"
 import { Link } from 'react-router-dom';
 import ListAltIcon from '@material-ui/icons/ListAlt';
+import OfferIcon from "../assets/icons/File text.svg"
 
 function getModalStyle() {
   const top = 50;
@@ -78,7 +79,7 @@ export default function CommercialOffer() {
   return (
     <>
       <Button type="button" onClick={handleOpen} variant="outlined" color="primary" style={{display: "flex", justifyContent: "space-between", color: "#688cbc"}}>
-        <ListAltIcon />
+      <img src={OfferIcon} />
         <span>Сформировать КП для клиента</span>
       </Button>
       <Modal
