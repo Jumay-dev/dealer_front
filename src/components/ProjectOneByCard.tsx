@@ -103,7 +103,7 @@ function ProjectOneByCard({ item, toolsList, getTools }) {
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.actualised}</span>
                     </TableCell>
                     <TableCell>
-                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Менеджер:</span>
+                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Куратор:</span>
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.manager}</span>
                     </TableCell>
                 </TableRow>

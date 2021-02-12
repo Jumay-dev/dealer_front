@@ -84,7 +84,7 @@ function MailsMenu<MailsMenuProps>({
         <div>
             <div onClick={handleMenu} style={{display: "flex", alignItems: "center"}}>
               <ListItemIcon><img src={MailIcon} /></ListItemIcon>
-              <ListItemText primary="Личные сообщения"/>
+              <ListItemText primary="Сообщения"/>
             </div>
             {withMenu({
                 anchorEl,

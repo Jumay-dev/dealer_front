@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 300;
+const drawerWidth = 230;
 
 export const layoutStyles = makeStyles((theme) => ({
     root: {

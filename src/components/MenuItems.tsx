@@ -63,7 +63,7 @@ export function MainListItems() {
         <Link key={`link_2`} to="/projects" className={styles.menuItem}>
             <StyledMenuItem key={2} className={styles.menuItem}>
             <ListItemIcon ><img src={ProjectsListIcon} /></ListItemIcon>
-            <ListItemText primary="Управление проектами"/>
+            <ListItemText primary="Проекты"/>
             </StyledMenuItem>
         </Link>
         <Link key={`link_3`} to="/newproject" className={styles.menuItem}>
@@ -89,7 +89,7 @@ export function MainListItems() {
         <Link to="/Company" className={styles.menuItem }>
             <StyledMenuItem className={styles.menuItem}>
                 <ListItemIcon><img src={HomeIcon} /></ListItemIcon>
-                <ListItemText primary="Страница организации"/>
+                <ListItemText primary="Организация"/>
             </StyledMenuItem>
         </Link>
 
