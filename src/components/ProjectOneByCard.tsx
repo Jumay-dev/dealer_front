@@ -127,7 +127,18 @@ export default function RecipeReviewCard() {
           <InfoIcon />
         </IconButton>
         
-        <Button onClick={handleExpandClick} style={{display: "flex", alignItems: "center", justifyContent: "center", boxSizing: "border-box", alignSelf: "flex-end"}} variant="outlined">
+        <Button 
+        onClick={handleExpandClick} 
+        style={{
+            display: "flex", 
+            alignItems: "center", 
+            justifyContent: "center", 
+            boxSizing: "border-box", 
+            alignSelf: "flex-end",
+            boxShadow: "none"
+            }} 
+            variant="contained"
+        >
             <span>Показать оборудование</span>
             <div
             className={clsx(classes.expand, {
@@ -143,7 +154,7 @@ export default function RecipeReviewCard() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent style={{padding: "8px", paddingTop: 0}}>
-            <div style={{ border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: "4px"}}>
+            <div style={{ border: "1px solid #e0e0e0", borderRadius: "4px", background: "#e0e0e0"}}>
             <Table
                 size="small"
             >
