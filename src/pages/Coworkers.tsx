@@ -1,10 +1,9 @@
 import React from 'react'
 import DataTable from '../components/DataTable'
-import Search from '../components/Search'
-import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,18 +11,29 @@ const useStyles = makeStyles((theme: Theme) =>
         marginBottom: theme.spacing(1),
         overflow: "hidden",
         marginTop: 10,
+        padding: theme.spacing(3)
     },
     headerWrapper: {
         width: "100%",
         background: '#e3ecf7',
         display: "flex",
         flexDirection: "column",
+        justifyContent: "center",
         padding: theme.spacing(3),
         color: "#688cbc",
+        minHeight: "120px"
     },
     contentWrapper: {
         padding: theme.spacing(2),
+        display: "flex",
+        flexDirection: "column"
     },
+    searchField: {
+        margin: theme.spacing(1),
+        marginRight: 0,
+        maxWidth: 400,
+        alignSelf: "flex-end"
+    }
   }),
 );
 
@@ -77,7 +87,11 @@ function Coworkers() {
             </div>
         
             <div className={classes.contentWrapper}>
-                <span>поиск сотрудников</span>
+                <TextField
+                    fullWidth
+                    placeholder="Поиск"
+                    className={classes.searchField}
+                />
                 <Paper>
                     <DataTable
                         headers={["Имя", "Зарегистрирован", "Телефон", "Почта", "Роль"]}

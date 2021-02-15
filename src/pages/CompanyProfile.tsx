@@ -9,6 +9,21 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
         marginBottom: theme.spacing(1),
+        overflow: "hidden",
+        marginTop: 10,
+        padding: theme.spacing(3),
+    },
+    headerWrapper: {
+        width: "100%",
+        background: '#e3ecf7',
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: theme.spacing(3),
+        color: "#688cbc",
+        minHeight: "120px"
+    },
+    contentWrapper: {
         padding: theme.spacing(2),
     },
   }),
@@ -17,37 +32,41 @@ const useStyles = makeStyles((theme: Theme) =>
 function CompanyProfile() {
     const classes = useStyles()
     return (
-        <Paper className={classes.paper}>
-            <Grid container spacing={1}>
-                <Grid item xs={12} lg={12}>
-                <Typography gutterBottom variant="h5" component="h2">
-                    Информация об организации
+        <div>
+            <div className={classes.headerWrapper}>
+                <Typography component="h1" variant="h4">
+                    Реквизиты организации
                 </Typography>
-                </Grid>
+            </div>
+            <div className={classes.contentWrapper}>
+                <Paper className={classes.paper}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12} lg={12}>
+                            <p>Компания ААА</p>
+                        </Grid>
 
-                <Grid item xs={12} lg={12}>
-                    <p>Компания ААА</p>
-                </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <p>Телефон: 88005553535</p>
+                        </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <p>e-mail: 88005553535</p>
+                        </Grid>
 
-                <Grid item xs={12} lg={6}>
-                    <p>Телефон: 88005553535</p>
-                </Grid>
-                <Grid item xs={12} lg={6}>
-                    <p>e-mail: 88005553535</p>
-                </Grid>
+                        <Grid item xs={12} lg={12}>
+                            <p>Реквизиты</p>
+                        </Grid>
 
-                <Grid item xs={12} lg={12}>
-                    <p>Реквизиты</p>
-                </Grid>
+                        <Grid item xs={12} lg={12} spacing={1}>
+                            <CompanyCard />
+                            <CompanyCard />
+                            <CompanyCard />
+                            <CompanyCard />
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </div>
 
-                <Grid item xs={12} lg={12} spacing={1}>
-                    <CompanyCard />
-                    <CompanyCard />
-                    <CompanyCard />
-                    <CompanyCard />
-                </Grid>
-            </Grid>
-        </Paper>
+        </div>
     )
 }
 

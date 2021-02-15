@@ -8,7 +8,6 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles, createStyles, Theme, withStyles } from '@material-ui/core/styles';
 
-import Search from '../components/Search'
 import ProjectOneByCard from '../components/ProjectOneByCard'
 
 import { thunkAuth, thunkData } from "../services/thunks";
@@ -71,7 +70,10 @@ function User({ getProjects, projectsList }) {
     return (
         <div>
             <div className={classes.userHeader}>
-                <Typography style={{fontWeight: "bolder", fontSize: "1.5em", marginBottom: 10}}>
+                {/* <Typography style={{fontWeight: "bolder", fontSize: "1.5em", marginBottom: 10}}>
+                    Мой кабинет
+                </Typography> */}
+                <Typography component="h1" variant="h4">
                     Мой кабинет
                 </Typography>
                 <Typography style={{marginBottom: "2em"}}>Информация о пользователе ivanov1984</Typography>
