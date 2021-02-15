@@ -194,15 +194,15 @@ function ProjectOneByCard({ item, toolsList, getTools }) {
                 size="small"
             >
                 <TableBody>
-                    <TableRow>
-                        <TableCell style={{background: "#dcfcd8"}}>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>Авторизовано</span>
+                    <TableRow style={{background: "#e6e6e6"}}>
+                        <TableCell>
+                            <span style={{color: "#666b73", fontWeight: "bolder"}}>Авторизовано</span>
                         </TableCell>
-                        <TableCell style={{background: "#ffe1e1"}}>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>Не авторизовано</span>
+                        <TableCell>
+                            <span style={{color: "#666b73", fontWeight: "bolder"}}>Не авторизовано</span>
                         </TableCell>
-                        <TableCell style={{background: "#fbfcd8"}}>
-                            <span style={{fontWeight: "bolder", color: "#666b73"}}>На авторизации</span>
+                        <TableCell>
+                            <span style={{color: "#666b73", fontWeight: "bolder"}}>На авторизации</span>
                         </TableCell>
                     </TableRow>
 
