@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme, withStyles } from '@material-ui/core/styles';
 
 import Search from '../components/Search'
 import ProjectOneByCard from '../components/ProjectOneByCard'
@@ -23,11 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     userHeader: {
         width: "100%",
-        background: '#e1edff',
-        height: "3em",
+        background: '#e3ecf7',
         display: "flex",
-        alignItems: "center",
-        padding: 10,
+        flexDirection: "column",
+        padding: theme.spacing(3),
         color: "#688cbc",
     },
     userContainer: {
@@ -41,13 +40,18 @@ const useStyles = makeStyles((theme: Theme) =>
             background: "#688cbc"
         }
     },
-    userInfoContainer: {
-        background: "#eff5ff",
-        padding: "1em",
-        borderRadius: 5
-    },
     userProjectContainer: {
-        marginTop: 15
+        marginTop: 15,
+        padding: theme.spacing(2)
+    },
+    switchBase: {
+        color:"rgb(104, 140, 188)",
+        '&$checked': {
+          color: "rgb(104, 140, 188)",
+        },
+        '&$checked + $track': {
+          backgroundColor: "#e3ecf7",
+        },
     }
   }),
 );
@@ -65,92 +69,96 @@ function User({ getProjects, projectsList }) {
         console.log('pr', projectsList)
       }, [])
     return (
-        <Paper className={classes.paper}>
+        <div>
             <div className={classes.userHeader}>
-                <Typography style={{fontWeight: "bolder"}}>
+                <Typography style={{fontWeight: "bolder", fontSize: "1.5em", marginBottom: 10}}>
                     Мой кабинет
                 </Typography>
-            </div>
-            <div className={classes.userContainer}>
-                <Grid container spacing={1} className={classes.userInfoContainer}>
-                    <Grid item xs={12} lg={6}>
-                        <p>Информация о пользователе ivanov1984</p>
-                    </Grid>
-                    <Grid item xs={12} lg={6}>
-                        <Button variant="contained" className={classes.buttonStyle}>
-                            Сбросить пароль
-                        </Button>
-                    </Grid>
-
-                    <Grid item xs={12} lg={6}>
+                <Typography style={{marginBottom: "2em"}}>Информация о пользователе ivanov1984</Typography>
+                <Grid container spacing={1}>
+                    <Grid item xs={12} lg={4}>
                         <TextField
-                        label="Имя"
+                        placeholder="Имя"
                         id="filled-size-small"
                         />
                     </Grid>
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} lg={4} style={{display: "none"}}>
                         <FormControlLabel
                             control={
-                            <Switch
+                            <BlueSwitch
                                 name="checkedB"
-                                color="primary"
                             />
                             }
                             label="Видит только свои проекты"
                         />
                     </Grid>
 
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} lg={4}>
                         <TextField
-                        label="Фамилия"
+                        placeholder="Фамилия"
                         id="filled-size-small"
                         />
                     </Grid>
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} lg={4} style={{display: "none"}}>
                         <TextField
-                        label="Максимальная скидка"
-                        id="filled-size-small"
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} lg={6}>
-                        <TextField
-                        label="Отчество"
-                        id="filled-size-small"
-                        />
-                    </Grid>
-                    <Grid item xs={12} lg={6}>
-                        <TextField
-                        label="Телефон"
+                        placeholder="Максимальная скидка"
                         id="filled-size-small"
                         />
                     </Grid>
 
-                    <Grid item xs={12} lg={12}>
+                    <Grid item xs={12} lg={4}>
                         <TextField
-                        label="e-mail"
+                        placeholder="Отчество"
                         id="filled-size-small"
                         />
+                    </Grid>
+                    <Grid item xs={12} lg={4}>
+                        <TextField
+                        placeholder="Телефон"
+                        id="filled-size-small"
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} lg={4}>
+                        <TextField
+                        placeholder="e-mail"
+                        id="filled-size-small"
+                        />
+                    </Grid>
+                    <Grid item xs={12} lg={4}>
+                        <Button variant="contained" className={classes.buttonStyle}>
+                            Сбросить пароль
+                        </Button>
                     </Grid>
                 </Grid>
-
-                <div className={classes.userProjectContainer}>
-                    <Typography variant="subtitle1" paragraph>
-                        Проекты пользователя
-                    </Typography>
-
-
-                    <Button variant="contained" className={classes.buttonStyle}>
-                        Добавить проект
-                    </Button>
-
-                    {projectsList.map(item => <ProjectOneByCard item={item} />)}
-                </div>
             </div>
+            <Paper className={classes.paper}>
+                    <div className={classes.userProjectContainer}>
+                        <Typography variant="h6" style={{color: "#688cbc", marginBottom: 10}}>
+                            Проекты пользователя
+                        </Typography>
 
-        </Paper>
+                        {projectsList.map(item => <ProjectOneByCard item={item} />)}
+                    </div>
+            </Paper>
+        </div>
     )
 }
+
+const BlueSwitch = withStyles({
+    switchBase: {
+        color:"#ffffff",
+        '&$checked': {
+          color: "rgb(104, 140, 188)",
+        },
+        '&$checked + $track': {
+          backgroundColor: "#919eaf",
+          border: "rgb(104, 140, 188)"
+        },
+    },
+    checked: {},
+    track: {},
+  })(Switch);
 
 function mapStateToProps(state) {
     return {

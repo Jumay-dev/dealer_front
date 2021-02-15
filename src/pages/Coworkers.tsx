@@ -3,6 +3,7 @@ import DataTable from '../components/DataTable'
 import Search from '../components/Search'
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -11,6 +12,17 @@ const useStyles = makeStyles((theme: Theme) =>
         marginBottom: theme.spacing(1),
         overflow: "hidden",
         marginTop: 10,
+    },
+    headerWrapper: {
+        width: "100%",
+        background: '#e3ecf7',
+        display: "flex",
+        flexDirection: "column",
+        padding: theme.spacing(3),
+        color: "#688cbc",
+    },
+    contentWrapper: {
+        padding: theme.spacing(2),
     },
   }),
 );
@@ -57,19 +69,24 @@ const testUserListReducedToRows = [
 function Coworkers() {
     const classes = useStyles()
     return (
-        <>
-            <Typography component="h1" variant="h4">
-                Мои сотрудники
-            </Typography>
-            <Search />
-            <Pagination count={10} color="secondary" size="large" style={{marginBottom: 10}}/>
-            <DataTable
-                headers={["Имя", "Зарегистрирован", "Телефон", "Почта", "Роль"]}
-                rows={testUserListReducedToRows}
-                actions={['delete', 'edit']}
-            />
-            <Pagination count={10} color="secondary" size="large" style={{marginTop: 10}}/>
-        </>
+        <div>
+            <div className={classes.headerWrapper}>
+                <Typography component="h1" variant="h4">
+                    Мои сотрудники
+                </Typography>
+                <span>поиск сотрудников</span>
+            </div>
+        
+            <div className={classes.contentWrapper}>
+                <Paper>
+                    <DataTable
+                        headers={["Имя", "Зарегистрирован", "Телефон", "Почта", "Роль"]}
+                        rows={testUserListReducedToRows}
+                        actions={['delete', 'edit']}
+                    />
+                </Paper>
+            </div>
+        </div>
     )
 }
 
