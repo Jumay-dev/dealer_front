@@ -74,10 +74,10 @@ function Coworkers() {
                 <Typography component="h1" variant="h4">
                     Мои сотрудники
                 </Typography>
-                <span>поиск сотрудников</span>
             </div>
         
             <div className={classes.contentWrapper}>
+                <span>поиск сотрудников</span>
                 <Paper>
                     <DataTable
                         headers={["Имя", "Зарегистрирован", "Телефон", "Почта", "Роль"]}
