@@ -5,6 +5,13 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
@@ -33,6 +40,16 @@ const useStyles = makeStyles((theme: Theme) =>
         marginRight: 0,
         maxWidth: 400,
         alignSelf: "flex-end"
+    },
+    coworkerWrapper: {
+        padding: theme.spacing(2)
+    },
+    usertableHead: {
+        border: "2px solid #e1e3e5",
+        "&.MuiTableRow-root .MuiTableCell-root": {
+            fontWeight: "bolder",
+            color: "#4e4a56"
+        }
     }
   }),
 );
@@ -87,16 +104,56 @@ function Coworkers() {
             </div>
         
             <div className={classes.contentWrapper}>
-                <TextField
-                    fullWidth
-                    placeholder="Поиск"
-                    className={classes.searchField}
-                />
-                <Paper>
-                    <DataTable
-                        headers={["Имя", "Зарегистрирован", "Телефон", "Почта", "Роль"]}
-                        rows={testUserListReducedToRows}
-                        actions={['delete', 'edit']}
+                <Paper className={classes.coworkerWrapper}>
+                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                        <Typography component="h2" variant="h6" style={{marginBottom: "2em", color: "#4e4a56", fontWeight: "bold"}}>
+                            Список сотрудников
+                        </Typography>
+                        <TextField
+                            fullWidth
+                            placeholder="Поиск"
+                            className={classes.searchField}
+                        />
+                    </div>
+                    <Table size="small">
+                        <TableHead >
+                            <TableRow className={classes.usertableHead}>
+                                <TableCell>
+                                    Имя
+                                </TableCell>
+                                <TableCell>
+                                    Дата регистрации
+                                </TableCell>
+                                <TableCell>
+                                    Телефон
+                                </TableCell>
+                                <TableCell>
+                                    Почта
+                                </TableCell>
+                                <TableCell>
+                                    Роль
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {testUserListReducedToRows.map( user => (
+                                <TableRow key={user.name} hover>
+                                    <TableCell>{user.cells[0]}</TableCell>
+                                    <TableCell>{user.cells[1]}</TableCell>
+                                    <TableCell>{user.cells[2]}</TableCell>
+                                    <TableCell>{user.cells[3]}</TableCell>
+                                    <TableCell>{user.cells[4]}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    <TablePagination
+                        component="div"
+                        count={100}
+                        page={1}
+                        rowsPerPage={10}
+                        onChangeRowsPerPage={() => {}}
+                        onChangePage={() => {}}
                     />
                 </Paper>
             </div>

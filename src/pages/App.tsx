@@ -15,7 +15,35 @@ import { User } from "../types";
 import { thunkAuth } from "../services/thunks";
 import { SIGN_IN, SIGN_OUT } from "../store/types";
 
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
 // const isAuthetificated = true
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: 'rgb(104, 140, 188)',
+      dark: 'rgb(104, 140, 188)',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#e3ecf7',
+      dark: 'rgb(104, 140, 188)',
+      contrastText: '#000',
+    },
+  },
+  typography: {
+
+  },
+  props: {
+    MuiButton: {
+      
+    },
+    
+  }
+});
 
 function App(props) {
   const { isAuthenticated, signInUser } = props
@@ -32,23 +60,25 @@ function App(props) {
   }
 
   return (
-    <Switch>
-      {isAuthenticated && (
-        <div>
-          <RouteWrapper exact path="/" component={Main} layout={mainLayout}/>
-          <RouteWrapper exact path="/company" component={CompanyProfile} layout={mainLayout} />
-          <RouteWrapper exact path="/projects" component={ProjectsList} layout={mainLayout} />
-          <RouteWrapper exact path="/newproject" component={Project} layout={mainLayout} />
-          <RouteWrapper exact path="/coworkers" component={Coworkers} layout={mainLayout} />
-          <RouteWrapper exact path="/user" component={UserPage} layout={mainLayout} />
-          <RouteWrapper exact path="/newoffer" component={NewOffer} layout={mainLayout} />
-        </div>
-      )}
+    <ThemeProvider theme={theme}>
+      <Switch>
+        {isAuthenticated && (
+          <div>
+            <RouteWrapper exact path="/" component={Main} layout={mainLayout}/>
+            <RouteWrapper exact path="/company" component={CompanyProfile} layout={mainLayout} />
+            <RouteWrapper exact path="/projects" component={ProjectsList} layout={mainLayout} />
+            <RouteWrapper exact path="/newproject" component={Project} layout={mainLayout} />
+            <RouteWrapper exact path="/coworkers" component={Coworkers} layout={mainLayout} />
+            <RouteWrapper exact path="/user" component={UserPage} layout={mainLayout} />
+            <RouteWrapper exact path="/newoffer" component={NewOffer} layout={mainLayout} />
+          </div>
+        )}
 
-      {!isAuthenticated && (
-        <Login userLoginAction={userLoginAction} />
-      )}
-    </Switch>
+        {!isAuthenticated && (
+          <Login userLoginAction={userLoginAction} />
+        )}
+      </Switch>
+    </ThemeProvider>
   )
 }
 

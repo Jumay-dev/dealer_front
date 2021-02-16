@@ -51,7 +51,16 @@ const useStyles = makeStyles((theme: Theme) =>
         '&$checked + $track': {
           backgroundColor: "#e3ecf7",
         },
-    }
+    },
+    fieldsContainer: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    buttonContainer: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-end"
+    },
   }),
 );
 
@@ -61,75 +70,66 @@ function User({ getProjects, projectsList }) {
         type: LIST_PROJECTS,
         endpoint: "projects/",
         data: {},
-      };
-    
-      React.useEffect( () => {
+    };
+    const [user, setUser] = React.useState({
+        username: "ivanov1984",
+        name: 'Иванов',
+        surname: 'Иван',
+        patronym: "Иванович",
+        email: "ivanov1984@aaa.ru",
+        phone: "+78005553535",
+        canSeeProjects: true,
+        possibleDiscoint: "30",
+    })
+
+    React.useEffect( () => {
         getProjects(projectListAction)
         console.log('pr', projectsList)
-      }, [])
+    }, [])
     return (
         <div>
             <div className={classes.userHeader}>
-                {/* <Typography style={{fontWeight: "bolder", fontSize: "1.5em", marginBottom: 10}}>
-                    Мой кабинет
-                </Typography> */}
                 <Typography component="h1" variant="h4">
                     Мой кабинет
                 </Typography>
-                <Typography style={{marginBottom: "2em"}}>Информация о пользователе ivanov1984</Typography>
+                <Typography style={{marginBottom: "2em"}}>Информация о пользователе {user ? user.username : ""}</Typography>
                 <Grid container spacing={1}>
-                    <Grid item xs={12} lg={4}>
+                    <Grid item xs={12} lg={3} className={classes.fieldsContainer}>
                         <TextField
-                        placeholder="Имя"
-                        id="filled-size-small"
+                            placeholder="Имя"
+                            id="filled-size-small"
+                            value={user ? user.name : ""}
+                        />
+                        <TextField
+                            placeholder="Фамилия"
+                            id="filled-size-small"
+                            value={user ? user.surname : ""}
+                        />
+                        <TextField
+                            placeholder="Отчество"
+                            id="filled-size-small"
+                            value={user ? user.patronym : ""}
                         />
                     </Grid>
-                    <Grid item xs={12} lg={4} style={{display: "none"}}>
-                        <FormControlLabel
-                            control={
-                            <BlueSwitch
-                                name="checkedB"
-                            />
-                            }
-                            label="Видит только свои проекты"
+                    <Grid item xs={12} lg={3} className={classes.fieldsContainer}>
+                        <TextField
+                            placeholder="Телефон"
+                            id="filled-size-small"
+                            value={user ? user.phone : ""}
                         />
-                    </Grid>
+                        <TextField
+                            placeholder="e-mail"
+                            id="filled-size-small"
+                            value={user ? user.email : ""}
+                        />
 
-                    <Grid item xs={12} lg={4}>
-                        <TextField
-                        placeholder="Фамилия"
-                        id="filled-size-small"
-                        />
                     </Grid>
-                    <Grid item xs={12} lg={4} style={{display: "none"}}>
-                        <TextField
-                        placeholder="Максимальная скидка"
-                        id="filled-size-small"
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} lg={4}>
-                        <TextField
-                        placeholder="Отчество"
-                        id="filled-size-small"
-                        />
-                    </Grid>
-                    <Grid item xs={12} lg={4}>
-                        <TextField
-                        placeholder="Телефон"
-                        id="filled-size-small"
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} lg={4}>
-                        <TextField
-                        placeholder="e-mail"
-                        id="filled-size-small"
-                        />
-                    </Grid>
-                    <Grid item xs={12} lg={4}>
-                        <Button variant="contained" className={classes.buttonStyle}>
+                    <Grid item xs={12} lg={6} className={classes.buttonContainer}>
+                        <Button variant="contained" color="primary" style={{ width: 200}}>
                             Сбросить пароль
+                        </Button>
+                        <Button variant="contained" color="primary" style={{marginTop: 5, width: 200}}>
+                            Изменить
                         </Button>
                     </Grid>
                 </Grid>

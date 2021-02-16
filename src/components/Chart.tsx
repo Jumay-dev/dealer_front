@@ -46,7 +46,7 @@ function LineChartWrapper({data}) {
         <XAxis dataKey="name"/>
         <YAxis/>
         <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+        <Line type="monotone" dataKey="uv" stroke="rgb(104, 140, 188)" />
         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
       </LineChart>
     </ResponsiveContainer>
@@ -66,7 +66,7 @@ function AreaChartWrapper({data}) {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+        <Area type="monotone" dataKey="uv" stroke="rgb(104, 140, 188)" fill="rgb(104, 140, 188)" />
       </AreaChart>
     </ResponsiveContainer>
   )
@@ -86,7 +86,7 @@ function ComposedChartWrapper({data}) {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="uv" barSize={20} fill="#413ea0" />
+        <Bar dataKey="uv" barSize={20} fill="rgb(104, 140, 188)" />
         <Line type="monotone" dataKey="uv" stroke="#ff7300" />
       </ComposedChart>
     </ResponsiveContainer>
@@ -99,7 +99,7 @@ function PieChartWrapper({data}) {
   return (
     <ResponsiveContainer>
       <PieChart>
-        <Pie dataKey="value" isAnimationActive={false} data={data01} outerRadius={80} fill="#8884d8" label />
+        <Pie dataKey="value" isAnimationActive={false} data={data01} outerRadius={80} fill="rgb(104, 140, 188)" label />
         <Pie dataKey="value" data={data02} innerRadius={40} outerRadius={80} fill="#82ca9d" />
         <Tooltip />
       </PieChart>

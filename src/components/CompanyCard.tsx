@@ -1,61 +1,86 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 import ModalCompanyInfo from '../components/ModalCompanyInfo'
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-    display: "inline-block",
-    margin: 10
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      padding: theme.spacing(2),
+      background: theme.palette.secondary.main,
+      width: "100%",
+      marginBottom: theme.spacing(2),
+      height: 150
+    },
+    tableCellName: {
+      fontWeight: "bolder", 
+      color: "#96999c", 
+      marginRight: 5
+    },
+    tableCellValue: {
+        fontWeight: "bolder", 
+        color: "#666b73"
+    }
+  }),
+);
 
-export default function ImgMediaCard() {
+export default function CompanyCard({company}) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-        //   height="140"
-          width="100%"
-          image="https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            ААА
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            ИНН 7802589471
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Адрес 197110, Россия, САНКТ-ПЕТЕРБУРГ, МАРТЫНОВА, ДОМ 4, ЛИТЕРА А, ПОМЕЩЕНИЕ 2Н ОФИС1
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Сокращенное наименование организации ООО "ГРАНД МЕДИКАЛ"
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Отв. лицо: Беззубенков Иван Геннадьевич
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <ModalCompanyInfo />
-        <Button size="small" color="primary">
-          Удалить
-        </Button>
-      </CardActions>
-    </Card>
+    <Paper className={classes.root}>
+      <img src={company.logo} style={{width: 100, backgroundSize: "cover"}}/>
+      <Table size="small">
+        <TableBody>
+          <TableRow>
+            <TableCell className={classes.tableCellName}>
+              Название
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              ААА
+            </TableCell>
+            <TableCell className={classes.tableCellName}>
+              ИНН
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              7802589471
+            </TableCell>
+            <TableCell className={classes.tableCellName}>
+              Адрес
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              197110, Россия, ...
+            </TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell className={classes.tableCellName}>
+              Сокр. наим.
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              ООО "ГРАНД МЕДИКАЛ"
+            </TableCell>
+            <TableCell className={classes.tableCellName}>
+              Отв. лицо:
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              Беззубенков Иван Геннадьевич
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+      
+      <ModalCompanyInfo company={company}/>
+    </Paper>
   );
 }

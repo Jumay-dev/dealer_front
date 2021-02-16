@@ -11,14 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import CommercialOfferList from "./ModalCommercialOffer"
 import { red } from '@material-ui/core/colors';
 
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-
-import GetAppIcon from '@material-ui/icons/GetApp';
-
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import InfoIcon from "../assets/icons/Info circle.svg"
