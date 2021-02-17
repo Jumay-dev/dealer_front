@@ -1,14 +1,12 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
 import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-import ModalCompanyInfo from '../components/ModalCompanyInfo'
+import ArrowRight from '../assets/icons/Chevron right circle.svg'
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,7 +15,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "row",
       justifyContent: "space-between",
       padding: theme.spacing(2),
-      background: theme.palette.secondary.main,
+      border: "3px solid",
+      borderColor: theme.palette.primary.main,
       width: "100%",
       marginBottom: theme.spacing(2),
       height: 150
@@ -34,12 +33,19 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function CompanyCard({company}) {
+export default function CompanyCard({company, setOpen, open, setCurrentCompany}) {
   const classes = useStyles();
+  
+  const handleOpen = () => {
+    setCurrentCompany(company)
+    setOpen(!open)
+  }
 
   return (
     <Paper className={classes.root}>
-      <img src={company.logo} style={{width: 100, backgroundSize: "cover"}}/>
+      <IconButton>
+        <img src={company.logo} style={{width: 100, backgroundSize: "cover"}} onClick={handleOpen}/>
+      </IconButton>
       <Table size="small">
         <TableBody>
           <TableRow>
@@ -79,8 +85,14 @@ export default function CompanyCard({company}) {
           </TableRow>
         </TableBody>
       </Table>
+
+      <div style={{display: "flex", alignItems: "center"}}>
+        <IconButton>
+          <img src={ArrowRight} onClick={handleOpen}/>
+        </IconButton>
+      </div>
       
-      <ModalCompanyInfo company={company}/>
+      {/* <ModalCompanyInfo company={company}/> */}
     </Paper>
   );
 }

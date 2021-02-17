@@ -1,17 +1,16 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
-import ArrowRight from '../assets/icons/Chevron right circle.svg'
 import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '../assets/icons/Close circle.svg'
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,119 +26,121 @@ const useStyles = makeStyles((theme: Theme) =>
     tableCellName: {
       fontWeight: "bolder", 
       color: "#96999c", 
-      marginRight: 5
+      marginRight: 5,
+      width: 100
     },
     tableCellValue: {
         fontWeight: "bolder", 
         color: "#666b73"
     },
     headerStyle: {
-        background: theme.palette.secondary.main,
-        color: theme.palette.primary.main,
+      background: theme.palette.secondary.main,
+      color: theme.palette.primary.main,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    },
+    deleteButton: {
+        marginRight: 10, 
+        background: theme.palette.error.main, 
+        color: "white",
+        "&:hover": {
+            background: theme.palette.error.dark
+        }
     }
   }),
 );
 
-export default function ModalCompanyInfo({company}) {
+export default function ModalCompanyInfo({open, setOpen, currentCompany}) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
-    <div>
-      <IconButton>
-        <img src={ArrowRight} onClick={handleOpen}/>
-      </IconButton>
-      <SimpleDialog open={open} onClose={handleClose} />
-    </div>
-  );
-
-  function SimpleDialog(props) {
-    const classes = useStyles();
-    const { onClose, open } = props;
+    <Dialog onClose={() => setOpen(!open)} aria-labelledby="simple-dialog-title" open={open} className={classes.root} fullWidth maxWidth="md">
+      <DialogTitle id="simple-dialog-title" className={classes.headerStyle} disableTypography>
+        <Typography variant="h5">
+            Подробнее о компании
+        </Typography>
+        
+        <IconButton onClick={() => setOpen(!open)}>
+            <img src={CloseIcon} />
+        </IconButton>
+      </DialogTitle>
+      <div className={classes.containerRoot}>
+        <img style={{maxWidth: "100px"}} src={currentCompany.logo}/>
+        <Table size="small">
+          <TableBody>
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                Название
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
+                <TextField 
+                  value="AAA"
+                  fullWidth
+                />
+              </TableCell>
+            </TableRow>
   
-    return (
-      <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open} className={classes.root} fullWidth maxWidth="md">
-        <DialogTitle id="simple-dialog-title" className={classes.headerStyle}>Подробнее об организации</DialogTitle>
-        <div className={classes.containerRoot}>
-          <img style={{maxWidth: "50%"}} src={company.logo}/>
-          <Table size="small">
-            <TableBody>
-              <TableRow>
-                <TableCell className={classes.tableCellName}>
-                  Название
-                </TableCell>
-                <TableCell className={classes.tableCellValue}>
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                ИНН
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
+                <TextField 
+                  value="7802589471"
+                  fullWidth
+                />
+              </TableCell>
+            </TableRow>
+  
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                Адрес
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
+                <TextField 
+                  value="197110, Россия, САНКТ-ПЕТЕРБУРГ, МАРТЫНОВА, ДОМ 4, ЛИТЕРА А, ПОМЕЩЕНИЕ 2Н ОФИС1"
+                  fullWidth
+                />
+              </TableCell>
+            </TableRow>
+  
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                Сокр. наим. организации
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
                   <TextField 
-                    value="AAA"
+                    value='ООО "ГРАНД МЕДИКАЛ"'
+                    fullWidth
                   />
-                </TableCell>
-              </TableRow>
-    
-              <TableRow>
-                <TableCell className={classes.tableCellName}>
-                  ИНН
-                </TableCell>
-                <TableCell className={classes.tableCellValue}>
+              </TableCell>
+            </TableRow>
+  
+            
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                Отв. лицо:
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
                   <TextField 
-                    value="7802589471"
+                    value='Беззубенков Иван Геннадьевич'
+                    fullWidth
                   />
-                </TableCell>
-              </TableRow>
-    
-              <TableRow>
-                <TableCell className={classes.tableCellName}>
-                  Адрес
-                </TableCell>
-                <TableCell className={classes.tableCellValue}>
-                  <TextField 
-                    value="197110, Россия, САНКТ-ПЕТЕРБУРГ, МАРТЫНОВА, ДОМ 4, ЛИТЕРА А, ПОМЕЩЕНИЕ 2Н ОФИС1"
-                  />
-                </TableCell>
-              </TableRow>
-    
-              <TableRow>
-                <TableCell className={classes.tableCellName}>
-                  Сокращенное наименование организации
-                </TableCell>
-                <TableCell className={classes.tableCellValue}>
-                    <TextField 
-                      value='ООО "ГРАНД МЕДИКАЛ"'
-                    />
-                </TableCell>
-              </TableRow>
-    
-              
-              <TableRow>
-                <TableCell className={classes.tableCellName}>
-                  Отв. лицо:
-                </TableCell>
-                <TableCell className={classes.tableCellValue}>
-                    <TextField 
-                      value='Беззубенков Иван Геннадьевич'
-                    />
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
 
-          <div style={{textAlign: "right"}}>
-            <Button type="button" variant="contained" color="primary" style={{marginRight: 10}}>
-              Сохранить
-            </Button>
-            <Button type="button" variant="contained" color="primary" onClick={() => onClose()}>
-              Отменить
-            </Button>
-          </div>
+        <div style={{textAlign: "right", marginTop: "2em"}}>
+          <Button type="button" variant="contained" className={classes.deleteButton}>
+              Удалить
+          </Button>
+          <Button type="button" variant="contained" color="primary" style={{marginRight: 10}}>
+            Сохранить
+          </Button>
         </div>
-      </Dialog>
-    );
-  }
+      </div>
+    </Dialog>
+  );
 }

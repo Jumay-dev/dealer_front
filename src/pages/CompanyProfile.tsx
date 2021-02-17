@@ -4,12 +4,14 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import CompanyCard from '../components/CompanyCard'
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import PlusCircle from '../assets/icons/Plus circle.svg'
+import ModalCompanyInfo from '../components/ModalCompanyInfo'
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        alignItems: "space-between",
         padding: theme.spacing(3),
         color: "#688cbc",
         minHeight: "120px"
@@ -46,6 +49,11 @@ const useStyles = makeStyles((theme: Theme) =>
     tableCellValue: {
         fontWeight: "bolder", 
         color: "#666b73"
+    },
+    reqHeader: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
     }
   }),
 );
@@ -53,24 +61,76 @@ const useStyles = makeStyles((theme: Theme) =>
 const fakeCompanies = [
     {
         id: 0,
-        logo: "https://www.prlog.org/12660964-logo.png"
+        logo: "https://www.prlog.org/12660964-logo.png",
+        name: 'ААА Trade',
+        shortname: '',
+        inn: '',
+        head: '',
+        address: ''
     },
     {
         id: 1,
-        logo: "https://www.clipartmax.com/png/full/112-1129036_logo-samsung-png-samsung-logo-2016-png.png"
+        logo: "https://www.clipartmax.com/png/full/112-1129036_logo-samsung-png-samsung-logo-2016-png.png",
+        name: '',
+        shortname: '',
+        inn: '',
+        head: '',
+        address: ''
     },
     {
         id: 2,
-        logo: "https://industrialcolor.com/wp-content/uploads/2019/06/hewlett-packard-logo-black-and-white.png"
+        logo: "https://industrialcolor.com/wp-content/uploads/2019/06/hewlett-packard-logo-black-and-white.png",
+        name: '',
+        shortname: '',
+        inn: '',
+        head: '',
+        address: ''
     },
     {
         id: 3,
-        logo: "https://www.kindpng.com/picc/m/268-2687090_ps-logo-of-games-ps4-logo-png-transparent.png"
+        logo: "https://www.kindpng.com/picc/m/268-2687090_ps-logo-of-games-ps4-logo-png-transparent.png",
+        name: '',
+        shortname: '',
+        inn: '',
+        head: '',
+        address: ''
     },
 ]
 
 function CompanyProfile() {
     const classes = useStyles()
+    const [open, setOpen] = React.useState(false)
+    const [currentCompany, setCurrentCompany] = React.useState({})
+
+    const newReqHandler = () => {
+        setCurrentCompany(
+            {
+                id: 0,
+                logo: "",
+                name: '',
+                shortname: '',
+                inn: '',
+                head: '',
+                address: ''
+            },
+        )
+        setOpen(true)
+    }
+
+    const mainReqHandler = () => {
+        setCurrentCompany(
+            {
+                id: 0,
+                logo: "",
+                name: '',
+                shortname: '',
+                inn: '',
+                head: '',
+                address: ''
+            },
+        )
+        setOpen(true)
+    }
     return (
         <div>
             <div className={classes.headerWrapper}>
@@ -82,9 +142,8 @@ function CompanyProfile() {
                 <Paper className={classes.paper}>
                     <div className={classes.companyInfoContainer}>
                     <Typography 
-                        component="h1" 
                         variant="h4"
-                        style={{color: "#688cbc", display: "inline-block"}}
+                        style={{color: "#688cbc", display: "inline-block", marginBottom: "1em"}}
                     >Компания ААА</Typography>
                         <Grid container>
                             <Grid item lg={4} className={classes.gridCell} style={{padding: 0}}>
@@ -137,22 +196,35 @@ function CompanyProfile() {
                                 </Table>
                             </Grid>
                             <Grid item lg={4}>
-                                <Button variant="contained" color="primary">Редактировать</Button>
+                                <Button variant="contained" color="primary" onClick={mainReqHandler}>Редактировать</Button>
                             </Grid>
                         </Grid>
                     </div>
-                    <Typography
-                        component="h2" 
-                        variant="h5"
-                        style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
-                    >
-                        Реквизиты компании
-                    </Typography>
 
-                    {fakeCompanies.map(company =><CompanyCard company={company}/>)}
+                    <div className={classes.reqHeader}>
+                        <Typography
+                            component="h2" 
+                            variant="h5"
+                            style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
+                        >
+                            Реквизиты компании
+                        </Typography>
+                        <IconButton onClick={newReqHandler}>
+                            <img src={PlusCircle} />
+                        </IconButton>
+                    </div>
+
+
+                    {fakeCompanies.map(company =>
+                    <CompanyCard 
+                        company={company} 
+                        open={open} 
+                        setOpen={setOpen} 
+                        setCurrentCompany={setCurrentCompany}
+                    />)}
                 </Paper>
             </div>
-
+            <ModalCompanyInfo open={open} setOpen={setOpen} currentCompany={currentCompany}/>
         </div>
     )
 }

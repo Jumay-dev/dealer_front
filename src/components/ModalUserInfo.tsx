@@ -4,13 +4,11 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
-
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CloseIcon from '../assets/icons/Close circle.svg'
@@ -23,9 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
             backdropFilter: "blur(5px)",
             background: "rgba(104, 140, 188, 0.4) !important"
         },
-        "&.MuiTypography-root": {
-            display: "none"
-        }
     },
     containerRoot: {
       padding: theme.spacing(2),
