@@ -154,7 +154,10 @@ function Coworkers() {
             <div className={classes.contentWrapper}>
                 <Paper className={classes.coworkerWrapper}>
                     <div style={{display: "flex", justifyContent: "space-between"}}>
-                        <Typography component="h2" variant="h6" style={{marginBottom: "2em", color: "#4e4a56", fontWeight: "bold"}}>
+                        <Typography 
+                            variant="h4"
+                            style={{color: "#688cbc", display: "inline-block", marginBottom: "1em"}}
+                        >
                             Список сотрудников
                         </Typography>
                         <TextField
