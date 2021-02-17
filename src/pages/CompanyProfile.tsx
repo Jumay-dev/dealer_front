@@ -10,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import PlusCircle from '../assets/icons/Plus circle.svg'
+import EditCircle from '../assets/icons/Edit 3.svg'
 import ModalCompanyInfo from '../components/ModalCompanyInfo'
 import IconButton from '@material-ui/core/IconButton';
 
@@ -54,6 +55,12 @@ const useStyles = makeStyles((theme: Theme) =>
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center"
+    },
+    mainCompanyContainerHeader: {
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        marginBottom: "1em"
     }
   }),
 );
@@ -138,13 +145,21 @@ function CompanyProfile() {
                     Реквизиты организации
                 </Typography>
             </div>
+
             <div className={classes.contentWrapper}>
                 <Paper className={classes.paper}>
                     <div className={classes.companyInfoContainer}>
-                    <Typography 
-                        variant="h4"
-                        style={{color: "#688cbc", display: "inline-block", marginBottom: "1em"}}
-                    >Компания ААА</Typography>
+                    <div className={classes.mainCompanyContainerHeader}>
+                        <Typography 
+                            variant="h4"
+                            style={{color: "#688cbc", display: "inline-block", marginRight: "1em"}}
+                        >Компания ААА</Typography>
+                        <Button 
+                            variant="text" 
+                            color="primary" 
+                            onClick={mainReqHandler}
+                        ><img src={EditCircle} style={{marginRight: 10}}/>Редактировать</Button>
+                    </div>
                         <Grid container>
                             <Grid item lg={4} className={classes.gridCell} style={{padding: 0}}>
                                 <img src="https://www.prlog.org/12660964-logo.png" style={{maxWidth: "100%", maxHeight: "300px"}}/>
@@ -194,9 +209,6 @@ function CompanyProfile() {
                                         </TableRow>
                                     </TableBody>
                                 </Table>
-                            </Grid>
-                            <Grid item lg={4}>
-                                <Button variant="contained" color="primary" onClick={mainReqHandler}>Редактировать</Button>
                             </Grid>
                         </Grid>
                     </div>
