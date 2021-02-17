@@ -16,6 +16,12 @@ import IconButton from '@material-ui/core/IconButton';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      "&.MuiDialog-root": {
+          backdropFilter: "blur(5px)",
+          background: "rgba(104, 140, 188, 0.2)"
+      }
+    },
+    containerRoot: {
       padding: theme.spacing(2)
     },
     tableCellName: {
@@ -26,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
     tableCellValue: {
         fontWeight: "bolder", 
         color: "#666b73"
+    },
+    headerStyle: {
+        background: theme.palette.secondary.main,
+        color: theme.palette.primary.main,
     }
   }),
 );
@@ -56,9 +66,9 @@ export default function ModalCompanyInfo({company}) {
     const { onClose, open } = props;
   
     return (
-      <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open} >
-        <DialogTitle id="simple-dialog-title">Подробнее об организации</DialogTitle>
-        <div className={classes.root}>
+      <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open} className={classes.root} fullWidth maxWidth="md">
+        <DialogTitle id="simple-dialog-title" className={classes.headerStyle}>Подробнее об организации</DialogTitle>
+        <div className={classes.containerRoot}>
           <img style={{maxWidth: "50%"}} src={company.logo}/>
           <Table size="small">
             <TableBody>

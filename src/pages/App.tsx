@@ -33,6 +33,12 @@ const theme = createMuiTheme({
       dark: 'rgb(104, 140, 188)',
       contrastText: '#000',
     },
+    error: {
+      light: '#d67474',
+      main: "#bc6868",
+      dark: '#945151',
+      contrastText: '#000',
+    }
   },
   typography: {
 

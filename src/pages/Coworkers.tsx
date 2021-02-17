@@ -11,6 +11,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
+import ModalUserInfo from '../components/ModalUserInfo'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,45 +57,92 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const testUserListReducedToRows = [
     {
-        name: 1,
-        cells: ['Иванов Иван Иванович', '21.01.2021', '+7 (800) 555-35-35', "ivanov@aaa.ru", 'Сотрудник']
+        id: 1,
+        fullname: 'Иванов Иван Иванович',
+        registered: '21.01.2021',
+        phone: '+7 (800) 555-35-35',
+        mail: "ivanov@aaa.ru",
+        role: 'Сотрудник',
     },
     {
-        name: 2,
-        cells: ['Петров Петр Петрович', '21.01.2021', '+7 (800) 555-35-35', "petrov@aaa.ru", 'Сотрудник']
+        id: 2,
+        fullname: 'Петров Петр Петрович',
+        registered: '21.01.2021',
+        phone: '+7 (800) 555-35-35',
+        mail: "petrov@aaa.ru",
+        role: 'Сотрудник'
     },
     {
-        name: 3,
-        cells: ['Генералов Алексей Иванович', '21.01.2021', '+7 (800) 555-35-35', "generalov@aaa.ru", 'Нач. отдела']
+        id: 3,
+        fullname: 'Генералов Алексей Иванович',
+        registered: '21.01.2021',
+        phone: '+7 (800) 555-35-35',
+        mail: "generalov@aaa.ru",
+        role: 'Нач. отдела'
     },
     {
-        name: 4,
-        cells: ['Иванов Иван Иванович', '21.01.2021', '+7 (800) 555-35-35', "ivanov@aaa.ru", 'Сотрудник']
+        id: 4,
+        fullname: 'Иванов Иван Иванович',
+        registered: '21.01.2021',
+        phone: '+7 (800) 555-35-35',
+        mail: "ivanov@aaa.ru",
+        role: 'Сотрудник',
     },
     {
-        name: 5,
-        cells: ['Петров Петр Петрович', '21.01.2021', '+7 (800) 555-35-35', "petrov@aaa.ru", 'Сотрудник']
+        id: 5,
+        fullname: 'Петров Петр Петрович',
+        registered: '21.01.2021',
+        phone: '+7 (800) 555-35-35',
+        mail: "petrov@aaa.ru",
+        role: 'Сотрудник'
     },
     {
-        name: 6,
-        cells: ['Генералов Алексей Иванович', '21.01.2021', '+7 (800) 555-35-35', "generalov@aaa.ru", 'Нач. отдела']
+        id: 6,
+        fullname: 'Генералов Алексей Иванович',
+        registered: '21.01.2021',
+        phone: '+7 (800) 555-35-35',
+        mail: "generalov@aaa.ru",
+        role: 'Нач. отдела'
     },
     {
-        name: 7,
-        cells: ['Иванов Иван Иванович', '21.01.2021', '+7 (800) 555-35-35', "ivanov@aaa.ru", 'Сотрудник']
+        id: 7,
+        fullname: 'Иванов Иван Иванович',
+        registered: '21.01.2021',
+        phone: '+7 (800) 555-35-35',
+        mail: "ivanov@aaa.ru",
+        role: 'Сотрудник'
     },
     {
-        name: 8,
-        cells: ['Петров Петр Петрович', '21.01.2021', '+7 (800) 555-35-35', "petrov@aaa.ru", 'Сотрудник']
+        id: 8,
+        fullname: 'Петров Петр Петрович',
+        registered: '21.01.2021',
+        phone: '+7 (800) 555-35-35',
+        mail: "petrov@aaa.ru",
+        role: 'Сотрудник',
     },
     {
-        name: 9,
-        cells: ['Генералов Алексей Иванович', '21.01.2021', '+7 (800) 555-35-35', "generalov@aaa.ru", 'Нач. отдела']
+        id: 9,
+        fullname: 'Генералов Алексей Иванович',
+        registered: '21.01.2021',
+        phone: '+7 (800) 555-35-35',
+        mail: "generalov@aaa.ru",
+        role: 'Нач. отдела'
     },
 ]
 
 function Coworkers() {
     const classes = useStyles()
+    const [modalOpen, setModalOpen] = React.useState(false)
+    const [currentUser, setCurrentUser] = React.useState({})
+    
+    const handleOpen = () => {
+        setModalOpen(true);
+    };
+    
+    const handleClose = () => {
+        setModalOpen(false);
+    };
+
     return (
         <div>
             <div className={classes.headerWrapper}>
@@ -137,12 +185,15 @@ function Coworkers() {
                         </TableHead>
                         <TableBody>
                             {testUserListReducedToRows.map( user => (
-                                <TableRow key={user.name} hover>
-                                    <TableCell>{user.cells[0]}</TableCell>
-                                    <TableCell>{user.cells[1]}</TableCell>
-                                    <TableCell>{user.cells[2]}</TableCell>
-                                    <TableCell>{user.cells[3]}</TableCell>
-                                    <TableCell>{user.cells[4]}</TableCell>
+                                <TableRow key={user.id} hover onClick={() => {
+                                    setModalOpen(true)
+                                    setCurrentUser(user)
+                                    }} style={{cursor: "pointer"}}>
+                                    <TableCell>{user.fullname}</TableCell>
+                                    <TableCell>{user.registered}</TableCell>
+                                    <TableCell>{user.phone}</TableCell>
+                                    <TableCell>{user.mail}</TableCell>
+                                    <TableCell>{user.role}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -157,6 +208,7 @@ function Coworkers() {
                     />
                 </Paper>
             </div>
+            <ModalUserInfo open={modalOpen} onClose={handleClose} user={currentUser}/>
         </div>
     )
 }
