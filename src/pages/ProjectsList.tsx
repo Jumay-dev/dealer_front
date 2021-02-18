@@ -6,7 +6,6 @@ import Search from '../components/Search'
 import Pagination from '@material-ui/lab/Pagination';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TablePagination from '@material-ui/core/TablePagination';
-
 import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
 import { LIST_PROJECTS } from "../store/types";
@@ -59,24 +58,23 @@ function ProjectsList({ getProjects, projectsList }) {
   }, [])
 
   return (
-      <>
+      <div>
         <div className={classes.subheaderWrapper}>
           <Search />
         </div>
         <div className={classes.content}>
           {projectsList.length !== 0 ? projectsList.map(item => <ProjectOneByCard item={item} key={item.id}/>) : <CircularProgress color="secondary"/>}
         </div>
-        <div>
-          <TablePagination
-            component="div"
-            count={100}
-            page={page}
-            onChangePage={(e, page) => setPage(page)}
-            rowsPerPage={10}
-            onChangeRowsPerPage={(e) => console.log(e)}
-          />
-        </div>
-      </>
+        <TablePagination
+          component="div"
+          count={100}
+          page={page}
+          onChangePage={(e, page) => setPage(page)}
+          rowsPerPage={10}
+          onChangeRowsPerPage={(e) => console.log(e)}
+        />
+
+      </div>
   )
 }
 

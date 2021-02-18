@@ -152,6 +152,7 @@ function Search() {
                             <MenuItem value={4}>По типу оборудования</MenuItem>
                             <MenuItem value={5}>По датам</MenuItem>
                             <MenuItem value={6}>По названию ЛУ</MenuItem>
+                            <MenuItem value={7}>По сотруднику</MenuItem>
                         </Select>
                     </FormControl>                    
                     {GetSearchFieldByType(searchType)}

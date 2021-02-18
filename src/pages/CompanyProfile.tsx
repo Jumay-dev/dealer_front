@@ -36,9 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
     contentWrapper: {
         padding: theme.spacing(2),
     },
-    companyInfoContainer: {
-
-    },
     gridCell: {
         padding: theme.spacing(1)
     },
@@ -148,59 +145,57 @@ function CompanyProfile() {
 
             <div className={classes.contentWrapper}>
                 <Paper className={classes.paper}>
-                    <div className={classes.companyInfoContainer}>
-                        <Grid container>
-                            <Grid item lg={2} className={classes.gridCell} style={{padding: 0}}>
-                                <img src="https://www.prlog.org/12660964-logo.png" style={{maxWidth: "100%", maxHeight: "300px"}}/>
-                            </Grid>
-                            <Grid item lg={4} className={classes.gridCell}>
-                                <Table>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell className={classes.tableCellName}>
-                                                Юр.лицо
-                                            </TableCell>
-                                            <TableCell className={classes.tableCellValue}>
-                                                ООО "ААА"
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className={classes.tableCellName}>
-                                                Директор
-                                            </TableCell>
-                                            <TableCell className={classes.tableCellValue}>
-                                                Иванов Иван Иванович
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className={classes.tableCellName}>
-                                                Зарегистрирована
-                                            </TableCell>
-                                            <TableCell className={classes.tableCellValue}>
-                                                21.10.2019
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className={classes.tableCellName}>
-                                                Телефон
-                                            </TableCell>
-                                            <TableCell className={classes.tableCellValue}>
-                                                +7 (800) 555-35-35
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className={classes.tableCellName}>
-                                                e-mail
-                                            </TableCell>
-                                            <TableCell className={classes.tableCellValue}>
-                                                head@aaa.ru
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </Grid>
+                    <Grid container>
+                        <Grid item lg={2} className={classes.gridCell} style={{padding: 0}}>
+                            <img src="https://www.prlog.org/12660964-logo.png" style={{maxWidth: "100%", maxHeight: "300px"}}/>
                         </Grid>
-                    </div>
+                        <Grid item lg={4} className={classes.gridCell}>
+                            <Table>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell className={classes.tableCellName}>
+                                            Юр.лицо
+                                        </TableCell>
+                                        <TableCell className={classes.tableCellValue}>
+                                            ООО "ААА"
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className={classes.tableCellName}>
+                                            Директор
+                                        </TableCell>
+                                        <TableCell className={classes.tableCellValue}>
+                                            Иванов Иван Иванович
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className={classes.tableCellName}>
+                                            Зарегистрирована
+                                        </TableCell>
+                                        <TableCell className={classes.tableCellValue}>
+                                            21.10.2019
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className={classes.tableCellName}>
+                                            Телефон
+                                        </TableCell>
+                                        <TableCell className={classes.tableCellValue}>
+                                            +7 (800) 555-35-35
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className={classes.tableCellName}>
+                                            e-mail
+                                        </TableCell>
+                                        <TableCell className={classes.tableCellValue}>
+                                            head@aaa.ru
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </Grid>
+                    </Grid>
 
                     <div className={classes.reqAction}>
                         <Button 

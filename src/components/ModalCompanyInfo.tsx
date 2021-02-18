@@ -61,7 +61,7 @@ export default function ModalCompanyInfo({open, setOpen, currentCompany}) {
             Подробнее о компании
         </Typography>
         
-        <IconButton onClick={() => setOpen(!open)}>
+        <IconButton onClick={() => setOpen(!open)} style={{marginRight: "-16px"}}>
             <img src={CloseIcon} />
         </IconButton>
       </DialogTitle>
