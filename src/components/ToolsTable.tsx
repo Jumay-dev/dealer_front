@@ -36,6 +36,28 @@ const useStyles = makeStyles((theme: Theme) =>
         alignItems: "center",
         width: "100%",
         height: "100%",
+    },
+    accordionContainer: {
+        marginBottom: "1em"
+    },
+    fullDirection: {
+        background: "#e6f7e3",
+        color: "green"
+    },
+    outDirection: {
+        background: "#ffffff"
+    },
+    buttonFullDirection: {
+        border: "1px solid green",
+        minWidth: 250,
+        color: "green",
+        "&:hover": {
+            color: "green",
+            border: "1px solid green"
+        }
+    },
+    buttonOutDirection: {
+        minWidth: 250
     }
   }),
 );
@@ -44,10 +66,18 @@ const useStyles = makeStyles((theme: Theme) =>
 function AccordionOfTools(props) {
     const classes = useStyles();
     let toolsInAccordion = props.tools
-    console.log(toolsInAccordion)
+    const [allDirectionChoosen, setAllDirectionChoosen] = React.useState(false)
+    const checkAllToolsInDirection = event => {
+        event.preventDefault()
+        event.stopPropagation()
+        setAllDirectionChoosen(!allDirectionChoosen)
+    }
+
+    //#f7f5e3
+    //#71bc68 зеленый
     return (
-        <React.Fragment>
-            <Accordion>
+        <div className={classes.accordionContainer}>
+            <Accordion className={allDirectionChoosen === true ? classes.fullDirection : classes.outDirection}>
                 <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -56,15 +86,17 @@ function AccordionOfTools(props) {
                     <div className={classes.accordionSummaryStyle}>
                     <Typography className={classes.heading}>{props.categoryName}</Typography>
                     <Button 
-                    variant="contained" 
+                    variant="outlined" 
                     color="primary"
-                    >Выбрать направление</Button>
+                    className={allDirectionChoosen === true ? classes.buttonFullDirection : classes.buttonOutDirection}
+                    onClick={checkAllToolsInDirection}
+                    >{!allDirectionChoosen ? "Выбрать направление" : "Снять выбор"}</Button>
                     </div>
 
                 </AccordionSummary>
                 <AccordionDetails >
                     <Typography className={classes.root}>
-                    <Table className={classes.table} aria-label="simple table">
+                    <Table className={classes.table} aria-label="simple table" size="small">
                         <TableHead>
                             <TableRow>
                                 <TableCell>Название</TableCell>
@@ -85,7 +117,7 @@ function AccordionOfTools(props) {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
-        </React.Fragment>
+        </div>
     )
 }
 
@@ -108,9 +140,6 @@ function ToolsTable() {
     
     return (
         <React.Fragment>
-            <Typography component="h2" variant="h4" align="center">
-                Авторизуемое оборудование
-            </Typography>
             {categories.map(category => 
             <AccordionOfTools 
             categoryName={category.block_name} 

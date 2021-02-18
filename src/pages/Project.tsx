@@ -2,11 +2,12 @@ import React from 'react'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import CustomerReq from "../components/CustomerReq"
-import CompanyReq from "../components/CompanyReq"
 import ToolsTable from '../components/ToolsTable'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,6 +31,19 @@ const useStyles = makeStyles((theme: Theme) =>
     contentWrapper: {
         padding: theme.spacing(2),
     },
+    tableCellName: {
+        fontWeight: "bolder", 
+        color: "#96999c", 
+        marginRight: 5,
+        width: 100
+    },
+    tableCellValue: {
+        fontWeight: "bolder", 
+        color: "#666b73"
+    },
+    gridContainer: {
+        maxWidth: "70%"
+    }
   }),
 );
 
@@ -43,16 +57,64 @@ function Project() {
                 </Typography>
             </div>
             <div className={classes.contentWrapper}>
-                <Paper className={classes.paper}>
-                    <CustomerReq />
-                </Paper>
-                <Paper className={classes.paper}>
-                    <CompanyReq />
-                </Paper>
+                <Typography
+                    component="h2" 
+                    variant="h5"
+                    style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
+                >
+                    Реквизиты
+                </Typography>
 
                 <Paper className={classes.paper}>
-                    <ToolsTable />
+                    <Grid container className={classes.gridContainer}>
+                        <Grid item md={6}>
+                            <TextField 
+                            style={{margin: 5, width: 500}}
+                            fullWidth
+                            size="small"
+                            variant="outlined"
+                            label="ИНН клиники"
+                            />
+                        </Grid>
+                        <Grid item md={6}>
+                            <TextField 
+                            label="Адрес клиники"
+                            fullWidth
+                            size="small"
+                            variant="outlined"
+                            style={{margin: 5, width: 500}}
+                            />
+                        </Grid>
+                        <Grid item md={6}>
+                            <TextField 
+                            label="Название клиники"
+                            fullWidth
+                            size="small"
+                            variant="outlined"
+                            style={{margin: 5, width: 500}}
+                            />
+                        </Grid>
+                        <Grid item md={6}>
+                            <TextField 
+                            label="Наименование юр.лица клиники"
+                            fullWidth
+                            size="small"
+                            variant="outlined"
+                            style={{margin: 5, width: 500}}
+                            />
+                        </Grid>
+                    </Grid>
                 </Paper>
+
+                <Typography
+                    component="h2" 
+                    variant="h5"
+                    style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
+                >
+                    Авторизуемое оборудование
+                </Typography>
+
+                <ToolsTable />
 
                 <Button variant="contained" color="primary">
                     Отправить на авторизацию
