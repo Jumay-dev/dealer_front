@@ -51,9 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
         fontWeight: "bolder", 
         color: "#666b73"
     },
-    reqHeader: {
+    reqAction: {
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
         alignItems: "center"
     },
     mainCompanyContainerHeader: {
@@ -142,26 +142,15 @@ function CompanyProfile() {
         <div>
             <div className={classes.headerWrapper}>
                 <Typography component="h1" variant="h4">
-                    Реквизиты организации
+                    Информация о компании ААА
                 </Typography>
             </div>
 
             <div className={classes.contentWrapper}>
                 <Paper className={classes.paper}>
                     <div className={classes.companyInfoContainer}>
-                    <div className={classes.mainCompanyContainerHeader}>
-                        <Typography 
-                            variant="h4"
-                            style={{color: "#688cbc", display: "inline-block", marginRight: "1em"}}
-                        >Компания ААА</Typography>
-                        <Button 
-                            variant="text" 
-                            color="primary" 
-                            onClick={mainReqHandler}
-                        ><img src={EditCircle} style={{marginRight: 10}}/>Редактировать</Button>
-                    </div>
                         <Grid container>
-                            <Grid item lg={4} className={classes.gridCell} style={{padding: 0}}>
+                            <Grid item lg={2} className={classes.gridCell} style={{padding: 0}}>
                                 <img src="https://www.prlog.org/12660964-logo.png" style={{maxWidth: "100%", maxHeight: "300px"}}/>
                             </Grid>
                             <Grid item lg={4} className={classes.gridCell}>
@@ -213,28 +202,36 @@ function CompanyProfile() {
                         </Grid>
                     </div>
 
-                    <div className={classes.reqHeader}>
-                        <Typography
-                            component="h2" 
-                            variant="h5"
-                            style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
-                        >
-                            Реквизиты компании
-                        </Typography>
-                        <IconButton onClick={newReqHandler}>
-                            <img src={PlusCircle} />
-                        </IconButton>
+                    <div className={classes.reqAction}>
+                        <Button 
+                            variant="outlined" 
+                            color="primary" 
+                            onClick={mainReqHandler}
+                            style={{marginRight: 10}}
+                        ><img src={EditCircle} style={{marginRight: 10}}/>Редактировать компанию</Button>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            onClick={newReqHandler}
+                        ><img src={PlusCircle} style={{marginRight: 10}}/>Добавить реквизиты</Button>
                     </div>
-
-
-                    {fakeCompanies.map(company =>
+                </Paper>
+            </div>
+            <div className={classes.contentWrapper}>
+                <Typography
+                    component="h2" 
+                    variant="h5"
+                    style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
+                >
+                    Реквизиты компании
+                </Typography>
+                {fakeCompanies.map(company =>
                     <CompanyCard 
                         company={company} 
                         open={open} 
                         setOpen={setOpen} 
                         setCurrentCompany={setCurrentCompany}
-                    />)}
-                </Paper>
+                />)}
             </div>
             <ModalCompanyInfo open={open} setOpen={setOpen} currentCompany={currentCompany}/>
         </div>

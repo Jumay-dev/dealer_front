@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "row",
       justifyContent: "space-between",
       padding: theme.spacing(2),
-      border: "3px solid",
-      borderColor: theme.palette.primary.main,
-      width: "100%",
+      // border: "3px solid",
+      // borderColor: theme.palette.primary.main,
+      // width: "100%",
       marginBottom: theme.spacing(2),
       height: 150
     },
