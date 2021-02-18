@@ -1,12 +1,10 @@
 import React from 'react'
-
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -45,6 +43,10 @@ const useStyles = makeStyles((theme: Theme) =>
     outDirection: {
         background: "#ffffff"
     },
+    partDirection: {
+        background: "#f7f5e3",
+        color: "#ffb62f"
+    },
     buttonFullDirection: {
         border: "1px solid green",
         minWidth: 250,
@@ -52,6 +54,15 @@ const useStyles = makeStyles((theme: Theme) =>
         "&:hover": {
             color: "green",
             border: "1px solid green"
+        }
+    },
+    buttonPartDirection: {
+        border: "1px solid #ffb62f",
+        minWidth: 250,
+        color: "#ffb62f",
+        "&:hover": {
+            color: "#ffb62f",
+            border: "1px solid #ffb62f"
         }
     },
     buttonOutDirection: {
@@ -65,6 +76,7 @@ function AccordionOfTools(props) {
     const classes = useStyles();
     const [toolsInAccordion, setToolsInAccordion] = React.useState(props.tools)
     const [choosingType, setChoosingType] = React.useState('nope')
+    const [checkedCount, setCheckedCount] = React.useState(0)
 
     const checkAllToolsInDirection = event => {
         event.preventDefault()
@@ -87,13 +99,54 @@ function AccordionOfTools(props) {
 
     const oneToolChecked = (tool) => {
         console.log(tool)
+        let currentAllTools = props.allTools.splice(0)
+
+        currentAllTools.forEach( elem => {
+            if (elem.id === tool.id) {
+                elem.isChecked = !tool.isChecked
+            }
+        })
+        props.setTools(prev => currentAllTools)
+
+        let checkedTools = []
+        let uncheckedTools = []
+        toolsInAccordion.forEach( item => item.isChecked === true ? checkedTools.push(item) : uncheckedTools.push(item))
+
+        let checkedLength = checkedTools.length
+
+        if (checkedLength === toolsInAccordion.length) {
+            setChoosingType('all')
+        } else {
+            if (checkedLength > 0) {
+                setChoosingType('part')
+            } else {
+                setChoosingType('nope')
+            }
+        }
+        setCheckedCount(checkedLength)
+    }
+
+    function buttonStyleSelector(variable) {
+        switch (variable) {
+            case 'all': return classes.buttonFullDirection
+            case 'part': return classes.buttonPartDirection
+            default: return classes.buttonOutDirection
+        }
+    }
+
+    function styleSelector(variable) {
+        switch (variable) {
+            case 'all': return classes.fullDirection
+            case 'part': return classes.partDirection
+            default: return classes.outDirection
+        }
     }
 
     //#f7f5e3
     //#71bc68 зеленый
     return (
         <div className={classes.accordionContainer}>
-            <Accordion className={choosingType === 'all' ? classes.fullDirection : classes.outDirection}>
+            <Accordion className={styleSelector(choosingType)}>
                 <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -101,10 +154,11 @@ function AccordionOfTools(props) {
                 >
                     <div className={classes.accordionSummaryStyle}>
                     <Typography className={classes.heading}>{props.categoryName}</Typography>
+                    {choosingType === 'part' ? <span>Выбрано позиций: {checkedCount}</span> : ''}
                     <Button 
                     variant="outlined" 
                     color="primary"
-                    className={choosingType === 'all' ? classes.buttonFullDirection : classes.buttonOutDirection}
+                    className={buttonStyleSelector(choosingType)}
                     onClick={checkAllToolsInDirection}
                     >{choosingType !== 'all' ? "Выбрать направление" : "Выбрано"}</Button>
                     </div>
