@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '../assets/icons/Close circle.svg'
 import Typography from '@material-ui/core/Typography';
+import CompanyCard from './CompanyCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function ModalCompanyInfo({open, setOpen, currentCompany}) {
+export default function ModalCompanyInfo({open, setOpen, company}) {
   const classes = useStyles();
 
   return (
@@ -61,12 +62,12 @@ export default function ModalCompanyInfo({open, setOpen, currentCompany}) {
             Подробнее о компании
         </Typography>
         
-        <IconButton onClick={() => setOpen(!open)} style={{marginRight: "-16px"}}>
+        <IconButton onClick={() => setOpen(!open)} style={{marginRight: "-32px", marginTop: "-31px"}}>
             <img src={CloseIcon} />
         </IconButton>
       </DialogTitle>
       <div className={classes.containerRoot}>
-        <img style={{maxWidth: "100px"}} src={currentCompany.logo}/>
+        <img style={{maxWidth: "100px"}} src={company.logo}/>
         <Table size="small">
           <TableBody>
             <TableRow>
@@ -75,60 +76,145 @@ export default function ModalCompanyInfo({open, setOpen, currentCompany}) {
               </TableCell>
               <TableCell className={classes.tableCellValue}>
                 <TextField 
-                  value="AAA"
+                  value={company.name}
                   fullWidth
                 />
               </TableCell>
             </TableRow>
-  
+
+            <TableRow>           
+              <TableCell className={classes.tableCellName}>
+                Адрес
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
+                <TextField 
+                  value={company.address}
+                  fullWidth
+                />
+              </TableCell>
+            </TableRow>
+
             <TableRow>
               <TableCell className={classes.tableCellName}>
                 ИНН
               </TableCell>
               <TableCell className={classes.tableCellValue}>
                 <TextField 
-                  value="7802589471"
+                  value={company.inn}
                   fullWidth
-                />
+                />                
               </TableCell>
             </TableRow>
-  
+
             <TableRow>
               <TableCell className={classes.tableCellName}>
-                Адрес
+                Короткое название
               </TableCell>
               <TableCell className={classes.tableCellValue}>
                 <TextField 
-                  value="197110, Россия, САНКТ-ПЕТЕРБУРГ, МАРТЫНОВА, ДОМ 4, ЛИТЕРА А, ПОМЕЩЕНИЕ 2Н ОФИС1"
+                  value={company.shortname}
                   fullWidth
-                />
+                />  
               </TableCell>
             </TableRow>
-  
-            <TableRow>
+
+            <TableRow>            
               <TableCell className={classes.tableCellName}>
-                Сокр. наим. организации
+                Почтовый адрес
               </TableCell>
               <TableCell className={classes.tableCellValue}>
-                  <TextField 
-                    value='ООО "ГРАНД МЕДИКАЛ"'
-                    fullWidth
-                  />
+                <TextField 
+                  value={company.postaddress}
+                  fullWidth
+                />  
               </TableCell>
             </TableRow>
-  
+
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                ОГРН
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>         
+                <TextField 
+                  value={company.ogrn}
+                  fullWidth
+                /> 
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                Правовая форма
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
+                <TextField 
+                  value={company.lawform}
+                  fullWidth
+                /> 
+              </TableCell>
+            </TableRow>
+
+            <TableRow>            
+              <TableCell className={classes.tableCellName}>
+                Телефон
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
+                <TextField 
+                  value={company.phone}
+                  fullWidth
+                /> 
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                Банковские реквизиты
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
+                <TextField 
+                  value={company.req}
+                  fullWidth
+                /> 
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                Директор
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
+                <TextField 
+                  value={company.director}
+                  fullWidth
+                /> 
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                Электронная почта
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>        
+                <TextField 
+                  value={company.email}
+                  fullWidth
+                /> 
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell className={classes.tableCellName}>
+                Лицензии
+              </TableCell>
+              <TableCell className={classes.tableCellValue}>
+                
+                <TextField 
+                  value={company.licenses}
+                  fullWidth
+                /> 
+              </TableCell>
+            </TableRow>
             
-            <TableRow>
-              <TableCell className={classes.tableCellName}>
-                Отв. лицо:
-              </TableCell>
-              <TableCell className={classes.tableCellValue}>
-                  <TextField 
-                    value='Беззубенков Иван Геннадьевич'
-                    fullWidth
-                  />
-              </TableCell>
-            </TableRow>
           </TableBody>
         </Table>
 

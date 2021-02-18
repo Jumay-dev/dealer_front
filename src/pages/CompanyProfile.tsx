@@ -65,39 +65,75 @@ const useStyles = makeStyles((theme: Theme) =>
 const fakeCompanies = [
     {
         id: 0,
-        logo: "https://www.prlog.org/12660964-logo.png",
-        name: 'ААА Trade',
-        shortname: '',
-        inn: '',
-        head: '',
-        address: ''
+        logo: "https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png",
+        brand: "Medical Solutions",
+        name: 'ООО "Медицинские решения"',
+        shortname: "",
+        lawform: "Общество с ограниченной ответственностью",
+        address: "142200, Московская область, г. Серпухов, ш. Борисовское, д. 1,  пом. 7, офис 1",
+        postaddress: "142200, Московская область, г. Серпухов, ш. Борисовское, д. 1,  пом. 7, офис 1",
+        phone: "+7 499 686 08 80",
+        email: "info@ds-med.ru , law@ds-med.ru",
+        inn: "ИНН 7724417426 / КПП 504301001",
+        ogrn: "ОГРН 1177746863250, ОКАТО 45296571000",
+        req: "р/с 40702810740000007467 в ПАО Сбербанк г. Москва, к/с 30101810400000000225, БИК 044525225",
+        licenses: "",
+        director: "",
+        head_company: false
     },
     {
         id: 1,
-        logo: "https://www.clipartmax.com/png/full/112-1129036_logo-samsung-png-samsung-logo-2016-png.png",
-        name: '',
-        shortname: '',
-        inn: '',
-        head: '',
-        address: ''
+        logo: "https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png",
+        brand: "DS.Vision",
+        name: 'ИНДИВИДУАЛЬНЫЙ ПРЕДПРИНИМАТЕЛЬ ДЕМЕНТЬЕВА НАТАЛЬЯ АЛЕКСАНДРОВНА',
+        shortname: "",
+        lawform: "Индивидуальный предприниматель",
+        address: "142207, Московская обл., г. Серпухов, Борисовское шоссе, д. 17, офис 605",
+        postaddress: "142207, Московская обл., г. Серпухов, Борисовское шоссе, д. 17, офис 605",
+        phone: "+7 (495) 248-12-21",
+        email: "info@ds-vision.ru",
+        inn: "ИНН 503702925292",
+        ogrn: "ОГРНИП 316504300054402, ОКПО 0102029652",
+        req: "р/с 40802810520010004182 АО ЮниКредит Банк г. Москва к/с 30101810300000000545 БИК 044525545",
+        licenses: "",
+        director: "",
+        head_company: false
     },
     {
         id: 2,
-        logo: "https://industrialcolor.com/wp-content/uploads/2019/06/hewlett-packard-logo-black-and-white.png",
-        name: '',
-        shortname: '',
-        inn: '',
-        head: '',
-        address: ''
+        logo: "https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png",
+        brand: "DS.Med",
+        name: 'Общество с ограниченной ответственностью  «ДС.Мед»',
+        shortname: "ООО «ДС.Мед»",
+        lawform: "Индивидуальный предприниматель",
+        address: "142207, Московская обл., г. Серпухов, Борисовское шоссе, д. 17, офис 605",
+        postaddress: "142207, Московская обл., г. Серпухов, Борисовское шоссе, д. 17, офис 605",
+        phone: "+7 (495) 248-12-21",
+        email: "e.semochkin@ds-med.ru",
+        inn: "ИНН 5043035712 / КПП 504301001",
+        ogrn: "ОГРН 1085043003352, ОКАТО 46470000000",
+        req: "р/с 40702810040000004924 в ПАО Сбербанк г. Москва, к/с 30101810400000000225, БИК 044525225",
+        licenses: "",
+        director: "Сёмочкин Евгений Иванович",
+        head_company: true
     },
     {
         id: 3,
-        logo: "https://www.kindpng.com/picc/m/268-2687090_ps-logo-of-games-ps4-logo-png-transparent.png",
-        name: '',
-        shortname: '',
-        inn: '',
-        head: '',
-        address: ''
+        logo: "https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png",
+        brand: "Л-Сервис",
+        name: 'Общество с ограниченной ответственностью «Л-Сервис»',
+        shortname: "Л-Сервис",
+        lawform: "Индивидуальный предприниматель",
+        address: "142207, Московская область, г. Серпухов, Борисовское шоссе, д. 17, этаж 6, офис 601",
+        postaddress: "142207, Московская область, г. Серпухов, Борисовское шоссе, д. 17, этаж 6, офис 601",
+        phone: "+7(499)686-00-30",
+        email: "info@L-Service.ru",
+        inn: "ИНН 5043048091 / КПП 504301001",
+        ogrn: "ОГРН 1085043003352, ОКАТО 46470000000",
+        req: "р/с 40702810040000004924 в ПАО Сбербанк г. Москва, к/с 30101810400000000225, БИК 044525225",
+        licenses: "№ФС-99-04-004955 от 18.08.2017г. №77.99.15.002.Л.000116.12.16 от 06.12.2016г.",
+        director: "Сёмочкин Евгений Иванович",
+        head_company: false
     },
 ]
 
@@ -105,17 +141,27 @@ function CompanyProfile() {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
     const [currentCompany, setCurrentCompany] = React.useState({})
+    const [headCompany, setHeadCompany] = React.useState(fakeCompanies.find( item => item.head_company === true))
 
     const newReqHandler = () => {
         setCurrentCompany(
             {
-                id: 0,
+                id: null,
                 logo: "",
+                brand: "",
                 name: '',
-                shortname: '',
-                inn: '',
-                head: '',
-                address: ''
+                shortname: "",
+                lawform: "",
+                address: "",
+                postaddress: "",
+                phone: "",
+                email: "",
+                inn: "",
+                ogrn: "",
+                req: "",
+                licenses: "",
+                director: "",
+                head_company: false
             },
         )
         setOpen(true)
@@ -135,37 +181,39 @@ function CompanyProfile() {
         )
         setOpen(true)
     }
+
+
     return (
         <div>
             <div className={classes.headerWrapper}>
                 <Typography component="h1" variant="h4">
-                    Информация о компании ААА
+                    Информация о компании {headCompany.brand}
                 </Typography>
             </div>
 
             <div className={classes.contentWrapper}>
                 <Paper className={classes.paper}>
                     <Grid container>
-                        <Grid item lg={2} className={classes.gridCell} style={{padding: 0}}>
-                            <img src="https://www.prlog.org/12660964-logo.png" style={{maxWidth: "100%", maxHeight: "300px"}}/>
+                        <Grid item lg={2} style={{padding: 0, display: "flex", alignItems: "center"}}>
+                            <img src="https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png" style={{maxWidth: "100%", maxHeight: "200px"}}/>
                         </Grid>
-                        <Grid item lg={4} className={classes.gridCell}>
-                            <Table>
+                        <Grid item lg={8} className={classes.gridCell}>
+                            <Table size="small">
                                 <TableBody>
                                     <TableRow>
                                         <TableCell className={classes.tableCellName}>
-                                            Юр.лицо
+                                            Название компании
                                         </TableCell>
                                         <TableCell className={classes.tableCellValue}>
-                                            ООО "ААА"
+                                            {headCompany.brand}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className={classes.tableCellName}>
-                                            Директор
+                                            Администратор
                                         </TableCell>
                                         <TableCell className={classes.tableCellValue}>
-                                            Иванов Иван Иванович
+                                            {headCompany.director}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -181,7 +229,7 @@ function CompanyProfile() {
                                             Телефон
                                         </TableCell>
                                         <TableCell className={classes.tableCellValue}>
-                                            +7 (800) 555-35-35
+                                            {headCompany.phone}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -189,7 +237,7 @@ function CompanyProfile() {
                                             e-mail
                                         </TableCell>
                                         <TableCell className={classes.tableCellValue}>
-                                            head@aaa.ru
+                                            {headCompany.email}
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
@@ -228,7 +276,7 @@ function CompanyProfile() {
                         setCurrentCompany={setCurrentCompany}
                 />)}
             </div>
-            <ModalCompanyInfo open={open} setOpen={setOpen} currentCompany={currentCompany}/>
+            <ModalCompanyInfo open={open} setOpen={setOpen} company={currentCompany}/>
         </div>
     )
 }

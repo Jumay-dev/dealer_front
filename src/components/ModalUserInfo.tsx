@@ -63,7 +63,7 @@ export default function SimpleDialog({onClose, open, user}) {
                     Подробнее о пользователе
                 </Typography>
                 
-                <IconButton onClick={() => onClose()} style={{marginRight: "-16px"}}>
+                <IconButton onClick={() => onClose()} style={{marginRight: "-32px", marginTop: "-31px"}}>
                     <img src={CloseIcon} />
                 </IconButton>
             </DialogTitle>

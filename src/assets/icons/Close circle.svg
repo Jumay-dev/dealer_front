@@ -2,7 +2,7 @@
 	<style>
 		tspan { white-space:pre }
 		.shp0 { opacity: 0;fill: #000000 } 
-		.shp1 { fill: none;stroke: #bc6868;stroke-linecap:round;stroke-linejoin:round;stroke-width: 2 } 
+		.shp1 { fill: none;stroke: #666b73;stroke-linecap:round;stroke-linejoin:round;stroke-width: 2 } 
 	</style>
 	<g id="Faticons">
 		<g id="Close circle">

@@ -62,7 +62,7 @@ export default function ResetPassword({onClose, open, user}) {
                     Сбросить пароль
                 </Typography>
                 
-                <IconButton onClick={() => onClose()} style={{marginRight: "-16px"}}>
+                <IconButton onClick={() => onClose()} style={{marginRight: "-32px", marginTop: "-31px"}}>
                     <img src={CloseIcon} />
                 </IconButton>
             </DialogTitle>

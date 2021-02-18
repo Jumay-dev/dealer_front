@@ -14,12 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
-      padding: theme.spacing(2),
-      // border: "3px solid",
-      // borderColor: theme.palette.primary.main,
-      // width: "100%",
       marginBottom: theme.spacing(2),
-      height: 150
     },
     tableCellName: {
       fontWeight: "bolder", 
@@ -29,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
     tableCellValue: {
         fontWeight: "bolder", 
         color: "#666b73"
+    },
+    container: {
+      margin: theme.spacing(2),
     }
   }),
 );
@@ -38,57 +36,110 @@ export default function CompanyCard({company, setOpen, open, setCurrentCompany})
   
   const handleOpen = () => {
     setCurrentCompany(company)
-    setOpen(!open)
+    setOpen(true)
   }
 
   return (
     <Paper className={classes.root}>
-      <IconButton>
-        <img src={company.logo} style={{width: 100, backgroundSize: "cover"}} onClick={handleOpen}/>
-      </IconButton>
-      <Table size="small">
+      <Table size="small" className={classes.container}>
         <TableBody>
           <TableRow>
             <TableCell className={classes.tableCellName}>
               Название
             </TableCell>
             <TableCell className={classes.tableCellValue}>
-              ААА
+              {company.name}
             </TableCell>
-            <TableCell className={classes.tableCellName}>
-              ИНН
-            </TableCell>
-            <TableCell className={classes.tableCellValue}>
-              7802589471
-            </TableCell>
+
             <TableCell className={classes.tableCellName}>
               Адрес
             </TableCell>
             <TableCell className={classes.tableCellValue}>
-              197110, Россия, ...
+              {company.address}
+            </TableCell>
+
+            <TableCell className={classes.tableCellName}>
+              ИНН
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              {company.inn}
             </TableCell>
           </TableRow>
 
           <TableRow>
             <TableCell className={classes.tableCellName}>
-              Сокр. наим.
+              Короткое название
             </TableCell>
             <TableCell className={classes.tableCellValue}>
-              ООО "ГРАНД МЕДИКАЛ"
+              {company.shortname}
             </TableCell>
+
             <TableCell className={classes.tableCellName}>
-              Отв. лицо:
+              Почтовый адрес
             </TableCell>
             <TableCell className={classes.tableCellValue}>
-              Беззубенков Иван Геннадьевич
+              {company.postaddress}
+            </TableCell>
+
+            <TableCell className={classes.tableCellName}>
+              ОГРН
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              {company.ogrn}
+            </TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell className={classes.tableCellName}>
+              Правовая форма
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              {company.lawform}
+            </TableCell>
+
+            <TableCell className={classes.tableCellName}>
+              Телефон
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              {company.phone}
+            </TableCell>
+
+            <TableCell className={classes.tableCellName}>
+              Банковские реквизиты
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              {company.req}
+            </TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell className={classes.tableCellName}>
+              Директор
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              {company.director}
+            </TableCell>
+
+            <TableCell className={classes.tableCellName}>
+              Электронная почта
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              {company.email}
+            </TableCell>
+
+            <TableCell className={classes.tableCellName}>
+              Лицензии
+            </TableCell>
+            <TableCell className={classes.tableCellValue}>
+              {company.licenses}
             </TableCell>
           </TableRow>
         </TableBody>
       </Table>
 
-      <div style={{display: "flex", alignItems: "center"}}>
+      <div style={{display: "flex", alignItems: "center", background: "#f3f6f9"}}>
         <IconButton>
-          <img src={ArrowRight} onClick={handleOpen}/>
+          <img src={ArrowRight} onClick={handleOpen} style={{width: 50}}/>
         </IconButton>
       </div>
       
