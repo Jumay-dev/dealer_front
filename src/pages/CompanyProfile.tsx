@@ -12,7 +12,6 @@ import Button from '@material-ui/core/Button';
 import PlusCircle from '../assets/icons/Plus circle.svg'
 import EditCircle from '../assets/icons/Edit 3.svg'
 import ModalCompanyInfo from '../components/ModalCompanyInfo'
-import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -181,7 +180,6 @@ function CompanyProfile() {
         )
         setOpen(true)
     }
-
 
     return (
         <div>

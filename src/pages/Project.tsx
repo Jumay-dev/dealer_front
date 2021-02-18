@@ -4,10 +4,8 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-
+import { tools_block, tools } from '../middleware/infods5i_dealers'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
-import CustomerReq from "../components/CustomerReq"
 import ToolsTable from '../components/ToolsTable'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -48,7 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function Project() {
-    const classes = useStyles();
+    const classes = useStyles()
+    const [allTools, setTools] = React.useState(tools)
+
     return (
         <div>
             <div className={classes.headerWrapper}>
@@ -114,7 +114,11 @@ function Project() {
                     Авторизуемое оборудование
                 </Typography>
 
-                <ToolsTable />
+                <ToolsTable 
+                    tools={allTools}
+                    setTools={setTools}
+                    tools_block={tools_block}
+                />
 
                 <Button variant="contained" color="primary">
                     Отправить на авторизацию

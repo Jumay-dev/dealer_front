@@ -15,8 +15,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 
-import { tools_block, tools } from '../middleware/infods5i_dealers'
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -65,19 +63,37 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function AccordionOfTools(props) {
     const classes = useStyles();
-    let toolsInAccordion = props.tools
-    const [allDirectionChoosen, setAllDirectionChoosen] = React.useState(false)
+    const [toolsInAccordion, setToolsInAccordion] = React.useState(props.tools)
+    const [choosingType, setChoosingType] = React.useState('nope')
+
     const checkAllToolsInDirection = event => {
         event.preventDefault()
         event.stopPropagation()
-        setAllDirectionChoosen(!allDirectionChoosen)
+
+        console.log(toolsInAccordion)
+        console.log(props.id)
+
+        let currentAllTools = props.allTools.splice(0)
+
+        if (choosingType !== 'all') {
+            setChoosingType('all')
+            currentAllTools.forEach( one => one.tool_view_block === props.id ? one.isChecked = true : null)
+        } else {
+            setChoosingType('nope')
+            currentAllTools.forEach( one => one.tool_view_block === props.id ? one.isChecked = false : null)
+        }
+        props.setTools(prev => currentAllTools)
+    }
+
+    const oneToolChecked = (tool) => {
+        console.log(tool)
     }
 
     //#f7f5e3
     //#71bc68 зеленый
     return (
         <div className={classes.accordionContainer}>
-            <Accordion className={allDirectionChoosen === true ? classes.fullDirection : classes.outDirection}>
+            <Accordion className={choosingType === 'all' ? classes.fullDirection : classes.outDirection}>
                 <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -88,9 +104,9 @@ function AccordionOfTools(props) {
                     <Button 
                     variant="outlined" 
                     color="primary"
-                    className={allDirectionChoosen === true ? classes.buttonFullDirection : classes.buttonOutDirection}
+                    className={choosingType === 'all' ? classes.buttonFullDirection : classes.buttonOutDirection}
                     onClick={checkAllToolsInDirection}
-                    >{!allDirectionChoosen ? "Выбрать направление" : "Снять выбор"}</Button>
+                    >{choosingType !== 'all' ? "Выбрать направление" : "Выбрано"}</Button>
                     </div>
 
                 </AccordionSummary>
@@ -100,7 +116,13 @@ function AccordionOfTools(props) {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Название</TableCell>
-                                <TableCell align="center"><Checkbox/></TableCell>
+                                <TableCell align="center">
+                                    <Checkbox 
+                                    checked={choosingType === 'all'} 
+                                    color="primary"
+                                    onClick={checkAllToolsInDirection}
+                                    />
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -108,7 +130,11 @@ function AccordionOfTools(props) {
                                 <TableRow key={oneTool.id}>
                                     <TableCell component="th" scope="row">{oneTool.tool_name}</TableCell>
                                     <TableCell align="center" scope="row" component="th">
-                                        <Checkbox checked={oneTool.isChecked} onChange={() => console.log(oneTool.isChecked)}/>
+                                        <Checkbox 
+                                            checked={oneTool.isChecked ? true : false} 
+                                            onChange={() => oneToolChecked(oneTool)} 
+                                            color="primary"
+                                        />
                                     </TableCell>
                                 </TableRow>
                             )) : null}
@@ -121,15 +147,14 @@ function AccordionOfTools(props) {
     )
 }
 
-function ToolsTable() {
+function ToolsTable({tools, setTools, tools_block}) {
     const classes = useStyles();
     const [categories, setCategories] = React.useState(tools_block)
-    const [toolsList, setToolsList] = React.useState(tools)
 
     React.useEffect( () => {
-        let currentTools = toolsList.splice(0)
-        currentTools.forEach( item => item.isChecked = true)
-        setToolsList(currentTools)
+        let currentTools = tools.splice(0)
+        currentTools.forEach( item => item.isChecked = false)
+        setTools(currentTools)
     }, [])
 
     function getFilteredToolsByCategory(tools, categoryID) {
@@ -144,7 +169,9 @@ function ToolsTable() {
             <AccordionOfTools 
             categoryName={category.block_name} 
             id={category.id} 
-            tools={getFilteredToolsByCategory(toolsList, category.id)}
+            tools={getFilteredToolsByCategory(tools, category.id)}
+            allTools={tools}
+            setTools={setTools}
             />)}
         </React.Fragment>
     )
