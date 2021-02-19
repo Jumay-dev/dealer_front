@@ -2,8 +2,21 @@ import React from 'react'
 import ToolsOffersSidebar from '../components/ToolsOffersSidebar'
 import Configurator from '../components/Configurator'
 import ComOffer from '../components/ComOffer'
+import Grid from "@material-ui/core/Grid"
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+        padding: theme.spacing(2)
+    },
+  }),
+);
 
 function NewOffer() {
+    const classes = useStyles()
     // TestData
     const [authorised, setAuthorised] = React.useState([
         {
@@ -56,11 +69,15 @@ function NewOffer() {
     ])
 
     return (
-        <div style={{
-            display: "flex",
-        }}>
-            <Configurator />
-            <ComOffer authorised={authorised}/>
+        <div className={classes.root}>
+            <Grid container>
+                <Grid item xs={12} md={7}>
+                    <Configurator />
+                </Grid>
+                <Grid item xs={12} md={5}>
+                    <ComOffer authorised={authorised}/>
+                </Grid>
+            </Grid>
         </div>
     )
 }

@@ -12,7 +12,6 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-        width: "40%",
         marginRight: 10,
         padding: 10
     }

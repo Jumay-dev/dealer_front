@@ -28,9 +28,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-      width: "60%",
-      marginRight: 10,
-      padding: 10,
+      marginRight: theme.spacing(1),
+      padding: theme.spacing(1),
       flexDirection: "column",
     },
     directionStyle: {
@@ -117,11 +116,16 @@ function Configurator() {
     const classes = useStyles();
 
     return (
-        <Paper className={classes.paper}>
-            <Typography variant="h5" component="h2">Конфигуратор</Typography>
+        <div className={classes.paper}>
+            <Typography
+                component="h2" 
+                variant="h5"
+                style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
+            >
+                Авторизуемое оборудование
+            </Typography>
             <AuthTools />
-            <AuthDirections />
-        </Paper>
+        </div>
     )
 }
 
@@ -357,45 +361,6 @@ function ToolCard({toolName, img, description, selected}) {
         </Collapse>
       </Card>
     );
-}
-
-function AuthDirections() {
-    const classes = useStyles();
-    return (
-        <div className={classes.directionsContainer}>
-          <Typography variant="h6" component="h2">Выберите авторизованное направление</Typography>
-          <Grid container spacing={2}>
-              <Grid item xs={6}>
-                  <DirectionCard directionName={'Мониторы пациента'}/>
-              </Grid>
-              <Grid item xs={6}>
-                  <DirectionCard directionName={'Рентгены'}/>
-              </Grid>
-              <Grid item xs={6}>
-                  <DirectionCard directionName={'Маммографы'}/>
-              </Grid>
-              <Grid item xs={6}>
-                  <DirectionCard directionName={'Денситометры'}/>
-              </Grid>
-          </Grid>
-        </div>
-    )
-}
-
-function DirectionCard({directionName}) {
-    const classes = useStyles();
-    return (
-        <Card className={classes.directionStyle}>
-          <CardContent> 
-            <Typography variant="h5" component="h2">
-              {directionName}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Выбрать</Button>
-          </CardActions>
-      </Card>
-    )
 }
 
 export default Configurator
