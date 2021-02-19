@@ -76,6 +76,7 @@ function AccordionOfTools(props) {
     const classes = useStyles();
     const [toolsInAccordion, setToolsInAccordion] = React.useState(props.tools)
     const [choosingType, setChoosingType] = React.useState('nope')
+    
     const [checkedCount, setCheckedCount] = React.useState(0)
 
     const checkAllToolsInDirection = event => {
@@ -142,6 +143,22 @@ function AccordionOfTools(props) {
         }
     }
 
+    function buttonNameSelector(variable) {
+        switch (variable) {
+            case 'all': return "Снять выбор"
+            case 'part': return "Выбрать все"
+            default: return "Выбрать направление"
+        }
+    }
+
+    function spanCounterSelector(variable) {
+        switch (variable) {
+            case 'all': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {props.tools.length} из {props.tools.length}</span>
+            case 'part': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {checkedCount} из {props.tools.length}</span>
+            default: return null
+        }
+    }
+
     //#f7f5e3
     //#71bc68 зеленый
     return (
@@ -154,13 +171,16 @@ function AccordionOfTools(props) {
                 >
                     <div className={classes.accordionSummaryStyle}>
                     <Typography className={classes.heading}>{props.categoryName}</Typography>
-                    {choosingType === 'part' ? <span>Выбрано позиций: {checkedCount}</span> : ''}
-                    <Button 
-                    variant="outlined" 
-                    color="primary"
-                    className={buttonStyleSelector(choosingType)}
-                    onClick={checkAllToolsInDirection}
-                    >{choosingType !== 'all' ? "Выбрать направление" : "Выбрано"}</Button>
+                        <div style={{display: "flex", alignItems: "center"}}>
+                            {spanCounterSelector(choosingType)}
+                            <Button 
+                            variant="outlined" 
+                            color="primary"
+                            className={buttonStyleSelector(choosingType)}
+                            onClick={checkAllToolsInDirection}
+                            >{buttonNameSelector(choosingType)}</Button>
+                        </div>
+
                     </div>
 
                 </AccordionSummary>
