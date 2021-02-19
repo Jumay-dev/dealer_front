@@ -1,11 +1,11 @@
 import React from 'react'
-import ProjectOne from "../components/ProjectOne"
 import ProjectOneByCard from "../components/ProjectOneByCard"
 import Typography from '@material-ui/core/Typography'
 import Search from '../components/Search'
 import Pagination from '@material-ui/lab/Pagination';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TablePagination from '@material-ui/core/TablePagination';
+import ModalCommercialOffer from "../components/ModalCommercialOffer"
 import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
 import { LIST_PROJECTS } from "../store/types";
@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function ProjectsList({ getProjects, projectsList }) {
   const [page, setPage] = React.useState(1)
+  const [modalOpen, setModalOpen] = React.useState(false)
 
   const classes = useStyles()
   
@@ -52,6 +53,10 @@ function ProjectsList({ getProjects, projectsList }) {
     endpoint: "projects/",
     data: {},
   };
+
+  function modalOpenHandler(item) {
+    setModalOpen(true)
+  }
 
   React.useEffect( () => {
     getProjects(projectListAction)
@@ -63,7 +68,12 @@ function ProjectsList({ getProjects, projectsList }) {
           <Search />
         </div>
         <div className={classes.content}>
-          {projectsList.length !== 0 ? projectsList.map(item => <ProjectOneByCard item={item} key={item.id}/>) : <CircularProgress color="secondary"/>}
+          {projectsList.length !== 0 ? projectsList.map(item => 
+          <ProjectOneByCard 
+            item={item} 
+            key={item.id}
+            setModalOpen={setModalOpen}
+          />) : <CircularProgress color="secondary"/>}
         </div>
         <TablePagination
           component="div"
@@ -73,7 +83,11 @@ function ProjectsList({ getProjects, projectsList }) {
           rowsPerPage={10}
           onChangeRowsPerPage={(e) => console.log(e)}
         />
-
+        <ModalCommercialOffer 
+          open={modalOpen}
+          user={{}}
+          onClose={() => setModalOpen(false)}
+        />
       </div>
   )
 }

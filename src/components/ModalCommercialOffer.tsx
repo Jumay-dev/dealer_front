@@ -1,95 +1,136 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
-import DataTable from "./DataTable"
-import { Link } from 'react-router-dom';
-import ListAltIcon from '@material-ui/icons/ListAlt';
-import OfferIcon from "../assets/icons/File text.svg"
-
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import IconButton from '@material-ui/core/IconButton';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import TextField from '@material-ui/core/TextField';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CloseIcon from '../assets/icons/Close circle.svg'
+import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    paper: {
-      position: 'absolute',
-      
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+    root: {
+        "&.MuiDialog-root": {
+            backdropFilter: "blur(5px)",
+            background: "rgba(104, 140, 188, 0.4) !important"
+        },
     },
+    containerRoot: {
+      padding: theme.spacing(2),
+    },
+    tableCellName: {
+      fontWeight: "bolder", 
+      color: "#96999c", 
+      marginRight: 5
+    },
+    tableCellValue: {
+        fontWeight: "bolder", 
+        color: "#666b73"
+    },
+    headerStyle: {
+        background: theme.palette.secondary.main,
+        color: theme.palette.primary.main,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    deleteButton: {
+        marginRight: 10, 
+        background: theme.palette.error.main, 
+        color: "white",
+        "&:hover": {
+            background: theme.palette.error.dark
+        }
+    }
   }),
 );
 
-export default function CommercialOffer() {
-  const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
+const fakeCommercialOffers = [
+  {
+    id: 0,
+    name: '8237465',
+    created: '18.05.2020',
+    actual: '20.10.2020',
+  },
+  {
+    id: 1,
+    name: '8237465',
+    created: '18.05.2020',
+    actual: '20.10.2020',
+  },
+  {
+    id: 2,
+    name: '8237465',
+    created: '18.05.2020',
+    actual: '20.10.2020',
+  },
+  {
+    id: 3,
+    name: '8237465',
+    created: '18.05.2020',
+    actual: '20.10.2020',
+  },
+  {
+    id: 4,
+    name: '8237465',
+    created: '18.05.2020',
+    actual: '20.10.2020',
+  }
+]
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+export default function ModalCommercialOffer({onClose, open, user}) {
+    const classes = useStyles();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    return (
+        <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open} className={classes.root} fullWidth maxWidth="md">
+            <DialogTitle id="simple-dialog-title" className={classes.headerStyle} disableTypography>
+                <Typography variant="h5">
+                    Коммерческие предложения
+                </Typography>
+                
+                <IconButton onClick={() => onClose()} style={{marginRight: "-16px"}}>
+                    <img src={CloseIcon} />
+                </IconButton>
+            </DialogTitle>
+            <div className={classes.containerRoot}>
+                <div style={{display: "flex", flexDirection: "column"}}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Название</TableCell>
+                      <TableCell>Создано</TableCell>
+                      <TableCell>Актуально до</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {fakeCommercialOffers.map( item => (
+                      <TableRow key={item.id}>
+                        <TableCell>{item.name}</TableCell>
+                        <TableCell>{item.created}</TableCell>
+                        <TableCell>{item.actual}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                </div>
 
-  const body = (
-    <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Управление КП для клиента</h2>
-      <p id="simple-modal-description">
-        <DataTable 
-        headers={["Название", "Создано", "Актуально до"]}
-        rows={[
-          {
-            name: 1,
-            cells: ['КП №28736837', '21.01.2021', '30.02.2021'],
-          },
-          {
-            name: 2,
-            cells: ['КП №28736823', '21.01.2021', '30.02.2021'],
-          },
-          {
-            name: 3,
-            cells: ['КП №28723188', '21.01.2021', '30.02.2021'],
-          }
-        ]}
-        actions={['delete', 'download']}
-        />
-      </p>
-      <Link to="/newoffer">
-        <Button type="button" variant="contained" color="primary">
-          Сформировать новое КП
-        </Button>
-      </Link>
-    </div>
-  );
-
-  return (
-    <>
-      <Button type="button" onClick={handleOpen} variant="outlined" color="primary" style={{display: "flex", justifyContent: "space-between", color: "#688cbc", marginRight: 10}}>
-      <img src={OfferIcon} />
-        <span>Сформировать КП для клиента</span>
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-      </Modal>
-    </>
-  );
+                <div style={{textAlign: "right", marginTop: "2em"}}>
+                    <Link to="/newoffer">
+                      <Button type="button" variant="contained" color="primary">
+                        Новое КП
+                      </Button>
+                    </Link>
+                </div>
+            </div>
+        </Dialog>
+    );
 }

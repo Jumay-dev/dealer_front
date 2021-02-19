@@ -8,15 +8,12 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import CommercialOfferList from "./ModalCommercialOffer"
 import { red } from '@material-ui/core/colors';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import InfoIcon from "../assets/icons/Info circle.svg"
 import ChatIcon from "../assets/icons/Chat left.svg"
 import DownloadIcon from "../assets/icons/Download.svg"
@@ -53,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function ProjectOneByCard({ item, toolsList, getTools }) {
+function ProjectOneByCard({ item, toolsList, getTools, setModalOpen }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -153,8 +150,11 @@ function ProjectOneByCard({ item, toolsList, getTools }) {
         <IconButton aria-label="share">
             <img src={InfoIcon} />
         </IconButton>
+        
+        <Button onClick={() => setModalOpen(item)} color="primary" variant="outlined" style={{marginRight: 10}}>
+            Коммерческие предложения
+        </Button>
 
-        <CommercialOfferList />        
         <Button 
         onClick={handleExpandClick} 
         style={{
@@ -186,54 +186,54 @@ function ProjectOneByCard({ item, toolsList, getTools }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent style={{ padding: 0, background: "rgba(104, 140, 188, 0.06)"}}>
             <div style={{ borderTop: "2px solid #688cbc",  padding: "16px"}}>
-            <Table
-                size="small"
-            >
-                <TableBody>
-                    <TableRow style={{background: "#e6e6e6"}}>
-                        <TableCell>
-                            <span style={{color: "#666b73", fontWeight: "bolder"}}>Авторизовано</span>
-                        </TableCell>
-                        <TableCell>
-                            <span style={{color: "#666b73", fontWeight: "bolder"}}>Не авторизовано</span>
-                        </TableCell>
-                        <TableCell>
-                            <span style={{color: "#666b73", fontWeight: "bolder"}}>На авторизации</span>
-                        </TableCell>
-                    </TableRow>
+                <Table
+                    size="small"
+                >
+                    <TableBody>
+                        <TableRow style={{background: "#e6e6e6"}}>
+                            <TableCell>
+                                <span style={{color: "#666b73", fontWeight: "bolder"}}>Авторизовано</span>
+                            </TableCell>
+                            <TableCell>
+                                <span style={{color: "#666b73", fontWeight: "bolder"}}>Не авторизовано</span>
+                            </TableCell>
+                            <TableCell>
+                                <span style={{color: "#666b73", fontWeight: "bolder"}}>На авторизации</span>
+                            </TableCell>
+                        </TableRow>
 
-                    <TableRow>
-                        <TableCell>
-                            <span style={{color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
-                        </TableCell>
-                        <TableCell>
-                            <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
-                        </TableCell>
-                        <TableCell>
-                            <span style={{color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>
-                            <span style={{color: "#666b73"}}>Dr. Camscope DCS-102 - видеокольпоскоп</span>
-                        </TableCell>
-                        <TableCell>
-                            <span style={{color: "#666b73"}}>Dr. Camscope DCS-103R - видеоректоскоп</span>
-                        </TableCell>
-                        <TableCell>
-                            <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>
-                            <span style={{color: "#666b73"}}>Dr. Camscope DCS-105 - видеодерматоскоп</span>
-                        </TableCell>
-                        <TableCell>
-                            <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+                        <TableRow>
+                            <TableCell>
+                                <span style={{color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
+                            </TableCell>
+                            <TableCell>
+                                <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
+                            </TableCell>
+                            <TableCell>
+                                <span style={{color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <span style={{color: "#666b73"}}>Dr. Camscope DCS-102 - видеокольпоскоп</span>
+                            </TableCell>
+                            <TableCell>
+                                <span style={{color: "#666b73"}}>Dr. Camscope DCS-103R - видеоректоскоп</span>
+                            </TableCell>
+                            <TableCell>
+                                <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <span style={{color: "#666b73"}}>Dr. Camscope DCS-105 - видеодерматоскоп</span>
+                            </TableCell>
+                            <TableCell>
+                                <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
             </div>
         </CardContent>
       </Collapse>

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular,
+      fontWeight: theme.typography.fontWeightRegular
     },
     table: {
         minWidth: 650,
@@ -34,14 +34,15 @@ const useStyles = makeStyles((theme: Theme) =>
         height: "100%",
     },
     accordionContainer: {
-        marginBottom: "1em"
+        marginBottom: "1em",
     },
     fullDirection: {
         background: "#e6f7e3",
         color: "green"
     },
     outDirection: {
-        background: "#ffffff"
+        background: "#ffffff",
+        color: "#666b73"
     },
     partDirection: {
         background: "#f7f5e3",
@@ -165,9 +166,9 @@ function AccordionOfTools(props) {
                 id="panel1a-header"
                 >
                     <div className={classes.accordionSummaryStyle}>
-                    <Typography className={classes.heading}>{props.categoryName}</Typography>
+                        <Typography className={classes.heading}>{props.categoryName}</Typography>
                         <div style={{display: "flex", alignItems: "center"}}>
-                            {spanCounterSelector(choosingType)}
+                            {props.tools ? spanCounterSelector(choosingType) : null}
                             <Button 
                             variant="outlined" 
                             color="primary"
@@ -175,7 +176,6 @@ function AccordionOfTools(props) {
                             onClick={checkAllToolsInDirection}
                             >{buttonNameSelector(choosingType)}</Button>
                         </div>
-
                     </div>
 
                 </AccordionSummary>
@@ -183,8 +183,8 @@ function AccordionOfTools(props) {
                     <Typography className={classes.root}>
                     <Table className={classes.table} aria-label="simple table" size="small">
                         <TableHead>
-                            <TableRow>
-                                <TableCell>Название</TableCell>
+                            <TableRow >
+                                <TableCell style={{color: "#666b73", fontWeight: "bolder"}}>Название</TableCell>
                                 <TableCell align="center">
                                     <Checkbox 
                                     checked={choosingType === 'all'} 
