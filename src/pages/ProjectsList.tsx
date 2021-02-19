@@ -72,7 +72,7 @@ function ProjectsList({ getProjects, projectsList }) {
           <ProjectOneByCard 
             item={item} 
             key={item.id}
-            setModalOpen={setModalOpen}
+            modalOpenHandler={modalOpenHandler}
           />) : <CircularProgress color="secondary"/>}
         </div>
         <TablePagination

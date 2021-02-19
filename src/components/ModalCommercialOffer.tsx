@@ -14,6 +14,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CloseIcon from '../assets/icons/Close circle.svg'
 import Typography from '@material-ui/core/Typography';
+import DownloadIcon from "../assets/icons/Download.svg"
 import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -103,7 +104,7 @@ export default function ModalCommercialOffer({onClose, open, user}) {
             </DialogTitle>
             <div className={classes.containerRoot}>
                 <div style={{display: "flex", flexDirection: "column"}}>
-                <Table>
+                <Table size="small">
                   <TableHead>
                     <TableRow>
                       <TableCell>Название</TableCell>
@@ -117,6 +118,10 @@ export default function ModalCommercialOffer({onClose, open, user}) {
                         <TableCell>{item.name}</TableCell>
                         <TableCell>{item.created}</TableCell>
                         <TableCell>{item.actual}</TableCell>
+         
+                        <IconButton>
+                          <img src={DownloadIcon}/>
+                        </IconButton>
                       </TableRow>
                     ))}
                   </TableBody>

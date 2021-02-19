@@ -50,7 +50,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function ProjectOneByCard({ item, toolsList, getTools, setModalOpen }) {
+function ProjectOneByCard(
+    { 
+        item, 
+        toolsList, 
+        getTools, 
+        modalOpenHandler
+    }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -85,7 +91,6 @@ function ProjectOneByCard({ item, toolsList, getTools, setModalOpen }) {
   }
 
   const projectStatusStyles = getStylesByProjectStatus(item)
-
   const autoPadding = 4
 
   return (
@@ -151,7 +156,7 @@ function ProjectOneByCard({ item, toolsList, getTools, setModalOpen }) {
             <img src={InfoIcon} />
         </IconButton>
         
-        <Button onClick={() => setModalOpen(item)} color="primary" variant="outlined" style={{marginRight: 10}}>
+        <Button onClick={() => modalOpenHandler()} color="primary" variant="outlined" style={{marginRight: 10}}>
             Коммерческие предложения
         </Button>
 
