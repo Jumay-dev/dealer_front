@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import { tools_block, tools } from '../middleware/infods5i_dealers'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ToolsTable from '../components/ToolsTable'
+import ModalProjectPresend from '../components/ModalProjectPresend'
+import _ from "lodash"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,6 +50,20 @@ const useStyles = makeStyles((theme: Theme) =>
 function Project() {
     const classes = useStyles()
     const [allTools, setTools] = React.useState(tools)
+    const [openPresend, setOpenPresend] = React.useState(false)
+    const [clinicInn, setClinicInn] = React.useState('555')
+    const [clinicAddress, setClinicAddress] = React.useState('')
+    const [clinicName, setClinicName] = React.useState('')
+    const [clinicUr, setClinicUr] = React.useState('')
+
+    function changeHandler(event) {
+        console.log(event.target.value)
+        _.debounce(() => setClinicInn(event.target.value), 1000)
+    }
+
+    function presendHandler() {
+        setOpenPresend(true)
+    }
 
     return (
         <div>
@@ -74,6 +90,8 @@ function Project() {
                             size="small"
                             variant="outlined"
                             label="ИНН клиники"
+                            required
+                            onChange={changeHandler}
                             />
                         </Grid>
                         <Grid item md={6}>
@@ -83,6 +101,7 @@ function Project() {
                             size="small"
                             variant="outlined"
                             style={{margin: 5, width: 500}}
+
                             />
                         </Grid>
                         <Grid item md={6}>
@@ -120,11 +139,19 @@ function Project() {
                     tools_block={tools_block}
                 />
 
-                <Button variant="contained" color="primary">
-                    Отправить на авторизацию
+                <Button variant="contained" color="primary" onClick={presendHandler}>
+                    Предварительный просмотр проекта
                 </Button>
             </div>
-
+            <ModalProjectPresend 
+                open={openPresend} 
+                onClose={() => setOpenPresend(false)} 
+                tools={allTools}
+                clinicInn={clinicInn}
+                clinicAddress={clinicAddress}
+                clinicName={clinicName}
+                clinicUr={clinicUr}
+            />
         </div>
     )
 }

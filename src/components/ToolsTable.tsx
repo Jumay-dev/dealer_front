@@ -83,9 +83,6 @@ function AccordionOfTools(props) {
         event.preventDefault()
         event.stopPropagation()
 
-        console.log(toolsInAccordion)
-        console.log(props.id)
-
         let currentAllTools = props.allTools.splice(0)
 
         if (choosingType !== 'all') {
@@ -159,8 +156,6 @@ function AccordionOfTools(props) {
         }
     }
 
-    //#f7f5e3
-    //#71bc68 зеленый
     return (
         <div className={classes.accordionContainer}>
             <Accordion className={styleSelector(choosingType)}>
@@ -221,7 +216,12 @@ function AccordionOfTools(props) {
     )
 }
 
-function ToolsTable({tools, setTools, tools_block}) {
+function ToolsTable(
+    {
+        tools, 
+        setTools, 
+        tools_block
+    }) {
     const classes = useStyles();
     const [categories, setCategories] = React.useState(tools_block)
 
