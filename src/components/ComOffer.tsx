@@ -13,7 +13,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
         marginRight: 10,
-        padding: 10
+        padding: 10,
+        border: "2px solid rgb(104, 140, 188)",
+        borderRadius: 10,
+        height: "100%"
     }
   }),
 );
@@ -133,7 +136,7 @@ function ComOffer({authorised}) {
     }
 
     return (
-        <Paper className={classes.paper}>
+        <div className={classes.paper}>
             <Typography
                 component="h2" 
                 variant="h5"
@@ -169,7 +172,7 @@ function ComOffer({authorised}) {
             </TabPanel>
 
             {activeTab === 0 ? <FixedCalcBottom positionsCount={positionsCount} positionsPrice={positionsPrice} addedTools={addedTools}/> : null}
-        </Paper>
+        </div>
     )
 }
 

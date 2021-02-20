@@ -68,9 +68,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       overflow: "hidden"
     },
-    toolsContainerHeader: {
-      background: "#F2EDF1"
-    },
     toolsContainer: {
       background: "#F2EDF1",
       display: "flex",
@@ -122,7 +119,7 @@ function Configurator() {
                 variant="h5"
                 style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
             >
-                Авторизуемое оборудование
+                Авторизованное оборудование
             </Typography>
             <AuthTools />
         </div>
@@ -138,7 +135,6 @@ function AuthTools() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
-          className={classes.toolsContainerHeader}
           >
               <Typography>Мониторы пациента</Typography>
           </AccordionSummary>

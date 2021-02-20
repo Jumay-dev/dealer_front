@@ -10,7 +10,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        minHeight: "100vh"
     },
   }),
 );
@@ -74,7 +75,7 @@ function NewOffer() {
                 <Grid item xs={12} md={7}>
                     <Configurator />
                 </Grid>
-                <Grid item xs={12} md={5}>
+                <Grid item xs={12} md={5} style={{height: "100%"}}>
                     <ComOffer authorised={authorised}/>
                 </Grid>
             </Grid>
