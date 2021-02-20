@@ -134,7 +134,14 @@ function ComOffer({authorised}) {
 
     return (
         <Paper className={classes.paper}>
-            <Typography variant="h5" component="h2">Коммерческое предложение для клиента</Typography>
+            <Typography
+                component="h2" 
+                variant="h5"
+                style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
+            >
+                Структура коммерческого предложения
+            </Typography>
+
             <Tabs
             indicatorColor="primary"
             textColor="primary"
