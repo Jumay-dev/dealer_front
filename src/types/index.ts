@@ -39,6 +39,38 @@ export interface Project {
   manager: string;
 }
 
+export class ProjectModel implements Project {
+  constructor(
+    externalId: number = 0,
+    added: string = '',
+    dealer: string = '',
+    employee: string = '',
+    client: string = '',
+    actualised: string = '',
+    expires: string = '',
+    manager: string = ''
+  ) {
+    this.id = 0;
+    this.externalId = externalId;
+    this.added = added;
+    this.dealer = dealer;
+    this.employee = employee;
+    this.client = client;
+    this.actualised = actualised;
+    this.expires = expires;
+    this.manager = manager;
+  }
+  id: number;
+  externalId: number;
+  added: string;
+  dealer: string;
+  employee: string;
+  client: string;
+  actualised: string;
+  expires: string;
+  manager: string;
+}
+
 export interface Tool {
   id: number;
   projectId: number;

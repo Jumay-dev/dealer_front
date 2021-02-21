@@ -60,7 +60,12 @@ interface NewProjectAction {
 }
 
 export interface ProjectState {
+  isFetching: boolean;
+  project: Project;
   projectsList: Project[];
+  error?: null;
+  deleted?: boolean;
+  updated?: boolean;
 }
 
 export type ProjectActions = 

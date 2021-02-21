@@ -56,10 +56,6 @@ export const layoutStyles = makeStyles((theme) => ({
       overflow: 'auto',
       padding: 0
     },
-    container: {
-      paddingBottom: theme.spacing(1),
-      padding: 0
-    },
     paper: {
       padding: theme.spacing(2),
       display: 'flex',

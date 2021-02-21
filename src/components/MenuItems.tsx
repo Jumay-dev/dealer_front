@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import TocIcon from '@material-ui/icons/Toc';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import PeopleIcon from '@material-ui/icons/People';
 import NotificationsMenu from '../components/NotificationsMenu'
 import MailsMenu from '../components/MailsMenu'
 import Divider from '@material-ui/core/Divider';
@@ -48,16 +44,11 @@ const useStyles = makeStyles(() =>
 );
 
 export function MainListItems() {
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
     const styles = useStyles();
-
-    function clickHandler(e, data) {
-        console.log(data)
-    }
     return (
-    <div>
+    <div key="mainmenu">
         <InlineDivider text="Общее"/>
-        <Link key={`link_1`} to="/" className={styles.linkItem}>
+        <Link key='1' to="/" className={styles.linkItem}>
             <StyledMenuItem 
             key={0}
             selected={window.location.pathname === "/"}
@@ -69,7 +60,7 @@ export function MainListItems() {
         </Link>
 
         <InlineDivider text="Проекты"/>
-        <Link key={`link_2`} to="/projects" className={styles.linkItem}>
+        <Link key='2' to="/projects" className={styles.linkItem}>
             <StyledMenuItem 
             key={2} 
             className={styles.menuItem}
@@ -80,7 +71,7 @@ export function MainListItems() {
             </StyledMenuItem>
         </Link>
         
-        <Link key={`link_3`} to="/newproject" className={styles.linkItem}>
+        <Link key='3' to="/newproject" className={styles.linkItem}>
             <StyledMenuItem key={3} className={styles.menuItem} selected={window.location.pathname === "/newproject"}>
             <ListItemIcon ><img src={NewProjectIcon} /></ListItemIcon>
             <ListItemText primary="Новый проект"/>
@@ -88,19 +79,19 @@ export function MainListItems() {
         </Link>
 
         <InlineDivider text="Организация"/>
-        <Link to="/user" className={styles.linkItem }>
+        <Link to="/user" className={styles.linkItem } key="4">
             <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/user"}>
                 <ListItemIcon><img src={UserIcon} /></ListItemIcon>
                 <ListItemText primary="Мой кабинет"/>
             </StyledMenuItem>
         </Link>
-        <Link key={`link_4`} to="/coworkers" className={styles.linkItem}>
+        <Link key="5" to="/coworkers" className={styles.linkItem}>
             <StyledMenuItem key={4} className={styles.menuItem} selected={window.location.pathname === "/coworkers"}>
             <ListItemIcon ><img src={UsersGroupIcon} /></ListItemIcon>
             <ListItemText primary="Сотрудники"/>
             </StyledMenuItem>
         </Link>
-        <Link to="/company" className={styles.linkItem }>
+        <Link to="/company" className={styles.linkItem } key="6">
             <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/company"}>
                 <ListItemIcon><img src={HomeIcon} /></ListItemIcon>
                 <ListItemText primary="Организация"/>
@@ -108,10 +99,10 @@ export function MainListItems() {
         </Link>
 
         <InlineDivider text="Оповещение"/>
-        <StyledMenuItem className={styles.menuItem }>
+        <StyledMenuItem className={styles.menuItem } key="7">
             <NotificationsMenu />
         </StyledMenuItem>
-        <StyledMenuItem className={styles.menuItem }>
+        <StyledMenuItem className={styles.menuItem } key="8">
             <MailsMenu />
         </StyledMenuItem>    
     </div>

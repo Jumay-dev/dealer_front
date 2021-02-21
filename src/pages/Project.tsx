@@ -8,7 +8,9 @@ import { tools_block, tools } from '../middleware/infods5i_dealers'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ToolsTable from '../components/ToolsTable'
 import ModalProjectPresend from '../components/ModalProjectPresend'
-import _ from "lodash"
+import { thunkData } from "../services/thunks";
+import { NEW_PROJECT } from "../store/types";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,19 +53,21 @@ function Project() {
     const classes = useStyles()
     const [allTools, setTools] = React.useState(tools)
     const [openPresend, setOpenPresend] = React.useState(false)
-    const [clinicInn, setClinicInn] = React.useState('555')
-    const [clinicAddress, setClinicAddress] = React.useState('')
-    const [clinicName, setClinicName] = React.useState('')
-    const [clinicUr, setClinicUr] = React.useState('')
+    const [clinicInn, setClinicInn] = React.useState('555 666 777 888 000')
+    const [clinicAddress, setClinicAddress] = React.useState('Добромед')
+    const [clinicName, setClinicName] = React.useState('г.Москва, ул.Пушкина, д.2')
+    const [clinicUr, setClinicUr] = React.useState('ООО "Добромед"')
 
-    function changeHandler(event) {
-        console.log(event.target.value)
-        _.debounce(() => setClinicInn(event.target.value), 1000)
-    }
 
     function presendHandler() {
         setOpenPresend(true)
     }
+
+    let projectListAction = {
+        type: NEW_PROJECT,
+        endpoint: "project/",
+        data: {},
+    };
 
     return (
         <div>
@@ -91,7 +95,7 @@ function Project() {
                             variant="outlined"
                             label="ИНН клиники"
                             required
-                            onChange={changeHandler}
+                            onChange={event => setClinicInn(event.target.value)}
                             />
                         </Grid>
                         <Grid item md={6}>
@@ -101,7 +105,7 @@ function Project() {
                             size="small"
                             variant="outlined"
                             style={{margin: 5, width: 500}}
-
+                            onChange={event => setClinicAddress(event.target.value)}
                             />
                         </Grid>
                         <Grid item md={6}>
@@ -111,6 +115,7 @@ function Project() {
                             size="small"
                             variant="outlined"
                             style={{margin: 5, width: 500}}
+                            onChange={event => setClinicName(event.target.value)}
                             />
                         </Grid>
                         <Grid item md={6}>
@@ -120,6 +125,7 @@ function Project() {
                             size="small"
                             variant="outlined"
                             style={{margin: 5, width: 500}}
+                            onChange={event => setClinicUr(event.target.value)}
                             />
                         </Grid>
                     </Grid>
@@ -156,4 +162,16 @@ function Project() {
     )
 }
 
-export default Project
+function mapStateToProps(state) {
+    return {
+      projectsList: state.project.projectsList,
+    }
+  }
+    
+  function mapDispatchToProps(dispatch) {
+    return {
+        getProjects: (action: TODO) => dispatch(thunkData(action)),
+    };
+  }
+    
+  export default connect(mapStateToProps, mapDispatchToProps)(Project)

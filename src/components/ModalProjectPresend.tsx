@@ -4,10 +4,6 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 import Grid from '@material-ui/core/Grid';
 import CloseIcon from '../assets/icons/Close circle.svg'
 import { Typography } from '@material-ui/core';
@@ -91,19 +87,19 @@ export default function ProjectPresend(
                     </Typography>
                     <Typography>
                         <span className={classes.tableCellName}>ИНН клиники:</span>
-                        <span className={classes.tableCellValue}>123 451 515 966 222</span>
+                        <span className={classes.tableCellValue}>{clinicInn}</span>
                     </Typography>
                     <Typography>
                         <span className={classes.tableCellName}>Название клиники:</span>
-                        <span className={classes.tableCellValue}>Добромед</span>
+                        <span className={classes.tableCellValue}>{clinicName}</span>
                     </Typography>
                     <Typography>
                         <span className={classes.tableCellName}>Адрес клиники:</span>
-                        <span className={classes.tableCellValue}>г.Москва, ул.Пушкина, д.2</span>
+                        <span className={classes.tableCellValue}>{clinicAddress}</span>
                     </Typography>
                     <Typography>
                         <span className={classes.tableCellName}>Юр.лицо клиники:</span>
-                        <span className={classes.tableCellValue}>Юр.лицо клиники ООО "Добромед"</span>
+                        <span className={classes.tableCellValue}>{clinicUr}</span>
                     </Typography>
 
                     <Typography variant="h5" style={{marginTop: 15, marginBottom: 10, color: "rgb(104, 140, 188)"}}>

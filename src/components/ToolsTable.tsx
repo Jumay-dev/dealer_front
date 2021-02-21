@@ -83,6 +83,7 @@ function AccordionOfTools(props) {
     const checkAllToolsInDirection = event => {
         event.preventDefault()
         event.stopPropagation()
+        console.log('checkAllToolsInDirection')
 
         let currentAllTools = props.allTools.splice(0)
 
@@ -225,29 +226,31 @@ function ToolsTable(
     const classes = useStyles();
     const [categories, setCategories] = React.useState(tools_block)
 
-    React.useEffect( () => {
-        let currentTools = tools.splice(0)
-        currentTools.forEach( item => item.isChecked = false)
-        setTools(currentTools)
-    }, [])
+    // React.useEffect( () => {
+    //     let currentTools = tools.splice(0)
+    //     currentTools.forEach( item => item.isChecked = false)
+    //     setTools(currentTools)
+    // }, [])
 
     function getFilteredToolsByCategory(tools, categoryID) {
         if (Array.isArray(tools) && tools.length !== 0) {
             return tools.filter(tool => +tool.tool_view_block === +categoryID)
         }
+        console.log('getFilteredToolsByCategory')
     }
     
     return (
-        <React.Fragment>
+        <div>
             {categories.map(category => 
-            <AccordionOfTools 
-            categoryName={category.block_name} 
-            id={category.id} 
-            tools={getFilteredToolsByCategory(tools, category.id)}
-            allTools={tools}
-            setTools={setTools}
+                <AccordionOfTools 
+                categoryName={category.block_name} 
+                id={category.id} 
+                tools={getFilteredToolsByCategory(tools, category.id)}
+                allTools={tools}
+                setTools={setTools}
+                key={category.id}
             />)}
-        </React.Fragment>
+        </div>
     )
 }
 
