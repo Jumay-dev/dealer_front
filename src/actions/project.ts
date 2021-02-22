@@ -11,16 +11,16 @@ export function listProjects(result?: TODO) {
     };
 }
 
-export function newProject(result?: TODO) {
+export function newProject(project) {
     return {
         type: NEW_PROJECT,
-        payload: result,
+        payload: project,
     };
 }
 
 export function getAction(
     action: ProjectActions,
-    id: 0
+    data?: Object
 ) {
     switch (action) {
         case LIST_PROJECTS:
@@ -31,7 +31,8 @@ export function getAction(
         case NEW_PROJECT:
             return {
                 type: NEW_PROJECT,
-                endpoint: 'project/'
+                endpoint: 'project/',
+                data
             }
     }
 }

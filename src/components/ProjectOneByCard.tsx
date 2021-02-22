@@ -83,6 +83,14 @@ function ProjectOneByCard(
                 labelColor: "#688cbc",
                 statusText: "На авторизации"
             }
+            case "5": return {
+                labelColor: "#688cbc",
+                statusText: "Запрос актуальности"
+            }
+            case "6": return {
+                labelColor: "#688cbc",
+                statusText: "Завершено"
+            }
             default: return {
                 labelColor: "black",
                 statusText: "Ошибка определения статуса"

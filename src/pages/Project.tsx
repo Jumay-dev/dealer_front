@@ -8,9 +8,8 @@ import { tools_block, tools } from '../middleware/infods5i_dealers'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ToolsTable from '../components/ToolsTable'
 import ModalProjectPresend from '../components/ModalProjectPresend'
-import { thunkData } from "../services/thunks";
-import { NEW_PROJECT } from "../store/types";
 import { connect } from "react-redux";
+import { newProject } from '../actions/project';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function Project() {
+function Project({ newProject }) {
     const classes = useStyles()
     const [allTools, setTools] = React.useState(tools)
     const [openPresend, setOpenPresend] = React.useState(false)
@@ -63,11 +62,26 @@ function Project() {
         setOpenPresend(true)
     }
 
-    let projectListAction = {
-        type: NEW_PROJECT,
-        endpoint: "project/",
-        data: {},
-    };
+    function handleNewProject() {
+        const project = {
+            tools: allTools.filter( item => item.isCheked = true),
+            status: "4",
+            id: 10,
+            externalId: 28,
+            added: "4.01.2021",
+            dealer: "ООО 'ААА'",
+            employee: 'Иванов Иван',
+            client: clinicName,
+            clientInn: clinicInn,
+            actualised: '10.01.2021',
+            expires: '20.02.2021',
+            manager: 'Даэсмедов Михаил Алексеевич',
+        }
+        newProject(project)
+        let currentTools = allTools.splice(0)
+        currentTools.forEach(item => item.isChecked = false)
+        setTools(currentTools)
+    }
 
     return (
         <div>
@@ -95,6 +109,7 @@ function Project() {
                             variant="outlined"
                             label="ИНН клиники"
                             required
+                            value={clinicInn}
                             onChange={event => setClinicInn(event.target.value)}
                             />
                         </Grid>
@@ -104,6 +119,7 @@ function Project() {
                             fullWidth
                             size="small"
                             variant="outlined"
+                            value={clinicAddress}
                             style={{margin: 5, width: 500}}
                             onChange={event => setClinicAddress(event.target.value)}
                             />
@@ -115,6 +131,7 @@ function Project() {
                             size="small"
                             variant="outlined"
                             style={{margin: 5, width: 500}}
+                            value={clinicName}
                             onChange={event => setClinicName(event.target.value)}
                             />
                         </Grid>
@@ -125,6 +142,7 @@ function Project() {
                             size="small"
                             variant="outlined"
                             style={{margin: 5, width: 500}}
+                            value={clinicUr}
                             onChange={event => setClinicUr(event.target.value)}
                             />
                         </Grid>
@@ -157,21 +175,20 @@ function Project() {
                 clinicAddress={clinicAddress}
                 clinicName={clinicName}
                 clinicUr={clinicUr}
+                handleNewProject={handleNewProject}
             />
         </div>
     )
 }
 
 function mapStateToProps(state) {
-    return {
-      projectsList: state.project.projectsList,
-    }
-  }
-    
-  function mapDispatchToProps(dispatch) {
-    return {
-        getProjects: (action: TODO) => dispatch(thunkData(action)),
-    };
-  }
-    
-  export default connect(mapStateToProps, mapDispatchToProps)(Project)
+return {
+    projectsList: state.project.projectsList,
+}
+}
+
+const mapDispatchToProps = {
+    newProject
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Project)

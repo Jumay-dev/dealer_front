@@ -13,7 +13,12 @@ import mainLayout from "../layouts/mainLayout"
 import { connect } from "react-redux";
 import { User } from "../types";
 import { thunkAuth } from "../services/thunks";
-import { SIGN_IN, SIGN_OUT } from "../store/types";
+import { 
+  SIGN_IN, 
+  SIGN_OUT,
+  LIST_PROJECTS
+ } from "../store/types";
+import { thunkData } from "../services/thunks";
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -65,6 +70,15 @@ function App(props) {
       props.signInUser(signInAction)
   }
 
+  React.useEffect( () => {
+    let projectListAction = {
+      type: LIST_PROJECTS,
+      endpoint: "projects/",
+      data: {},
+    };
+    props.getProjects(projectListAction)
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <Switch>
@@ -115,6 +129,7 @@ function mapDispatchToProps(dispatch) {
     return {
       signInUser: (action: TODO) => dispatch(thunkAuth(action)),
       signOutUser: (action: TODO) => dispatch(thunkAuth(action)),
+      getProjects: (action: TODO) => dispatch(thunkData(action)),
     };
   }
 

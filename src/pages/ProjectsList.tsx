@@ -1,12 +1,9 @@
 import React from 'react'
 import ProjectOneByCard from "../components/ProjectOneByCard"
-import Typography from '@material-ui/core/Typography'
 import Search from '../components/Search'
-import Pagination from '@material-ui/lab/Pagination';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TablePagination from '@material-ui/core/TablePagination';
 import ModalCommercialOffer from "../components/ModalCommercialOffer"
-import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
 import { LIST_PROJECTS } from "../store/types";
 
@@ -42,25 +39,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function ProjectsList({ getProjects, projectsList }) {
+function ProjectsList({ projectsList }) {
   const [page, setPage] = React.useState(1)
   const [modalOpen, setModalOpen] = React.useState(false)
 
   const classes = useStyles()
   
-  let projectListAction = {
-    type: LIST_PROJECTS,
-    endpoint: "projects/",
-    data: {},
-  };
-
   function modalOpenHandler(item) {
     setModalOpen(true)
   }
-
-  React.useEffect( () => {
-    getProjects(projectListAction)
-  }, [])
 
   return (
       <div>
@@ -97,11 +84,5 @@ function mapStateToProps(state) {
     projectsList: state.project.projectsList,
   }
 }
-  
-function mapDispatchToProps(dispatch) {
-  return {
-      getProjects: (action: TODO) => dispatch(thunkData(action)),
-  };
-}
-  
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList)
+
+export default connect(mapStateToProps, null)(ProjectsList)

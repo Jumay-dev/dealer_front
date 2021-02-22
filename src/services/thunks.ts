@@ -14,7 +14,8 @@ import {
   SIGN_IN,
   SIGN_OUT,
   LIST_PROJECTS,
-  LIST_TOOLS
+  LIST_TOOLS,
+  NEW_PROJECT
 } from "../store/types";
 
 export const thunkAuth = (
@@ -41,6 +42,9 @@ export const thunkData = (
   }
   if (type === LIST_TOOLS) {
     response = await getData(LIST_TOOLS);
+  }
+  if (type === NEW_PROJECT) {
+    response = await getData(NEW_PROJECT);
   }
   console.log('type', type)
   dispatchListProject(dispatch, type, response)

@@ -31,6 +31,7 @@ export function projectReducer(
             return Object.assign({}, state, {
                 isFetching: false,
                 project: action.payload,
+                projectsList: state.projectsList.concat(action.payload),
                 errorMessage: action.error,
                 deleted: false,
                 updated: false,

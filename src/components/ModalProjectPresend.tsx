@@ -56,7 +56,8 @@ export default function ProjectPresend(
         clinicInn, 
         clinicAddress, 
         clinicName, 
-        clinicUr
+        clinicUr,
+        handleNewProject
     }) {
     const classes = useStyles();
 
@@ -71,7 +72,7 @@ export default function ProjectPresend(
                     Предварительный просмотр проекта
                 </Typography>
 
-                <Button type="button" variant="outlined" className={classes.buttonGreen}>
+                <Button type="button" variant="outlined" className={classes.buttonGreen} onClick={handleNewProject}>
                     Подтвердить и отправить
                 </Button>
                 

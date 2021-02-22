@@ -2,14 +2,26 @@
 import { projects_json } from './dealer_projects'
 import { tools, tools_block, tools_subblock } from './infods5i_dealers'
 import { projects_tools } from './dealer_projects_tools'
-import { LIST_PROJECTS, LIST_TOOLS } from '../store/types'
+import { 
+  LIST_PROJECTS, 
+  LIST_TOOLS
+ } from '../store/types'
 
-const EXPAND = "_expand"
-// fakeUser kinda from backend
 const ds = {
   token: { 
     accessToken: "fake-token-12345789-abcdefgh", 
-    user: { firstname: "Admin", lastname: "", email: "admin@test.com", password: "password" }
+    user: {
+      id: 1,
+      firstname: "Иванов", 
+      lastname: "Иван",
+      patronym: "Иванович",
+      email: "admin@test.com",
+      password: "password",
+      phone: "+7 (800) 555-35-35",
+      registered: "20.01.2021 14:25",
+      role: 1,
+      maxDiscount: 30
+    }
   }
 }
 
@@ -18,7 +30,6 @@ function projectReducer(arr) {
   arr.forEach(item => {
     let currentItem = item
     let projectTools = projects_tools.filter( elem => +elem.project_id === +currentItem.id)
-    console.log('tools', projectTools)
     projects.push({
       status: item.status,
       id: currentItem.id,
@@ -35,29 +46,6 @@ function projectReducer(arr) {
   })
   return projects
 }
-
-const authorisedTools = [
-  {
-    id: 0,
-    projectId: 1,
-    name: 'Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY'
-  },
-  {
-    id: 1,
-    projectId: 1,
-    name: 'Многофункциональный монитор пациента Votem VP-1200'
-  },
-  {
-    id: 2,
-    projectId: 1,
-    name: 'Рентгеновский аппарат Listem REX-650RF: FLUOROSCOPY'
-  },
-  {
-    id: 3,
-    projectId: 1,
-    name: 'Многофункциональный монитор пациента Votem VP-1200'
-  },
-]
 
 export function login(action: string, data: TODO): Promise<TODO> {
   return new Promise(function (resolve, _reject) {
@@ -94,8 +82,6 @@ export function getData(action: string): Promise<TODO> {
           setTimeout(resolve, 300, tools)
         }
       })
-    
-    default: return null
   }
 }
 
