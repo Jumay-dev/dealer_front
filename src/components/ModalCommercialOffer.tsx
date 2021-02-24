@@ -9,13 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import TextField from '@material-ui/core/TextField';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CloseIcon from '../assets/icons/Close circle.svg'
 import Typography from '@material-ui/core/Typography';
 import DownloadIcon from "../assets/icons/Download.svg"
 import { Link } from 'react-router-dom'
+import PDFIcon from '../assets/icons/pdfred.png'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -121,6 +119,9 @@ export default function ModalCommercialOffer({onClose, open, user}) {
          
                         <IconButton>
                           <img src={DownloadIcon}/>
+                        </IconButton>
+                        <IconButton>
+                          <img src={PDFIcon} style={{width: 25, height: 25}}/>
                         </IconButton>
                       </TableRow>
                     ))}
