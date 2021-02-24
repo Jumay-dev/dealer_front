@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
         marginRight: 10,
         padding: theme.spacing(1),
-        border: "2px solid rgb(104, 140, 188)",
+        // border: "2px solid rgb(104, 140, 188)",
         borderRadius: 10,
         height: "100%"
     }

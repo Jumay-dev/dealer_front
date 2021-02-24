@@ -3,18 +3,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import NotificationsMenu from '../components/NotificationsMenu'
 import MailsMenu from '../components/MailsMenu'
 import Divider from '@material-ui/core/Divider';
-
 import UserIcon from "../assets/icons/User.svg"
 import UsersGroupIcon from "../assets/icons/Users.svg"
 import HomeIcon from "../assets/icons/Home.svg"
 import StatisticIcon from "../assets/icons/Chart bar.svg"
 import NewProjectIcon from "../assets/icons/File plus.svg"
 import ProjectsListIcon from "../assets/icons/Vector.svg"
-
 import { Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import { ListItemIcon, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux"
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -43,11 +42,11 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export function MainListItems() {
+function MainListItems({app}) {
     const styles = useStyles();
     return (
     <div key="mainmenu">
-        <InlineDivider text="Общее"/>
+        {app.sidebarOpened && <InlineDivider text="Общее"/>}
         <Link key='1' to="/" className={styles.linkItem}>
             <StyledMenuItem 
             key={0}
@@ -59,7 +58,7 @@ export function MainListItems() {
             </StyledMenuItem>
         </Link>
 
-        <InlineDivider text="Проекты"/>
+        {app.sidebarOpened && <InlineDivider text="Проекты"/>}
         <Link key='2' to="/projects" className={styles.linkItem}>
             <StyledMenuItem 
             key={2} 
@@ -78,7 +77,7 @@ export function MainListItems() {
             </StyledMenuItem>
         </Link>
 
-        <InlineDivider text="Организация"/>
+        {app.sidebarOpened && <InlineDivider text="Организация"/>}
         <Link to="/user" className={styles.linkItem } key="4">
             <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/user"}>
                 <ListItemIcon><img src={UserIcon} /></ListItemIcon>
@@ -98,7 +97,7 @@ export function MainListItems() {
             </StyledMenuItem>
         </Link>
 
-        <InlineDivider text="Оповещение"/>
+        {app.sidebarOpened && <InlineDivider text="Оповещение"/>}
         <StyledMenuItem className={styles.menuItem } key="7">
             <NotificationsMenu />
         </StyledMenuItem>
@@ -146,3 +145,11 @@ const StyledMenuItem = withStyles((theme) => ({
       },
     },
 }))(MenuItem);
+
+function mapStateToProps(state) {
+    return {
+      app: state.app
+    }
+}
+  
+export default connect(mapStateToProps, null)(MainListItems)

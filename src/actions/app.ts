@@ -2,6 +2,8 @@ import {
     AppState,
     SET_SUCCESS,
     UNSET_SUCCESS,
+    SIDEBAR_OPENED,
+    SIDEBAR_CLOSED,
     SET_ERROR
 } from '../store/types'
 
@@ -14,6 +16,18 @@ export function setSuccess() {
 export function unsetSuccess() {
     return {
       type: UNSET_SUCCESS,
+    };
+}
+
+export function openSidebar() {
+    return {
+        type: SIDEBAR_OPENED
+    };
+}
+
+export function closeSidebar() {
+    return {
+        type: SIDEBAR_CLOSED,
     };
 }
 

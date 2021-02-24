@@ -100,15 +100,18 @@ export type ToolsActionsTypes =
 export const SET_SUCCESS = "SET_SUCCESS"
 export const UNSET_SUCCESS = "UNSET_SUCCESS"
 export const SET_ERROR = "SET_ERROR"
+export const SIDEBAR_OPENED = "SIDEBAR_OPENED"
+export const SIDEBAR_CLOSED = "SIDEBAR_CLOSED"
 
 export interface AppState {
   isFetching: boolean;
   projectSuccesfullyAdded: boolean;
   error?: boolean;
-  deleted?: boolean;
-  updated?: boolean;
+  sidebarOpened: boolean;
 }
 
 export type AppActions = typeof SET_SUCCESS
 | typeof UNSET_SUCCESS
 | typeof SET_ERROR
+| typeof SIDEBAR_OPENED
+| typeof SIDEBAR_CLOSED

@@ -2,6 +2,8 @@ import {
     AppState,
     SET_SUCCESS,
     UNSET_SUCCESS,
+    SIDEBAR_OPENED,
+    SIDEBAR_CLOSED,
     SET_ERROR
 } from '../store/types'
 
@@ -10,8 +12,7 @@ export function appReducer(
         isFetching: true,
         projectSuccesfullyAdded: false,
         error: false,
-        deleted: false,
-        updated: false,
+        sidebarOpened: true
     },
     action
 ) {
@@ -19,17 +20,25 @@ export function appReducer(
         case SET_SUCCESS: {
             return Object.assign({}, state, {
                 isFetching: false,
-                projectSuccesfullyAdded: true,
-                deleted: false,
-                updated: false,
+                projectSuccesfullyAdded: true
             });
         }
         case UNSET_SUCCESS: {
             return Object.assign({}, state, {
                 isFetching: false,
-                projectSuccesfullyAdded: false,
-                deleted: false,
-                updated: false,
+                projectSuccesfullyAdded: false
+            });
+        }
+        case SIDEBAR_OPENED: {
+            return Object.assign({}, state, {
+                isFetching: false,
+                sidebarOpened: true
+            });
+        }
+        case SIDEBAR_CLOSED: {
+            return Object.assign({}, state, {
+                isFetching: false,
+                sidebarOpened: false
             });
         }
         default: return state;

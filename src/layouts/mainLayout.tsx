@@ -4,19 +4,72 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import UserDropdown from '../components/UserDropdown'
-import { MainListItems } from '../components/MenuItems';
+import MainListItems from '../components/MenuItems';
 import { layoutStyles } from './layoutStyles'
 import '../css/index.css'
+import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
+import { openSidebar, closeSidebar } from "../actions/app"
 
-function MainLayout({children}) {
-    const classes = layoutStyles();
-    const [open, setOpen] = useState(true);
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
+const drawerWidth = 230;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+      whiteSpace: 'nowrap',
+    },
+    drawerOpen: {
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerClose: {
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      overflowX: 'hidden',
+      width: theme.spacing(7) + 1,
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9) + 1,
+      },
+    },
+    logoContainer: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100%",
+      height: 120,
+      background: "#f3f6f9"
+    },
+    content: {
+      flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
+      padding: 0
+    },
+  }),
+);
+
+function MainLayout({ children, openSidebar, closeSidebar, app }) {
+    const classes = useStyles();
+
+    React.useEffect(() => {
+      if ( window.location.pathname === "/newoffer" && app.sidebarOpened) {
+        app.sidebarOpened && closeSidebar()
+      } else {
+        !app.sidebarOpened && openSidebar()
+      }
+    }, [])
+
+
     return (
       <div className={classes.root}>
 
@@ -24,10 +77,16 @@ function MainLayout({children}) {
 
         <Drawer
           variant="permanent"
+          className={clsx(classes.drawer, {
+            [classes.drawerOpen]: app.sidebarOpened,
+            [classes.drawerClose]: !app.sidebarOpened,
+          })}
           classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+            paper: clsx({
+              [classes.drawerOpen]: app.sidebarOpened,
+              [classes.drawerClose]: !app.sidebarOpened,
+            }),
           }}
-          open={true}
         >
           <div className={classes.logoContainer}>
             <img src="https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png" alt="..." style={{width: "80%"}}/>
@@ -45,4 +104,15 @@ function MainLayout({children}) {
     );
 }
 
-export default MainLayout
+function mapStateToProps(state) {
+  return {
+    app: state.app
+  }
+}
+
+const mapDispatchToProps = {
+  openSidebar,
+  closeSidebar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout)

@@ -129,9 +129,9 @@ export default function ModalCommercialOffer({onClose, open, user}) {
                 </div>
 
                 <div style={{textAlign: "right", marginTop: "2em"}}>
-                    <Link to="/newoffer">
+                    <Link to="/newoffer" style={{textDecoration: "none"}}>
                       <Button type="button" variant="contained" color="primary">
-                        Новое КП
+                        Создать новое КП
                       </Button>
                     </Link>
                 </div>
