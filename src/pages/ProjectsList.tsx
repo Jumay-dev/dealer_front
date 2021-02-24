@@ -5,9 +5,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import TablePagination from '@material-ui/core/TablePagination';
 import ModalCommercialOffer from "../components/ModalCommercialOffer"
 import { connect } from "react-redux";
-import { LIST_PROJECTS } from "../store/types";
-
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { setSuccess, unsetSuccess } from '../actions/app';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function ProjectsList({ projectsList }) {
+function ProjectsList({ projectsList, app, unsetSuccess }) {
   const [page, setPage] = React.useState(1)
   const [modalOpen, setModalOpen] = React.useState(false)
 
@@ -47,6 +48,10 @@ function ProjectsList({ projectsList }) {
   
   function modalOpenHandler(item) {
     setModalOpen(true)
+  }
+
+  function Alert(props: AlertProps) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
 
   return (
@@ -75,6 +80,11 @@ function ProjectsList({ projectsList }) {
           user={{}}
           onClose={() => setModalOpen(false)}
         />
+        <Snackbar open={app.projectSuccesfullyAdded} autoHideDuration={6000} onClose={() => unsetSuccess()}>
+          <Alert onClose={() => unsetSuccess()} severity="success">
+            Проект успешно добавлен
+          </Alert>
+        </Snackbar>
       </div>
   )
 }
@@ -82,7 +92,11 @@ function ProjectsList({ projectsList }) {
 function mapStateToProps(state) {
   return {
     projectsList: state.project.projectsList,
+    app: state.app
   }
 }
 
-export default connect(mapStateToProps, null)(ProjectsList)
+const mapDispatchToProps = {
+  unsetSuccess
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList)

@@ -1,16 +1,21 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
+import { connectRouter } from 'connected-react-router'
+import { createBrowserHistory } from 'history'
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { authReducer } from "../reducers/auth";
 import { projectReducer } from "../reducers/project";
 import { toolReducer } from "../reducers/tool";
+import { appReducer } from "../reducers/app";
 
-const rootReducer = combineReducers({
+const rootReducer = (history) => combineReducers({
     auth: authReducer,
     project: projectReducer,
-    tool: toolReducer
+    tool: toolReducer,
+    app: appReducer,
+    router: connectRouter(history),
 })
-
+export const history = createBrowserHistory()
 export type AppState = ReturnType<typeof rootReducer>;
 
 export default function configureStore() {
@@ -18,7 +23,7 @@ export default function configureStore() {
     const middleWareEnhancer = applyMiddleware(...middlewares);
 
     const store = createStore(
-        rootReducer,
+        rootReducer(history),
         composeWithDevTools(middleWareEnhancer)
     )
 

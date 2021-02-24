@@ -2,15 +2,14 @@ import React from 'react'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import { tools_block, tools } from '../middleware/infods5i_dealers'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ToolsTable from '../components/ToolsTable'
-import ModalProjectPresend from '../components/ModalProjectPresend'
 import NewProjectReq from '../components/NewProjectReq'
 import { connect } from "react-redux";
 import { newProject } from '../actions/project';
+import { setSuccess, unsetSuccess } from '../actions/app';
+import { push } from 'connected-react-router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function Project({ newProject }) {
+function Project({ newProject, setSuccess, history }) {
     const classes = useStyles()
     const [allTools, setTools] = React.useState(tools)
     const [openPresend, setOpenPresend] = React.useState(false)
@@ -74,9 +73,8 @@ function Project({ newProject }) {
             manager: 'Даэсмедов Михаил Алексеевич',
         }
         newProject(project)
-        let currentTools = allTools.splice(0)
-        currentTools.forEach(item => item.isChecked = false)
-        setTools(currentTools)
+        setSuccess()
+        history.push("/projects")
     }
 
     return (
@@ -130,7 +128,8 @@ return {
 }
 
 const mapDispatchToProps = {
-    newProject
+    newProject,
+    setSuccess
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Project)

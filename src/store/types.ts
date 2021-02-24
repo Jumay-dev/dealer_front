@@ -48,6 +48,7 @@ export const LIST_PROJECTS = "LIST_PROJECTS"
 export const GET_PROJECT = "GET_PROJECT"
 export const NEW_PROJECT = "NEW_PROJECT"
 export const EDIT_PROJECT = "EDIT_PROJECT"
+
 interface ListProjectsAction {
   type: typeof LIST_PROJECTS;
   payload: Project[];
@@ -94,3 +95,20 @@ export type ToolsActions = typeof LIST_TOOLS
 
 export type ToolsActionsTypes = 
 | ListToolsAction
+
+//Apptypes
+export const SET_SUCCESS = "SET_SUCCESS"
+export const UNSET_SUCCESS = "UNSET_SUCCESS"
+export const SET_ERROR = "SET_ERROR"
+
+export interface AppState {
+  isFetching: boolean;
+  projectSuccesfullyAdded: boolean;
+  error?: boolean;
+  deleted?: boolean;
+  updated?: boolean;
+}
+
+export type AppActions = typeof SET_SUCCESS
+| typeof UNSET_SUCCESS
+| typeof SET_ERROR
