@@ -8,6 +8,7 @@ import { tools_block, tools } from '../middleware/infods5i_dealers'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ToolsTable from '../components/ToolsTable'
 import ModalProjectPresend from '../components/ModalProjectPresend'
+import NewProjectReq from '../components/NewProjectReq'
 import { connect } from "react-redux";
 import { newProject } from '../actions/project';
 
@@ -52,17 +53,12 @@ function Project({ newProject }) {
     const classes = useStyles()
     const [allTools, setTools] = React.useState(tools)
     const [openPresend, setOpenPresend] = React.useState(false)
-    const [clinicInn, setClinicInn] = React.useState('555 666 777 888 000')
-    const [clinicAddress, setClinicAddress] = React.useState('Добромед')
-    const [clinicName, setClinicName] = React.useState('г.Москва, ул.Пушкина, д.2')
-    const [clinicUr, setClinicUr] = React.useState('ООО "Добромед"')
-
 
     function presendHandler() {
         setOpenPresend(true)
     }
 
-    function handleNewProject() {
+    function handleNewProject(clinicName, clinicInn) {
         const project = {
             tools: allTools.filter( item => item.isCheked = true),
             status: "4",
@@ -99,56 +95,12 @@ function Project({ newProject }) {
                     Реквизиты
                 </Typography>
 
-                <Paper className={classes.paper}>
-                    <Grid container className={classes.gridContainer}>
-                        <Grid item md={6} sm={12}>
-                            <TextField 
-                            style={{margin: 5, width: "20vw"}}
-                            fullWidth
-                            size="small"
-                            variant="outlined"
-                            label="ИНН клиники"
-                            required
-                            value={clinicInn}
-                            onChange={event => setClinicInn(event.target.value)}
-                            />
-                        </Grid>
-                        <Grid item md={6} sm={12}>
-                            <TextField 
-                            label="Адрес клиники"
-                            fullWidth
-                            size="small"
-                            variant="outlined"
-                            value={clinicAddress}
-                            style={{margin: 5, width: "20vw"}}
-                            onChange={event => setClinicAddress(event.target.value)}
-                            />
-                        </Grid>
-                        <Grid item md={6} sm={12}>
-                            <TextField 
-                            label="Название клиники"
-                            fullWidth
-                            size="small"
-                            variant="outlined"
-                            style={{margin: 5, width: "20vw"}}
-                            value={clinicName}
-                            onChange={event => setClinicName(event.target.value)}
-                            />
-                        </Grid>
-                        <Grid item md={6} sm={12}>
-                            <TextField 
-                            label="Наименование юр.лица клиники"
-                            fullWidth
-                            size="small"
-                            variant="outlined"
-                            style={{margin: 5, width: "20vw"}}
-                            value={clinicUr}
-                            onChange={event => setClinicUr(event.target.value)}
-                            />
-                        </Grid>
-                    </Grid>
-                </Paper>
-
+                <NewProjectReq 
+                allTools={allTools} 
+                handleNewProject={handleNewProject}
+                openPresend={openPresend}
+                setOpenPresend={setOpenPresend}
+                />
                 <Typography
                     component="h2" 
                     variant="h5"
@@ -167,16 +119,6 @@ function Project({ newProject }) {
                     Предварительный просмотр проекта
                 </Button>
             </div>
-            <ModalProjectPresend 
-                open={openPresend} 
-                onClose={() => setOpenPresend(false)} 
-                tools={allTools}
-                clinicInn={clinicInn}
-                clinicAddress={clinicAddress}
-                clinicName={clinicName}
-                clinicUr={clinicUr}
-                handleNewProject={handleNewProject}
-            />
         </div>
     )
 }

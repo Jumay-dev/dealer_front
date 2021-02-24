@@ -66,12 +66,14 @@ const StyledTableRowClient = withStyles((theme: Theme) =>
 )(TableRow);
 
 function CommercialOfferPositionMain(
-  { primary, 
-    tool, 
+  { 
+    primary,
+    tool,
     deleteTool,
     addedTools,
     setAddedTools
-   }) {
+   }) 
+  {
   const basePrice: number = tool.dealerPrice
   const [dealerDiscount, setDealerDiscount] = React.useState<number>(tool.dealerDiscount)
   const [dealerPrice, setDealerPrice] = React.useState<number>(basePrice - (basePrice/100)*dealerDiscount)
@@ -125,7 +127,7 @@ function CommercialOfferPositionMain(
                   <Input type="number" value={count} name="count" onChange={changeHandler}/>
               </Grid>
               <Grid xl={4} lg={12} item>
-                  <Table className={classes.table} aria-label="customized table">
+                  <Table className={classes.table} aria-label="customized table" size="small">
                       <TableBody>
                           <StyledTableRowDealer>
                               <StyledTableCell>Розничная цена(ед)</StyledTableCell>
@@ -148,7 +150,7 @@ function CommercialOfferPositionMain(
                   </Table>
               </Grid>
               <Grid xl={4} lg={12} item>
-                  <Table className={classes.table} aria-label="customized table">
+                  <Table className={classes.table} aria-label="customized table" size="small">
                       <TableBody>
                           <StyledTableRowClient>
                               <StyledTableCell>Розничная цена(ед)</StyledTableCell>

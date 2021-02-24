@@ -69,7 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "hidden"
     },
     toolsContainer: {
-      background: "#F2EDF1",
       display: "flex",
       flexDirection: "column"
     },
@@ -136,7 +135,13 @@ function AuthTools() {
           aria-controls="panel1a-content"
           id="panel1a-header"
           >
-              <Typography>Мониторы пациента</Typography>
+            <Typography
+                component="h2" 
+                variant="h6"
+                style={{color: "#688cbc", display: "inline-block"}}
+            >
+              Мониторы пациента
+            </Typography>
           </AccordionSummary>
           <AccordionDetails className={classes.toolsContainer}>
             <Grid container spacing={2}>
@@ -264,18 +269,18 @@ function ToolCard({toolName, img, description, selected}) {
         <CardActions disableSpacing>
           {selected ? <Button variant="contained" color="secondary">Удалить</Button> : <Button variant="contained" color="secondary">Выбрать</Button>}
           {selected ? (
-                    <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value="0"
-                    style={{
-                      marginLeft: 10
-                    }}
-                    >
-                      <MenuItem value={0}>Комплектация 1</MenuItem>
-                      <MenuItem value={1}>Комплектация 2</MenuItem>
-                      <MenuItem value={2}>Комплектация 3</MenuItem>
-                    </Select>
+            <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value="0"
+            style={{
+              marginLeft: 10
+            }}
+            >
+              <MenuItem value={0}>Комплектация 1</MenuItem>
+              <MenuItem value={1}>Комплектация 2</MenuItem>
+              <MenuItem value={2}>Комплектация 3</MenuItem>
+            </Select>
           ) : null}
           <IconButton
             className={clsx(classes.expand, {

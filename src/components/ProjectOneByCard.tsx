@@ -114,7 +114,7 @@ function ProjectOneByCard(
                             # {item.id}
                         </Typography>
                     </TableCell>
-                    <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
+                    <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding, maxWidth: "5vw"}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Конечный клиент:</span>
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.client}</span>
                     </TableCell>
