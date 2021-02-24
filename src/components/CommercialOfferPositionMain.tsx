@@ -115,7 +115,7 @@ function CommercialOfferPositionMain(
   return (
       <Paper className={primary ? classes.mainPaper : classes.secondaryPaper}>
           <Grid container spacing={1}>
-              <Grid lg={3}  xs={6} item>
+              <Grid xl={3} lg={12} item>
                   <Typography variant="subtitle1" paragraph>
                       {tool && tool.name ? tool.name : null}
                   </Typography>
@@ -124,7 +124,7 @@ function CommercialOfferPositionMain(
                   </Typography>
                   <Input type="number" value={count} name="count" onChange={changeHandler}/>
               </Grid>
-              <Grid lg={4} xs={12} item>
+              <Grid xl={4} lg={12} item>
                   <Table className={classes.table} aria-label="customized table">
                       <TableBody>
                           <StyledTableRowDealer>
@@ -147,7 +147,7 @@ function CommercialOfferPositionMain(
                       </TableBody>
                   </Table>
               </Grid>
-              <Grid lg={4} xs={12} item>
+              <Grid xl={4} lg={12} item>
                   <Table className={classes.table} aria-label="customized table">
                       <TableBody>
                           <StyledTableRowClient>

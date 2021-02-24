@@ -1,5 +1,4 @@
 import React from 'react'
-import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import CommercialOfferOne from "./CommercialOfferOne"
 import Tabs from '@material-ui/core/Tabs';
@@ -13,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
         marginRight: 10,
-        padding: 10,
+        padding: theme.spacing(1),
         border: "2px solid rgb(104, 140, 188)",
         borderRadius: 10,
         height: "100%"
@@ -120,7 +119,7 @@ function ComOffer({authorised}) {
           {...other}
         >
           {value === index && (
-            <Box p={3}>
+            <Box>
               <Typography>{children}</Typography>
             </Box>
           )}
@@ -142,7 +141,7 @@ function ComOffer({authorised}) {
                 variant="h5"
                 style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
             >
-                Структура коммерческого предложения
+              Структура коммерческого предложения
             </Typography>
 
             <Tabs

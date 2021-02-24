@@ -101,9 +101,9 @@ function Project({ newProject }) {
 
                 <Paper className={classes.paper}>
                     <Grid container className={classes.gridContainer}>
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={12}>
                             <TextField 
-                            style={{margin: 5, width: 500}}
+                            style={{margin: 5, width: "20vw"}}
                             fullWidth
                             size="small"
                             variant="outlined"
@@ -113,35 +113,35 @@ function Project({ newProject }) {
                             onChange={event => setClinicInn(event.target.value)}
                             />
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={12}>
                             <TextField 
                             label="Адрес клиники"
                             fullWidth
                             size="small"
                             variant="outlined"
                             value={clinicAddress}
-                            style={{margin: 5, width: 500}}
+                            style={{margin: 5, width: "20vw"}}
                             onChange={event => setClinicAddress(event.target.value)}
                             />
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={12}>
                             <TextField 
                             label="Название клиники"
                             fullWidth
                             size="small"
                             variant="outlined"
-                            style={{margin: 5, width: 500}}
+                            style={{margin: 5, width: "20vw"}}
                             value={clinicName}
                             onChange={event => setClinicName(event.target.value)}
                             />
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={12}>
                             <TextField 
                             label="Наименование юр.лица клиники"
                             fullWidth
                             size="small"
                             variant="outlined"
-                            style={{margin: 5, width: 500}}
+                            style={{margin: 5, width: "20vw"}}
                             value={clinicUr}
                             onChange={event => setClinicUr(event.target.value)}
                             />
