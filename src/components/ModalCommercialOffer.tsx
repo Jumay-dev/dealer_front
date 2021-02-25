@@ -14,6 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import DownloadIcon from "../assets/icons/Download.svg"
 import { Link } from 'react-router-dom'
 import PDFIcon from '../assets/icons/pdfred.png'
+import Popover from '@material-ui/core/Popover';
+import Paper from '@material-ui/core/Paper';
+import EyeIcon from "../assets/icons/Eye.svg"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,23 +35,26 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 5
     },
     tableCellValue: {
-        fontWeight: "bolder", 
-        color: "#666b73"
+      fontWeight: "bolder", 
+      color: "#666b73"
     },
     headerStyle: {
-        background: theme.palette.secondary.main,
-        color: theme.palette.primary.main,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
+      background: theme.palette.secondary.main,
+      color: theme.palette.primary.main,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
     },
     deleteButton: {
-        marginRight: 10, 
-        background: theme.palette.error.main, 
-        color: "white",
-        "&:hover": {
-            background: theme.palette.error.dark
-        }
+      marginRight: 10, 
+      background: theme.palette.error.main, 
+      color: "white",
+      "&:hover": {
+          background: theme.palette.error.dark
+      }
+    },
+    popoverPaper: {
+      padding: theme.spacing(1)
     }
   }),
 );
@@ -88,53 +94,109 @@ const fakeCommercialOffers = [
 
 export default function ModalCommercialOffer({onClose, open, user}) {
     const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    }; 
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    const openPop = Boolean(anchorEl);
+    const id = openPop ? 'simple-popover' : undefined;
 
     return (
         <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open} className={classes.root} fullWidth maxWidth="md">
             <DialogTitle id="simple-dialog-title" className={classes.headerStyle} disableTypography>
-                <Typography variant="h5">
+              <div>
+              <Typography variant="h5">
                     Коммерческие предложения
                 </Typography>
+                <Typography style={{color: "grey",marginTop: 5}}>
+                    для ЛПУ ООО "ААА" по проекту #287394827
+                </Typography>
+              </div>
+ 
                 
                 <IconButton onClick={() => onClose()} style={{marginRight: "-16px"}}>
                     <img src={CloseIcon} />
                 </IconButton>
             </DialogTitle>
             <div className={classes.containerRoot}>
-                <div style={{display: "flex", flexDirection: "column"}}>
-                <Table size="small">
+                <Popover
+                  id={id}
+                  open={openPop}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  
+                >
+                  <Paper className={classes.popoverPaper}>
+                    <Typography style={{color: "rgb(104, 140, 188)", marginBottom: 10}}>
+                      Направления КП
+                    </Typography>
+                    <Typography>
+                      Мониторы пациента
+                    </Typography>
+                    <Typography>
+                      Видеосистемы
+                    </Typography>
+                    <Typography>
+                      Рентгены
+                    </Typography>
+                  </Paper>
+                </Popover>
+
+                <Table size="small" style={{width: "100%"}}>
                   <TableHead>
                     <TableRow>
                       <TableCell>Название</TableCell>
                       <TableCell>Создано</TableCell>
                       <TableCell>Актуально до</TableCell>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {fakeCommercialOffers.map( item => (
-                      <TableRow key={item.id}>
+                      <TableRow>
                         <TableCell>{item.name}</TableCell>
                         <TableCell>{item.created}</TableCell>
                         <TableCell>{item.actual}</TableCell>
-         
-                        <IconButton>
-                          <img src={DownloadIcon}/>
-                        </IconButton>
-                        <IconButton>
-                          <img src={PDFIcon} style={{width: 25, height: 25}}/>
-                        </IconButton>
+                        
+                        <TableCell style={{width: 20, padding: 0}}>
+                          <IconButton>
+                            <img src={DownloadIcon}/>
+                          </IconButton>
+                        </TableCell>
+                        <TableCell style={{width: 20, padding: 0}}>
+                          <IconButton>
+                            <img src={PDFIcon} style={{width: 25, height: 25}}/>
+                          </IconButton>
+                        </TableCell>
+                        <TableCell style={{width: 20, padding: 0}}>
+                          <IconButton onClick={handleClick}>
+                            <img src={EyeIcon}/>
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
-                </div>
 
                 <div style={{textAlign: "right", marginTop: "2em"}}>
-                    <Link to="/newoffer" style={{textDecoration: "none"}}>
-                      <Button type="button" variant="contained" color="primary">
-                        Создать новое КП
-                      </Button>
-                    </Link>
+                  <Link to="/newoffer" style={{textDecoration: "none"}}>
+                    <Button type="button" variant="contained" color="primary">
+                      Создать новое КП
+                    </Button>
+                  </Link>
                 </div>
             </div>
         </Dialog>

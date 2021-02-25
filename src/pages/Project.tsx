@@ -9,7 +9,6 @@ import NewProjectReq from '../components/NewProjectReq'
 import { connect } from "react-redux";
 import { newProject } from '../actions/project';
 import { setSuccess, unsetSuccess } from '../actions/app';
-import { push } from 'connected-react-router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

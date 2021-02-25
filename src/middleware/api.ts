@@ -38,6 +38,7 @@ function projectReducer(arr) {
       dealer: "ООО 'ААА'",
       employee: 'Иванов Иван',
       client: currentItem.brend_name,
+      urname: currentItem.ur_name,
       actualised: '10.01.2021',
       expires: '20.02.2021',
       manager: 'Даэсмедов Михаил Алексеевич',

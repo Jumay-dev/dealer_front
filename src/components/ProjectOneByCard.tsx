@@ -115,8 +115,8 @@ function ProjectOneByCard(
                         </Typography>
                     </TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding, maxWidth: "5vw"}}>
-                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Конечный клиент:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.client}</span>
+                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>ЛПУ(юр.лицо):</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.client} ({item.urname ? item.urname : "Не указано"})</span>
                     </TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Актуален до:</span>
@@ -134,7 +134,7 @@ function ProjectOneByCard(
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>г. Москва, Ленинградское ш., д.25</span>
                     </TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
-                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Зарегистрирован:</span>
+                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Добавлен:</span>
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.added}</span>
                     </TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
@@ -145,7 +145,7 @@ function ProjectOneByCard(
                 <TableRow>
                     <TableCell></TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
-                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Сотрудник дилера:</span>
+                        <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Ответственный:</span>
                         <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.employee}</span>
                     </TableCell>
 
