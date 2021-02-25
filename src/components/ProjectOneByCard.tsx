@@ -65,7 +65,6 @@ function ProjectOneByCard(
   };
 
   function getStylesByProjectStatus(item) {
-      console.log(item)
       switch (item.status) {
             case "1": return {
                 labelColor: "#9cd69b",

@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     buttonFullDirection: {
         border: "1px solid green",
-        minWidth: 250,
+        minWidth: 150,
         color: "green",
         "&:hover": {
             color: "green",
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     buttonPartDirection: {
         border: "1px solid #ffb62f",
-        minWidth: 250,
+        minWidth: 150,
         color: "#ffb62f",
         "&:hover": {
             color: "#ffb62f",
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     },
     buttonOutDirection: {
-        minWidth: 250
+        minWidth: 150
     },
     popoverPaper: {
       padding: theme.spacing(1)
@@ -133,7 +133,6 @@ function AccordionOfTools(props) {
     const checkAllToolsInDirection = event => {
         event.preventDefault()
         event.stopPropagation()
-        console.log('checkAllToolsInDirection')
 
         let currentAllTools = props.allTools.splice(0)
 
@@ -192,13 +191,13 @@ function AccordionOfTools(props) {
         }
     }
 
-    function buttonNameSelector(variable) {
-        switch (variable) {
-            case 'all': return "Снять выбор"
-            case 'part': return "Выбрать все"
-            default: return "Выбрать направление"
-        }
-    }
+    // function buttonNameSelector(variable) {
+    //     switch (variable) {
+    //         case 'all': return "Снять выбор"
+    //         case 'part': return "Выбрать все"
+    //         default: return "Выбрать направление"
+    //     }
+    // }
 
     function spanCounterSelector(variable) {
         switch (variable) {
@@ -218,6 +217,7 @@ function AccordionOfTools(props) {
                 <AccordionSummary
                 aria-controls="panel1a-content"
                 id="panel1a-header"
+                onClick={handleExpandClick} 
                 >
                     <div className={classes.accordionSummaryStyle}>
                         <Typography className={classes.heading}>{props.categoryName}</Typography>
@@ -229,7 +229,8 @@ function AccordionOfTools(props) {
                             className={buttonStyleSelector(choosingType)}
                             // onClick={checkAllToolsInDirection}
                             onClick={handleExpandClick} 
-                            >{buttonNameSelector(choosingType)}
+                            >
+                                <span>{expanded ? "Скрыть" : "Показать"}</span>
                                 <ExpandMoreIcon
                                     className={clsx(classes.expand, {
                                         [classes.expandOpen]: expanded,
