@@ -13,16 +13,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
-import Collapse from '@material-ui/core/Collapse';
+import InfoIcon from "../assets/icons/Info circle.svg"
 import clsx from 'clsx';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,32 +83,32 @@ const useStyles = makeStyles((theme: Theme) =>
     media: {
         height: 0,
         paddingTop: '56.25%', // 16:9
-      },
-      selectedMedia: {
+    },
+    selectedMedia: {
         height: 300,
         paddingTop: '56.25%', // 16:9
-      },
-      expand: {
+    },
+    expand: {
         transform: 'rotate(0deg)',
         marginLeft: 'auto',
         transition: theme.transitions.create('transform', {
-          duration: theme.transitions.duration.shortest,
+            duration: theme.transitions.duration.shortest,
         }),
-      },
-      expandOpen: {
+    },
+    expandOpen: {
         transform: 'rotate(180deg)',
-      },
-      addingStyle: {
+    },
+        addingStyle: {
         minWidth: 275,
         background: "#F2CEAA",
         margin: 5,
         height: "100%"
-      },
-      toolStyle: {
+    },
+    toolStyle: {
         // minWidth: 275,
         margin: 5,
         height: "100%"
-      },
+    },
   }),
 );
 
@@ -131,6 +128,7 @@ function AccordionOfTools(props) {
     };
     const openPop = Boolean(anchorEl);
     const id = openPop ? 'simple-popover' : undefined;
+    const [expanded, setExpanded] = React.useState(false);
 
     const checkAllToolsInDirection = event => {
         event.preventDefault()
@@ -210,6 +208,10 @@ function AccordionOfTools(props) {
         }
     }
 
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
     return (
         <div className={classes.accordionContainer}>
             <Accordion className={styleSelector(choosingType)}>
@@ -226,7 +228,14 @@ function AccordionOfTools(props) {
                             color="primary"
                             className={buttonStyleSelector(choosingType)}
                             // onClick={checkAllToolsInDirection}
-                            >{buttonNameSelector(choosingType)}<ExpandMoreIcon /></Button>
+                            onClick={handleExpandClick} 
+                            >{buttonNameSelector(choosingType)}
+                                <ExpandMoreIcon
+                                    className={clsx(classes.expand, {
+                                        [classes.expandOpen]: expanded,
+                                    })}
+                                />
+                            </Button>
                         </div>
                     </div>
 
@@ -249,13 +258,18 @@ function AccordionOfTools(props) {
                             <TableBody>
                                 {toolsInAccordion ? toolsInAccordion.map( oneTool => (
                                     <TableRow key={oneTool.id}>
-                                        <TableCell component="th" scope="row"><Button onClick={handleClick}>{oneTool.tool_name}</Button></TableCell>
+                                        <TableCell component="th" scope="row">
+                                            {oneTool.tool_name}
+                                            <IconButton onClick={handleClick}><img src={InfoIcon} /></IconButton>
+                                        </TableCell>
+
                                         <TableCell align="center" scope="row" component="th">
                                             <Checkbox 
                                                 checked={oneTool.isChecked ? true : false} 
                                                 onChange={() => oneToolChecked(oneTool)} 
                                                 color="primary"
                                             />
+                                            
                                         </TableCell>
                                     </TableRow>
                                 )) : null}
@@ -337,6 +351,7 @@ function ToolCard({toolName, img, description}) {
         <Card style={{maxWidth: "20vw"}}>
             <CardHeader
                 title={toolName}
+                subheader="10 000 $ в рознице"
             />
             <CardMedia
                 className={classes.media}
