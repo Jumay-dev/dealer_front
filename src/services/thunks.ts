@@ -7,7 +7,7 @@ import { signIn, signOut } from "../actions/auth";
 
 import { getData } from "../middleware/api";
 import { listProjects } from "../actions/project";
-import { listTools } from "../actions/tool";
+import { listCategories, listTools } from "../actions/tool";
 
 import {
   ApiAction,
@@ -15,7 +15,8 @@ import {
   SIGN_OUT,
   LIST_PROJECTS,
   LIST_TOOLS,
-  NEW_PROJECT
+  NEW_PROJECT,
+  LIST_CATEGORIES
 } from "../store/types";
 
 export const thunkAuth = (
@@ -38,13 +39,16 @@ export const thunkData = (
   let response = data
 
   if (type === LIST_PROJECTS) {
-    response = await getData(LIST_PROJECTS);
+    response = await getData(LIST_PROJECTS)
   }
   if (type === LIST_TOOLS) {
-    response = await getData(LIST_TOOLS);
+    response = await getData(LIST_TOOLS)
   }
   if (type === NEW_PROJECT) {
-    response = await getData(NEW_PROJECT);
+    response = await getData(NEW_PROJECT)
+  }
+  if (type === LIST_CATEGORIES) {
+    response = await getData(LIST_CATEGORIES)
   }
   dispatchListProject(dispatch, type, response)
 }
@@ -52,11 +56,14 @@ export const thunkData = (
 function dispatchListProject(dispatch, type, response) {
   switch (type) {
     case LIST_PROJECTS:
-      dispatch(listProjects(response));
+      dispatch(listProjects(response))
       break;
     case LIST_TOOLS:
-      dispatch(listTools(response));
+      dispatch(listTools(response))
       break;
+    case LIST_CATEGORIES:
+      dispatch(listCategories(response))
+      break
   }
 }
 

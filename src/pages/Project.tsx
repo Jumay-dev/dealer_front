@@ -1,18 +1,15 @@
 import React from 'react'
-import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box';
-import { tools_block } from '../middleware/infods5i_dealers'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AccordionOfTools from '../components/AccordionOfTools'
 import NewProjectReq from '../components/NewProjectReq'
 import { newProject } from '../actions/project';
 import { setSuccess, unsetSuccess } from '../actions/app';
 import { connect } from "react-redux";
-import { thunkData } from "../services/thunks";
-import { LIST_TOOLS } from "../store/types";
 import ToolInfoInProject from '../components/ToolInfoInProject'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,12 +52,12 @@ function Project(
     { 
         newProject,
         setSuccess, 
-        history, 
-        toolsList 
+        history,
+        toolsList ,
+        categoriesList
     }) {
     const classes = useStyles()
     const [openPresend, setOpenPresend] = React.useState(false)
-    const [categories, setCategories] = React.useState(tools_block)
     const [allTools, setTools] = React.useState([])
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -104,14 +101,13 @@ function Project(
 
     function getFilteredToolsByCategory(tools, categoryID) {
         if (Array.isArray(tools) && tools.length !== 0) {
-            console.log('getFilteredToolsByCategory OK')
             return tools.filter(tool => +tool.tool_view_block === +categoryID)
         }
     }
 
     return (
         <div>
-            <Box visibility={"visible"}>
+            <Box visibility={allTools.length !== 0 && categoriesList.length !== 0 ? "visible" : "hidden"}>
                 <div className={classes.headerWrapper}>
                     <Typography component="h1" variant="h4">
                         Новый проект
@@ -140,7 +136,7 @@ function Project(
                         Авторизуемое оборудование
                     </Typography>
 
-                    {allTools.length !== 0 ? categories.map(category => 
+                    {categoriesList.map(category => 
                         <AccordionOfTools 
                         categoryName={category.block_name}
                         filteredToolsByCategory={getFilteredToolsByCategory(allTools, category.id)}
@@ -148,7 +144,7 @@ function Project(
                         setTools={setTools}
                         key={category.id}
                         handleInfoClick={handleInfoClick}
-                    />) : null}
+                    />)}
 
                     <ToolInfoInProject
                         toolName={'Многофункциональный монитор пациента Votem VP-1200'}
@@ -162,8 +158,11 @@ function Project(
 
                     <Button variant="contained" color="primary" onClick={presendHandler}>
                         Предварительный просмотр проекта
-                    </Button> 
+                    </Button>
                 </div>
+            </Box>
+            <Box visibility={allTools.length !== 0 && categoriesList.length !== 0 ? "hidden" : "visible"}>
+                <CircularProgress />
             </Box>
         </div>
     )
@@ -171,7 +170,8 @@ function Project(
 
 function mapStateToProps(state) {
     return {
-        toolsList: state.tool.toolsList
+        toolsList: state.tool.toolsList,
+        categoriesList: state.tool.categoriesList
     }
 }
 

@@ -15,7 +15,8 @@ import {
   SIGN_IN, 
   SIGN_OUT,
   LIST_PROJECTS,
-  LIST_TOOLS
+  LIST_TOOLS,
+  LIST_CATEGORIES
  } from "../store/types";
 import { thunkData } from "../services/thunks";
 
@@ -71,18 +72,27 @@ function App(props) {
 
   React.useEffect( () => {
     document.title = "DS.Med - система авторизации оборудования"
+    
     let projectListAction = {
       type: LIST_PROJECTS,
       endpoint: "projects/",
       data: {},
     };
     props.getProjects(projectListAction)
+    
     let toolsListAction = {
       type: LIST_TOOLS,
       endpoint: "tools/",
       data: {},
     };
     props.getTools(toolsListAction)
+    
+    let categoriesListAction = {
+      type: LIST_CATEGORIES,
+      endpoint: "categories/",
+      data: {},
+    };
+    props.getTools(categoriesListAction)
   }, [])
 
   return (

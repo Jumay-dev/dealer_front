@@ -4,7 +4,8 @@ import { tools, tools_block, tools_subblock } from './infods5i_dealers'
 import { projects_tools } from './dealer_projects_tools'
 import { 
   LIST_PROJECTS, 
-  LIST_TOOLS
+  LIST_TOOLS,
+  LIST_CATEGORIES
  } from '../store/types'
 
 const ds = {
@@ -74,10 +75,13 @@ export function getData(action: string): Promise<TODO> {
           setTimeout(resolve, 300, projectReducer(projects_json))
         }
       })
-    
     case LIST_TOOLS:
       return new Promise((resolve, _reject) => {
           setTimeout(resolve, 300, tools)
+      })
+    case LIST_CATEGORIES:
+      return new Promise((resolve, _reject) => {
+          setTimeout(resolve, 300, tools_block)
       })
   }
 }

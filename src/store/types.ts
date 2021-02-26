@@ -1,7 +1,8 @@
 import {
   User,
   Project,
-  Tool
+  Tool,
+  Category
 } from "../types";
   
 export interface ApiAction {
@@ -81,10 +82,12 @@ export type ProjectActionTypes =
 
 // Tools types
 export const LIST_TOOLS = "LIST_TOOLS"
+export const LIST_CATEGORIES = "LIST_CATEGORIES"
 
 export interface ToolsState {
   isFetching: boolean;
   toolsList: Tool[];
+  categoriesList: Category[];
   tool: Tool;
   error?: null;
   deleted?: boolean;
@@ -92,14 +95,21 @@ export interface ToolsState {
 }
 
 interface ListToolsAction {
-  type: typeof LIST_TOOLS;
+  type: typeof LIST_TOOLS | typeof LIST_CATEGORIES;
   payload: Tool[];
 }
 
+interface ListCategoriesAction {
+  type: typeof LIST_CATEGORIES;
+  payload: Category[];
+}
+
 export type ToolsActions = typeof LIST_TOOLS
+| typeof LIST_CATEGORIES
 
 export type ToolsActionsTypes = 
 | ListToolsAction
+
 
 //Apptypes
 export const SET_SUCCESS = "SET_SUCCESS"

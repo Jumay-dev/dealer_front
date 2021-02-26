@@ -5,11 +5,6 @@ export interface Entity {
   value?: number;
 }
 
-export interface Category extends Entity {
-  name: string;
-  parentId: string;
-}
-
 export interface LoginUser {
   firstname: string;
   lastname: string;
@@ -98,4 +93,11 @@ export class ToolModel implements Tool {
   tools_id: string;
   status_id: string;
   query_auth: string;
+}
+
+export interface Category {
+  id: string;
+  block_name: string;
+  view_all: string;
+  view_dealer: string;
 }

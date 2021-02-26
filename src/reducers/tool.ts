@@ -1,5 +1,6 @@
 import {
     LIST_TOOLS,
+    LIST_CATEGORIES,
     ToolsActionsTypes,
     ToolsState,
 } from '../store/types'
@@ -9,18 +10,27 @@ export function toolReducer(
     state: ToolsState = {
         isFetching: true,
         toolsList: [],
+        categoriesList: [],
         tool: new ToolModel() as Tool,
         deleted: false,
         updated: false,
     },
     action: ToolsActionsTypes
 ) {
-    console.log(action)
     switch (action.type) {
         case LIST_TOOLS: {
             return Object.assign({}, state, {
                 isFetching: false,
                 toolsList: action.payload,
+                tool: new ToolModel() as Tool,
+                deleted: false,
+                updated: false,
+            })
+        }
+        case LIST_CATEGORIES: {
+            return Object.assign({}, state, {
+                isFetching: false,
+                categoriesList: action.payload,
                 tool: new ToolModel() as Tool,
                 deleted: false,
                 updated: false,
