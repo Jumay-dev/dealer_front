@@ -12,7 +12,7 @@ export function listTools(result?: TODO) {
 
 export function getAction(
     action: ToolsActions,
-    id: 0
+    data?: Object
 ) {
     switch (action) {
         case LIST_TOOLS:

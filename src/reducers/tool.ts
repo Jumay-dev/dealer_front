@@ -15,11 +15,12 @@ export function toolReducer(
     },
     action: ToolsActionsTypes
 ) {
+    console.log(action)
     switch (action.type) {
         case LIST_TOOLS: {
             return Object.assign({}, state, {
                 isFetching: false,
-                toolsList: [],
+                toolsList: action.payload,
                 tool: new ToolModel() as Tool,
                 deleted: false,
                 updated: false,

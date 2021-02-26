@@ -9,9 +9,7 @@ import Project from '../pages/Project'
 import NewOffer from '../pages/NewOffer'
 import UserPage from '../pages/User'
 import mainLayout from "../layouts/mainLayout"
-
 import { connect } from "react-redux";
-import { User } from "../types";
 import { thunkAuth } from "../services/thunks";
 import { 
   SIGN_IN, 
@@ -78,12 +76,12 @@ function App(props) {
       endpoint: "projects/",
       data: {},
     };
+    props.getProjects(projectListAction)
     let toolsListAction = {
       type: LIST_TOOLS,
-      endpoint: "projects/",
+      endpoint: "tools/",
       data: {},
     };
-    props.getProjects(projectListAction)
     props.getTools(toolsListAction)
   }, [])
 
@@ -134,13 +132,13 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-      signInUser: (action: TODO) => dispatch(thunkAuth(action)),
-      signOutUser: (action: TODO) => dispatch(thunkAuth(action)),
-      getProjects: (action: TODO) => dispatch(thunkData(action)),
-      getTools: (action: TODO) => dispatch(thunkData(action)),
-    };
-  }
+  return {
+    signInUser: (action: TODO) => dispatch(thunkAuth(action)),
+    signOutUser: (action: TODO) => dispatch(thunkAuth(action)),
+    getProjects: (action: TODO) => dispatch(thunkData(action)),
+    getTools: (action: TODO) => dispatch(thunkData(action)),
+  };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
 

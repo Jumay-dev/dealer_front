@@ -113,49 +113,28 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-function AccordionOfTools(props) {
+function AccordionOfTools({
+        categoryName,
+        filteredToolsByCategory,
+        allTools,
+        setTools,
+        handleInfoClick
+    }) {
     const classes = useStyles();
-    const [toolsInAccordion, setToolsInAccordion] = React.useState(props.tools)
+    const [toolsInAccordion, setToolsInAccordion] = React.useState(filteredToolsByCategory)
     const [choosingType, setChoosingType] = React.useState('nope')
     const [checkedCount, setCheckedCount] = React.useState(0)
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-    
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    }; 
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-    const openPop = Boolean(anchorEl);
-    const id = openPop ? 'simple-popover' : undefined;
     const [expanded, setExpanded] = React.useState(false);
 
-    const checkAllToolsInDirection = event => {
-        event.preventDefault()
-        event.stopPropagation()
-
-        let currentAllTools = props.allTools.splice(0)
-
-        if (choosingType !== 'all') {
-            setChoosingType('all')
-            currentAllTools.forEach( one => one.tool_view_block === props.id ? one.isChecked = true : null)
-        } else {
-            setChoosingType('nope')
-            currentAllTools.forEach( one => one.tool_view_block === props.id ? one.isChecked = false : null)
-        }
-        props.setTools(prev => currentAllTools)
-    }
-
     const oneToolChecked = (tool) => {
-        console.log(tool)
-        let currentAllTools = props.allTools.splice(0)
+        let currentAllTools = allTools.splice(0)
 
         currentAllTools.forEach( elem => {
             if (elem.id === tool.id) {
                 elem.isChecked = !tool.isChecked
             }
         })
-        props.setTools(prev => currentAllTools)
+        setTools(prev => currentAllTools)
 
         let checkedTools = []
         let uncheckedTools = []
@@ -191,18 +170,10 @@ function AccordionOfTools(props) {
         }
     }
 
-    // function buttonNameSelector(variable) {
-    //     switch (variable) {
-    //         case 'all': return "Снять выбор"
-    //         case 'part': return "Выбрать все"
-    //         default: return "Выбрать направление"
-    //     }
-    // }
-
     function spanCounterSelector(variable) {
         switch (variable) {
-            case 'all': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {props.tools.length} из {props.tools.length}</span>
-            case 'part': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {checkedCount} из {props.tools.length}</span>
+            case 'all': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {filteredToolsByCategory.length} из {filteredToolsByCategory.length}</span>
+            case 'part': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {checkedCount} из {filteredToolsByCategory.length}</span>
             default: return null
         }
     }
@@ -220,14 +191,13 @@ function AccordionOfTools(props) {
                 onClick={handleExpandClick} 
                 >
                     <div className={classes.accordionSummaryStyle}>
-                        <Typography className={classes.heading}>{props.categoryName}</Typography>
+                        <Typography className={classes.heading}>{categoryName}</Typography>
                         <div style={{display: "flex", alignItems: "center"}}>
-                            {props.tools ? spanCounterSelector(choosingType) : null}
+                            {filteredToolsByCategory ? spanCounterSelector(choosingType) : null}
                             <Button 
                             variant="outlined" 
                             color="primary"
                             className={buttonStyleSelector(choosingType)}
-                            // onClick={checkAllToolsInDirection}
                             onClick={handleExpandClick} 
                             >
                                 <span>{expanded ? "Скрыть" : "Показать"}</span>
@@ -248,11 +218,7 @@ function AccordionOfTools(props) {
                                 <TableRow>
                                     <TableCell style={{color: "#666b73", fontWeight: "bolder"}}>Название</TableCell>
                                     <TableCell align="center">
-                                        {/* <Checkbox 
-                                        checked={choosingType === 'all'} 
-                                        color="primary"
-                                        onClick={checkAllToolsInDirection}
-                                        /> */}
+
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
@@ -261,7 +227,7 @@ function AccordionOfTools(props) {
                                     <TableRow key={oneTool.id}>
                                         <TableCell component="th" scope="row">
                                             {oneTool.tool_name}
-                                            <IconButton onClick={handleClick}><img src={InfoIcon} /></IconButton>
+                                            <IconButton onClick={handleInfoClick}><img src={InfoIcon} /></IconButton>
                                         </TableCell>
 
                                         <TableCell align="center" scope="row" component="th">
@@ -277,95 +243,10 @@ function AccordionOfTools(props) {
                             </TableBody>
                         </Table>
                     </Typography>
-                    <Popover
-                        id={id}
-                        open={openPop}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                    >
-                    <ToolCard
-                        toolName={'Многофункциональный монитор пациента Votem VP-1200'}
-                        img="https://ds-med.ru/wp-content/uploads/2019/05/votem_1200.jpg"
-                        description="Монитор пациента VP-1200 компании VOTEM (Южная Корея) — модель с расширенными функциональными возможностями. Диагональ экрана составляет 12,1 дюйма. Опционально доступны функции мультигаз, оценки глубины наркоза и капнометрии EtCO2. Низкая стоимость комплектующих делает VP-1200 экономически выгодным решением при регулярном проведении оценки глубины анестезии."
-                    />
-                </Popover>
                 </AccordionDetails>
             </Accordion>
         </div>
     )
 }
 
-function ToolsTable(
-    {
-        tools, 
-        setTools, 
-        tools_block
-    }) {
-    const classes = useStyles();
-    const [categories, setCategories] = React.useState(tools_block)
-
-    // React.useEffect( () => {
-    //     let currentTools = tools.splice(0)
-    //     currentTools.forEach( item => item.isChecked = false)
-    //     setTools(currentTools)
-    // }, [])
-
-    function getFilteredToolsByCategory(tools, categoryID) {
-        if (Array.isArray(tools) && tools.length !== 0) {
-            return tools.filter(tool => +tool.tool_view_block === +categoryID)
-        }
-        console.log('getFilteredToolsByCategory')
-    }
-    
-    return (
-        <div>
-            {categories.map(category => 
-                <AccordionOfTools 
-                categoryName={category.block_name} 
-                id={category.id} 
-                tools={getFilteredToolsByCategory(tools, category.id)}
-                allTools={tools}
-                setTools={setTools}
-                key={category.id}
-            />)}
-        </div>
-    )
-}
-
-function ToolCard({toolName, img, description}) {
-    const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
-  
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
-
-    return (
-        <Card style={{maxWidth: "20vw"}}>
-            <CardHeader
-                title={toolName}
-                subheader="10 000 $ в рознице"
-            />
-            <CardMedia
-                className={classes.media}
-                image={img}
-                title="Paella dish"
-            />
-            <CardContent>
-                <Typography>
-                    {description}
-                </Typography>
-            </CardContent>
-        </Card>
-    );
-} 
-
-export default ToolsTable
+export default AccordionOfTools

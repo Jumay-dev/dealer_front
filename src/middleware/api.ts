@@ -77,10 +77,7 @@ export function getData(action: string): Promise<TODO> {
     
     case LIST_TOOLS:
       return new Promise((resolve, _reject) => {
-        let error = false
-        if (!error) {
           setTimeout(resolve, 300, tools)
-        }
       })
   }
 }
