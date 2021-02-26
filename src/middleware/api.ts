@@ -66,7 +66,6 @@ export function login(action: string, data: TODO): Promise<TODO> {
 }
 
 export function getData(action: string): Promise<TODO> {
-  console.log('action', action)
   switch (action) {
     case LIST_PROJECTS:
       return new Promise((resolve, _reject) => {

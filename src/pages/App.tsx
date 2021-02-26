@@ -16,7 +16,8 @@ import { thunkAuth } from "../services/thunks";
 import { 
   SIGN_IN, 
   SIGN_OUT,
-  LIST_PROJECTS
+  LIST_PROJECTS,
+  LIST_TOOLS
  } from "../store/types";
 import { thunkData } from "../services/thunks";
 
@@ -77,7 +78,13 @@ function App(props) {
       endpoint: "projects/",
       data: {},
     };
+    let toolsListAction = {
+      type: LIST_TOOLS,
+      endpoint: "projects/",
+      data: {},
+    };
     props.getProjects(projectListAction)
+    props.getTools(toolsListAction)
   }, [])
 
   return (
@@ -131,6 +138,7 @@ function mapDispatchToProps(dispatch) {
       signInUser: (action: TODO) => dispatch(thunkAuth(action)),
       signOutUser: (action: TODO) => dispatch(thunkAuth(action)),
       getProjects: (action: TODO) => dispatch(thunkData(action)),
+      getTools: (action: TODO) => dispatch(thunkData(action)),
     };
   }
 

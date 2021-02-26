@@ -2,6 +2,7 @@ import React from 'react'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box';
 import { tools_block, tools } from '../middleware/infods5i_dealers'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ToolsTable from '../components/ToolsTable'
@@ -78,6 +79,7 @@ function Project({ newProject, setSuccess, history }) {
 
     return (
         <div>
+            <Box visibility={"visible"}>
             <div className={classes.headerWrapper}>
                 <Typography component="h1" variant="h4">
                     Новый проект
@@ -114,8 +116,9 @@ function Project({ newProject, setSuccess, history }) {
 
                 <Button variant="contained" color="primary" onClick={presendHandler}>
                     Предварительный просмотр проекта
-                </Button>
+                </Button> 
             </div>
+            </Box>
         </div>
     )
 }

@@ -18,7 +18,11 @@ export function toolReducer(
     switch (action.type) {
         case LIST_TOOLS: {
             return Object.assign({}, state, {
-                toolsList: action.payload
+                isFetching: false,
+                toolsList: [],
+                tool: new ToolModel() as Tool,
+                deleted: false,
+                updated: false,
             })
         }
         default: return state

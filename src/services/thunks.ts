@@ -60,14 +60,6 @@ function dispatchListProject(dispatch, type, response) {
   }
 }
 
-function dispatchListTools(dispatch, type, response) {
-  switch (type) {
-    case LIST_TOOLS:
-      dispatch(listTools(response));
-      break;
-  }
-}
-
 function dispatchSignIn(dispatch, type, response) {
   switch (type) {
     case SIGN_IN:
