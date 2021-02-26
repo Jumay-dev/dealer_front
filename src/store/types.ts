@@ -83,7 +83,12 @@ export type ProjectActionTypes =
 export const LIST_TOOLS = "LIST_TOOLS"
 
 export interface ToolsState {
-  list: Tool[];
+  isFetching: boolean;
+  toolsList: Tool[];
+  tool: Tool;
+  error?: null;
+  deleted?: boolean;
+  updated?: boolean;
 }
 
 interface ListToolsAction {

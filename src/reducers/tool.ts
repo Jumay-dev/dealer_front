@@ -1,13 +1,19 @@
 import {
     LIST_TOOLS,
     ToolsActionsTypes,
+    ToolsState,
 } from '../store/types'
+import { Tool, ToolModel } from "../types";
 
 export function toolReducer(
-    state = {
-        toolsList: []
+    state: ToolsState = {
+        isFetching: true,
+        toolsList: [],
+        tool: new ToolModel() as Tool,
+        deleted: false,
+        updated: false,
     },
-    action: ToolsActionsTypes,
+    action: ToolsActionsTypes
 ) {
     switch (action.type) {
         case LIST_TOOLS: {

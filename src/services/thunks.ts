@@ -46,7 +46,6 @@ export const thunkData = (
   if (type === NEW_PROJECT) {
     response = await getData(NEW_PROJECT);
   }
-  console.log('type', type)
   dispatchListProject(dispatch, type, response)
 }
 
@@ -55,6 +54,14 @@ function dispatchListProject(dispatch, type, response) {
     case LIST_PROJECTS:
       dispatch(listProjects(response));
       break;
+    case LIST_TOOLS:
+      dispatch(listTools(response));
+      break;
+  }
+}
+
+function dispatchListTools(dispatch, type, response) {
+  switch (type) {
     case LIST_TOOLS:
       dispatch(listTools(response));
       break;

@@ -58,7 +58,7 @@ export class ProjectModel implements Project {
     this.client = client;
     this.actualised = actualised;
     this.expires = expires;
-    this.manager = manager;
+    this.manager = manager; 
   }
   id: number;
   externalId: number;
@@ -72,7 +72,30 @@ export class ProjectModel implements Project {
 }
 
 export interface Tool {
-  id: number;
-  projectId: number;
-  name: string;
+  id: string;
+  project_id: string;
+  tools_id: string;
+  status_id: string;
+  query_auth: string;
+}
+
+export class ToolModel implements Tool {
+  constructor (
+    id: string = '',
+    project_id: string = '',
+    tools_id: string = '',
+    status_id: string = '',
+    query_auth: string = '',
+  ) {
+    this.id = id
+    this.project_id = project_id
+    this.tools_id = tools_id
+    this.status_id = status_id
+    this.query_auth = query_auth
+  }
+  id: string;
+  project_id: string;
+  tools_id: string;
+  status_id: string;
+  query_auth: string;
 }
