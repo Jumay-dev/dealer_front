@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SimpleDialog({onClose, open, user}) {
     const classes = useStyles();
-    const [checked, setChecked] = React.useState(false)
+    const [checked, setChecked] = React.useState(user.projectVisibility === "1")
 
     return (
         <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open} className={classes.root} fullWidth maxWidth="sm">
@@ -72,15 +72,37 @@ export default function SimpleDialog({onClose, open, user}) {
                     <Table size="small">
                     <TableBody>
                         <TableRow>
-                        <TableCell className={classes.tableCellName}>
-                            Полное имя
-                        </TableCell>
-                        <TableCell className={classes.tableCellValue}>
-                            <TextField 
-                            value={user.fullname}
-                            fullWidth
-                            />
-                        </TableCell>
+                            <TableCell className={classes.tableCellName}>
+                                Имя
+                            </TableCell>
+                            <TableCell className={classes.tableCellValue}>
+                                <TextField 
+                                value={user.firstname}
+                                fullWidth
+                                />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className={classes.tableCellName}>
+                                Фамилия
+                            </TableCell>
+                            <TableCell className={classes.tableCellValue}>
+                                <TextField 
+                                value={user.lastname}
+                                fullWidth
+                                />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className={classes.tableCellName}>
+                                Отчество
+                            </TableCell>
+                            <TableCell className={classes.tableCellValue}>
+                                <TextField 
+                                value={user.patronym}
+                                fullWidth
+                                />
+                            </TableCell>
                         </TableRow>
 
                         <TableRow>

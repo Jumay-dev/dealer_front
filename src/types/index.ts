@@ -95,6 +95,7 @@ export interface Category {
 export interface User {
   firstname: string;
   lastname: string;
+  patronym: string;
   registered: string;
   phone: string;
   mail: string;
@@ -107,6 +108,7 @@ export class UserModel implements User {
   constructor (
     firstname: string = '',
     lastname: string = '',
+    patronym: string = '',
     registered: string = '',
     phone: string = '',
     mail: string = '',
@@ -116,6 +118,7 @@ export class UserModel implements User {
   ) {
     this.firstname = firstname
     this.lastname = lastname
+    this.patronym = patronym
     this.registered = registered
     this.phone = phone
     this.mail = mail
@@ -125,6 +128,7 @@ export class UserModel implements User {
   }
   firstname: string;
   lastname: string;
+  patronym: string;
   registered: string;
   phone: string;
   mail: string;

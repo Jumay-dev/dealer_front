@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +11,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import ModalUserInfo from '../components/ModalUserInfo'
+import { LIST_USERS } from "../store/types";
+import { thunkData } from "../services/thunks";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -130,14 +132,18 @@ const testUserListReducedToRows = [
     },
 ]
 
-function Coworkers() {
+function Coworkers({ getUsers, usersList }) {
     const classes = useStyles()
     const [modalOpen, setModalOpen] = React.useState(false)
     const [currentUser, setCurrentUser] = React.useState({})
-    
-    const handleOpen = () => {
-        setModalOpen(true);
-    };
+    React.useEffect( () => {   
+        let usersListAction = {
+          type: LIST_USERS,
+          endpoint: "users/",
+          data: {},
+        };
+        getUsers(usersListAction)
+    }, [])
     
     const handleClose = () => {
         setModalOpen(false);
@@ -181,12 +187,12 @@ function Coworkers() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {testUserListReducedToRows.map( user => (
+                            {usersList.map( user => (
                                 <TableRow key={user.id} hover onClick={() => {
                                     setModalOpen(true)
                                     setCurrentUser(user)
                                     }} style={{cursor: "pointer"}}>
-                                    <TableCell>{user.fullname}</TableCell>
+                                    <TableCell>{`${user.firstname} ${user.lastname} ${user.patronym}`}</TableCell>
                                     <TableCell>{user.registered}</TableCell>
                                     <TableCell>{user.phone}</TableCell>
                                     <TableCell>{user.mail}</TableCell>
@@ -210,4 +216,16 @@ function Coworkers() {
     )
 }
 
-export default Coworkers
+function mapStateToProps(state) {
+    return {
+      usersList: state.user.usersList
+    }
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      getUsers: (action: TODO) => dispatch(thunkData(action)),
+    };
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Coworkers)

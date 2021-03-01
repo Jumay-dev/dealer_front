@@ -2,17 +2,19 @@
 import { projects_json } from './dealer_projects'
 import { tools, tools_block, tools_subblock } from './infods5i_dealers'
 import { projects_tools } from './dealer_projects_tools'
+
 import { 
   LIST_PROJECTS, 
   LIST_TOOLS,
-  LIST_CATEGORIES
+  LIST_CATEGORIES,
+  LIST_USERS
  } from '../store/types'
 
 const ds = {
   token: { 
     accessToken: "fake-token-12345789-abcdefgh", 
     user: {
-      id: 1,
+      id: "1",
       firstname: "Иванов", 
       lastname: "Иван",
       patronym: "Иванович",
@@ -20,8 +22,8 @@ const ds = {
       password: "password",
       phone: "+7 (800) 555-35-35",
       registered: "20.01.2021 14:25",
-      role: 1,
-      maxDiscount: 30
+      role: "1",
+      maxDiscount: "30"
     }
   }
 }
@@ -83,6 +85,8 @@ export function getData(action: string): Promise<TODO> {
       return new Promise((resolve, _reject) => {
           setTimeout(resolve, 300, tools_block)
       })
+    case LIST_USERS:
+      return fetch("https://jsonplaceholder.typicode.com/users").then(users => users.json())
   }
 }
 

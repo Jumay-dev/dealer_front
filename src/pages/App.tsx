@@ -45,15 +45,6 @@ const theme = createMuiTheme({
       contrastText: '#000',
     }
   },
-  typography: {
-
-  },
-  props: {
-    MuiButton: {
-      
-    },
-    
-  }
 });
 
 function App(props) {

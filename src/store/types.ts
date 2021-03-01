@@ -139,6 +139,7 @@ export interface UserState {
   isFetching: boolean;
   usersList: User[];
   error?: null;
+  user: User;
   deleted?: boolean;
   updated?: boolean;
 }
