@@ -111,7 +111,7 @@ export type ToolsActionsTypes =
 | ListToolsAction
 
 
-//Apptypes
+// Apptypes
 export const SET_SUCCESS = "SET_SUCCESS"
 export const UNSET_SUCCESS = "UNSET_SUCCESS"
 export const SET_ERROR = "SET_ERROR"
@@ -130,3 +130,26 @@ export type AppActions = typeof SET_SUCCESS
 | typeof SET_ERROR
 | typeof SIDEBAR_OPENED
 | typeof SIDEBAR_CLOSED
+
+// User types
+export const LIST_USERS = "LIST_USERS"
+export const NEW_USER = "NEW_USER"
+
+export interface UserState {
+  isFetching: boolean;
+  usersList: User[];
+  error?: null;
+  deleted?: boolean;
+  updated?: boolean;
+}
+
+export type UserActions = typeof LIST_USERS
+| typeof NEW_USER
+
+interface ListUsersAction {
+  type: typeof LIST_USERS;
+  payload: User[];
+}
+
+export type UserActionsTypes =
+| ListUsersAction

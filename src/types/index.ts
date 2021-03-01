@@ -12,16 +12,6 @@ export interface LoginUser {
   password: string;
 }
 
-export interface User extends Entity {
-  firstname: string;
-  lastname: string;
-  email: string;
-  avatar?: string;
-  mobile: string;
-  homephone?: string;
-  workphone?: string;
-}
-
 export interface Project {
   id: number;
   externalId: number;
@@ -100,4 +90,45 @@ export interface Category {
   block_name: string;
   view_all: string;
   view_dealer: string;
+}
+
+export interface User {
+  firstname: string;
+  lastname: string;
+  registered: string;
+  phone: string;
+  mail: string;
+  role: string;
+  maxDiscount: string;
+  projectVisibility: string;
+}
+
+export class UserModel implements User {
+  constructor (
+    firstname: string = '',
+    lastname: string = '',
+    registered: string = '',
+    phone: string = '',
+    mail: string = '',
+    role: string = '',
+    maxDiscount: string = '',
+    projectVisibility: string = ''
+  ) {
+    this.firstname = firstname
+    this.lastname = lastname
+    this.registered = registered
+    this.phone = phone
+    this.mail = mail
+    this.role = role
+    this.maxDiscount = maxDiscount
+    this.projectVisibility = projectVisibility
+  }
+  firstname: string;
+  lastname: string;
+  registered: string;
+  phone: string;
+  mail: string;
+  role: string;
+  maxDiscount: string;
+  projectVisibility: string;
 }
