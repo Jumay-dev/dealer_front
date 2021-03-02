@@ -1,6 +1,8 @@
 import React from "react"
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ModalProjectPresend from '../components/ModalProjectPresend'
@@ -12,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
         overflow: "hidden",
         marginTop: 10,
         padding: theme.spacing(3),
+        display: "flex",
     },
     headerWrapper: {
         width: "100%",
@@ -42,15 +45,42 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function NewProjectReq({allTools, handleNewProject, openPresend, setOpenPresend}) {
+export default function NewProjectReq(
+    {
+        allTools, 
+        handleNewProject, 
+        openPresend, 
+        setOpenPresend, 
+        showAdditionalReq, 
+        setShowAdditionalReq,
+        clinicInn, 
+        setClinicInn, 
+        clinicAddress, 
+        setClinicAddress, 
+        clinicName, 
+        setClinicName, 
+        clinicUr, 
+        setClinicUr,
+        dealerInn, 
+        setDealerInn, 
+        dealerAddress, 
+        setDealerAddress, 
+        dealerName, 
+        setDealerName, 
+        dealerUr, 
+        setDealerUr
+    }) {
     const classes = useStyles()
-    const [clinicInn, setClinicInn] = React.useState('555 666 777 888 000')
-    const [clinicAddress, setClinicAddress] = React.useState('г.Москва, ул.Пушкина, д.2')
-    const [clinicName, setClinicName] = React.useState('Добромед')
-    const [clinicUr, setClinicUr] = React.useState('ООО "Добромед"')
 
     return (
     <div>
+    <Typography
+        component="h2" 
+        variant="h5"
+        style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
+    >
+        Реквизиты клиента
+    </Typography>
     <Paper className={classes.paper} key="unikey">
         <Grid container className={classes.gridContainer}>
             <Grid item md={6} sm={12}>
@@ -99,6 +129,7 @@ export default function NewProjectReq({allTools, handleNewProject, openPresend, 
                 />
             </Grid>
         </Grid>
+        <Button variant="outlined" onClick={() => setShowAdditionalReq(!showAdditionalReq)}>Добавить промежуточного дилера</Button>
     </Paper>
     <ModalProjectPresend 
         open={openPresend}
@@ -109,6 +140,15 @@ export default function NewProjectReq({allTools, handleNewProject, openPresend, 
         clinicName={clinicName}
         clinicUr={clinicUr}
         handleNewProject={handleNewProject}
+        showAdditionalReq={showAdditionalReq}
+        dealerInn={dealerInn}
+        setDealerInn={setDealerInn}
+        dealerAddress={dealerAddress}
+        setDealerAddress={setDealerAddress}
+        dealerName={dealerName}
+        setDealerName={setDealerName}
+        dealerUr={dealerUr}
+        setDealerUr={setDealerUr}
     />
     </div>
     )

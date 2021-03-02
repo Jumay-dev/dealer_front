@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AccordionOfTools from '../components/AccordionOfTools'
-import NewProjectReq from '../components/NewProjectReq'
+import ReqContainer from '../components/ReqContainer'
 import { newProject } from '../actions/project';
 import { setSuccess, unsetSuccess } from '../actions/app';
 import { connect } from "react-redux";
@@ -114,20 +114,14 @@ function Project(
                     </Typography>
                 </div>
                 <div className={classes.contentWrapper}>
-                    <Typography
-                        component="h2" 
-                        variant="h5"
-                        style={{color: "#688cbc", display: "inline-block", marginTop: 20, marginBottom: 10}}
-                    >
-                        Реквизиты
-                    </Typography>
 
-                    <NewProjectReq 
+                    <ReqContainer
                     allTools={allTools} 
                     handleNewProject={handleNewProject}
                     openPresend={openPresend}
                     setOpenPresend={setOpenPresend}
                     />
+
                     <Typography
                         component="h2" 
                         variant="h5"

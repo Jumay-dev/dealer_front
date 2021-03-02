@@ -57,7 +57,16 @@ export default function ProjectPresend(
         clinicAddress, 
         clinicName, 
         clinicUr,
-        handleNewProject
+        handleNewProject,
+        showAdditionalReq,
+        dealerInn, 
+        setDealerInn, 
+        dealerAddress, 
+        setDealerAddress, 
+        dealerName, 
+        setDealerName, 
+        dealerUr, 
+        setDealerUr
     }) {
     const classes = useStyles();
 
@@ -84,7 +93,7 @@ export default function ProjectPresend(
                 <div style={{display: "flex", flexDirection: "column"}}>
                     
                     <Typography variant="h5" style={{marginTop: 15, marginBottom: 10, color: "rgb(104, 140, 188)"}}>
-                       Реквизиты
+                       Реквизиты клиента
                     </Typography>
                     <Typography>
                         <span className={classes.tableCellName}>ИНН клиники:</span>
@@ -102,6 +111,30 @@ export default function ProjectPresend(
                         <span className={classes.tableCellName}>Юр.лицо клиники:</span>
                         <span className={classes.tableCellValue}>{clinicUr}</span>
                     </Typography>
+
+                    {showAdditionalReq ? (
+                        <React.Fragment>
+                        <Typography variant="h5" style={{marginTop: 15, marginBottom: 10, color: "rgb(104, 140, 188)"}}>
+                        Реквизиты промежуточного дилера
+                        </Typography>
+                        <Typography>
+                            <span className={classes.tableCellName}>ИНН дилера:</span>
+                            <span className={classes.tableCellValue}>{dealerInn}</span>
+                        </Typography>
+                        <Typography>
+                            <span className={classes.tableCellName}>Название дилера:</span>
+                            <span className={classes.tableCellValue}>{dealerName}</span>
+                        </Typography>
+                        <Typography>
+                            <span className={classes.tableCellName}>Адрес дилера:</span>
+                            <span className={classes.tableCellValue}>{dealerAddress}</span>
+                        </Typography>
+                        <Typography>
+                            <span className={classes.tableCellName}>Юр.лицо дилера:</span>
+                            <span className={classes.tableCellValue}>{dealerUr}</span>
+                        </Typography>
+                        </React.Fragment>
+                    ) : null}
 
                     <Typography variant="h5" style={{marginTop: 15, marginBottom: 10, color: "rgb(104, 140, 188)"}}>
                        Состав проекта
