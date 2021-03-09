@@ -18,7 +18,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        DS.Med Dealer Authorisation Control System
+        DS.Med Project Authorisation System
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -48,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Login(props) {
   const classes = useStyles();
-  const [login, setLogin] = React.useState('admin@test.com')
-  const [password, setPassword] = React.useState('password')
+  const [login, setLogin] = React.useState('testuser@lara.ru')
+  const [password, setPassword] = React.useState('102030Abc')
 
 
 

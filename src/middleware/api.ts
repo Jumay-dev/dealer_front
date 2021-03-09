@@ -8,7 +8,9 @@ import {
   LIST_TOOLS,
   LIST_CATEGORIES,
   LIST_USERS
- } from '../store/types'
+} from '../store/types'
+
+import { backend } from "../config/server"
 
 const ds = {
   token: { 
@@ -51,21 +53,49 @@ function projectReducer(arr) {
   return projects
 }
 
+// export function login(action: string, data: TODO): Promise<TODO> {
+//   return new Promise(function (resolve, _reject) {
+//     if (data.login === "admin@test.com" && data.password === "password") {
+//       const { accessToken: accessToken, user } = ds.token;
+//       setTimeout(resolve, 300, {
+//         token: accessToken,
+//         user,
+//       });
+//     } else {
+//       _reject({
+//         code: 403,
+//         error: "Your name or password is wrong",
+//       });
+//     }
+//   });
+// }
+
 export function login(action: string, data: TODO): Promise<TODO> {
-  return new Promise(function (resolve, _reject) {
-    if (data.login === "admin@test.com" && data.password === "password") {
-      const { accessToken: accessToken, user } = ds.token;
-      setTimeout(resolve, 300, {
-        token: accessToken,
-        user,
-      });
-    } else {
-      _reject({
-        code: 403,
-        error: "Your name or password is wrong",
-      });
+  console.log(data)
+  let dataForm = new FormData;
+  dataForm.append('email', data.login)
+  dataForm.append('password', data.password)
+  return fetch(`${backend}/api/auth/login`, {
+    method: "POST",
+    body: dataForm
+  })
+  .then( res => res.json())
+  .then( res => {
+    return {
+      token: "Bearer " + res.token.original.access_token,
+      user: {
+        firstname: res.user.name,
+        lastname: res.user.surname,
+        patronym: res.user.patronymic,
+        registered: res.user.created_at,
+        phone: res.user.phone,
+        mail: res.user.email,
+        role: "NOT SETTED",
+        maxDiscount: res.user.max_discount,
+        projectVisibility: res.user.project_visibility,
+      }
     }
-  });
+  })
 }
 
 export function getData(action: string): Promise<TODO> {
