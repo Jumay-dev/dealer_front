@@ -14,6 +14,7 @@ import { thunkAuth } from "../services/thunks";
 import { 
   SIGN_IN, 
   SIGN_OUT,
+  AUTH_CHECK,
   LIST_PROJECTS,
   LIST_TOOLS,
   LIST_CATEGORIES
@@ -84,6 +85,13 @@ function App(props) {
       data: {},
     };
     props.getTools(categoriesListAction)
+
+    let checkAuthAction = {
+      type: AUTH_CHECK,
+      endpoint: "categories/",
+      data: {},
+    };
+    props.authCheck(checkAuthAction)
   }, [])
 
   return (
@@ -138,6 +146,7 @@ function mapDispatchToProps(dispatch) {
     signOutUser: (action: TODO) => dispatch(thunkAuth(action)),
     getProjects: (action: TODO) => dispatch(thunkData(action)),
     getTools: (action: TODO) => dispatch(thunkData(action)),
+    authCheck: (action: TODO) => dispatch(thunkAuth(action)),
   };
 }
 

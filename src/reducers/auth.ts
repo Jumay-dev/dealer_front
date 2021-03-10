@@ -1,6 +1,5 @@
-import { AuthActionTypes, AuthState, SIGN_IN, SIGN_OUT } from "../store/types";
+import { AuthActionTypes, AuthState, SIGN_IN, SIGN_OUT, AUTH_CHECK } from "../store/types";
 import { User } from "../types";
-
 
 function isSignIned(): boolean {
   const token = localStorage.getItem("react-crm-token")
@@ -68,7 +67,12 @@ export function authReducer(
         isAuthenticated: false,
         user: undefined,
         token: undefined
-      });
+      })
+    case AUTH_CHECK:
+      console.log(action)
+      return Object.assign({}, state, {
+        isAuthenticated: action.payload.isAuthenticated,
+      })
     default:
       return state;
   }

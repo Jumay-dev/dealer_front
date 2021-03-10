@@ -1,6 +1,7 @@
 import {
   SIGN_IN,
   SIGN_OUT,
+  AUTH_CHECK,
   AuthActions,
   ApiAction,
 } from "../store/types";
@@ -22,6 +23,14 @@ export function signOut(result?: TODO) {
   };
 }
 
+export function setAuth(result?: TODO) {
+  console.log(result)
+  return {
+    type: AUTH_CHECK,
+    payload: result
+  }
+}
+
 export function getAction(
   action: AuthActions,
   id = 0,
@@ -37,6 +46,11 @@ export function getAction(
     case SIGN_OUT:
       return {
         type: SIGN_OUT,
+        endpoint: "logout/" + id,
+      };
+    case AUTH_CHECK:
+      return {
+        type: AUTH_CHECK,
         endpoint: "logout/" + id,
       };
   }

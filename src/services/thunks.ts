@@ -2,8 +2,8 @@ import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { AppState } from "../store";
 
-import { login } from "../middleware/api";
-import { signIn, signOut } from "../actions/auth";
+import { login, checkAuth} from "../middleware/api";
+import { signIn, signOut, setAuth } from "../actions/auth";
 
 import { getData } from "../middleware/api";
 import { listProjects } from "../actions/project";
@@ -19,6 +19,7 @@ import {
   NEW_PROJECT,
   LIST_CATEGORIES,
   LIST_USERS,
+  AUTH_CHECK,
 } from "../store/types";
 
 export const thunkAuth = (
@@ -30,6 +31,9 @@ export const thunkAuth = (
   response = data;
   if (type === SIGN_IN) {
     response = await login(endpoint, data);
+  }
+  if (type === AUTH_CHECK) {
+    response = await checkAuth();
   }
   dispatchSignIn(dispatch, type, response);
 };
@@ -89,5 +93,8 @@ function dispatchSignIn(dispatch, type, response) {
     case SIGN_OUT:
       dispatch(signOut(response));
       break;
+    case AUTH_CHECK:
+      dispatch(setAuth(response))
+      break
   }
 }

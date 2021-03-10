@@ -19,6 +19,7 @@ export interface QActions {
 
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
+export const AUTH_CHECK = "AUTH_CHECK";
 
 export interface AuthState {
   isFetching: boolean;
@@ -38,10 +39,17 @@ interface SignOutAction {
   payload: { user?: User; token?: string };
   error?: string;
 }
+interface AuthCheckAction {
+  type: typeof AUTH_CHECK;
+  payload: {user?: User; token?: string, isAuthenticated?: boolean };
+  error?: string;
+}
 
-export type AuthActionTypes = SignInAction | SignOutAction;
+export type AuthActionTypes = SignInAction | SignOutAction | AuthCheckAction;
 
-export type AuthActions = typeof SIGN_IN | typeof SIGN_OUT;
+export type AuthActions = typeof SIGN_IN 
+| typeof SIGN_OUT
+| typeof AUTH_CHECK
 
 
 // Project types

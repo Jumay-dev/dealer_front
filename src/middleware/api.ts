@@ -53,23 +53,6 @@ function projectReducer(arr) {
   return projects
 }
 
-// export function login(action: string, data: TODO): Promise<TODO> {
-//   return new Promise(function (resolve, _reject) {
-//     if (data.login === "admin@test.com" && data.password === "password") {
-//       const { accessToken: accessToken, user } = ds.token;
-//       setTimeout(resolve, 300, {
-//         token: accessToken,
-//         user,
-//       });
-//     } else {
-//       _reject({
-//         code: 403,
-//         error: "Your name or password is wrong",
-//       });
-//     }
-//   });
-// }
-
 export function login(action: string, data: TODO): Promise<TODO> {
   console.log(data)
   let dataForm = new FormData;
@@ -95,6 +78,22 @@ export function login(action: string, data: TODO): Promise<TODO> {
         projectVisibility: res.user.project_visibility,
       }
     }
+  })
+}
+
+export function checkAuth(): Promise<TODO> {
+  const token = localStorage.getItem("react-crm-token")
+
+  return fetch(`${backend}/api/auth/me`, {
+    method: "POST",
+    headers: {
+      "Authorization": token
+    }
+  })
+  .then( res => res.json() )
+  .then( res =>{ return {isAuthenticated: res.success} })
+  .catch( res => {
+    return { isAuthenticated: false}
   })
 }
 
