@@ -9,7 +9,12 @@ import { newProject } from '../actions/project';
 import { setSuccess, unsetSuccess } from '../actions/app';
 import { connect } from "react-redux";
 import ToolInfoInProject from '../components/ToolInfoInProject'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { thunkData } from "../services/thunks"
+import { backend } from "../config/server"
+import { 
+    LIST_PROJECTS,
+} from "../store/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,7 +59,8 @@ function Project(
         setSuccess, 
         history,
         categoriesList,
-        toolsList
+        toolsList,
+        getProjects
     }) {
     const classes = useStyles()
     const [openPresend, setOpenPresend] = React.useState(false)
@@ -65,6 +71,12 @@ function Project(
         if (toolsList.length !== 0) {
             setTools([...toolsList])
         }
+        let projectListAction = {
+            type: LIST_PROJECTS,
+            endpoint: "projects/",
+            data: {},
+        };
+        getProjects(projectListAction)
     }, [toolsList])
 
     function presendHandler() {
@@ -79,24 +91,60 @@ function Project(
     const openPop = Boolean(anchorEl);
     const id = openPop ? 'simple-popover' : undefined;
 
-    function handleNewProject(clinicName, clinicInn) {
-        const project = {
-            tools: allTools.filter( item => item.isCheked === true),
-            status: "4",
-            id: 10,
-            externalId: 28,
-            added: "4.01.2021",
-            dealer: "ООО 'ААА'",
-            employee: 'Иванов Иван',
-            client: clinicName,
-            clientInn: clinicInn,
-            actualised: '10.01.2021',
-            expires: '20.02.2021',
-            manager: 'Даэсмедов Михаил Алексеевич',
+    function handleNewProject() {
+        // const project = {
+        //     tools: allTools.filter( item => item.isCheked === true),
+        //     status: "4",
+        //     id: 10,
+        //     externalId: 28,
+        //     added: "4.01.2021",
+        //     dealer: "ООО 'ААА'",
+        //     employee: 'Иванов Иван',
+        //     client: clinicName,
+        //     clientInn: clinicInn,
+        //     actualised: '10.01.2021',
+        //     expires: '20.02.2021',
+        //     manager: 'Даэсмедов Михаил Алексеевич',
+        // }
+        let toolsIDs = []
+        getCheckedTools(allTools).forEach(item => toolsIDs.push(item.id))
+
+        function getCheckedTools(tools) {
+            return tools.filter( tool => tool.isChecked === true)
         }
-        newProject(project)
-        setSuccess()
-        history.push("/projects")
+
+
+
+        //projectTools.forEach( item => toolsIDs.push(item.tool_id))
+        console.log(toolsIDs)
+        const project = {
+            tools: toolsIDs,
+            dealer: 0,
+            employee: 0,
+            client: 0,
+            manager_id: 0,
+            actualised_at: Date.now(),
+            expires_at: Date.now() + 10000
+        }
+        let data = new FormData
+        for (let key in project) {
+            data.append(key, project[key])
+        }
+
+        const token = localStorage.getItem("react-crm-token")
+        fetch(`${backend}/api/project/create`, {
+            method: "POST",
+            headers: {
+                "Authorization": token
+            },
+            body: data
+        })
+        .then( res => res.json())
+        .then( res => {
+            setSuccess()
+            history.push("/projects")
+        })
+        // newProject(project)
     }
 
     function getFilteredToolsByCategory(tools, categoryID) {
@@ -174,7 +222,8 @@ function mapDispatchToProps(dispatch) {
     return (
         {
             newProject,
-            setSuccess
+            setSuccess,
+            getProjects: (action: TODO) => dispatch(thunkData(action))
         }
     )
 }

@@ -72,13 +72,6 @@ function App(props) {
     };
     props.getProjects(projectListAction)
     
-    let toolsListAction = {
-      type: LIST_TOOLS,
-      endpoint: "tools/",
-      data: {},
-    };
-    props.getTools(toolsListAction)
-    
     let categoriesListAction = {
       type: LIST_CATEGORIES,
       endpoint: "categories/",

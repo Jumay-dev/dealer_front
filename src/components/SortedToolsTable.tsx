@@ -12,15 +12,15 @@ export default function SortedToolsTable({ sortedObj }) {
         if (sortedObj.max !== 0) {
             for (let i = 0; i < sortedObj.max; i++) {
                 rows.push(
-                    <React.Fragment>
+                <React.Fragment>
                     <TableRow>
-                        <TableCell>
+                        <TableCell style={{minWidth: "15vw"}}>
                             <span style={{color: "#666b73"}}>{sortedObj[2] !== undefined && sortedObj[2][i] ? sortedObj[2][i].tool_name : null}</span>
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={{minWidth: "15vw"}}>
                             <span style={{color: "#666b73"}}>{sortedObj[1] !== undefined && sortedObj[1][i] ? sortedObj[1][i].tool_name : null}</span>
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={{minWidth: "15vw"}}>
                             <span style={{color: "#666b73"}}>{sortedObj[0] !== undefined && sortedObj[0][i] ? sortedObj[0][i].tool_name : null}</span>
                         </TableCell>
                     </TableRow>
