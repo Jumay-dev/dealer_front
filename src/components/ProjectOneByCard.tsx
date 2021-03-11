@@ -4,8 +4,10 @@ import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
@@ -17,6 +19,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InfoIcon from "../assets/icons/Info circle.svg"
 import ChatIcon from "../assets/icons/Chat left.svg"
 import DownloadIcon from "../assets/icons/Download.svg"
+import SortedToolsTable from './SortedToolsTable'
 
 import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
@@ -51,13 +54,14 @@ const useStyles = makeStyles((theme: Theme) =>
 function ProjectOneByCard(
     { 
         item, 
-        toolsList, 
-        getTools, 
+        toolsList,
         modalOpenHandler
     }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [tools, setTools] = React.useState([])
+  const [loading, setLoading] = React.useState(true)
+  const [sortedObj, setSortedObj] = React.useState({})
 
   const handleExpandClick = () => {
     const token = localStorage.getItem("react-crm-token")
@@ -72,16 +76,37 @@ function ProjectOneByCard(
             body: data
         })
         .then(res => res.json())
-        .then(res => setTools(res))
+        .then(res => {
+            setTools(res)
+            setLoading(false)
+        })
     }
-    setExpanded(!expanded);
-  };
+        setExpanded(!expanded);
+    };
 
-  React.useEffect(() => {
-    console.log(tools)
-  }, [tools])
+    React.useEffect(() => {
+        setSortedObj(sortToolsByStatus(tools))
+    }, [tools])
 
-  function getStylesByProjectStatus(item) {
+    function sortToolsByStatus(unsortedTools) {
+        const resultObj = {}
+        if (unsortedTools.length !== 0) {
+            unsortedTools.forEach( tool => {
+                if (!Array.isArray(resultObj[tool.status_id])) resultObj[tool.status_id] = []
+                resultObj[tool.status_id].push(toolsList.find( item => +item.id === +tool.tool_id))
+            })
+            let maxLength = 0
+            for (let statusKey in resultObj) {
+                if (resultObj[statusKey].length > maxLength) {
+                    maxLength = resultObj[statusKey].length
+                }
+            }
+            resultObj['max'] = maxLength
+            return resultObj
+        }
+    }
+
+    function getStylesByProjectStatus(item) {
       switch (item.status) {
             case "1": return {
                 labelColor: "#9cd69b",
@@ -112,7 +137,7 @@ function ProjectOneByCard(
                 statusText: "Ошибка определения статуса"
             }
       }
-  }
+    }
 
   const projectStatusStyles = getStylesByProjectStatus(item)
   const autoPadding = 4
@@ -215,54 +240,13 @@ function ProjectOneByCard(
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent style={{ padding: 0, background: "rgba(104, 140, 188, 0.06)"}}>
             <div style={{ borderTop: "2px solid #688cbc",  padding: "16px"}}>
-                <Table
-                    size="small"
-                >
-                    <TableBody>
-                        <TableRow style={{background: "#e6e6e6"}}>
-                            <TableCell>
-                                <span style={{color: "#666b73", fontWeight: "bolder"}}>Авторизовано</span>
-                            </TableCell>
-                            <TableCell>
-                                <span style={{color: "#666b73", fontWeight: "bolder"}}>Не авторизовано</span>
-                            </TableCell>
-                            <TableCell>
-                                <span style={{color: "#666b73", fontWeight: "bolder"}}>На авторизации</span>
-                            </TableCell>
-                        </TableRow>
-
-                        <TableRow>
-                            <TableCell>
-                                <span style={{color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
-                            </TableCell>
-                            <TableCell>
-                                <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
-                            </TableCell>
-                            <TableCell>
-                                <span style={{color: "#666b73"}}>ЛОР-комбайн Medstar UE-3000 базовая версия</span>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>
-                                <span style={{color: "#666b73"}}>Dr. Camscope DCS-102 - видеокольпоскоп</span>
-                            </TableCell>
-                            <TableCell>
-                                <span style={{color: "#666b73"}}>Dr. Camscope DCS-103R - видеоректоскоп</span>
-                            </TableCell>
-                            <TableCell>
-                                <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>
-                                <span style={{color: "#666b73"}}>Dr. Camscope DCS-105 - видеодерматоскоп</span>
-                            </TableCell>
-                            <TableCell>
-                                <span style={{color: "#666b73"}}>Dr.Camscope DCS-103E - универсальная эндоскопическая система</span>
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
+                {!loading ?
+                <SortedToolsTable sortedObj={sortedObj}/>
+                : null}
+                {loading ? 
+                <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <CircularProgress />
+                </div> : null}
             </div>
         </CardContent>
       </Collapse>
@@ -278,8 +262,7 @@ function mapStateToProps(state) {
     
 function mapDispatchToProps(dispatch) {
     return {
-        getTools: (action: TODO) => {dispatch(thunkData(action))},
-        // getTools: (action: TODO) => dispatch(action)
+
     };
 }
 

@@ -100,7 +100,6 @@ function Project(
     }
 
     function getFilteredToolsByCategory(tools, categoryID) {
-        console.log("working")
         if (Array.isArray(tools) && tools.length !== 0) {
             return tools.filter(tool => +tool.category_id === +categoryID)
         }
