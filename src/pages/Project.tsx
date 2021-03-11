@@ -53,8 +53,8 @@ function Project(
         newProject,
         setSuccess, 
         history,
-        toolsList ,
-        categoriesList
+        categoriesList,
+        toolsList
     }) {
     const classes = useStyles()
     const [openPresend, setOpenPresend] = React.useState(false)
@@ -81,7 +81,7 @@ function Project(
 
     function handleNewProject(clinicName, clinicInn) {
         const project = {
-            tools: allTools.filter( item => item.isCheked = true),
+            tools: allTools.filter( item => item.isCheked === true),
             status: "4",
             id: 10,
             externalId: 28,
@@ -100,14 +100,15 @@ function Project(
     }
 
     function getFilteredToolsByCategory(tools, categoryID) {
+        console.log("working")
         if (Array.isArray(tools) && tools.length !== 0) {
-            return tools.filter(tool => +tool.tool_view_block === +categoryID)
+            return tools.filter(tool => +tool.category_id === +categoryID)
         }
     }
 
     return (
         <div>
-            <Box visibility={allTools.length !== 0 && categoriesList.length !== 0 ? "visible" : "hidden"}>
+            <Box visibility={categoriesList.length !== 0 ? "visible" : "hidden"}>
                 <div className={classes.headerWrapper}>
                     <Typography component="h1" variant="h4">
                         Новый проект
@@ -132,8 +133,9 @@ function Project(
 
                     {categoriesList.map(category => 
                         <AccordionOfTools 
-                        categoryName={category.block_name}
-                        filteredToolsByCategory={getFilteredToolsByCategory(allTools, category.id)}
+                        categoryName={category.category.category_name}
+                        category={category.category}
+                        filteredToolsByCategory={getFilteredToolsByCategory}
                         allTools={allTools}
                         setTools={setTools}
                         key={category.id}
@@ -164,8 +166,8 @@ function Project(
 
 function mapStateToProps(state) {
     return {
-        toolsList: state.tool.toolsList,
-        categoriesList: state.tool.categoriesList
+        categoriesList: state.tool.categoriesList,
+        toolsList: state.tool.toolsList
     }
 }
 

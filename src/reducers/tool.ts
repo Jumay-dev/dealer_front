@@ -21,7 +21,7 @@ export function toolReducer(
         case LIST_TOOLS: {
             return Object.assign({}, state, {
                 isFetching: false,
-                toolsList: action.payload,
+                toolsList: action.payload.tools,
                 tool: new ToolModel() as Tool,
                 deleted: false,
                 updated: false,
@@ -30,8 +30,8 @@ export function toolReducer(
         case LIST_CATEGORIES: {
             return Object.assign({}, state, {
                 isFetching: false,
-                categoriesList: action.payload,
-                tool: new ToolModel() as Tool,
+                categoriesList: action.payload.categories,
+                toolsList: action.payload.tools,
                 deleted: false,
                 updated: false,
             })

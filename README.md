@@ -13,4 +13,4 @@ This app is frontend side for DS.Med Projects Registrations System. It's providi
 
 ## Авторы
 
-Developed [DS.Med](https://ds-med.ru) by [Jumay-dev](https://vk.com/operator121) e-mail: osipovm33rus@gmail.com
+Developed for [DS.Med](https://ds-med.ru) by [Jumay-dev](https://vk.com/operator121) e-mail: osipovm33rus@gmail.com

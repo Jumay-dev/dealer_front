@@ -1,6 +1,5 @@
 /* eslint-disable */
 import { projects_json } from './dealer_projects'
-import { tools, tools_block, tools_subblock } from './infods5i_dealers'
 import { projects_tools } from './dealer_projects_tools'
 
 import { 
@@ -98,6 +97,7 @@ export function checkAuth(): Promise<TODO> {
 }
 
 export function getData(action: string): Promise<TODO> {
+  const token = localStorage.getItem("react-crm-token")
   switch (action) {
     case LIST_PROJECTS:
       return new Promise((resolve, _reject) => {
@@ -107,13 +107,21 @@ export function getData(action: string): Promise<TODO> {
         }
       })
     case LIST_TOOLS:
-      return new Promise((resolve, _reject) => {
-          setTimeout(resolve, 300, tools)
+      return fetch(`${backend}/api/cat/index`, {
+        method: "POST",
+        headers: {
+          "Authorization": token
+        }
       })
+      .then(res => res.json())
     case LIST_CATEGORIES:
-      return new Promise((resolve, _reject) => {
-          setTimeout(resolve, 300, tools_block)
+      return fetch(`${backend}/api/cat/index`, {
+        method: "POST",
+        headers: {
+          "Authorization": token
+        }
       })
+      .then(res => res.json())
     case LIST_USERS:
       return fetch("https://jsonplaceholder.typicode.com/users").then(users => users.json())
   }

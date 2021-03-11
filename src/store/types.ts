@@ -104,12 +104,14 @@ export interface ToolsState {
 
 interface ListToolsAction {
   type: typeof LIST_TOOLS | typeof LIST_CATEGORIES;
-  payload: Tool[];
+  payload: any;
 }
+
+
 
 interface ListCategoriesAction {
   type: typeof LIST_CATEGORIES;
-  payload: Category[];
+  payload: any;
 }
 
 export type ToolsActions = typeof LIST_TOOLS
@@ -117,6 +119,7 @@ export type ToolsActions = typeof LIST_TOOLS
 
 export type ToolsActionsTypes = 
 | ListToolsAction
+| ListCategoriesAction
 
 
 // Apptypes

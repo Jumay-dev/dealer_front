@@ -115,13 +115,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function AccordionOfTools({
         categoryName,
+        category,
         filteredToolsByCategory,
         allTools,
         setTools,
         handleInfoClick
     }) {
     const classes = useStyles();
-    const [toolsInAccordion, setToolsInAccordion] = React.useState(filteredToolsByCategory)
+    const [toolsInAccordion, setToolsInAccordion] = React.useState([])
     const [choosingType, setChoosingType] = React.useState('nope')
     const [checkedCount, setCheckedCount] = React.useState(0)
     const [expanded, setExpanded] = React.useState(false);
@@ -139,6 +140,8 @@ function AccordionOfTools({
         let checkedTools = []
         let uncheckedTools = []
         toolsInAccordion.forEach( item => item.isChecked === true ? checkedTools.push(item) : uncheckedTools.push(item))
+
+        console.log(checkedTools)
 
         let checkedLength = checkedTools.length
 
@@ -172,13 +175,16 @@ function AccordionOfTools({
 
     function spanCounterSelector(variable) {
         switch (variable) {
-            case 'all': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {filteredToolsByCategory.length} из {filteredToolsByCategory.length}</span>
-            case 'part': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {checkedCount} из {filteredToolsByCategory.length}</span>
+            case 'all': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {toolsInAccordion.length} из {toolsInAccordion.length}</span>
+            case 'part': return <span style={{marginRight: 20, fontWeight: "bold"}}>Выбрано позиций: {checkedCount} из {toolsInAccordion.length}</span>
             default: return null
         }
     }
 
     const handleExpandClick = () => {
+        if (!expanded) {
+            setToolsInAccordion(filteredToolsByCategory(allTools, category.id))
+        }
         setExpanded(!expanded);
     };
 
@@ -232,11 +238,10 @@ function AccordionOfTools({
 
                                         <TableCell align="center" scope="row" component="th">
                                             <Checkbox 
-                                                checked={oneTool.isChecked ? true : false} 
+                                                checked={oneTool.isChecked} 
                                                 onChange={() => oneToolChecked(oneTool)} 
                                                 color="primary"
                                             />
-                                            
                                         </TableCell>
                                     </TableRow>
                                 )) : null}

@@ -31,7 +31,8 @@ function removeTokenUser(){
 export function authReducer(
   state: AuthState = {
     isFetching: false,
-    isAuthenticated: isSignIned(),// localStorage.getItem("token") ? true : false,
+    // isAuthenticated: isSignIned(),// localStorage.getItem("token") ? true : false,
+    isAuthenticated: false,
     user: getUser(),
     token: getToken()
   },
