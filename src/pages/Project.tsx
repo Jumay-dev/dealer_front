@@ -113,10 +113,6 @@ function Project(
             return tools.filter( tool => tool.isChecked === true)
         }
 
-
-
-        //projectTools.forEach( item => toolsIDs.push(item.tool_id))
-        console.log(toolsIDs)
         const project = {
             tools: toolsIDs,
             dealer: 0,
@@ -144,7 +140,6 @@ function Project(
             setSuccess()
             history.push("/projects")
         })
-        // newProject(project)
     }
 
     function getFilteredToolsByCategory(tools, categoryID) {
