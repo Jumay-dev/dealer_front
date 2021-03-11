@@ -20,9 +20,7 @@ import DownloadIcon from "../assets/icons/Download.svg"
 
 import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
-import { LIST_TOOLS } from "../store/types";
-
-import { tools } from '../middleware/infods5i_dealers'
+import { backend } from "../config/server"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,10 +57,29 @@ function ProjectOneByCard(
     }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [tools, setTools] = React.useState([])
 
   const handleExpandClick = () => {
+    const token = localStorage.getItem("react-crm-token")
+    if (!expanded) {
+        let data = new FormData
+        data.append('id', item.id)
+        fetch(`${backend}/api/project/tools`, {
+            method: "POST",
+            headers: {
+                "Authorization": token
+            },
+            body: data
+        })
+        .then(res => res.json())
+        .then(res => setTools(res))
+    }
     setExpanded(!expanded);
   };
+
+  React.useEffect(() => {
+    console.log(tools)
+  }, [tools])
 
   function getStylesByProjectStatus(item) {
       switch (item.status) {

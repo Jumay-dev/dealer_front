@@ -100,12 +100,15 @@ export function getData(action: string): Promise<TODO> {
   const token = localStorage.getItem("react-crm-token")
   switch (action) {
     case LIST_PROJECTS:
-      return new Promise((resolve, _reject) => {
-        let error = false
-        if (!error) {
-          setTimeout(resolve, 300, projectReducer(projects_json))
+      return fetch(`${backend}/api/project/list`, {
+        method: "POST",
+        headers: {
+          "Authorization": token
         }
       })
+      .then(res => res.json())
+      .then(res => res.projects)
+
     case LIST_TOOLS:
       return fetch(`${backend}/api/cat/index`, {
         method: "POST",
@@ -114,6 +117,7 @@ export function getData(action: string): Promise<TODO> {
         }
       })
       .then(res => res.json())
+
     case LIST_CATEGORIES:
       return fetch(`${backend}/api/cat/index`, {
         method: "POST",
@@ -122,6 +126,7 @@ export function getData(action: string): Promise<TODO> {
         }
       })
       .then(res => res.json())
+
     case LIST_USERS:
       return fetch("https://jsonplaceholder.typicode.com/users").then(users => users.json())
   }

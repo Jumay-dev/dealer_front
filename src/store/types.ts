@@ -72,7 +72,7 @@ interface NewProjectAction {
 export interface ProjectState {
   isFetching: boolean;
   project: Project;
-  projectsList: Project[];
+  projectsList: any;
   error?: null;
   deleted?: boolean;
   updated?: boolean;
