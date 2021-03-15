@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React from 'react'
+import { Link } from "react-router-dom"
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import UserDropdown from '../components/UserDropdown'
 import MainListItems from '../components/MenuItems';
-import { layoutStyles } from './layoutStyles'
 import '../css/index.css'
 import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
@@ -89,7 +89,9 @@ function MainLayout({ children, openSidebar, closeSidebar, app }) {
           }}
         >
           <div className={classes.logoContainer}>
-            <img src="https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png" alt="..." style={{width: "80%"}}/>
+            <Link to="/" style={{width: "80%"}}>
+              <img src="https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png" alt="..." style={{width: "100%"}}/>
+            </Link>
           </div>
           
           {/* <UserDropdown />

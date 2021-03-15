@@ -65,13 +65,6 @@ function App(props) {
   React.useEffect( () => {
     document.title = "DS.Med - система авторизации оборудования"
     
-    let projectListAction = {
-      type: LIST_PROJECTS,
-      endpoint: "projects/",
-      data: {},
-    };
-    props.getProjects(projectListAction)
-    
     let categoriesListAction = {
       type: LIST_CATEGORIES,
       endpoint: "categories/",

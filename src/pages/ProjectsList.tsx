@@ -9,6 +9,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { setSuccess, unsetSuccess } from '../actions/app';
+import { LIST_PROJECTS } from '../store/types'
+import { thunkData } from '../services/thunks'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,12 +37,21 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 18
     },
     content: {
-      padding: "16px"
+      padding: "16px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexGrow: 1
+    },
+    wrapper: {
+      height: "100%",
+      display: "flex",
+      flexDirection: "column"
     }
   }),
 );
 
-function ProjectsList({ projectsList, app, unsetSuccess }) {
+function ProjectsList({ projectsList, app, unsetSuccess, getProjects }) {
   const [page, setPage] = React.useState(1)
   const [modalOpen, setModalOpen] = React.useState(false)
 
@@ -54,27 +65,37 @@ function ProjectsList({ projectsList, app, unsetSuccess }) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
 
+  React.useEffect(() => {
+    let projectListAction = {
+      type: LIST_PROJECTS,
+      endpoint: "projects/",
+      data: {},
+    };
+    getProjects(projectListAction)
+  }, [])
+
   return (
-      <div>
+      <div className={classes.wrapper}>
         <div className={classes.subheaderWrapper}>
           <Search />
         </div>
         <div className={classes.content}>
+          {app.isFetching ? <CircularProgress color="primary"/> : null}
           {projectsList.length !== 0 ? projectsList.map(item => 
           <ProjectOneByCard 
             item={item} 
             key={item.id}
             modalOpenHandler={modalOpenHandler}
-          />) : <CircularProgress color="secondary"/>}
+          />) : null}
         </div>
-        <TablePagination
+        {!app.isFetching ? <TablePagination
           component="div"
           count={100}
           page={page}
           onChangePage={(e, page) => setPage(page)}
           rowsPerPage={10}
           onChangeRowsPerPage={(e) => console.log(e)}
-        />
+        /> : null}
         <ModalCommercialOffer 
           open={modalOpen}
           user={{}}
@@ -96,7 +117,10 @@ function mapStateToProps(state) {
   }
 }
 
-const mapDispatchToProps = {
-  unsetSuccess
+function mapDispatchToProps(dispatch) {
+  return {
+    unsetSuccess,
+    getProjects: (action: TODO) => dispatch(thunkData(action))
+  }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList)

@@ -46,21 +46,24 @@ export const thunkData = (
 
   if (type === LIST_PROJECTS) {
     response = await getData(LIST_PROJECTS)
+    dispatchListProject(dispatch, type, response)
   }
   if (type === LIST_TOOLS) {
     response = await getData(LIST_TOOLS)
+    dispatchListProject(dispatch, type, response)
   }
   if (type === NEW_PROJECT) {
     response = await getData(NEW_PROJECT)
+    dispatchListProject(dispatch, type, response)
   }
   if (type === LIST_CATEGORIES) {
     response = await getData(LIST_CATEGORIES)
+    dispatchListProject(dispatch, type, response)
   }
   if (type === LIST_USERS) {
     response = await getData(LIST_USERS)
     dispatchUser(dispatch, type, response)
   }
-  dispatchListProject(dispatch, type, response)
 }
 
 function dispatchListProject(dispatch, type, response) {
