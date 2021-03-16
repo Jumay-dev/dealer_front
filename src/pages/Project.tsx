@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { thunkData } from "../services/thunks"
 import { backend } from "../config/server"
 import { 
-    LIST_PROJECTS,
+    LIST_CATEGORIES
 } from "../store/types";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,12 +55,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Project(
     { 
-        newProject,
         setSuccess, 
         history,
         categoriesList,
         toolsList,
-        getProjects
+        getCategories,
+        user
     }) {
     const classes = useStyles()
     const [openPresend, setOpenPresend] = React.useState(false)
@@ -70,13 +70,15 @@ function Project(
     React.useEffect( () => {
         if (toolsList.length !== 0) {
             setTools([...toolsList])
+        } else {
+            let categoriesListAction = {
+                type: LIST_CATEGORIES,
+                endpoint: "projects/",
+                data: {},
+            };
+            getCategories(categoriesListAction)
         }
-        let projectListAction = {
-            type: LIST_PROJECTS,
-            endpoint: "projects/",
-            data: {},
-        };
-        getProjects(projectListAction)
+
     }, [toolsList])
 
     function presendHandler() {
@@ -91,21 +93,7 @@ function Project(
     const openPop = Boolean(anchorEl);
     const id = openPop ? 'simple-popover' : undefined;
 
-    function handleNewProject() {
-        // const project = {
-        //     tools: allTools.filter( item => item.isCheked === true),
-        //     status: "4",
-        //     id: 10,
-        //     externalId: 28,
-        //     added: "4.01.2021",
-        //     dealer: "ООО 'ААА'",
-        //     employee: 'Иванов Иван',
-        //     client: clinicName,
-        //     clientInn: clinicInn,
-        //     actualised: '10.01.2021',
-        //     expires: '20.02.2021',
-        //     manager: 'Даэсмедов Михаил Алексеевич',
-        // }
+    function handleNewProject(clinicInfo, subDealerInfo, isDealerAdded) {
         let toolsIDs = []
         getCheckedTools(allTools).forEach(item => toolsIDs.push(item.id))
 
@@ -116,12 +104,18 @@ function Project(
         const project = {
             tools: toolsIDs,
             dealer: 0,
-            employee: 0,
+            employee: user.id,
             client: 0,
             manager_id: 0,
             actualised_at: Date.now(),
-            expires_at: Date.now() + 10000
+            expires_at: Date.now() + 10000,
+            clinic: JSON.stringify(clinicInfo),
         }
+
+        if (isDealerAdded) {
+            project['subdealer'] = JSON.stringify(subDealerInfo)
+        }
+
         let data = new FormData
         for (let key in project) {
             data.append(key, project[key])
@@ -209,7 +203,8 @@ function Project(
 function mapStateToProps(state) {
     return {
         categoriesList: state.tool.categoriesList,
-        toolsList: state.tool.toolsList
+        toolsList: state.tool.toolsList,
+        user: state.auth.user
     }
 }
 
@@ -218,7 +213,8 @@ function mapDispatchToProps(dispatch) {
         {
             newProject,
             setSuccess,
-            getProjects: (action: TODO) => dispatch(thunkData(action))
+            getProjects: (action: TODO) => dispatch(thunkData(action)),
+            getCategories: (action: TODO) => dispatch(thunkData(action)),
         }
     )
 }

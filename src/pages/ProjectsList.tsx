@@ -12,7 +12,13 @@ import { setSuccess, unsetSuccess } from '../actions/app';
 import { LIST_PROJECTS } from '../store/types'
 import { thunkData } from '../services/thunks'
 
-const useStyles = makeStyles((theme: Theme) =>
+
+
+function ProjectsList({ projectsList, app, unsetSuccess, getProjects, project }) {
+  const [page, setPage] = React.useState(1)
+  const [modalOpen, setModalOpen] = React.useState(false)
+
+  const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     pagination: {
       "& .MuiPaginationItem-root": {
@@ -38,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       padding: "16px",
-      display: "flex",
+      display: (project.isFetching || projectsList.length === 0) ? "flex" : "block",
       justifyContent: "center",
       alignItems: "center",
       flexGrow: 1
@@ -49,11 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column"
     }
   }),
-);
-
-function ProjectsList({ projectsList, app, unsetSuccess, getProjects }) {
-  const [page, setPage] = React.useState(1)
-  const [modalOpen, setModalOpen] = React.useState(false)
+  );
 
   const classes = useStyles()
   
@@ -80,13 +82,13 @@ function ProjectsList({ projectsList, app, unsetSuccess, getProjects }) {
           <Search />
         </div>
         <div className={classes.content}>
-          {app.isFetching ? <CircularProgress color="primary"/> : null}
+          {project.isFetching ? <CircularProgress color="primary"/> : null}
           {projectsList.length !== 0 ? projectsList.map(item => 
           <ProjectOneByCard 
             item={item} 
             key={item.id}
             modalOpenHandler={modalOpenHandler}
-          />) : null}
+          />) : <span>Пока проектов нет</span>}
         </div>
         {!app.isFetching ? <TablePagination
           component="div"
@@ -113,7 +115,8 @@ function ProjectsList({ projectsList, app, unsetSuccess, getProjects }) {
 function mapStateToProps(state) {
   return {
     projectsList: state.project.projectsList,
-    app: state.app
+    app: state.app,
+    project: state.project
   }
 }
 

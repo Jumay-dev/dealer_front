@@ -81,7 +81,25 @@ export default function ProjectPresend(
                     Предварительный просмотр проекта
                 </Typography>
 
-                <Button type="button" variant="outlined" className={classes.buttonGreen} onClick={() => handleNewProject(clinicName, clinicUr)}>
+                <Button 
+                    type="button" 
+                    variant="outlined" 
+                    className={classes.buttonGreen} 
+                    onClick={() => handleNewProject(
+                        {
+                            clinicName, 
+                            clinicUr, 
+                            clinicAddress, 
+                            clinicInn
+                        },
+                        {
+                            dealerInn,
+                            dealerAddress,
+                            dealerName,
+                            dealerUr
+                        },
+                        showAdditionalReq
+                        )}>
                     Подтвердить и отправить
                 </Button>
                 

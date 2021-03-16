@@ -13,6 +13,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CloseIcon from '../assets/icons/Close circle.svg'
 import { Typography } from '@material-ui/core';
+import { backend } from '../config/server'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,9 +53,35 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function SimpleDialog({onClose, open, user}) {
+export default function SimpleDialog({onClose, open, user, setUserinfo}) {
     const classes = useStyles();
-    const [checked, setChecked] = React.useState(user.projectVisibility === "1")
+    const [checked, setChecked] = React.useState(user.canSeeProjects === "1")
+
+    function updateUser() {
+        const token = localStorage.getItem("react-crm-token")
+        let data = new FormData
+        data.append('firstname', user.name)
+        data.append('lastname', user.surname)
+        data.append('patronym', user.patronym)
+        data.append('phone', user.phone)
+        data.append('projectVisibility', user.canSeeProjects)
+        data.append('maxDiscount', user.possibleDiscount)
+        data.append('role', user.role)
+
+        fetch(`${backend}/users/update`, {
+            method: "POST",
+            headers: {
+                "Authorization": token
+            },
+            body: data
+        })
+    }
+
+    function handleChange(event) {
+        let currentUserInfo = {...user}
+        currentUserInfo[event.target.name] = event.target.value
+        setUserinfo(currentUserInfo)
+    }
 
     return (
         <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open} className={classes.root} fullWidth maxWidth="sm">
@@ -76,9 +103,11 @@ export default function SimpleDialog({onClose, open, user}) {
                                 Имя
                             </TableCell>
                             <TableCell className={classes.tableCellValue}>
-                                <TextField 
-                                value={user.firstname}
+                                <TextField
+                                name='name'
+                                value={user.name}
                                 fullWidth
+                                onChange={handleChange}
                                 />
                             </TableCell>
                         </TableRow>
@@ -88,7 +117,7 @@ export default function SimpleDialog({onClose, open, user}) {
                             </TableCell>
                             <TableCell className={classes.tableCellValue}>
                                 <TextField 
-                                value={user.lastname}
+                                value={user.surname}
                                 fullWidth
                                 />
                             </TableCell>
@@ -135,7 +164,7 @@ export default function SimpleDialog({onClose, open, user}) {
                         </TableCell>
                         <TableCell className={classes.tableCellValue}>
                             <TextField 
-                                value={user.mail}
+                                value={user.email}
                                 fullWidth
                             />
                         </TableCell>
@@ -159,11 +188,11 @@ export default function SimpleDialog({onClose, open, user}) {
                         </TableCell>
                         <TableCell className={classes.tableCellValue}>
                             <TextField 
-                                value="30"
+                                value={user.possibleDiscount}
                                 fullWidth
                             />
                         </TableCell>
-                        </TableRow>
+                    </TableRow>
 
                     </TableBody>
                     </Table>

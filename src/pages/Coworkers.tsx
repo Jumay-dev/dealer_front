@@ -144,10 +144,6 @@ function Coworkers({ getUsers, usersList }) {
         };
         getUsers(usersListAction)
     }, [])
-    
-    const handleClose = () => {
-        setModalOpen(false);
-    };
 
     return (
         <div>
@@ -169,6 +165,9 @@ function Coworkers({ getUsers, usersList }) {
                     <Table size="small">
                         <TableHead >
                             <TableRow className={classes.usertableHead}>
+                                <TableCell>
+                                    Логин
+                                </TableCell>
                                 <TableCell>
                                     Имя
                                 </TableCell>
@@ -192,10 +191,11 @@ function Coworkers({ getUsers, usersList }) {
                                     setModalOpen(true)
                                     setCurrentUser(user)
                                     }} style={{cursor: "pointer"}}>
-                                    <TableCell>{`${user.firstname} ${user.lastname} ${user.patronym}`}</TableCell>
-                                    <TableCell>{user.registered}</TableCell>
+                                    <TableCell>{user.login}</TableCell>
+                                    <TableCell>{`${user.name} ${user.surname} ${user.patronymic}`}</TableCell>
+                                    <TableCell>{user.created_at}</TableCell>
                                     <TableCell>{user.phone}</TableCell>
-                                    <TableCell>{user.mail}</TableCell>
+                                    <TableCell>{user.email}</TableCell>
                                     <TableCell>{user.role}</TableCell>
                                 </TableRow>
                             ))}
@@ -211,7 +211,7 @@ function Coworkers({ getUsers, usersList }) {
                     />
                 </Paper>
             </div>
-            <ModalUserInfo open={modalOpen} onClose={handleClose} user={currentUser}/>
+            {/* <ModalUserInfo open={modalOpen} onClose={handleClose} user={currentUser}/> */}
         </div>
     )
 }

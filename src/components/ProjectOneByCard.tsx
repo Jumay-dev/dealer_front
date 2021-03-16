@@ -141,6 +141,10 @@ function ProjectOneByCard(
 
   const projectStatusStyles = getStylesByProjectStatus(item)
   const autoPadding = 4
+  
+  let expiringData = "" + new Date(+item.expires_at).toISOString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')
+  let LPU = item.clinics.find( item => item.is_subdealer === "0")
+  let subDealer = item.clinics.find( item => item.is_subdealer === "1")
 
   return (
     <Card className={classes.root}>
@@ -157,11 +161,11 @@ function ProjectOneByCard(
                     </TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding, maxWidth: "5vw"}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>ЛПУ(юр.лицо):</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.client} ({item.urname ? item.urname : "Не указано"})</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{LPU ? LPU.name : "Не указано"} ({LPU ? LPU.urname : "Не указано"})</span>
                     </TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Актуален до:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.actualised}</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{expiringData}</span>
                     </TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Статус:</span>
@@ -176,7 +180,7 @@ function ProjectOneByCard(
                     </TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Добавлен:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.added}</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.created_at}</span>
                     </TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Куратор:</span>
@@ -187,7 +191,7 @@ function ProjectOneByCard(
                     <TableCell></TableCell>
                     <TableCell style={{paddingTop: autoPadding, paddingBottom: autoPadding}}>
                         <span style={{fontWeight: "bolder", color: "#96999c", marginRight: 5}}>Ответственный:</span>
-                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.employee}</span>
+                        <span style={{fontWeight: "bolder", color: "#666b73"}}>{item.responsible ? `${item.responsible.name} ${item.responsible.surname}` : "Не указан"}</span>
                     </TableCell>
 
                 </TableRow>

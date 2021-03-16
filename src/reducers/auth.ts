@@ -20,7 +20,6 @@ function setTokenUser(token, user) {
 }
 
 function removeTokenUser(){
-  console.log('logout reducer')
   localStorage.removeItem("react-crm-token");
   localStorage.removeItem("react-crm-user");
 }
@@ -39,10 +38,20 @@ export function authReducer(
   action: AuthActionTypes
 ) {
   const payload = action.payload
+  console.log(payload)
 
   switch (action.type) {
     case SIGN_IN:
-      if (payload.token && payload.user ) {
+      if (action.payload.error === "unauthorized") {
+        return Object.assign({}, state, {
+          isFetching: false,
+          isAuthenticated: false,
+          errorMessage: action.payload.error,
+          user: undefined,
+          token: undefined
+        });
+      }
+      else {
         setTokenUser(payload.token, payload.user)
         return Object.assign({}, state, {
           isFetching: false,
@@ -50,15 +59,6 @@ export function authReducer(
           errorMessage: "",
           user: action.payload.user,
           token: action.payload.token
-        });
-      }
-      else {
-        return Object.assign({}, state, {
-          isFetching: false,
-          isAuthenticated: true,
-          errorMessage: action.error,
-          user: undefined,
-          token: undefined
         });
       }
     case SIGN_OUT:
@@ -70,9 +70,9 @@ export function authReducer(
         token: undefined
       })
     case AUTH_CHECK:
-      console.log(action)
       return Object.assign({}, state, {
         isAuthenticated: action.payload.isAuthenticated,
+        user: action.payload.user
       })
     default:
       return state;

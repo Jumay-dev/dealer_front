@@ -30,7 +30,7 @@ export interface AuthState {
 }
 interface SignInAction {
   type: typeof SIGN_IN;
-  payload: { user?: User; token?: string };
+  payload: { user?: User; token?: string, error?: string };
   error?: string;
 }
 

@@ -10,11 +10,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles, createStyles, Theme, withStyles } from '@material-ui/core/styles';
-
 import ProjectOneByCard from '../components/ProjectOneByCard'
 import ModalUserInfo from '../components/ModalUserInfo'
 import ModalResetPassword from '../components/ModalResetPassword'
-
 import { thunkAuth, thunkData } from "../services/thunks";
 import { connect } from "react-redux";
 import { LIST_PROJECTS } from "../store/types";
@@ -68,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function User({ getProjects, projectsList }) {
+function User({ getProjects, projectsList, user }) {
     const [modalOpen, setModalOpen] = React.useState(false)
     const [resetPasswordOpen, setResetPasswordOpen] = React.useState(false)
     const classes = useStyles()
@@ -78,21 +76,22 @@ function User({ getProjects, projectsList }) {
         endpoint: "projects/",
         data: {},
     };
-    const [user, setUser] = React.useState({
-        username: "ivanov1984",
-        name: 'Иванов',
-        surname: 'Иван',
-        patronym: "Иванович",
-        email: "ivanov1984@aaa.ru",
-        phone: "+78005553535",
-        canSeeProjects: true,
-        possibleDiscoint: "30",
+    const [userinfo, setUserinfo] = React.useState({
+        name: user.name,
+        surname: user.surname,
+        patronym: user.patronymic,
+        email: user.email,
+        phone: user.phone,
+        canSeeProjects: user.projectVisibility,
+        possibleDiscount: user.max_discount,
+        registered: user.created_at,
+        role: user.roles[0].name
     })
 
     React.useEffect( () => {
         getProjects(projectListAction)
-        console.log('pr', projectsList)
     }, [])
+
     return (
         <div>
             <div className={classes.userHeader}>
@@ -110,13 +109,13 @@ function User({ getProjects, projectsList }) {
                                     Фамилия
                                 </TableCell>
                                 <TableCell className={classes.tableCellValue}>
-                                    Иванов
+                                    {userinfo.surname}
                                 </TableCell>
                                 <TableCell className={classes.tableCellName}>
                                     Номер
                                 </TableCell>
                                 <TableCell className={classes.tableCellValue}>
-                                    +7 (800) 555-35-35
+                                    {userinfo.phone}
                                 </TableCell>
                             </TableRow>
                             <TableRow>
@@ -124,13 +123,13 @@ function User({ getProjects, projectsList }) {
                                     Имя
                                 </TableCell>
                                 <TableCell className={classes.tableCellValue}>
-                                    Иван
+                                    {userinfo.name}
                                 </TableCell>
                                 <TableCell className={classes.tableCellName}>
                                     Почта
                                 </TableCell>
                                 <TableCell className={classes.tableCellValue}>
-                                    ivanov1984@aaa.ru
+                                    {userinfo.email}
                                 </TableCell>
                             </TableRow>
                             <TableRow>
@@ -138,7 +137,7 @@ function User({ getProjects, projectsList }) {
                                     Отчество
                                 </TableCell>
                                 <TableCell className={classes.tableCellValue}>
-                                    Иванович
+                                    {userinfo.patronym}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -176,7 +175,7 @@ function User({ getProjects, projectsList }) {
                 {projectsList.map(item => <ProjectOneByCard item={item} />)}
             </div>
 
-            <ModalUserInfo open={modalOpen} onClose={() => setModalOpen(false)} user={user}/>
+            <ModalUserInfo open={modalOpen} onClose={() => setModalOpen(false)} user={userinfo} setUserinfo={setUserinfo}/>
             <ModalResetPassword open={resetPasswordOpen} onClose={() => setResetPasswordOpen(false)} user={user}/>
         </div>
     )
@@ -184,7 +183,8 @@ function User({ getProjects, projectsList }) {
 
 function mapStateToProps(state) {
     return {
-      projectsList: state.project.projectsList
+      projectsList: state.project.projectsList,
+      user: state.auth.user
     }
   }
     

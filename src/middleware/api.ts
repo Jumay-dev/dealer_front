@@ -21,18 +21,15 @@ export function login(action: string, data: TODO): Promise<TODO> {
   .then( res => {
     return {
       token: "Bearer " + res.token.original.access_token,
-      user: {
-        firstname: res.user.name,
-        lastname: res.user.surname,
-        patronym: res.user.patronymic,
-        registered: res.user.created_at,
-        phone: res.user.phone,
-        mail: res.user.email,
-        role: "NOT SETTED",
-        maxDiscount: res.user.max_discount,
-        projectVisibility: res.user.project_visibility,
-      }
+      user: res.user
     }
+  })
+  .catch(res => {
+    return {
+      token: '',
+      user: '',
+      error: 'unauthorized'
+    } 
   })
 }
 
@@ -46,7 +43,7 @@ export function checkAuth(): Promise<TODO> {
     }
   })
   .then( res => res.json() )
-  .then( res =>{ return {isAuthenticated: res.success} })
+  .then( res =>{ return {isAuthenticated: res.success, user: res.user} })
   .catch( res => {
     return { isAuthenticated: false}
   })
@@ -84,8 +81,17 @@ export function getData(action: string): Promise<TODO> {
       .then(res => res.json())
 
     case LIST_USERS:
-      return fetch("https://jsonplaceholder.typicode.com/users").then(users => users.json())
+      return fetch(`${backend}/api/users/all`, {
+        method: "POST",
+        headers: {
+          "Authorization": token
+        }
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          return res.answer
+        }
+      })
   }
 }
-
-export const CALL_API = Symbol("Call API")

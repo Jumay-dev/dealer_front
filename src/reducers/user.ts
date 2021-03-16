@@ -19,7 +19,7 @@ export function userReducer(
         case LIST_USERS: {
             return Object.assign({}, state, { 
                 isFetching: false,
-                usersList: jsonPlaceHolderHadler(action.payload),
+                usersList: action.payload,
                 deleted: false,
                 updated: false,
             })
@@ -27,22 +27,4 @@ export function userReducer(
 
         default: return state
     }
-}
-
-function jsonPlaceHolderHadler(payload) {
-    const hadledArray = []
-    payload.forEach(outerUser => {
-        hadledArray.push({
-            firstname: outerUser.name.split(' ')[0],
-            lastname: outerUser.name.split(' ')[1],
-            patronym: 'Dou',
-            registered: '18.15.2016',
-            phone: outerUser.phone,
-            mail: outerUser.email,
-            role: '1',
-            maxDiscount: '30',
-            projectVisibility: '1'
-        })
-    })
-    return hadledArray
 }
