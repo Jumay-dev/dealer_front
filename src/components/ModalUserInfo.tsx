@@ -13,7 +13,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CloseIcon from '../assets/icons/Close circle.svg'
 import { Typography } from '@material-ui/core';
-import { backend } from '../config/server'
+import {getRoleNameByRoleID, updateUser} from "../library/UserMethods"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,31 +55,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SimpleDialog({onClose, open, user, setUserinfo}) {
     const classes = useStyles();
-    const [checked, setChecked] = React.useState(user.canSeeProjects === "1")
+    // const [checked, setChecked] = React.useState(user.project_visibility === "1")
 
-    function updateUser() {
-        const token = localStorage.getItem("react-crm-token")
-        let data = new FormData
-        data.append('firstname', user.name)
-        data.append('lastname', user.surname)
-        data.append('patronym', user.patronym)
-        data.append('phone', user.phone)
-        data.append('projectVisibility', user.canSeeProjects)
-        data.append('maxDiscount', user.possibleDiscount)
-        data.append('role', user.role)
 
-        fetch(`${backend}/users/update`, {
-            method: "POST",
-            headers: {
-                "Authorization": token
-            },
-            body: data
-        })
-    }
 
     function handleChange(event) {
         let currentUserInfo = {...user}
-        currentUserInfo[event.target.name] = event.target.value
+        if (event.target.name === "project_visibility") {
+            currentUserInfo[event.target.name] = event.target.checked ? "1" : "0"
+        } else {
+            currentUserInfo[event.target.name] = event.target.value
+        }
         setUserinfo(currentUserInfo)
     }
 
@@ -118,6 +104,8 @@ export default function SimpleDialog({onClose, open, user, setUserinfo}) {
                             <TableCell className={classes.tableCellValue}>
                                 <TextField 
                                 value={user.surname}
+                                name="surname"
+                                onChange={handleChange}
                                 fullWidth
                                 />
                             </TableCell>
@@ -128,8 +116,10 @@ export default function SimpleDialog({onClose, open, user, setUserinfo}) {
                             </TableCell>
                             <TableCell className={classes.tableCellValue}>
                                 <TextField 
-                                value={user.patronym}
+                                value={user.patronymic}
                                 fullWidth
+                                name="patronymic"
+                                onChange={handleChange}
                                 />
                             </TableCell>
                         </TableRow>
@@ -139,10 +129,7 @@ export default function SimpleDialog({onClose, open, user, setUserinfo}) {
                             Дата регистрации
                         </TableCell>
                         <TableCell className={classes.tableCellValue}>
-                            <TextField 
-                            value={user.registered}
-                            fullWidth
-                            />
+                            <span>{user.created_at}</span>
                         </TableCell>
                         </TableRow>
 
@@ -154,6 +141,8 @@ export default function SimpleDialog({onClose, open, user, setUserinfo}) {
                             <TextField 
                             value={user.phone}
                             fullWidth
+                            name="phone"
+                            onChange={handleChange}
                             />
                         </TableCell>
                         </TableRow>
@@ -163,10 +152,7 @@ export default function SimpleDialog({onClose, open, user, setUserinfo}) {
                             Почта
                         </TableCell>
                         <TableCell className={classes.tableCellValue}>
-                            <TextField 
-                                value={user.email}
-                                fullWidth
-                            />
+                            <span>{user.email}</span>
                         </TableCell>
                         </TableRow>
 
@@ -176,10 +162,7 @@ export default function SimpleDialog({onClose, open, user, setUserinfo}) {
                             Роль
                         </TableCell>
                         <TableCell className={classes.tableCellValue}>
-                            <TextField 
-                                value={user.role}
-                                fullWidth
-                            />
+                            <span>{getRoleNameByRoleID(user.roles)}</span>
                         </TableCell>
                         </TableRow>
                         <TableRow>
@@ -188,8 +171,10 @@ export default function SimpleDialog({onClose, open, user, setUserinfo}) {
                         </TableCell>
                         <TableCell className={classes.tableCellValue}>
                             <TextField 
-                                value={user.possibleDiscount}
+                                value={user.max_discount}
                                 fullWidth
+                                name="max_discount"
+                                onChange={handleChange}
                             />
                         </TableCell>
                     </TableRow>
@@ -198,7 +183,7 @@ export default function SimpleDialog({onClose, open, user, setUserinfo}) {
                     </Table>
                     <div style={{marginLeft: 20, display: "flex", flexDirection: "row", justifyContent: "flex-end", marginTop: "1em"}}>
                         <FormControlLabel
-                            control={<Switch color="primary" checked={checked} onChange={() => setChecked(!checked)} name="checkedA" />}
+                            control={<Switch color="primary" name="project_visibility" checked={user.project_visibility === "1"} onChange={handleChange} />}
                             label="Может видеть проекты других сотрудников"
                         />
                     </div>
@@ -206,9 +191,14 @@ export default function SimpleDialog({onClose, open, user, setUserinfo}) {
 
                 <div style={{textAlign: "right", marginTop: "2em"}}>
                     <Button type="button" variant="contained" className={classes.deleteButton}>
-                        Удалить
+                        Отменить
                     </Button>
-                    <Button type="button" variant="contained" color="primary" style={{marginRight: 10}}>
+                    <Button 
+                    variant="contained" 
+                    color="primary" 
+                    style={{marginRight: 10}}
+                    onClick={() => updateUser(user)}
+                    >
                         Сохранить
                     </Button>
                 </div>

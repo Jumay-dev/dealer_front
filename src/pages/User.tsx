@@ -77,15 +77,16 @@ function User({ getProjects, projectsList, user }) {
         data: {},
     };
     const [userinfo, setUserinfo] = React.useState({
+        id: user.id,
         name: user.name,
         surname: user.surname,
-        patronym: user.patronymic,
+        patronymic: user.patronymic,
         email: user.email,
         phone: user.phone,
-        canSeeProjects: user.projectVisibility,
-        possibleDiscount: user.max_discount,
-        registered: user.created_at,
-        role: user.roles[0].name
+        project_visibility: user.project_visibility,
+        max_discount: user.max_discount,
+        created_at: user.created_at,
+        roles: user.roles[0].id
     })
 
     React.useEffect( () => {
@@ -137,7 +138,7 @@ function User({ getProjects, projectsList, user }) {
                                     Отчество
                                 </TableCell>
                                 <TableCell className={classes.tableCellValue}>
-                                    {userinfo.patronym}
+                                    {userinfo.patronymic}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
