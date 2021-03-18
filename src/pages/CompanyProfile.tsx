@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import PlusCircle from '../assets/icons/Plus circle.svg'
 import EditCircle from '../assets/icons/Edit 3.svg'
 import ModalCompanyInfo from '../components/ModalCompanyInfo'
+import ModalCompanyMainEditor from '../components/ModalCompanyMainEditor'
+import { connect } from "react-redux"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -136,11 +138,20 @@ const fakeCompanies = [
     },
 ]
 
-function CompanyProfile() {
+function CompanyProfile({
+    company
+}) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
+    const [openMainEditor, setOpenMainEditor] = React.useState(false)
     const [currentCompany, setCurrentCompany] = React.useState({})
-    const [headCompany, setHeadCompany] = React.useState(fakeCompanies.find( item => item.head_company === true))
+    const [headCompany, setHeadCompany] = React.useState({
+        id: company.id,
+        name: company.name,
+        email: company.email,
+        phone: company.phone,
+        logo: company.logo
+    })
 
     const newReqHandler = () => {
         setCurrentCompany(
@@ -167,25 +178,14 @@ function CompanyProfile() {
     }
 
     const mainReqHandler = () => {
-        setCurrentCompany(
-            {
-                id: 0,
-                logo: "",
-                name: '',
-                shortname: '',
-                inn: '',
-                head: '',
-                address: ''
-            },
-        )
-        setOpen(true)
+        setOpenMainEditor(true)
     }
 
     return (
         <div>
             <div className={classes.headerWrapper}>
                 <Typography component="h1" variant="h4">
-                    Информация о компании {headCompany.brand}
+                    Информация о компании {company.name}
                 </Typography>
             </div>
 
@@ -193,7 +193,7 @@ function CompanyProfile() {
                 <Paper className={classes.paper}>
                     <Grid container>
                         <Grid item lg={2} style={{padding: 0, display: "flex", alignItems: "center"}}>
-                            <img src="https://ds-med.ru/wp-content/uploads/2020/03/logoDS-1.png" style={{maxWidth: "100%", maxHeight: "200px"}}/>
+                            <img src={headCompany.logo} style={{maxWidth: "100%", maxHeight: "200px"}}/>
                         </Grid>
                         <Grid item lg={8} className={classes.gridCell}>
                             <Table size="small">
@@ -203,15 +203,15 @@ function CompanyProfile() {
                                             Название компании
                                         </TableCell>
                                         <TableCell className={classes.tableCellValue}>
-                                            {headCompany.brand}
+                                            {headCompany.name}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className={classes.tableCellName}>
-                                            Администратор
+                                            Руководитель
                                         </TableCell>
                                         <TableCell className={classes.tableCellValue}>
-                                            {headCompany.director}
+                                            {`${company.director.name} ${company.director.surname} ${company.director.patronymic}`}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -219,7 +219,7 @@ function CompanyProfile() {
                                             Зарегистрирована
                                         </TableCell>
                                         <TableCell className={classes.tableCellValue}>
-                                            21.10.2019
+                                            {company.created_at}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -275,8 +275,27 @@ function CompanyProfile() {
                 />)}
             </div>
             <ModalCompanyInfo open={open} setOpen={setOpen} company={currentCompany}/>
+            <ModalCompanyMainEditor 
+            openMainEditor={openMainEditor}
+            setOpenMainEditor={setOpenMainEditor}
+            headCompany={headCompany}
+            setHeadCompany={setHeadCompany}
+            />
         </div>
     )
 }
 
-export default CompanyProfile
+function mapStateToProps(state) {
+    return {
+        company: state.auth.user.company
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyProfile)

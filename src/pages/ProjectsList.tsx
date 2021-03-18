@@ -83,7 +83,7 @@ function ProjectsList({ projectsList, app, unsetSuccess, getProjects, project })
         </div>
         <div className={classes.content}>
           {project.isFetching ? <CircularProgress color="primary"/> : null}
-          {projectsList.length !== 0 ? projectsList.map(item => 
+          {projectsList.length && !project.isFetching ? projectsList.map(item => 
           <ProjectOneByCard 
             item={item} 
             key={item.id}

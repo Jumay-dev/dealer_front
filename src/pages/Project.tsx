@@ -103,7 +103,7 @@ function Project(
 
         const project = {
             tools: toolsIDs,
-            dealer: 0,
+            dealer: user.company.id,
             employee: user.id,
             client: 0,
             manager_id: 0,
