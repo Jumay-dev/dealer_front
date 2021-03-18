@@ -209,7 +209,7 @@ function ProjectOneByCard(
             <img src={InfoIcon} />
         </IconButton>
         
-        <Button onClick={() => modalOpenHandler()} color="primary" variant="outlined" style={{marginRight: 10}}>
+        <Button disabled onClick={() => modalOpenHandler()} color="primary" variant="outlined" style={{marginRight: 10}}>
             Коммерческие предложения
         </Button>
 

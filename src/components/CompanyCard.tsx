@@ -78,7 +78,7 @@ export default function CompanyCard({company, setOpen, open, setCurrentCompany})
               Почтовый адрес
             </TableCell>
             <TableCell className={classes.tableCellValue}>
-              {company.postaddress}
+              {company.post_address}
             </TableCell>
 
             <TableCell className={classes.tableCellName}>
@@ -94,7 +94,7 @@ export default function CompanyCard({company, setOpen, open, setCurrentCompany})
               Правовая форма
             </TableCell>
             <TableCell className={classes.tableCellValue}>
-              {company.lawform}
+              {company.legal_form}
             </TableCell>
 
             <TableCell className={classes.tableCellName}>
@@ -108,7 +108,7 @@ export default function CompanyCard({company, setOpen, open, setCurrentCompany})
               Банковские реквизиты
             </TableCell>
             <TableCell className={classes.tableCellValue}>
-              {company.req}
+              {company.bank_details}
             </TableCell>
           </TableRow>
 

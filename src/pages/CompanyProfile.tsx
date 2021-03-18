@@ -14,6 +14,10 @@ import EditCircle from '../assets/icons/Edit 3.svg'
 import ModalCompanyInfo from '../components/ModalCompanyInfo'
 import ModalCompanyMainEditor from '../components/ModalCompanyMainEditor'
 import { connect } from "react-redux"
+import { GET_DETAILS } from '../store/types'
+import { backend } from '../config/server'
+import { listDetails } from '../actions/company'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,6 +63,13 @@ const useStyles = makeStyles((theme: Theme) =>
         justifyContent: "flex-start",
         alignItems: "center",
         marginBottom: "1em"
+    },
+    detailsWrapper: {
+        padding: theme.spacing(2),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
     }
   }),
 );
@@ -139,18 +150,20 @@ const fakeCompanies = [
 ]
 
 function CompanyProfile({
-    company
+    userCompany,
+    getDetails,
+    companyDetails
 }) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
     const [openMainEditor, setOpenMainEditor] = React.useState(false)
     const [currentCompany, setCurrentCompany] = React.useState({})
     const [headCompany, setHeadCompany] = React.useState({
-        id: company.id,
-        name: company.name,
-        email: company.email,
-        phone: company.phone,
-        logo: company.logo
+        id: userCompany.id,
+        name: userCompany.name,
+        email: userCompany.email,
+        phone: userCompany.phone,
+        logo: userCompany.logo
     })
 
     const newReqHandler = () => {
@@ -181,11 +194,35 @@ function CompanyProfile({
         setOpenMainEditor(true)
     }
 
+    React.useEffect(() => {
+        const token = localStorage.getItem("react-crm-token")
+        let data = new FormData
+        data.append('id', userCompany.id)
+        fetch(`${backend}/api/company/details`, {
+            method: "POST",
+            headers: {
+              "Authorization": token
+            },
+            body: data
+        })
+        .then(res => res.json())
+        .then(res => {
+        if (res.success) {
+            let detailsListAction = {
+                type: GET_DETAILS,
+                endpoint: "details/",
+                data: {details: res.details},
+            };
+            getDetails(detailsListAction)
+        }
+        })
+    }, [])
+
     return (
         <div>
             <div className={classes.headerWrapper}>
                 <Typography component="h1" variant="h4">
-                    Информация о компании {company.name}
+                    Информация о компании {userCompany.name}
                 </Typography>
             </div>
 
@@ -211,7 +248,7 @@ function CompanyProfile({
                                             Руководитель
                                         </TableCell>
                                         <TableCell className={classes.tableCellValue}>
-                                            {`${company.director.name} ${company.director.surname} ${company.director.patronymic}`}
+                                            {`${userCompany.director.name} ${userCompany.director.surname} ${userCompany.director.patronymic}`}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -219,7 +256,7 @@ function CompanyProfile({
                                             Зарегистрирована
                                         </TableCell>
                                         <TableCell className={classes.tableCellValue}>
-                                            {company.created_at}
+                                            {userCompany.created_at}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -258,7 +295,7 @@ function CompanyProfile({
                     </div>
                 </Paper>
             </div>
-            <div className={classes.contentWrapper}>
+            <div className={classes.detailsWrapper}>
                 <Typography
                     component="h2" 
                     variant="h5"
@@ -266,13 +303,18 @@ function CompanyProfile({
                 >
                     Реквизиты компании
                 </Typography>
-                {fakeCompanies.map(company =>
+                {!companyDetails.isFetching ? 
+                    companyDetails.details.map(company =>
                     <CompanyCard 
-                        company={company} 
-                        open={open} 
-                        setOpen={setOpen} 
-                        setCurrentCompany={setCurrentCompany}
-                />)}
+                    company={company} 
+                    open={open} 
+                    setOpen={setOpen} 
+                    setCurrentCompany={setCurrentCompany}
+                    />)
+                :
+                <CircularProgress color="primary" />
+                }
+
             </div>
             <ModalCompanyInfo open={open} setOpen={setOpen} company={currentCompany}/>
             <ModalCompanyMainEditor 
@@ -287,13 +329,14 @@ function CompanyProfile({
 
 function mapStateToProps(state) {
     return {
-        company: state.auth.user.company
+        userCompany: state.auth.user.company,
+        companyDetails: state.company
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-
+        getDetails: (action: TODO) => dispatch(listDetails(action))
     }
 }
 

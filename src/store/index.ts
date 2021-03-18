@@ -8,6 +8,7 @@ import { projectReducer } from "../reducers/project";
 import { toolReducer } from "../reducers/tool";
 import { appReducer } from "../reducers/app";
 import { userReducer } from "../reducers/user";
+import { companyReducer } from "../reducers/company";
 
 const rootReducer = (history) => combineReducers({
     auth: authReducer,
@@ -15,6 +16,7 @@ const rootReducer = (history) => combineReducers({
     tool: toolReducer,
     app: appReducer,
     user: userReducer,
+    company: companyReducer,
     router: connectRouter(history),
 })
 export const history = createBrowserHistory()

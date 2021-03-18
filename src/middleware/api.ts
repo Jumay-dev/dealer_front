@@ -3,7 +3,8 @@ import {
   LIST_PROJECTS, 
   LIST_TOOLS,
   LIST_CATEGORIES,
-  LIST_USERS
+  LIST_USERS,
+  GET_DETAILS
 } from '../store/types'
 
 import { backend } from "../config/server"

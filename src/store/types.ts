@@ -165,3 +165,22 @@ interface ListUsersAction {
 
 export type UserActionsTypes =
 | ListUsersAction
+
+// Company types
+export const GET_DETAILS = "GET_DETAILS"
+
+export interface CompanyState {
+  isFetching: boolean;
+  details: Array<Object>;
+  error?: boolean;
+}
+
+export type CompanyActions = typeof GET_DETAILS
+
+interface GetDetailAction {
+  type: typeof GET_DETAILS;
+  payload: any;
+}
+
+export type CompanyActionTypes = 
+| GetDetailAction
