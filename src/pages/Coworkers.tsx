@@ -14,7 +14,7 @@ import ModalUserInfo from '../components/ModalUserInfo'
 import { LIST_USERS } from "../store/types";
 import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
-
+import { getRoleNameByRoleID } from "../library/UserMethods"
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
@@ -189,14 +189,14 @@ function Coworkers({ getUsers, usersList }) {
                             {usersList.map( user => (
                                 <TableRow key={user.id} hover onClick={() => {
                                     setModalOpen(true)
-                                    setCurrentUser(user)
+                                    setCurrentUser({...user, roles: user.roles[0].id})
                                     }} style={{cursor: "pointer"}}>
                                     <TableCell>{user.login}</TableCell>
                                     <TableCell>{`${user.name} ${user.surname} ${user.patronymic}`}</TableCell>
                                     <TableCell>{user.created_at}</TableCell>
                                     <TableCell>{user.phone}</TableCell>
                                     <TableCell>{user.email}</TableCell>
-                                    <TableCell>{user.role}</TableCell>
+                                    <TableCell>{getRoleNameByRoleID(user.roles[0].id)}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -211,7 +211,11 @@ function Coworkers({ getUsers, usersList }) {
                     />
                 </Paper>
             </div>
-            {/* <ModalUserInfo open={modalOpen} onClose={handleClose} user={currentUser}/> */}
+            <ModalUserInfo 
+            open={modalOpen} 
+            onClose={() => setModalOpen(false)} 
+            user={currentUser} 
+            setUserinfo={setCurrentUser}/>
         </div>
     )
 }

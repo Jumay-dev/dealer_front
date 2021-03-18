@@ -41,7 +41,7 @@ interface SignOutAction {
 }
 interface AuthCheckAction {
   type: typeof AUTH_CHECK;
-  payload: {user?: User; token?: string, isAuthenticated?: boolean };
+  payload: {user?: User; token?: string, isAuthenticated?: boolean, error?: string };
   error?: string;
 }
 

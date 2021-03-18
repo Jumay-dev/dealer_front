@@ -43,9 +43,12 @@ export function checkAuth(): Promise<TODO> {
     }
   })
   .then( res => res.json() )
-  .then( res =>{ return {isAuthenticated: res.success, user: res.user} })
+  .then( res => { 
+    return { isAuthenticated: res.success, user: res.user 
+    } 
+  })
   .catch( res => {
-    return { isAuthenticated: false}
+    return { isAuthenticated: false, token: "", error: "unauthorized"}
   })
 }
 

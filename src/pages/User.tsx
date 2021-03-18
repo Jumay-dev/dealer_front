@@ -1,19 +1,16 @@
 import React from 'react'
-import TextField from '@material-ui/core/TextField'
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import Switch from '@material-ui/core/Switch';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import { makeStyles, createStyles, Theme, withStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ProjectOneByCard from '../components/ProjectOneByCard'
 import ModalUserInfo from '../components/ModalUserInfo'
 import ModalResetPassword from '../components/ModalResetPassword'
-import { thunkAuth, thunkData } from "../services/thunks";
+import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
 import { LIST_PROJECTS } from "../store/types";
 

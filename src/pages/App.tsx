@@ -9,21 +9,16 @@ import Project from '../pages/Project'
 import NewOffer from '../pages/NewOffer'
 import UserPage from '../pages/User'
 import mainLayout from "../layouts/mainLayout"
+import AppIsLoading from '../pages/AppIsLoading'
 import { connect } from "react-redux";
 import { thunkAuth } from "../services/thunks";
 import { 
   SIGN_IN, 
-  SIGN_OUT,
   AUTH_CHECK,
-  LIST_PROJECTS,
-  LIST_TOOLS,
   LIST_CATEGORIES
  } from "../store/types";
 import { thunkData } from "../services/thunks";
-
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
-// const isAuthetificated = true
 
 const theme = createMuiTheme({
   palette: {
@@ -49,7 +44,7 @@ const theme = createMuiTheme({
 });
 
 function App(props) {
-  const { isAuthenticated, signInUser } = props
+  const { isAuthenticated, signInUser, token } = props
 
   let signInAction = {
       type: SIGN_IN,
@@ -95,9 +90,9 @@ function App(props) {
           </div>
         )}
 
-        {!isAuthenticated && (
+        {!isAuthenticated && !token ? (
           <Login userLoginAction={userLoginAction} />
-        )}
+        ) : <AppIsLoading />}
       </Switch>
     </ThemeProvider>
   )
@@ -119,10 +114,11 @@ function RouteWrapper({
 
 function mapStateToProps(state) {
   const { auth } = state
-  const { isAuthenticated } = auth
+  const { isAuthenticated, token } = auth
 
   return {
-    isAuthenticated
+    isAuthenticated,
+    token
   }
 }
 

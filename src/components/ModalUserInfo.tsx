@@ -13,7 +13,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CloseIcon from '../assets/icons/Close circle.svg'
 import { Typography } from '@material-ui/core';
-import {getRoleNameByRoleID, updateUser} from "../library/UserMethods"
+import { getRoleNameByRoleID, updateUser } from "../library/UserMethods"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function SimpleDialog({onClose, open, user, setUserinfo}) {
+export default function ModalUserInfo({onClose, open, user, setUserinfo}) {
     const classes = useStyles();
     // const [checked, setChecked] = React.useState(user.project_visibility === "1")
 

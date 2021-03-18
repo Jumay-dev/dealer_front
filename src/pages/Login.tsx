@@ -12,12 +12,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://ds-med.ru/">
         DS.Med Project Authorisation System
       </Link>{' '}
       {new Date().getFullYear()}
@@ -48,8 +49,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Login(props) {
   const classes = useStyles();
-  const [login, setLogin] = React.useState('testuser@lara.ru')
-  const [password, setPassword] = React.useState('102030Abc')
+  const [ login, setLogin ] = React.useState('testuser@lara.ru')
+  const [ password, setPassword ] = React.useState('102030Abc')
+  const [ loading, setLoading ] = React.useState(false)
 
 
 
@@ -63,7 +65,7 @@ function Login(props) {
         <Typography component="h1" variant="h5">
           Вход в систему
         </Typography>
-        <div className={classes.form}>
+       {!loading ? <div className={classes.form}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -100,7 +102,10 @@ function Login(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => props.userLoginAction(login, password)}
+            onClick={() => {
+              setLoading(true)
+              props.userLoginAction(login, password)
+            }}
           >
             Войти
           </Button>
@@ -116,7 +121,7 @@ function Login(props) {
               </Link>
             </Grid>
           </Grid>
-        </div>
+        </div> : <CircularProgress color="primary"/>}
       </div>
       <Box mt={8}>
         <Copyright />

@@ -18,6 +18,7 @@ export function updateUser(user) {
         data.append(key, user[key])
     }
     // data.append('project_visibility', checked === true ? "1" : "0")
+    console.log(user)
 
     fetch(`${backend}/api/users/update`, {
         method: "POST",
