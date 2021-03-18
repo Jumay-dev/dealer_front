@@ -8,7 +8,6 @@ export default function SortedToolsTable({ sortedObj }) {
 
     function getRows() {
         let rows = []
-        console.log(sortedObj)
         if (sortedObj.max !== 0) {
             for (let i = 0; i < sortedObj.max; i++) {
                 rows.push(
@@ -48,7 +47,7 @@ export default function SortedToolsTable({ sortedObj }) {
                         <span style={{color: "#666b73", fontWeight: "bolder"}}>На авторизации</span>
                     </TableCell>
                 </TableRow>
-                {getRows()}
+                {sortedObj ? getRows() : "Ошибка загрузки оборудования. Обратитесь к администратору."}
             </TableBody>
         </Table>
     )
