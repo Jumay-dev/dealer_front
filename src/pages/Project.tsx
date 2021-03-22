@@ -133,7 +133,6 @@ function Project(
         .then( res => res.json())
         .then( res => {
             setSuccess()
-            
         })
         history.push("/projects")
     }
