@@ -1,7 +1,8 @@
 import {
     ProjectActions,
     LIST_PROJECTS,
-    NEW_PROJECT
+    NEW_PROJECT,
+    UPDATE_PROJECTS_STATE
 } from "../store/types";
 
 export function listProjects(result?: TODO) {
@@ -18,6 +19,13 @@ export function newProject(project) {
     };
 }
 
+export function updateState(state) {
+    return {
+        type: UPDATE_PROJECTS_STATE,
+        payload: state,
+    };
+}
+
 export function getAction(
     action: ProjectActions,
     data?: Object
@@ -31,6 +39,12 @@ export function getAction(
         case NEW_PROJECT:
             return {
                 type: NEW_PROJECT,
+                endpoint: 'project/',
+                data
+            }
+        case UPDATE_PROJECTS_STATE:
+            return {
+                type: UPDATE_PROJECTS_STATE,
                 endpoint: 'project/',
                 data
             }

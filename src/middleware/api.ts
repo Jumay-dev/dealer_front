@@ -53,11 +53,11 @@ export function checkAuth(): Promise<TODO> {
   })
 }
 
-export function getData(action: string): Promise<TODO> {
+export function getData(action: any): Promise<TODO> {
   const token = localStorage.getItem("react-crm-token")
-  switch (action) {
+  switch (action.type) {
     case LIST_PROJECTS:
-      return fetch(`${backend}/api/project/list`, {
+      return fetch(`${backend}/api/project/list?page=${action.data.page}&limit=${action.data.limit}`, {
         method: "POST",
         headers: {
           "Authorization": token

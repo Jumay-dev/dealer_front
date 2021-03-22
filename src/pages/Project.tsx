@@ -110,10 +110,11 @@ function Project(
             actualised_at: Date.now(),
             expires_at: Date.now() + 10000,
             clinic: JSON.stringify(clinicInfo),
+            subdealer: ''
         }
 
         if (isDealerAdded) {
-            project['subdealer'] = JSON.stringify(subDealerInfo)
+            project.subdealer = JSON.stringify(subDealerInfo)
         }
 
         let data = new FormData
@@ -132,8 +133,9 @@ function Project(
         .then( res => res.json())
         .then( res => {
             setSuccess()
-            history.push("/projects")
+            
         })
+        history.push("/projects")
     }
 
     function getFilteredToolsByCategory(tools, categoryID) {
@@ -151,7 +153,6 @@ function Project(
                     </Typography>
                 </div>
                 <div className={classes.contentWrapper}>
-
                     <ReqContainer
                     allTools={allTools} 
                     handleNewProject={handleNewProject}
@@ -212,7 +213,7 @@ function mapDispatchToProps(dispatch) {
     return (
         {
             newProject,
-            setSuccess,
+            setSuccess: () => dispatch(setSuccess()),
             getProjects: (action: TODO) => dispatch(thunkData(action)),
             getCategories: (action: TODO) => dispatch(thunkData(action)),
         }

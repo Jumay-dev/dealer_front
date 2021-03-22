@@ -57,16 +57,22 @@ export const LIST_PROJECTS = "LIST_PROJECTS"
 export const GET_PROJECT = "GET_PROJECT"
 export const NEW_PROJECT = "NEW_PROJECT"
 export const EDIT_PROJECT = "EDIT_PROJECT"
+export const UPDATE_PROJECTS_STATE = "UPDATE_PROJECTS_STATE"
 
 interface ListProjectsAction {
   type: typeof LIST_PROJECTS;
-  payload: Project[];
+  payload: any;
 }
 
 interface NewProjectAction {
   type: typeof NEW_PROJECT
   payload: Project;
   error?: string;
+}
+
+interface UpdateProjectState {
+  type: typeof UPDATE_PROJECTS_STATE;
+  payload: any;
 }
 
 export interface ProjectState {
@@ -76,6 +82,9 @@ export interface ProjectState {
   error?: null;
   deleted?: boolean;
   updated?: boolean;
+  page?: number;
+  limit?: number;
+  total?: number;
 }
 
 export type ProjectActions = 
@@ -83,10 +92,12 @@ export type ProjectActions =
   | typeof GET_PROJECT
   | typeof NEW_PROJECT
   | typeof EDIT_PROJECT
+  | typeof UPDATE_PROJECTS_STATE
 
 export type ProjectActionTypes = 
   | ListProjectsAction
   | NewProjectAction
+  | UpdateProjectState
 
 // Tools types
 export const LIST_TOOLS = "LIST_TOOLS"

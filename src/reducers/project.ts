@@ -2,7 +2,8 @@ import {
     ProjectState,
     ProjectActionTypes,
     LIST_PROJECTS,
-    NEW_PROJECT
+    NEW_PROJECT,
+    UPDATE_PROJECTS_STATE
 } from '../store/types'
 
 import { Project, ProjectModel } from "../types";
@@ -14,6 +15,9 @@ export function projectReducer(
         project: new ProjectModel() as Project,
         deleted: false,
         updated: false,
+        page: 1,
+        limit: 5,
+        total: 0
     },
     action: ProjectActionTypes
 ) {
@@ -21,7 +25,8 @@ export function projectReducer(
         case LIST_PROJECTS: {
             return Object.assign({}, state, {
                 isFetching: false,
-                projectsList: action.payload,
+                projectsList: action.payload.data,
+                total: action.payload.total,
                 errorMessage: "",
                 deleted: false,
                 updated: false,
@@ -36,6 +41,9 @@ export function projectReducer(
                 deleted: false,
                 updated: false,
             });
+        }
+        case UPDATE_PROJECTS_STATE: {
+            return Object.assign({}, state, { ...action.payload });
         }
         default: return state
     }

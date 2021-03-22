@@ -11,11 +11,20 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { setSuccess, unsetSuccess } from '../actions/app';
 import { LIST_PROJECTS } from '../store/types'
 import { thunkData } from '../services/thunks'
+import { updateState } from '../actions/project'
 
 
 
-function ProjectsList({ projectsList, app, unsetSuccess, getProjects, project }) {
-  const [page, setPage] = React.useState(1)
+function ProjectsList(
+  { 
+    projectsList, 
+    app, 
+    unsetSuccess, 
+    getProjects, 
+    project, 
+    setPage,
+    setLimit
+   }) {
   const [modalOpen, setModalOpen] = React.useState(false)
 
   const useStyles = makeStyles((theme: Theme) =>
@@ -57,6 +66,44 @@ function ProjectsList({ projectsList, app, unsetSuccess, getProjects, project })
   }),
   );
 
+  React.useEffect(() => {
+    let projectListAction = {
+      type: LIST_PROJECTS,
+      endpoint: "projects/",
+      data: {
+        page: project.page,
+        limit: project.limit
+      },
+    };
+    getProjects(projectListAction)
+  }, [])
+
+  function setPageAndListProjects(page) {
+    setPage({ page, isFetching: true, projectsList: [] })
+    let projectListAction = {
+      type: LIST_PROJECTS,
+      endpoint: "projects/",
+      data: {
+        page,
+        limit: project.limit
+      },
+    };
+    getProjects(projectListAction)
+  }
+
+  function setLimitAndListProjects(limit) {
+    setLimit({ limit, isFetching: true, projectsList: [], page: 1 })
+    let projectListAction = {
+      type: LIST_PROJECTS,
+      endpoint: "projects/",
+      data: {
+        page: 1,
+        limit
+      },
+    };
+    getProjects(projectListAction)
+  }
+
   const classes = useStyles()
   
   function modalOpenHandler(item) {
@@ -66,15 +113,6 @@ function ProjectsList({ projectsList, app, unsetSuccess, getProjects, project })
   function Alert(props: AlertProps) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
-
-  React.useEffect(() => {
-    let projectListAction = {
-      type: LIST_PROJECTS,
-      endpoint: "projects/",
-      data: {},
-    };
-    getProjects(projectListAction)
-  }, [])
 
   return (
       <div className={classes.wrapper}>
@@ -88,16 +126,24 @@ function ProjectsList({ projectsList, app, unsetSuccess, getProjects, project })
             item={item} 
             key={item.id}
             modalOpenHandler={modalOpenHandler}
-          />) : <span>Пока проектов нет</span>}
-        </div>
-        {!app.isFetching ? <TablePagination
+          />) : !project.isFetching && <span>Пока проектов нет</span>}
+
+        {!project.isFetching ? 
+        <TablePagination
           component="div"
-          count={100}
-          page={page}
-          onChangePage={(e, page) => setPage(page)}
-          rowsPerPage={10}
-          onChangeRowsPerPage={(e) => console.log(e)}
-        /> : null}
+          count={+project.total}
+          page={project.page - 1}
+          onChangePage={(e, page) => setPageAndListProjects(page + 1)}
+          rowsPerPage={project.limit}
+          onChangeRowsPerPage={(e) => setLimitAndListProjects(e.target.value)}
+        />
+        : null
+        } 
+        </div>
+
+
+
+
         <ModalCommercialOffer 
           open={modalOpen}
           user={{}}
@@ -122,8 +168,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    unsetSuccess,
-    getProjects: (action: TODO) => dispatch(thunkData(action))
+    unsetSuccess: () => dispatch(unsetSuccess()),
+    getProjects: (action: TODO) => dispatch(thunkData(action)),
+    setPage: (action: TODO) => dispatch(updateState(action)),
+    setLimit: (action: TODO) => dispatch(updateState(action))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList)
