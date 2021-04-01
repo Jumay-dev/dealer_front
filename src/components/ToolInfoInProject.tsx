@@ -24,7 +24,9 @@ function ToolInfoInProject(
         openPop,
         anchorEl,
         handleClose,
-        id
+        id,
+        price,
+        price_cur
     }) {
     const classes = useStyles();
 
@@ -46,7 +48,7 @@ function ToolInfoInProject(
             <Card style={{maxWidth: "20vw"}}>
                 <CardHeader
                     title={toolName}
-                    subheader="10 000 $ в рознице"
+                    subheader={+price !== 0 ? `${price} ${price_cur} в рознице` : null}
                 />
                 <CardMedia
                     className={classes.media}
@@ -55,7 +57,7 @@ function ToolInfoInProject(
                 />
                 <CardContent>
                     <Typography>
-                        {description}
+                        {description !== '' ? description : "Подробности вы можете уточнить у менеджера"}
                     </Typography>
                 </CardContent>
             </Card>

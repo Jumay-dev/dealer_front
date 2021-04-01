@@ -12,11 +12,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import Popover from '@material-ui/core/Popover';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from "../assets/icons/Info circle.svg"
 import clsx from 'clsx';
@@ -233,7 +228,7 @@ function AccordionOfTools({
                                     <TableRow key={oneTool.id}>
                                         <TableCell component="th" scope="row">
                                             {oneTool.tool_name}
-                                            <IconButton onClick={handleInfoClick}><img src={InfoIcon} /></IconButton>
+                                            <IconButton onClick={(event) => handleInfoClick(event, oneTool)}><img src={InfoIcon} /></IconButton>
                                         </TableCell>
 
                                         <TableCell align="center" scope="row" component="th">

@@ -66,6 +66,13 @@ function Project(
     const [openPresend, setOpenPresend] = React.useState(false)
     const [allTools, setTools] = React.useState([])
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [toolInfo, setToolInfo] = React.useState({
+        tool_name: '',
+        price: '',
+        price_cur: '',
+        img: '',
+        description: ''
+    })
 
     React.useEffect( () => {
         if (toolsList.length !== 0) {
@@ -84,8 +91,17 @@ function Project(
     function presendHandler() {
         setOpenPresend(true)
     }
-    const handleInfoClick = (event) => {
+    const handleInfoClick = (event, tool) => {
+        console.log(tool)
+        setToolInfo({
+            tool_name: tool.tool_name,
+            price: tool.price,
+            price_cur: tool.price_cur,
+            img: '',
+            description: ''
+        })
         setAnchorEl(event.currentTarget);
+        
     }; 
     const handleClose = () => {
         setAnchorEl(null);
@@ -179,13 +195,15 @@ function Project(
                     />)}
 
                     <ToolInfoInProject
-                        toolName={'Многофункциональный монитор пациента Votem VP-1200'}
+                        toolName={toolInfo.tool_name}
                         img="https://ds-med.ru/wp-content/uploads/2019/05/votem_1200.jpg"
-                        description="Монитор пациента VP-1200 компании VOTEM (Южная Корея) — модель с расширенными функциональными возможностями. Диагональ экрана составляет 12,1 дюйма. Опционально доступны функции мультигаз, оценки глубины наркоза и капнометрии EtCO2. Низкая стоимость комплектующих делает VP-1200 экономически выгодным решением при регулярном проведении оценки глубины анестезии."
+                        description={toolInfo.description}
                         openPop={openPop}
                         anchorEl={anchorEl}
                         handleClose={handleClose}
                         id={id}
+                        price={toolInfo.price}
+                        price_cur={toolInfo.price_cur}
                     />
 
                     <Button variant="contained" color="primary" onClick={presendHandler}>

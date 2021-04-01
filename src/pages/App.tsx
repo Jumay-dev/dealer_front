@@ -10,6 +10,8 @@ import NewOffer from '../pages/NewOffer'
 import UserPage from '../pages/User'
 import mainLayout from "../layouts/mainLayout"
 import AppIsLoading from '../pages/AppIsLoading'
+import Registratum from '../pages/Registratum'
+import Admin from '../pages/Admin'
 import { connect } from "react-redux";
 import { thunkAuth } from "../services/thunks";
 import { 
@@ -75,6 +77,9 @@ function App(props) {
     props.authCheck(checkAuthAction)
   }, [])
 
+  const isRegistrator = true
+  const isAdmin = true
+
   return (
     <ThemeProvider theme={theme}>
       <Switch>
@@ -87,6 +92,17 @@ function App(props) {
             <RouteWrapper exact path="/coworkers" component={Coworkers} layout={mainLayout} />
             <RouteWrapper exact path="/user" component={UserPage} layout={mainLayout} />
             <RouteWrapper exact path="/newoffer" component={NewOffer} layout={mainLayout} />
+            {
+              isRegistrator && (
+                <RouteWrapper exact path="/registratum" component={Registratum} layout={mainLayout} />
+              )
+            }
+            {
+              isAdmin && (
+                <RouteWrapper exact path="/admin" component={Admin} layout={mainLayout} />
+              )
+            }
+
           </div>
         )}
 
