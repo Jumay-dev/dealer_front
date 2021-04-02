@@ -3,7 +3,6 @@ import ProjectCardForAuth from "../components/ProjectCardForAuth"
 import Search from '../components/Search'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TablePagination from '@material-ui/core/TablePagination';
-import ModalCommercialOffer from "../components/ModalCommercialOffer"
 import { connect } from "react-redux";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
@@ -12,10 +11,11 @@ import { setSuccess, unsetSuccess } from '../actions/app';
 import { LIST_PROJECTS } from '../store/types'
 import { thunkData } from '../services/thunks'
 import { updateState } from '../actions/project'
+import ModalAuthorisation from '../components/ModalAuthorisation'
 
 
 
-function ProjectsList(
+function Registratum(
   { 
     projectsList, 
     app, 
@@ -26,6 +26,7 @@ function ProjectsList(
     setLimit
    }) {
   const [modalOpen, setModalOpen] = React.useState(false)
+  const [checkedToolsForModal, setCheckedToolsForModal] = React.useState([])
 
   const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -106,7 +107,9 @@ function ProjectsList(
 
   const classes = useStyles()
   
-  function modalOpenHandler(item) {
+  function modalOpenHandler(tools) {
+    console.log(tools)
+    setCheckedToolsForModal(tools)
     setModalOpen(true)
   }
 
@@ -126,6 +129,7 @@ function ProjectsList(
             item={item} 
             key={item.id}
             modalOpenHandler={modalOpenHandler}
+            modalOpen={modalOpen}
           />) : !project.isFetching && <span>Пока проектов нет</span>}
 
         {!project.isFetching ? 
@@ -141,13 +145,10 @@ function ProjectsList(
         } 
         </div>
 
-
-
-
-        <ModalCommercialOffer 
+        <ModalAuthorisation 
           open={modalOpen}
-          user={{}}
           onClose={() => setModalOpen(false)}
+          tools={checkedToolsForModal}
         />
         <Snackbar open={app.projectSuccesfullyAdded} autoHideDuration={6000} onClose={() => unsetSuccess()}>
           <Alert onClose={() => unsetSuccess()} severity="success">
@@ -174,4 +175,4 @@ function mapDispatchToProps(dispatch) {
     setLimit: (action: TODO) => dispatch(updateState(action))
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList)
+export default connect(mapStateToProps, mapDispatchToProps)(Registratum)

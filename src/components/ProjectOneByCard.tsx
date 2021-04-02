@@ -20,6 +20,7 @@ import InfoIcon from "../assets/icons/Info circle.svg"
 import ChatIcon from "../assets/icons/Chat left.svg"
 import DownloadIcon from "../assets/icons/Download.svg"
 import SortedToolsTable from './SortedToolsTable'
+import { getStylesByProjectStatus, sortToolsByStatus } from '../controllers/ProjectCardController'
 
 import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
@@ -85,59 +86,10 @@ function ProjectOneByCard(
     };
 
     React.useEffect(() => {
-        setSortedObj(sortToolsByStatus(tools))
+        setSortedObj(sortToolsByStatus(tools, toolsList))
     }, [tools])
 
-    function sortToolsByStatus(unsortedTools) {
-        const resultObj = {}
-        if (unsortedTools.length !== 0) {
-            unsortedTools.forEach( tool => {
-                if (!Array.isArray(resultObj[tool.status_id])) resultObj[tool.status_id] = []
-                resultObj[tool.status_id].push(toolsList.find( item => +item.id === +tool.tool_id))
-            })
-            let maxLength = 0
-            for (let statusKey in resultObj) {
-                if (resultObj[statusKey].length > maxLength) {
-                    maxLength = resultObj[statusKey].length
-                }
-            }
-            resultObj['max'] = maxLength
-            return resultObj
-        }
-    }
 
-    function getStylesByProjectStatus(item) {
-      switch (item.status) {
-            case "1": return {
-                labelColor: "#9cd69b",
-                statusText: "Авторизовано"
-            }
-            case "2": return {
-                labelColor: "#e8df6b",
-                statusText: "Авторизовано частично"
-            }
-            case "3": return {
-                labelColor: "#efb6b6",
-                statusText: "Не авторизовано"
-            }
-            case "4": return {
-                labelColor: "#688cbc",
-                statusText: "На авторизации"
-            }
-            case "5": return {
-                labelColor: "#688cbc",
-                statusText: "Запрос актуальности"
-            }
-            case "6": return {
-                labelColor: "#688cbc",
-                statusText: "Завершено"
-            }
-            default: return {
-                labelColor: "black",
-                statusText: "Ошибка определения статуса"
-            }
-      }
-    }
 
   const projectStatusStyles = getStylesByProjectStatus(item)
   const autoPadding = 4
