@@ -18,7 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import InfoIcon from '../assets/icons/Info circle.svg'
 import ChatIcon from '../assets/icons/Chat left.svg'
 import DownloadIcon from '../assets/icons/Download.svg'
-import SortedToolsForAuth from './SortedToolsForAuth'
+import ToolsRegistratum from './ToolsRegistratum'
 import {
   getStylesByProjectStatus,
   sortToolsByStatus,
@@ -64,9 +64,7 @@ function ProjectOneByCard({
   const [expanded, setExpanded] = React.useState(false)
   const [tools, setTools] = React.useState([])
   const [loading, setLoading] = React.useState(true)
-  const [sortedObj, setSortedObj] = React.useState({})
   const [checkedTools, setCheckedTools] = React.useState([])
-  const token = localStorage.getItem('react-crm-token')
   
   const handleExpandClick = () => {
     if (!expanded) {
@@ -95,12 +93,13 @@ function ProjectOneByCard({
   }
 
   React.useEffect(() => {
-    setSortedObj(sortToolsByStatus(tools, toolsList))
-  }, [tools])
+    console.log(checkedTools)
+  }, [checkedTools])
 
   React.useEffect(() => {
     if (!modalOpen && expanded) {
       loadTools(item.id, setLoading, setTools)
+      setCheckedTools([])
     }
   }, [modalOpen])
 
@@ -322,10 +321,11 @@ function ProjectOneByCard({
         >
           <div style={{ borderTop: '2px solid #688cbc', padding: '16px' }}>
             {!loading ? (
-              <SortedToolsForAuth
+              <ToolsRegistratum
                 checkedTools={checkedTools}
                 setCheckedTools={setCheckedTools}
-                sortedObj={sortedObj}
+                tools={tools}
+                toolsMeta={toolsList}
               />
             ) : null}
 

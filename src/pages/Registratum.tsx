@@ -23,7 +23,8 @@ function Registratum(
     getProjects, 
     project, 
     setPage,
-    setLimit
+    setLimit,
+    toolsList
    }) {
   const [modalOpen, setModalOpen] = React.useState(false)
   const [checkedToolsForModal, setCheckedToolsForModal] = React.useState([])
@@ -149,6 +150,7 @@ function Registratum(
           open={modalOpen}
           onClose={() => setModalOpen(false)}
           tools={checkedToolsForModal}
+          toolsMeta={toolsList}
         />
         <Snackbar open={app.projectSuccesfullyAdded} autoHideDuration={6000} onClose={() => unsetSuccess()}>
           <Alert onClose={() => unsetSuccess()} severity="success">
@@ -163,7 +165,8 @@ function mapStateToProps(state) {
   return {
     projectsList: state.project.projectsList,
     app: state.app,
-    project: state.project
+    project: state.project,
+    toolsList: state.tool.toolsList,
   }
 }
 

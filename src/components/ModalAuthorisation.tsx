@@ -13,6 +13,7 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
+import { getStatusNameByID } from '../controllers/StatusController'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,7 +59,8 @@ export default function ModalAuthorisation(
   { 
     onClose,
     open, 
-    tools 
+    tools,
+    toolsMeta
   }) {
   const classes = useStyles();
   const [comment, setComment] = React.useState("");
@@ -70,6 +72,14 @@ export default function ModalAuthorisation(
     setStatus(event.target.value as string);
   };
 
+  function Tool(localTool) {
+    const localToolMeta = toolsMeta.find( item => item.id === localTool.id)
+
+    return (
+      <span>{localToolMeta.tool_name} ({getStatusNameByID(+localTool.status_id)}){status !== '' ? `->${getStatusNameByID(+status)}` : null}</span>
+    )
+}
+
   function sendCheckedToolsToChangeStatus(tools, comment, status) {
     setModalLoading(true);
     const data = new FormData();
@@ -77,7 +87,7 @@ export default function ModalAuthorisation(
     data.append("comment", comment);
     data.append("status", status);
     tools.forEach((tool) => {
-      toolsForSendtinIDs.push(tool.p_id);
+      toolsForSendtinIDs.push(tool.id);
     });
     data.append("tools", JSON.stringify(toolsForSendtinIDs));
 
@@ -134,12 +144,13 @@ export default function ModalAuthorisation(
             {tools
               ? tools.map((tool) => (
                   <Grid
+                    item
                     className={classes.tableCellValue}
                     md={6}
                     sm={12}
                     style={{ marginBottom: 5 }}
                   >
-                    {tool.tool_name}
+                    {Tool(tool)}
                   </Grid>
                 ))
               : null}
