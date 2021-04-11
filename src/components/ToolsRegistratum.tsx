@@ -24,28 +24,30 @@ export default function ToolsRegistratum({
       const localToolMeta = toolsMeta.find( item => item.id === localTool.id)
 
       return (
-        <FormControlLabel
-        control={
-          <Checkbox
-            onClick={(e) => checkboxClickHandler(e, localTool)}
-            color="primary"
-            checked={checkedTools.find(
-              (tool) => tool.id === localTool.id
-            )}
+        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+          <FormControlLabel
+          style={{display: "flex"}}
+          control={
+            <Checkbox
+              onClick={(e) => checkboxClickHandler(e, localTool)}
+              color="primary"
+              checked={checkedTools.find(
+                (tool) => tool.id === localTool.id
+              )}
+            />
+          }
+          label={
+            <span style={{ color: "#666b73"}}>{localToolMeta.tool_name}</span>
+          }
           />
-        }
-        label={
-          <span style={{ color: "#666b73" }}>
-            {localToolMeta.tool_name} <span style={{fontWeight: 'bold'}}>{getStatusNameByID(+localTool.status_id)}</span>
-          </span>
-        }
-      />
+          <span style={{fontWeight: 'bold', color: "#666b73"}}>{getStatusNameByID(+localTool.status_id)}</span>
+        </div>
       )
   }
 
   return (
     <Grid container spacing={2}>
-        {tools ? tools.map( item => <Grid item xs={4}>{Tool(item)}</Grid>) : <span>Ошибка загрузки оборудования</span>}
+        {tools ? tools.map( item => <Grid item xs={12}>{Tool(item)}</Grid>) : <span>Ошибка загрузки оборудования</span>}
     </Grid>
   );
 }
