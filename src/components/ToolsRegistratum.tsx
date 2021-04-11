@@ -45,7 +45,7 @@ export default function ToolsRegistratum({
 
   return (
     <Grid container spacing={2}>
-        {tools ? tools.map( item => <Grid item>{Tool(item)}</Grid>) : <span>Ошибка загрузки оборудования</span>}
+        {tools ? tools.map( item => <Grid item xs={4}>{Tool(item)}</Grid>) : <span>Ошибка загрузки оборудования</span>}
     </Grid>
   );
 }

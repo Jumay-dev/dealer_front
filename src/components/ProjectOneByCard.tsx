@@ -7,7 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import Box from '@material-ui/core/Box';
+import ToolsTable from './ToolsTable'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
@@ -197,7 +197,7 @@ function ProjectOneByCard(
         <CardContent style={{ padding: 0, background: "rgba(104, 140, 188, 0.06)"}}>
             <div style={{ borderTop: "2px solid #688cbc",  padding: "16px"}}>
                 {!loading ?
-                <SortedToolsTable sortedObj={sortedObj}/>
+                <ToolsTable tools={tools} toolsMeta={toolsList}/>
                 : null}
                 {loading ? 
                 <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
