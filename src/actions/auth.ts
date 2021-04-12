@@ -24,7 +24,6 @@ export function signOut(result?: TODO) {
 }
 
 export function setAuth(result?: TODO) {
-  console.log(result)
   return {
     type: AUTH_CHECK,
     payload: result

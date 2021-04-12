@@ -1,0 +1,38 @@
+import {
+  ENQUEUE_SNACKBAR,
+  CLOSE_SNACKBAR,
+  REMOVE_SNACKBAR,
+} from "../store/types";
+
+const defaultState = {
+  notifications: [],
+};
+
+export default (state = defaultState, action) => {
+  switch (action.type) {
+    case ENQUEUE_SNACKBAR:
+      return Object.assign({}, state, {
+        notifications: [...state.notifications, action.notification],
+      });
+
+    case CLOSE_SNACKBAR:
+      return {
+        ...state,
+        notifications: state.notifications.map((notification) =>
+          action.dismissAll || notification.key === action.key
+            ? { ...notification, dismissed: true }
+            : { ...notification }
+        ),
+      };
+
+    case REMOVE_SNACKBAR:
+      const notf = state.notifications.filter(
+        (notification) => notification.key === action.key
+      );
+      return Object.assign({}, state, {
+        notifications: notf,
+      });
+    default:
+      return state;
+  }
+};

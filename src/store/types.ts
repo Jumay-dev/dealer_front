@@ -1,10 +1,5 @@
-import {
-  User,
-  Project,
-  Tool,
-  Category
-} from "../types";
-  
+import { User, Project, Tool, Category } from "../types";
+
 export interface ApiAction {
   type: TODO;
   endpoint: string;
@@ -30,7 +25,7 @@ export interface AuthState {
 }
 interface SignInAction {
   type: typeof SIGN_IN;
-  payload: { user?: User; token?: string, error?: string };
+  payload: { user?: User; token?: string; error?: string };
   error?: string;
 }
 
@@ -41,23 +36,25 @@ interface SignOutAction {
 }
 interface AuthCheckAction {
   type: typeof AUTH_CHECK;
-  payload: {user?: User; token?: string, isAuthenticated?: boolean, error?: string };
+  payload: {
+    user?: User;
+    token?: string;
+    isAuthenticated?: boolean;
+    error?: string;
+  };
   error?: string;
 }
 
 export type AuthActionTypes = SignInAction | SignOutAction | AuthCheckAction;
 
-export type AuthActions = typeof SIGN_IN 
-| typeof SIGN_OUT
-| typeof AUTH_CHECK
-
+export type AuthActions = typeof SIGN_IN | typeof SIGN_OUT | typeof AUTH_CHECK;
 
 // Project types
-export const LIST_PROJECTS = "LIST_PROJECTS"
-export const GET_PROJECT = "GET_PROJECT"
-export const NEW_PROJECT = "NEW_PROJECT"
-export const EDIT_PROJECT = "EDIT_PROJECT"
-export const UPDATE_PROJECTS_STATE = "UPDATE_PROJECTS_STATE"
+export const LIST_PROJECTS = "LIST_PROJECTS";
+export const GET_PROJECT = "GET_PROJECT";
+export const NEW_PROJECT = "NEW_PROJECT";
+export const EDIT_PROJECT = "EDIT_PROJECT";
+export const UPDATE_PROJECTS_STATE = "UPDATE_PROJECTS_STATE";
 
 interface ListProjectsAction {
   type: typeof LIST_PROJECTS;
@@ -65,7 +62,7 @@ interface ListProjectsAction {
 }
 
 interface NewProjectAction {
-  type: typeof NEW_PROJECT
+  type: typeof NEW_PROJECT;
   payload: Project;
   error?: string;
 }
@@ -87,21 +84,21 @@ export interface ProjectState {
   total?: number;
 }
 
-export type ProjectActions = 
+export type ProjectActions =
   | typeof LIST_PROJECTS
   | typeof GET_PROJECT
   | typeof NEW_PROJECT
   | typeof EDIT_PROJECT
-  | typeof UPDATE_PROJECTS_STATE
+  | typeof UPDATE_PROJECTS_STATE;
 
-export type ProjectActionTypes = 
+export type ProjectActionTypes =
   | ListProjectsAction
   | NewProjectAction
-  | UpdateProjectState
+  | UpdateProjectState;
 
 // Tools types
-export const LIST_TOOLS = "LIST_TOOLS"
-export const LIST_CATEGORIES = "LIST_CATEGORIES"
+export const LIST_TOOLS = "LIST_TOOLS";
+export const LIST_CATEGORIES = "LIST_CATEGORIES";
 
 export interface ToolsState {
   isFetching: boolean;
@@ -118,27 +115,23 @@ interface ListToolsAction {
   payload: any;
 }
 
-
-
 interface ListCategoriesAction {
   type: typeof LIST_CATEGORIES;
   payload: any;
 }
 
-export type ToolsActions = typeof LIST_TOOLS
-| typeof LIST_CATEGORIES
+export type ToolsActions = typeof LIST_TOOLS | typeof LIST_CATEGORIES;
 
-export type ToolsActionsTypes = 
-| ListToolsAction
-| ListCategoriesAction
-
+export type ToolsActionsTypes = ListToolsAction | ListCategoriesAction;
 
 // Apptypes
-export const SET_SUCCESS = "SET_SUCCESS"
-export const UNSET_SUCCESS = "UNSET_SUCCESS"
-export const SET_ERROR = "SET_ERROR"
-export const SIDEBAR_OPENED = "SIDEBAR_OPENED"
-export const SIDEBAR_CLOSED = "SIDEBAR_CLOSED"
+export const SET_SUCCESS = "SET_SUCCESS";
+export const UNSET_SUCCESS = "UNSET_SUCCESS";
+export const SET_ERROR = "SET_ERROR";
+export const SIDEBAR_OPENED = "SIDEBAR_OPENED";
+export const SIDEBAR_CLOSED = "SIDEBAR_CLOSED";
+export const PUSH_NOTIFICATION = "UPDATE_NOTIFICATION";
+export const POP_NOTIFICATION = "POP_NOTIFICATION";
 
 export interface AppState {
   isFetching: boolean;
@@ -147,15 +140,22 @@ export interface AppState {
   sidebarOpened: boolean;
 }
 
-export type AppActions = typeof SET_SUCCESS
-| typeof UNSET_SUCCESS
-| typeof SET_ERROR
-| typeof SIDEBAR_OPENED
-| typeof SIDEBAR_CLOSED
+export type Notification = {
+  severity: string;
+  text: string;
+  id: string;
+};
+
+export type AppActions =
+  | typeof SET_SUCCESS
+  | typeof UNSET_SUCCESS
+  | typeof SET_ERROR
+  | typeof SIDEBAR_OPENED
+  | typeof SIDEBAR_CLOSED;
 
 // User types
-export const LIST_USERS = "LIST_USERS"
-export const NEW_USER = "NEW_USER"
+export const LIST_USERS = "LIST_USERS";
+export const NEW_USER = "NEW_USER";
 
 export interface UserState {
   isFetching: boolean;
@@ -166,19 +166,17 @@ export interface UserState {
   updated?: boolean;
 }
 
-export type UserActions = typeof LIST_USERS
-| typeof NEW_USER
+export type UserActions = typeof LIST_USERS | typeof NEW_USER;
 
 interface ListUsersAction {
   type: typeof LIST_USERS;
   payload: User[];
 }
 
-export type UserActionsTypes =
-| ListUsersAction
+export type UserActionsTypes = ListUsersAction;
 
 // Company types
-export const GET_DETAILS = "GET_DETAILS"
+export const GET_DETAILS = "GET_DETAILS";
 
 export interface CompanyState {
   isFetching: boolean;
@@ -186,12 +184,17 @@ export interface CompanyState {
   error?: boolean;
 }
 
-export type CompanyActions = typeof GET_DETAILS
+export type CompanyActions = typeof GET_DETAILS;
 
 interface GetDetailAction {
   type: typeof GET_DETAILS;
   payload: any;
 }
 
-export type CompanyActionTypes = 
-| GetDetailAction
+export type CompanyActionTypes = GetDetailAction;
+
+// snackbar queue
+export const ENQUEUE_SNACKBAR = 'ENQUEUE_SNACKBAR';
+export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';
+export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR';
+export const OPEN_SNACKBAR = "OPEN_SNACKBAR";

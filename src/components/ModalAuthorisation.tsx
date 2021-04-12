@@ -101,9 +101,10 @@ export default function ModalAuthorisation(
       .then((res) => res.json())
       .then((res: any) => {
         setModalLoading(false);
-        console.log(res)
         if (res.success) {
-          onClose()
+          onClose({success: true})
+        } else {
+          onClose({success: false})
         }
       });
   }

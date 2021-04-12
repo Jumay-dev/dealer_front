@@ -3,15 +3,19 @@ import ProjectCardForAuth from "../components/ProjectCardForAuth"
 import Search from '../components/Search'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TablePagination from '@material-ui/core/TablePagination';
+import { v4 as uuidv4 } from 'uuid';
+import Button from '@material-ui/core/Button';
 import { connect } from "react-redux";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { setSuccess, unsetSuccess } from '../actions/app';
 import { LIST_PROJECTS } from '../store/types'
 import { thunkData } from '../services/thunks'
 import { updateState } from '../actions/project'
 import ModalAuthorisation from '../components/ModalAuthorisation'
+import {
+  enqueueSnackbar as enqueueSnackbarAction,
+  closeSnackbar as closeSnackbarAction,
+} from '../actions/snackbar';
 
 
 
@@ -24,7 +28,9 @@ function Registratum(
     project, 
     setPage,
     setLimit,
-    toolsList
+    toolsList,
+    enqueueSnackbar,
+    closeSnackbar
    }) {
   const [modalOpen, setModalOpen] = React.useState(false)
   const [checkedToolsForModal, setCheckedToolsForModal] = React.useState([])
@@ -109,13 +115,39 @@ function Registratum(
   const classes = useStyles()
   
   function modalOpenHandler(tools) {
-    console.log(tools)
     setCheckedToolsForModal(tools)
     setModalOpen(true)
   }
 
-  function Alert(props: AlertProps) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  function modalCloseHandler(data?: TODO) {
+    setModalOpen(false)
+    if (data) {
+      if (data.success === true) {
+        const myKey = uuidv4()
+        enqueueSnackbar({
+          message: 'Статус оборудования успешно изменен',
+          key: uuidv4(),
+          options: {
+              key: myKey,
+              variant: 'success',
+              action: key => (
+                  <Button onClick={() => closeSnackbar(myKey)}>Закрыть</Button>
+              ),
+          },
+        });
+      } else {
+        enqueueSnackbar({
+          message: 'Ошибка изменения статуса оборудования!',
+          options: {
+              key: uuidv4(),
+              variant: 'error',
+              action: key => (
+                  <Button onClick={() => closeSnackbar(key)}>Закрыть</Button>
+              ),
+          },
+        });
+      }
+    }
   }
 
   return (
@@ -148,15 +180,10 @@ function Registratum(
 
         <ModalAuthorisation 
           open={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={modalCloseHandler}
           tools={checkedToolsForModal}
           toolsMeta={toolsList}
         />
-        <Snackbar open={app.projectSuccesfullyAdded} autoHideDuration={6000} onClose={() => unsetSuccess()}>
-          <Alert onClose={() => unsetSuccess()} severity="success">
-            Проект успешно добавлен
-          </Alert>
-        </Snackbar>
       </div>
   )
 }
@@ -175,7 +202,9 @@ function mapDispatchToProps(dispatch) {
     unsetSuccess: () => dispatch(unsetSuccess()),
     getProjects: (action: TODO) => dispatch(thunkData(action)),
     setPage: (action: TODO) => dispatch(updateState(action)),
-    setLimit: (action: TODO) => dispatch(updateState(action))
+    setLimit: (action: TODO) => dispatch(updateState(action)),
+    enqueueSnackbar: (data) => dispatch(enqueueSnackbarAction(data)),
+    closeSnackbar: (data) => dispatch(closeSnackbarAction(data))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Registratum)

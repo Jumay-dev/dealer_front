@@ -15,6 +15,12 @@ import { backend } from "../config/server"
 import { 
     LIST_CATEGORIES
 } from "../store/types";
+import { v4 as uuidv4 } from 'uuid';
+
+import {
+    enqueueSnackbar as enqueueSnackbarAction,
+    closeSnackbar as closeSnackbarAction,
+} from '../actions/snackbar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,12 +61,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Project(
     { 
-        setSuccess, 
+        enqueueSnackbar,
+        closeSnackbar,
         history,
         categoriesList,
         toolsList,
         getCategories,
-        user
+        user,
     }) {
     const classes = useStyles()
     const [openPresend, setOpenPresend] = React.useState(false)
@@ -148,7 +155,17 @@ function Project(
         })
         .then( res => res.json())
         .then( res => {
-            setSuccess()
+            // setSuccess()
+            enqueueSnackbar({
+                message: 'Ваш проект отправлен на авторизацию',
+                options: {
+                    key: uuidv4(),
+                    variant: 'success',
+                    action: key => (
+                        <Button onClick={() => closeSnackbar(key)}>Закрыть</Button>
+                    ),
+                },
+            });
         })
         history.push("/projects")
     }
@@ -233,6 +250,8 @@ function mapDispatchToProps(dispatch) {
             setSuccess: () => dispatch(setSuccess()),
             getProjects: (action: TODO) => dispatch(thunkData(action)),
             getCategories: (action: TODO) => dispatch(thunkData(action)),
+            enqueueSnackbar: (data) => dispatch(enqueueSnackbarAction(data)),
+            closeSnackbar: (data) => dispatch(closeSnackbarAction(data))
         }
     )
 }

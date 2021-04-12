@@ -4,7 +4,6 @@ import {
     UNSET_SUCCESS,
     SIDEBAR_OPENED,
     SIDEBAR_CLOSED,
-    SET_ERROR
 } from '../store/types'
 
 export function setSuccess() {

@@ -93,10 +93,6 @@ function ProjectOneByCard({
   }
 
   React.useEffect(() => {
-    console.log(checkedTools)
-  }, [checkedTools])
-
-  React.useEffect(() => {
     if (!modalOpen && expanded) {
       loadTools(item.id, setLoading, setTools)
       setCheckedTools([])
