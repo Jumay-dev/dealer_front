@@ -178,7 +178,7 @@ function Project(
 
     return (
         <div>
-            <Box visibility={categoriesList.length !== 0 ? "visible" : "hidden"}>
+            <Box visibility={Array.isArray(categoriesList) && categoriesList.length !== 0 ? "visible" : "hidden"}>
                 <div className={classes.headerWrapper}>
                     <Typography component="h1" variant="h4">
                         Новый проект
@@ -231,6 +231,7 @@ function Project(
             <Box visibility={allTools.length !== 0 && categoriesList.length !== 0 ? "hidden" : "visible"}>
                 <CircularProgress />
             </Box>
+
         </div>
     )
 }

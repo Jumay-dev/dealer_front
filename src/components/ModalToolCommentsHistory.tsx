@@ -45,14 +45,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function ResetPassword({onClose, open, user}) {
+export default function ResetPassword({onClose, open}) {
     const classes = useStyles();
 
     return (
         <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open} className={classes.root} fullWidth maxWidth="sm">
             <DialogTitle id="simple-dialog-title" className={classes.headerStyle} disableTypography>
                 <Typography variant="h5">
-                    Сбросить пароль
+                    История комментариев
                 </Typography>
                 
                 <IconButton onClick={() => onClose()} style={{marginRight: "-16px"}}>
@@ -62,15 +62,6 @@ export default function ResetPassword({onClose, open, user}) {
             <div className={classes.containerRoot}>
                 <div style={{display: "flex", flexDirection: "column"}}>
        
-                </div>
-
-                <div style={{textAlign: "right", marginTop: "2em"}}>
-                    <Button type="button" variant="contained" className={classes.deleteButton}>
-                        Удалить
-                    </Button>
-                    <Button type="button" variant="contained" color="primary" style={{marginRight: 10}}>
-                        Сохранить
-                    </Button>
                 </div>
             </div>
         </Dialog>

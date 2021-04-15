@@ -58,7 +58,8 @@ function ProjectOneByCard({
   item,
   toolsList,
   modalOpenHandler,
-  modalOpen
+  modalOpen,
+  commentHistoryHandler
 }) {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
@@ -322,6 +323,7 @@ function ProjectOneByCard({
                 setCheckedTools={setCheckedTools}
                 tools={tools}
                 toolsMeta={toolsList}
+                commentHistoryHandler={commentHistoryHandler}
               />
             ) : null}
 

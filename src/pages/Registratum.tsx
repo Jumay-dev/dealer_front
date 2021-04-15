@@ -16,6 +16,7 @@ import {
   enqueueSnackbar as enqueueSnackbarAction,
   closeSnackbar as closeSnackbarAction,
 } from '../actions/snackbar';
+import ModalToolCommentsHistory from '../components/ModalToolCommentsHistory'
 
 
 
@@ -34,6 +35,7 @@ function Registratum(
    }) {
   const [modalOpen, setModalOpen] = React.useState(false)
   const [checkedToolsForModal, setCheckedToolsForModal] = React.useState([])
+  const [commentsHistoryOpen, setCommentsHistoryOpen] = React.useState(false)
 
   const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -119,6 +121,11 @@ function Registratum(
     setModalOpen(true)
   }
 
+  function commentHistoryHandler(tool?): void {
+    //fetching
+    setCommentsHistoryOpen(true)
+  }
+
   function modalCloseHandler(data?: TODO) {
     setModalOpen(false)
     if (data) {
@@ -163,6 +170,7 @@ function Registratum(
             key={item.id}
             modalOpenHandler={modalOpenHandler}
             modalOpen={modalOpen}
+            commentHistoryHandler={commentHistoryHandler}
           />) : !project.isFetching && <span>Пока проектов нет</span>}
 
         {!project.isFetching ? 
@@ -183,6 +191,10 @@ function Registratum(
           onClose={modalCloseHandler}
           tools={checkedToolsForModal}
           toolsMeta={toolsList}
+        />
+        <ModalToolCommentsHistory 
+          open={commentsHistoryOpen}
+          onClose={() => setCommentsHistoryOpen(false)}
         />
       </div>
   )

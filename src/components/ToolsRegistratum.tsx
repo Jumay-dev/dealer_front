@@ -3,12 +3,16 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from '@material-ui/core/Grid'
 import {getStatusNameByID} from '../controllers/StatusController'
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import ChatIcon from '@material-ui/icons/Chat';
 
 export default function ToolsRegistratum({
   checkedTools,
   setCheckedTools,
   tools,
-  toolsMeta
+  toolsMeta,
+  commentHistoryHandler
 }) {
   function checkboxClickHandler(e, tool) {
     let sliceOfCheckedTools = checkedTools.splice(0);
@@ -40,7 +44,15 @@ export default function ToolsRegistratum({
             <span style={{ color: "#666b73"}}>{localToolMeta.tool_name}</span>
           }
           />
-          <span style={{fontWeight: 'bold', color: "#666b73"}}>{getStatusNameByID(+localTool.status_id)}</span>
+          <div>
+            <span style={{fontWeight: 'bold', color: "#666b73"}}>{getStatusNameByID(+localTool.status_id)}</span>
+            <Tooltip title="Здесь будет последний комментарий">
+              <IconButton aria-label="delete" onClick={() => commentHistoryHandler(localTool)}>
+                <ChatIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+          
         </div>
       )
   }
