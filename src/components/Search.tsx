@@ -16,12 +16,13 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
       minWidth: 120,
-      marginRight: "2em"
+      marginRight: "2em",
     },
     formContainer: {
         display: "flex",
         flexDirection: "row",
         alignItems: "space-between",
+        width: "100%"
     },
     mainWrapper: {
         width: "100%"
@@ -120,7 +121,7 @@ function Search() {
         <div className={classes.mainWrapper}>
             <Typography style={{fontWeight: "bolder", color: "rgb(104, 140, 188)", marginRight: 5}}>Статусы проектов:</Typography>
             <div className={classes.toolsWrapper}>
-                <div className={classes.checkboxGroup}>
+                {/* <div className={classes.checkboxGroup}>
                     {possibleProjectStatus.map(status => (
                         <FormControlLabel
                         control={
@@ -135,7 +136,7 @@ function Search() {
                         label={<span>{status.name}</span>}
                         />
                     ))}
-                </div>
+                </div> */}
 
                 <div className={classes.formContainer}>
                     <FormControl className={classes.formControl}>
@@ -218,7 +219,7 @@ function GetSearchFieldByType(searchType: number) {
         case 4: return <div style={{display: "inline-block", flex: "1 0 auto"}}><SelectorForSearchByToolsType /></div>
         case 5: return <div style={{display: "inline-block", flex: "1 0 auto"}}><DatePickerForSearchByDate /></div>
         default: return (
-            <FormControl className={classes.formControl}><DefaultTextField /></FormControl>
+            <DefaultTextField />
         )
     }
 }
@@ -228,6 +229,7 @@ function SelectorForSearchByToolsType() {
         <Select
             value={0}
             id="select"
+            fullWidth
         >   
             <MenuItem value={0}>Всё оборудование</MenuItem>
             <MenuItem value={1}>Мониторы пациента</MenuItem>

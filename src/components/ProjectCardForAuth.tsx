@@ -23,6 +23,8 @@ import {
   getStylesByProjectStatus,
   sortToolsByStatus,
 } from '../controllers/ProjectCardController'
+import moment from 'moment'
+import 'moment/locale/ru';
 
 import { thunkData } from '../services/thunks'
 import { connect } from 'react-redux'
@@ -111,6 +113,7 @@ function ProjectOneByCard({
       .replace(/^(\d+)-(\d+)-(\d+)$/, '$3.$2.$1')
   let LPU = item.clinics.find((item) => item.is_subdealer === '0')
   let subDealer = item.clinics.find((item) => item.is_subdealer === '1')
+  moment.locale("ru")
 
   return (
     <Card className={classes.root}>
@@ -167,7 +170,7 @@ function ProjectOneByCard({
                   Актуален до:
                 </span>
                 <span style={{ fontWeight: 'bolder', color: '#666b73' }}>
-                  {expiringData}
+                {moment(expiringData).format("LLL")}
                 </span>
               </TableCell>
               <TableCell
@@ -175,23 +178,17 @@ function ProjectOneByCard({
               >
                 <span
                   style={{
-                    fontWeight: 'bolder',
-                    color: '#96999c',
+                    fontWeight: "bolder",
+                    color: "#96999c",
                     marginRight: 5,
                   }}
                 >
-                  Статус:
+                  Ответственный:
                 </span>
-                <span
-                  style={{
-                    fontWeight: 'bolder',
-                    background: projectStatusStyles.labelColor,
-                    color: 'white',
-                    borderRadius: '2px',
-                    padding: 2,
-                  }}
-                >
-                  {projectStatusStyles.statusText}
+                <span style={{ fontWeight: "bolder", color: "#666b73" }}>
+                  {item.responsible
+                    ? `${item.responsible.name} ${item.responsible.surname}`
+                    : "Не указан"}
                 </span>
               </TableCell>
             </TableRow>
@@ -210,7 +207,7 @@ function ProjectOneByCard({
                   Адрес клиента:
                 </span>
                 <span style={{ fontWeight: 'bolder', color: '#666b73' }}>
-                  г. Москва, Ленинградское ш., д.25
+                  {item.clinics[0].address ? item.clinics[0].address : ''}
                 </span>
               </TableCell>
               <TableCell
@@ -226,7 +223,7 @@ function ProjectOneByCard({
                   Добавлен:
                 </span>
                 <span style={{ fontWeight: 'bolder', color: '#666b73' }}>
-                  {item.created_at}
+                  {moment(item.created_at).format("LLL")}
                 </span>
               </TableCell>
               <TableCell
@@ -243,27 +240,6 @@ function ProjectOneByCard({
                 </span>
                 <span style={{ fontWeight: 'bolder', color: '#666b73' }}>
                   {item.manager}
-                </span>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell
-                style={{ paddingTop: autoPadding, paddingBottom: autoPadding }}
-              >
-                <span
-                  style={{
-                    fontWeight: 'bolder',
-                    color: '#96999c',
-                    marginRight: 5,
-                  }}
-                >
-                  Ответственный:
-                </span>
-                <span style={{ fontWeight: 'bolder', color: '#666b73' }}>
-                  {item.responsible
-                    ? `${item.responsible.name} ${item.responsible.surname}`
-                    : 'Не указан'}
                 </span>
               </TableCell>
             </TableRow>
