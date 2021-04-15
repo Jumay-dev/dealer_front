@@ -136,3 +136,10 @@ export class UserModel implements User {
   maxDiscount: string;
   projectVisibility: string;
 }
+
+export interface commentType {
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+}

@@ -6,6 +6,8 @@ import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '../assets/icons/Close circle.svg'
 import { Typography } from '@material-ui/core';
+import CommentBox from './CommentBox'
+import { commentType } from '../types/index'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function ResetPassword({onClose, open}) {
+export default function ModalToolCommentsHistory({onClose, open, comments}) {
     const classes = useStyles();
 
     return (
@@ -61,7 +63,7 @@ export default function ResetPassword({onClose, open}) {
             </DialogTitle>
             <div className={classes.containerRoot}>
                 <div style={{display: "flex", flexDirection: "column"}}>
-       
+                    <CommentBox comments={comments}/>
                 </div>
             </div>
         </Dialog>

@@ -17,6 +17,7 @@ import {
   closeSnackbar as closeSnackbarAction,
 } from '../actions/snackbar';
 import ModalToolCommentsHistory from '../components/ModalToolCommentsHistory'
+import { backend } from '../config/server'
 
 
 
@@ -36,6 +37,8 @@ function Registratum(
   const [modalOpen, setModalOpen] = React.useState(false)
   const [checkedToolsForModal, setCheckedToolsForModal] = React.useState([])
   const [commentsHistoryOpen, setCommentsHistoryOpen] = React.useState(false)
+  const [ commentList, setCommentList ] = React.useState([])
+  const token = localStorage.getItem("react-crm-token");
 
   const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -123,7 +126,36 @@ function Registratum(
 
   function commentHistoryHandler(tool?): void {
     //fetching
-    setCommentsHistoryOpen(true)
+    let data = new FormData
+    data.append('id', tool.id)
+    fetch(`${backend}/api/tool/comments`, {
+      method: "POST",
+      headers: {
+        Authorization: token,
+      },
+      body: data,
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.success) {
+        setCommentList(res.comments)
+        setCommentsHistoryOpen(true)
+      }
+      else {
+        const myKey = uuidv4()
+        enqueueSnackbar({
+          message: 'Ошибка загрузки истории комментариев',
+          key: uuidv4(),
+          options: {
+              key: myKey,
+              variant: 'error',
+              action: key => (
+                  <Button onClick={() => closeSnackbar(myKey)}>Закрыть</Button>
+              ),
+          },
+        });
+      }
+    })
   }
 
   function modalCloseHandler(data?: TODO) {
@@ -194,7 +226,8 @@ function Registratum(
         />
         <ModalToolCommentsHistory 
           open={commentsHistoryOpen}
-          onClose={() => setCommentsHistoryOpen(false)}
+          comments={commentList}
+          onClose={() => {setCommentList([]); setCommentsHistoryOpen(false)}}
         />
       </div>
   )
