@@ -50,7 +50,7 @@ export default function Comment({commentOne}) {
         <ListItemText
           primary={
             <div className={classes.commentHeader}>
-              <Typography className={classes.fonts}>Имя пользователя</Typography>
+              <Typography className={classes.fonts}>{commentOne.name} {commentOne.surname}</Typography>
               <span className={classes.commentDate}>{date}</span>
             </div>
             

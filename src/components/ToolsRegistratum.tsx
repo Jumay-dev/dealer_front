@@ -46,8 +46,8 @@ export default function ToolsRegistratum({
           />
           <div>
             <span style={{fontWeight: 'bold', color: "#666b73"}}>{getStatusNameByID(+localTool.status_id)}</span>
-            <Tooltip title={Array.isArray(localTool.last_comment) && localTool.last_comment.length !==0 ? localTool.last_comment[0].comment : "Пока комментариев нет"}>
-              <IconButton disabled={!Array.isArray(localTool.last_comment) || localTool.last_comment.length === 0} aria-label="delete" onClick={() => commentHistoryHandler(localTool)}>
+            <Tooltip title={localTool.last_comment ? localTool.last_comment.comment : "Пока комментариев нет"}>
+              <IconButton disabled={!localTool.last_comment} aria-label="delete" onClick={() => commentHistoryHandler(localTool)}>
                 <ChatIcon />
               </IconButton>
             </Tooltip>

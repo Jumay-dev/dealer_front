@@ -20,15 +20,19 @@ import ChatIcon from '../assets/icons/Chat left.svg'
 import DownloadIcon from '../assets/icons/Download.svg'
 import ToolsRegistratum from './ToolsRegistratum'
 import {
-  getStylesByProjectStatus,
-  sortToolsByStatus,
+  getProjectComments
 } from '../controllers/ProjectCardController'
 import moment from 'moment'
 import 'moment/locale/ru';
-
-import { thunkData } from '../services/thunks'
+import ModalProjectComment from '../components/ModalProjectComment'
+import Tooltip from '@material-ui/core/Tooltip';
 import { connect } from 'react-redux'
 import { backend } from '../config/server'
+import {
+  enqueueSnackbar as enqueueSnackbarAction,
+  closeSnackbar as closeSnackbarAction,
+} from '../actions/snackbar';
+import { v4 as uuidv4 } from "uuid";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,18 +60,22 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-function ProjectOneByCard({
+function ProjectCardForAuth({
   item,
   toolsList,
   modalOpenHandler,
   modalOpen,
-  commentHistoryHandler
+  commentHistoryHandler,
+  enqueueSnackbar,
+  closeSnackbar
 }) {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
   const [tools, setTools] = React.useState([])
   const [loading, setLoading] = React.useState(true)
   const [checkedTools, setCheckedTools] = React.useState([])
+  const [openCommentHistory, setOpenCommentHistory] = React.useState(false)
+  const [comments, setComments] = React.useState([])
   
   const handleExpandClick = () => {
     if (!expanded) {
@@ -102,7 +110,6 @@ function ProjectOneByCard({
     }
   }, [modalOpen])
 
-  const projectStatusStyles = getStylesByProjectStatus(item)
   const autoPadding = 4
 
   let expiringData =
@@ -114,6 +121,28 @@ function ProjectOneByCard({
   let LPU = item.clinics.find((item) => item.is_subdealer === '0')
   let subDealer = item.clinics.find((item) => item.is_subdealer === '1')
   moment.locale("ru")
+
+  function openHistoryModal() {
+    getProjectComments(item).then(res => {
+      if (!res.success) {
+        const myKey = uuidv4()
+        enqueueSnackbar({
+          message: 'Ошибка загрузки истории комментариев',
+          key: uuidv4(),
+          options: {
+              key: myKey,
+              variant: 'error',
+              action: key => (
+                  <Button onClick={() => closeSnackbar(myKey)}>Закрыть</Button>
+              ),
+          },
+        });
+      } else {
+        setComments(res.comments)
+        setOpenCommentHistory(true)
+      }
+    })
+  }
 
   return (
     <Card className={classes.root}>
@@ -253,9 +282,11 @@ function ProjectOneByCard({
         <IconButton aria-label="add to favorites">
           <img src={DownloadIcon} />
         </IconButton>
-        <IconButton aria-label="share">
-          <img src={ChatIcon} />
-        </IconButton>
+        <Tooltip title={item.last_comment ? item.last_comment.comment : "У проекта нет комментариев"}>
+          <IconButton aria-label="delete" onClick={openHistoryModal}>
+            <img src={ChatIcon} />
+          </IconButton>
+        </Tooltip>
         <IconButton aria-label="share">
           <img src={InfoIcon} />
         </IconButton>
@@ -327,6 +358,14 @@ function ProjectOneByCard({
           </div>
         </CardContent>
       </Collapse>
+      <ModalProjectComment 
+        onClose={() => setOpenCommentHistory(false)}
+        open={openCommentHistory}
+        comments={comments}
+        project={item}
+        enqueueSnackbar={enqueueSnackbar}
+        closeSnackbar={closeSnackbar}
+      />
     </Card>
   )
 }
@@ -338,7 +377,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {}
+  return {
+    enqueueSnackbar: (data) => dispatch(enqueueSnackbarAction(data)),
+    closeSnackbar: (data) => dispatch(closeSnackbarAction(data))
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectOneByCard)
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectCardForAuth)

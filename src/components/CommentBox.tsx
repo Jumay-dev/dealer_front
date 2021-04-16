@@ -4,7 +4,6 @@ import {
   List,
 } from "@material-ui/core";
 import Comment from './Comment'
-import { commentType } from '../types/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {

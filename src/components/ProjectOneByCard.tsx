@@ -19,17 +19,22 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import InfoIcon from "../assets/icons/Info circle.svg";
 import ChatIcon from "../assets/icons/Chat left.svg";
 import DownloadIcon from "../assets/icons/Download.svg";
-import SortedToolsTable from "./SortedToolsTable";
 import {
   getStylesByProjectStatus,
   sortToolsByStatus,
+  getProjectComments
 } from "../controllers/ProjectCardController";
-
-import { thunkData } from "../services/thunks";
 import { connect } from "react-redux";
 import { backend } from "../config/server";
 import moment from "moment";
 import "moment/locale/ru";
+import { v4 as uuidv4 } from "uuid";
+import {
+  enqueueSnackbar as enqueueSnackbarAction,
+  closeSnackbar as closeSnackbarAction,
+} from '../actions/snackbar';
+import Tooltip from '@material-ui/core/Tooltip';
+import ModalProjectComment from '../components/ModalProjectComment'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,12 +62,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function ProjectOneByCard({ item, toolsList, modalOpenHandler }) {
+function ProjectOneByCard(
+  { 
+    item, 
+    toolsList, 
+    modalOpenHandler,
+    enqueueSnackbar,
+    closeSnackbar
+  }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [tools, setTools] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [sortedObj, setSortedObj] = React.useState({});
+  const [openCommentHistory, setOpenCommentHistory] = React.useState(false)
+  const [comments, setComments] = React.useState([])
   moment.locale("ru");
 
   const handleExpandClick = () => {
@@ -85,6 +99,28 @@ function ProjectOneByCard({ item, toolsList, modalOpenHandler }) {
     }
     setExpanded(!expanded);
   };
+
+  function openHistoryModal() {
+    getProjectComments(item).then(res => {
+      if (!res.success) {
+        const myKey = uuidv4()
+        enqueueSnackbar({
+          message: 'Ошибка загрузки истории комментариев',
+          key: uuidv4(),
+          options: {
+              key: myKey,
+              variant: 'error',
+              action: key => (
+                  <Button onClick={() => closeSnackbar(myKey)}>Закрыть</Button>
+              ),
+          },
+        });
+      } else {
+        setComments(res.comments)
+        setOpenCommentHistory(true)
+      }
+    })
+  }
 
   React.useEffect(() => {
     setSortedObj(sortToolsByStatus(tools, toolsList));
@@ -240,9 +276,11 @@ function ProjectOneByCard({ item, toolsList, modalOpenHandler }) {
         <IconButton aria-label="add to favorites">
           <img src={DownloadIcon} />
         </IconButton>
-        <IconButton aria-label="share">
-          <img src={ChatIcon} />
-        </IconButton>
+        <Tooltip title={item.last_comment ? item.last_comment.comment : "У проекта нет комментариев"}>
+          <IconButton aria-label="delete" onClick={openHistoryModal}>
+            <img src={ChatIcon} />
+          </IconButton>
+        </Tooltip>
         <IconButton aria-label="share">
           <img src={InfoIcon} />
         </IconButton>
@@ -307,6 +345,14 @@ function ProjectOneByCard({ item, toolsList, modalOpenHandler }) {
           </div>
         </CardContent>
       </Collapse>
+      <ModalProjectComment 
+        onClose={() => setOpenCommentHistory(false)}
+        open={openCommentHistory}
+        comments={comments}
+        project={item}
+        enqueueSnackbar={enqueueSnackbar}
+        closeSnackbar={closeSnackbar}
+      />
     </Card>
   );
 }
@@ -318,7 +364,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    enqueueSnackbar: (data) => dispatch(enqueueSnackbarAction(data)),
+    closeSnackbar: (data) => dispatch(closeSnackbarAction(data))
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectOneByCard);
