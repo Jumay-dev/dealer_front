@@ -33,6 +33,7 @@ import {
   closeSnackbar as closeSnackbarAction,
 } from '../actions/snackbar';
 import { v4 as uuidv4 } from "uuid";
+import ModalAuthMailsQuery from './ModalAuthMailsQuery'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,6 +58,9 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       backgroundColor: red[500],
     },
+    queryButton: {
+      marginRight: theme.spacing(1)
+    }
   }),
 )
 
@@ -76,6 +80,8 @@ function ProjectCardForAuth({
   const [checkedTools, setCheckedTools] = React.useState([])
   const [openCommentHistory, setOpenCommentHistory] = React.useState(false)
   const [comments, setComments] = React.useState([])
+  const [authQueryOpen, setAuthQueryOpen] = React.useState(false)
+  const [ toolsForQuery, setToolsForQuery ] = React.useState([])
   
   const handleExpandClick = () => {
     if (!expanded) {
@@ -83,6 +89,16 @@ function ProjectCardForAuth({
     }
     setExpanded(!expanded)
   }
+
+  function getToolsForQueryAuthorisation(toolsList) {
+    const toolsForQuery = toolsList.filter(item => true)
+    //filter content by provider id, id provider id != 1
+    return toolsForQuery
+  }
+
+  React.useEffect( () => {
+    setToolsForQuery(getToolsForQueryAuthorisation(tools))
+  }, [tools])
 
   function loadTools(id, setLoading, setTools) {
     const token = localStorage.getItem('react-crm-token')
@@ -347,6 +363,15 @@ function ProjectCardForAuth({
             ) : null}
 
             <div style={{display: "flex", justifyContent: "flex-end", marginTop: "1em"}}>
+              {toolsForQuery.length !== 0 ? <Button 
+              color="secondary" 
+              variant="contained" 
+              onClick={() => setAuthQueryOpen(true)}
+              className={classes.queryButton}
+              >
+                Запросить авторизацию
+              </Button> : null}
+
               <Button 
               color="primary" 
               variant="contained" 
@@ -365,6 +390,12 @@ function ProjectCardForAuth({
         project={item}
         enqueueSnackbar={enqueueSnackbar}
         closeSnackbar={closeSnackbar}
+      />
+      <ModalAuthMailsQuery 
+        open={authQueryOpen}
+        onClose={() => setAuthQueryOpen(false)}
+        toolsForQuery={toolsForQuery}
+        toolsList={toolsList}
       />
     </Card>
   )
