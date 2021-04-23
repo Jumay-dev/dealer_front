@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { setSuccess, unsetSuccess } from "../actions/app";
-import { LIST_PROJECTS } from "../store/types";
+import { LIST_PROJECTS, LIST_PROVIDERS } from "../store/types";
 import { thunkData } from "../services/thunks";
 import { updateState } from "../actions/project";
 import ModalAuthorisation from "../components/ModalAuthorisation";
@@ -30,6 +30,7 @@ function Registratum({
   toolsList,
   enqueueSnackbar,
   closeSnackbar,
+  listProviders,
 }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [checkedToolsForModal, setCheckedToolsForModal] = React.useState([]);
@@ -86,6 +87,10 @@ function Registratum({
       },
     };
     getProjects(projectListAction);
+    let providersListAction = {
+      type: LIST_PROVIDERS,
+    };
+    listProviders(providersListAction);
   }, []);
 
   function setPageAndListProjects(page) {
@@ -240,6 +245,7 @@ function mapStateToProps(state) {
     app: state.app,
     project: state.project,
     toolsList: state.tool.toolsList,
+
   };
 }
 
@@ -251,6 +257,7 @@ function mapDispatchToProps(dispatch) {
     setLimit: (action: TODO) => dispatch(updateState(action)),
     enqueueSnackbar: (data) => dispatch(enqueueSnackbarAction(data)),
     closeSnackbar: (data) => dispatch(closeSnackbarAction(data)),
+    listProviders: (data) => dispatch(thunkData(data)),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Registratum);

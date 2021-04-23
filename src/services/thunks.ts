@@ -9,6 +9,7 @@ import { getData } from "../middleware/api";
 import { listProjects } from "../actions/project";
 import { listCategories, listTools } from "../actions/tool";
 import { listUsers } from "../actions/user";
+import { listProviders } from '../actions/tool'
 
 import {
   ApiAction,
@@ -20,7 +21,8 @@ import {
   LIST_CATEGORIES,
   LIST_USERS,
   AUTH_CHECK,
-  GET_DETAILS
+  GET_DETAILS,
+  LIST_PROVIDERS
 } from "../store/types";
 
 export const thunkAuth = (
@@ -64,6 +66,10 @@ export const thunkData = (
   if (type === LIST_USERS) {
     response = await getData({type, data})
     dispatchUser(dispatch, type, response)
+  }
+  if (type === LIST_PROVIDERS) {
+    response = await getData({type})
+    dispatch(listProviders(response))
   }
 
 }

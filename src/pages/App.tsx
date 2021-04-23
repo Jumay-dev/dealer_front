@@ -14,7 +14,7 @@ import Registratum from "../pages/Registratum";
 import Admin from "../pages/Admin";
 import { connect } from "react-redux";
 import { thunkAuth } from "../services/thunks";
-import { SIGN_IN, AUTH_CHECK, LIST_CATEGORIES } from "../store/types";
+import { SIGN_IN, AUTH_CHECK, LIST_CATEGORIES, LIST_TOOLS } from "../store/types";
 import { thunkData } from "../services/thunks";
 import Notifier from "../components/Notifer"
 import { useDispatch } from 'react-redux';

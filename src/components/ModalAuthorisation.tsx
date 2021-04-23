@@ -60,7 +60,7 @@ export default function ModalAuthorisation(
     onClose,
     open, 
     tools,
-    toolsMeta
+    toolsMeta,
   }) {
   const classes = useStyles();
   const [comment, setComment] = React.useState("");

@@ -4,13 +4,13 @@ import {
   LIST_TOOLS,
   LIST_CATEGORIES,
   LIST_USERS,
-  GET_DETAILS
+  GET_DETAILS,
+  LIST_PROVIDERS
 } from '../store/types'
 
 import { backend } from "../config/server"
 
 export function login(action: string, data: TODO): Promise<TODO> {
-  console.log(data)
   let dataForm = new FormData;
   dataForm.append('email', data.login)
   dataForm.append('password', data.password)
@@ -97,5 +97,19 @@ export function getData(action: any): Promise<TODO> {
           return res.answer
         }
       })
+    case LIST_PROVIDERS: {
+      return fetch(`${backend}/api/provider/list`, {
+        method: "POST",
+        headers: {
+          "Authorization": token
+        }
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          return res
+        }
+      })
+    }
   }
 }

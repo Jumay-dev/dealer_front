@@ -108,6 +108,7 @@ export interface ToolsState {
   error?: null;
   deleted?: boolean;
   updated?: boolean;
+  providers: Array<any>;
 }
 
 interface ListToolsAction {
@@ -120,9 +121,14 @@ interface ListCategoriesAction {
   payload: any;
 }
 
-export type ToolsActions = typeof LIST_TOOLS | typeof LIST_CATEGORIES;
+interface ListProvidersAction {
+  type: typeof LIST_PROVIDERS;
+  payload: any;
+}
 
-export type ToolsActionsTypes = ListToolsAction | ListCategoriesAction;
+export type ToolsActions = typeof LIST_TOOLS | typeof LIST_CATEGORIES | typeof LIST_PROVIDERS;
+
+export type ToolsActionsTypes = ListToolsAction | ListCategoriesAction | ListProvidersAction;
 
 // Apptypes
 export const SET_SUCCESS = "SET_SUCCESS";
@@ -198,3 +204,5 @@ export const ENQUEUE_SNACKBAR = 'ENQUEUE_SNACKBAR';
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';
 export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR';
 export const OPEN_SNACKBAR = "OPEN_SNACKBAR";
+
+export const LIST_PROVIDERS = "LIST_PROVIDERS"

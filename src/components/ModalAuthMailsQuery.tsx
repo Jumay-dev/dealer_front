@@ -13,6 +13,8 @@ import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import DOMPurify from 'dompurify'
 import ReactDOMServer from 'react-dom/server'
+import { backend } from "../config/server"
+const token = localStorage.getItem("react-crm-token")
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,59 +71,73 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-let mailTemplateFromBackend = "<h2>#header#</h2><p>Здравствуйте, #provider_contact#. Просим Вас авторизовать оборудование, указанное ниже.</p><p>Список оборудования</p><ul>#tools#</ul><div>С уважением, <br> #manager_name# <br>Компания DS.Med</div>";
-
-function getSteps() {
-  return ["Махаон", "Линс", "Феникс", "Поставщик4"];
-}
-
-function getStepContent(step: number, toolsForQuery, toolsList) {
-  switch (step) {
-    case 0:
-      return <MailToProviderForm toolsForQuery={toolsForQuery} toolsList={toolsList}/>
-    case 1:
-      return <MailToProviderForm toolsForQuery={toolsForQuery} toolsList={toolsList}/>
-    case 2:
-      return <MailToProviderForm toolsForQuery={toolsForQuery} toolsList={toolsList}/>
-    case 3:
-      return <MailToProviderForm toolsForQuery={toolsForQuery} toolsList={toolsList}/>
-    default:
-      return "Unknown step";
+function getStepContent(step: number, toolsForQuery, toolsList, projectID) {
+  if (toolsForQuery[step]) {
+    return <MailToProviderForm projectID={projectID} provid={toolsForQuery[step].id} tools={toolsForQuery[step].tools} toolsList={toolsList}/>
   }
+  return 'Неизвестный поставщик'
 }
 
 function Tool(localTool, toolsList) {
-  const localToolMeta = toolsList.find( item => item.id === localTool.id)
+  const localToolMeta = toolsList.find( item => +item.id === +localTool.tool_id)
 
   return (
       <span style={{ color: "#666b73"}}>{localToolMeta.tool_name}</span>
   )
 }
 
-function MailToProviderForm({toolsForQuery, toolsList}) 
+function MailToProviderForm({tools, toolsList, provid, projectID}) 
 {
-  const [editorMode, setEditorMode] = React.useState(true)
+  //providersArray
+  //fetch to BE
+  //get list of mails and dictonaries
   const [editorState, setEditorState] = React.useState(() => EditorState.createEmpty());
-  let mailTemplateFromBackend = "<h2>#header#</h2><p>Здравствуйте, #provider_contact#. Просим Вас авторизовать оборудование, указанное ниже.</p><p>Список оборудования</p><ul>#tools#</ul>#editor#<div>С уважением, <br> #manager_name# <br>Компания DS.Med</div>";
-  const placeholder = new Map()
-  placeholder.set("#header#", 'Запрос в Махаон')
-  placeholder.set("#provider_contact#", 'Анастасия')
-  placeholder.set("#manager_name#", 'Иван Таранов')
-  const toolsLi = toolsForQuery.map( tool => <li>{Tool(tool, toolsList)}</li>)
-  placeholder.set("#tools#", ReactDOMServer.renderToString(toolsLi))
-  placeholder.forEach((value, key) => {
-    mailTemplateFromBackend = mailTemplateFromBackend.replace(key, value)
-  })
-  // if (mailTemplateFromBackend.includes('#editor#')) {
-  //   mailTemplateFromBackend.replace("#editor#", '')
-  //   <Editor placeholder="Дополнительная информация..." editorState={editorState} onChange={setEditorState} />
-  // }
+  const [mailTemplateFromBackend, setMailTemplateFromBackend] = React.useState('')
+  const [dictionary, setDictionary] = React.useState({});
+  React.useEffect(() => {
+    const data = new FormData
+    data.append('provider_id', provid)
+    data.append('project_id', projectID)
+    fetch(`${backend}/api/provider/template`, {
+      method: "POST",
+      headers: {
+        "Authorization": token
+      },
+      body: data
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.success) {
+        setMailTemplateFromBackend(res.template.body)
+        setDictionary(res.dictionary)
+      }
+    })
+    
+  }, [])
   
 
+  let dividedMail = [];
+  let placeholder = new Map()
+  const toolsLi = tools.map( tool => <li>{Tool(tool, toolsList)}</li>)
+  placeholder.set("#tools#", ReactDOMServer.renderToString(toolsLi))
+
+  for(let key in dictionary) {
+    console.log(key)
+    placeholder.set(key, dictionary[key])
+  }
+
+  let mailTemplate = mailTemplateFromBackend
+  placeholder.forEach((value, key) => {
+    mailTemplate = mailTemplate.replace(key, value)
+  })
+
+  dividedMail = mailTemplate.split('#editor#')
+  
   return (
     <div>
-      <div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(mailTemplateFromBackend)}}></div>
+      <div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dividedMail[0])}}></div>
       <Editor placeholder="Дополнительная информация..." editorState={editorState} onChange={setEditorState} />
+      <div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dividedMail[1])}}></div>
     </div>
   )
 }
@@ -131,15 +147,25 @@ export default function ModalAuthMailsQuery(
     onClose, 
     open,
     toolsForQuery,
-    toolsList
+    toolsList,
+    projectID
   }) {
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = React.useState(0);
+  const [template, setTemplate] = React.useState('')
+  const [steps, setSteps] = React.useState([])
   const [completed, setCompleted] = React.useState<{ [k: number]: boolean }>(
     {}
   );
-  const steps = getSteps();
+
+  React.useEffect(() => {
+    const arSteps = [];
+    toolsForQuery.forEach( provider => {
+      arSteps.push(provider.name)
+    })
+    setSteps(arSteps)
+  }, [toolsForQuery])
 
   const totalSteps = () => {
     return steps.length;
@@ -187,6 +213,8 @@ export default function ModalAuthMailsQuery(
     setCompleted({});
   };
 
+  function sendMailsToBackend() {}
+
   return (
     <Dialog
       onClose={onClose}
@@ -201,7 +229,7 @@ export default function ModalAuthMailsQuery(
         className={classes.headerStyle}
         disableTypography
       >
-        <Typography variant="h5">Запросы к постащикам</Typography>
+        <Typography variant="h5">Запросы к поставщикам</Typography>
 
         <IconButton onClick={() => onClose()} style={{ marginRight: "-16px" }}>
           <img src={CloseIcon} />
@@ -234,12 +262,12 @@ export default function ModalAuthMailsQuery(
                   Нажмите "Отправить", если уверены, что все верно.
                 </Typography>
                 <Button onClick={handleReset} variant="contained">Отмена</Button>
-                <Button color="primary" variant="contained">Отправить</Button>
+                <Button color="primary" variant="contained" onClick={sendMailsToBackend}>Отправить</Button>
               </div>
             ) : (
               <div className={classes.mailWrapper}>
                 <Typography className={classes.instructions}>
-                  {getStepContent(activeStep, toolsForQuery, toolsList)}
+                  {getStepContent(activeStep, toolsForQuery, toolsList, projectID)}
                 </Typography>
                 <div>
                   <Button

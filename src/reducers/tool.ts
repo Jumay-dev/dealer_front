@@ -1,6 +1,7 @@
 import {
     LIST_TOOLS,
     LIST_CATEGORIES,
+    LIST_PROVIDERS,
     ToolsActionsTypes,
     ToolsState,
 } from '../store/types'
@@ -14,6 +15,7 @@ export function toolReducer(
         tool: new ToolModel() as Tool,
         deleted: false,
         updated: false,
+        providers: []
     },
     action: ToolsActionsTypes
 ) {
@@ -34,6 +36,11 @@ export function toolReducer(
                 toolsList: action.payload.tools,
                 deleted: false,
                 updated: false,
+            })
+        }
+        case LIST_PROVIDERS: {
+            return Object.assign({}, state, {
+                providers: action.payload.providers
             })
         }
         default: return state
