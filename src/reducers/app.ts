@@ -4,6 +4,8 @@ import {
   UNSET_SUCCESS,
   SIDEBAR_OPENED,
   SIDEBAR_CLOSED,
+  ADD_MAIL,
+  CLEAR_MAILS
 } from "../store/types";
 
 export function appReducer(
@@ -11,7 +13,8 @@ export function appReducer(
     isFetching: true,
     projectSuccesfullyAdded: false,
     error: false,
-    sidebarOpened: true
+    sidebarOpened: true,
+    mails: []
   },
   action
 ) {
@@ -38,6 +41,16 @@ export function appReducer(
       return Object.assign({}, state, {
         isFetching: false,
         sidebarOpened: false,
+      });
+    }
+    case ADD_MAIL: {
+      return Object.assign({}, state, {
+        mails: [...state.mails, action.payload],
+      });
+    }
+    case CLEAR_MAILS: {
+      return Object.assign({}, state, {
+        mails: [],
       });
     }
     default:

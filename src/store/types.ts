@@ -138,12 +138,15 @@ export const SIDEBAR_OPENED = "SIDEBAR_OPENED";
 export const SIDEBAR_CLOSED = "SIDEBAR_CLOSED";
 export const PUSH_NOTIFICATION = "UPDATE_NOTIFICATION";
 export const POP_NOTIFICATION = "POP_NOTIFICATION";
+export const ADD_MAIL = "ADD_MAIL"
+export const CLEAR_MAILS = "CLEAR_MAILS"
 
 export interface AppState {
   isFetching: boolean;
   projectSuccesfullyAdded: boolean;
   error?: boolean;
   sidebarOpened: boolean;
+  mails: Array<any>;
 }
 
 export type Notification = {

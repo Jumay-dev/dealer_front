@@ -4,6 +4,8 @@ import {
     UNSET_SUCCESS,
     SIDEBAR_OPENED,
     SIDEBAR_CLOSED,
+    ADD_MAIL,
+    CLEAR_MAILS
 } from '../store/types'
 
 export function setSuccess() {
@@ -27,6 +29,20 @@ export function openSidebar() {
 export function closeSidebar() {
     return {
         type: SIDEBAR_CLOSED,
+    };
+}
+
+export function addMail(result?) {
+    return {
+        type: ADD_MAIL,
+        payload: result
+    };
+}
+
+export function clearMails(result?) {
+    return {
+        type: CLEAR_MAILS,
+        payload: result
     };
 }
 
