@@ -14,10 +14,16 @@ import 'draft-js/dist/Draft.css';
 import DOMPurify from 'dompurify'
 import ReactDOMServer from 'react-dom/server'
 import { backend } from "../config/server"
-import { addMail, clearMails } from '../actions/app'
+import { addMail, clearMails, toggleMail } from '../actions/app'
 import { connect } from 'react-redux'
-const token = localStorage.getItem("react-crm-token")
+import CircularProgress from '@material-ui/core/CircularProgress';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import {stateToHTML} from 'draft-js-export-html';
+import { enqueueSnackbar, closeSnackbar } from '../actions/snackbar'
+import { v4 as uuidv4 } from 'uuid';
 
+const token = localStorage.getItem("react-crm-token")
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -81,22 +87,27 @@ function ModalAuthMailsQuery(
     toolsList,
     projectID,
     addMail,
-    clearMails
+    clearMails,
+    mailsForSend,
+    providers,
+    toggleMail,
+    enqueueSnackbar
   }) {
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [steps, setSteps] = React.useState([])
+  const [sending, setSending] = React.useState(false)
   const [completed, setCompleted] = React.useState<{ [k: number]: boolean }>(
     {}
   );
   let dividedMail = []
-  const [editorState, setEditorState] = React.useState(() => EditorState.createEmpty())
+  let editorState = {}
 
   React.useEffect(() => {
     const arSteps = [];
     toolsForQuery.forEach( provider => {
-      arSteps.push(provider.name)
+      arSteps.push({id: provider.id, name: provider.name})
     })
     setSteps(arSteps)
   }, [toolsForQuery])
@@ -139,7 +150,15 @@ function ModalAuthMailsQuery(
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
-    addMail(dividedMail[0] + editorState + dividedMail[1])
+    //+ draftToHtml(editorState)
+    let customHtml = ''
+    try {
+      customHtml = stateToHTML(editorState)
+    } catch(err) {
+      customHtml = ''
+    }
+    
+    addMail({provider_id: steps[activeStep].id, body: dividedMail[0] + customHtml + dividedMail[1], checked: true})
     handleNext();
   };
 
@@ -168,11 +187,23 @@ function ModalAuthMailsQuery(
         <span style={{ color: "#666b73"}}>{localToolMeta.tool_name}</span>
     )
   }
+
+  function Provider({providers, mail, toggleMail}) {
+    let provider = providers.find( prov => +prov.id === +mail.provider_id)
+    return (
+      <FormControlLabel
+      control={<Checkbox color="primary" checked={mail.checked} onChange={()=>{toggleMail(mail.provider_id)}} name="checkedA" />}
+      label={provider.name + `(${provider.email})`}
+      />
+    )
+  }
   
   function MailToProviderForm({tools, toolsList, provid, projectID}) 
   {
     const [mailTemplateFromBackend, setMailTemplateFromBackend] = React.useState('')
     const [dictionary, setDictionary] = React.useState({});
+    const [mailLoading, setMailLoading] = React.useState(true)
+    const [localEditorState, setEditorState] = React.useState(() => EditorState.createEmpty())
     React.useEffect(() => {
       const data = new FormData
       data.append('provider_id', provid)
@@ -186,6 +217,7 @@ function ModalAuthMailsQuery(
       })
       .then(res => res.json())
       .then(res => {
+        setMailLoading(false)
         if (res.success) {
           setMailTemplateFromBackend(res.template.body)
           setDictionary(res.dictionary)
@@ -200,7 +232,6 @@ function ModalAuthMailsQuery(
     placeholder.set("#tools#", ReactDOMServer.renderToString(toolsLi))
   
     for(let key in dictionary) {
-      console.log(key)
       placeholder.set(key, dictionary[key])
     }
   
@@ -213,15 +244,92 @@ function ModalAuthMailsQuery(
     dividedMail = dividedMailLocal
     
     return (
-      <div>
-        <div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dividedMailLocal[0])}}></div>
-        <Editor placeholder="Дополнительная информация..." editorState={editorState} onChange={setEditorState} />
-        <div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dividedMailLocal[1])}}></div>
+      <div style={{minHeight: '30vh', display: mailLoading ? "flex" : "block", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
+        {mailLoading ? (<React.Fragment><CircularProgress /><span style={{color: "rgb(102, 107, 115)"}}>Загрузка шаблона письма</span></React.Fragment>) : (
+        <React.Fragment>
+          <div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dividedMailLocal[0])}}></div>
+          <Editor placeholder="Дополнительная информация..." editorState={localEditorState} onChange={(state) => {setEditorState(state); editorState = state.getCurrentContent()}} />
+          <div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dividedMailLocal[1])}}></div>
+        </React.Fragment>
+        )}
       </div>
     )
   }
 
-  function sendMailsToBackend() {}
+  function CheckBeforeSendingScreen() {
+    return (
+      <div style={{minHeight: '30vh', display: sending ? "flex" : "block", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
+        {sending ? 
+        (<React.Fragment><CircularProgress /><span style={{color: "rgb(102, 107, 115)"}}>Письма отправляются поставщикам в фоновом режиме. Вы можете закрыть это окно, по результатам рассылки вы получите уведомление.</span></React.Fragment>)
+        :
+        (
+        <React.Fragment>
+        <Typography className={classes.instructions}>
+          Письма сформированы и готовы к отправке. Вы можете отменить доставку выбранным поставщикам, при необходимости. Очередь отправки:
+        </Typography>
+        
+        <div style={{display: "flex", flexDirection: "column"}}>
+          {mailsForSend.map((mail) => <Provider mail={mail} providers={providers} toggleMail={toggleMail}/>)}
+        </div>
+
+        <Typography className={classes.instructions}>
+          Нажмите "Отправить", если уверены, что все верно.
+        </Typography>
+        <Button color="secondary" onClick={handleReset} variant="contained" style={{marginRight: "1em"}}>Отмена</Button>
+        <Button color="primary" variant="contained" onClick={sendMailsToBackend}>Отправить</Button>
+        </React.Fragment>)}
+      </div>
+    )
+  }
+
+  function sendMailsToBackend() {
+    setSending(true)
+    const preparedMails = []
+    mailsForSend.forEach( mail => {
+      if (mail.checked === true) preparedMails.push(mail)
+    })
+
+    let data = new FormData
+    data.append('mails', JSON.stringify(preparedMails))
+    data.append('project_id', projectID)
+    fetch(`${backend}/api/provider/sending`, {
+      method: "POST",
+      headers: {
+        "Authorization": token
+      },
+      body: data
+    })
+    .then(res => res.json())
+    .then(res => {
+      const myKey = uuidv4()
+      setSending(false)
+      if (res.success === true) {
+        enqueueSnackbar({
+          message: 'Все письма поставщикам успешно отправлены',
+          key: uuidv4(),
+          options: {
+              key: myKey,
+              variant: 'success',
+              action: key => (
+                  <Button onClick={() => closeSnackbar(myKey)}>Закрыть</Button>
+              ),
+          },
+        })
+      }
+      enqueueSnackbar({
+        message: 'Ошибка отправки писем. Попробуйте еще раз или обратитесь в поддержку.',
+        key: uuidv4(),
+        options: {
+            key: myKey,
+            variant: 'error',
+            action: key => (
+                <Button onClick={() => closeSnackbar(myKey)}>Закрыть</Button>
+            ),
+        },
+      });
+      onClose()
+    })
+  }
 
   return (
     <Dialog
@@ -252,26 +360,14 @@ function ModalAuthMailsQuery(
                   onClick={handleStep(index)}
                   completed={completed[index]}
                 >
-                  {label}
+                  {label.name}
                 </StepButton>
               </Step>
             ))}
           </Stepper>
           <div>
             {allStepsCompleted() ? (
-              <div>
-                <Typography className={classes.instructions}>
-                  Все шаги пройдены. Письма будут отправлены следующим поставщикам:
-                  <ul>
-                    <li>Линс</li>
-                    <li>Махаон</li>
-                    <li>Поставщик3</li>
-                  </ul>
-                  Нажмите "Отправить", если уверены, что все верно.
-                </Typography>
-                <Button onClick={handleReset} variant="contained">Отмена</Button>
-                <Button color="primary" variant="contained" onClick={sendMailsToBackend}>Отправить</Button>
-              </div>
+              <CheckBeforeSendingScreen />
             ) : (
               <div className={classes.mailWrapper}>
                 <Typography className={classes.instructions}>
@@ -324,14 +420,18 @@ function ModalAuthMailsQuery(
 
 function setStateToProps(state) {
   return {
-
+    mailsForSend: state.app.mails,
+    providers: state.tool.providers
   }
 }
 
 function setDispatchToProps(dispatch) {
   return {
     addMail: (data) => dispatch(addMail(data)),
-    clearMails: () => dispatch(clearMails())
+    clearMails: () => dispatch(clearMails()),
+    toggleMail: (data) => dispatch(toggleMail(data)),
+    enqueueSnackbar: (data) => dispatch(enqueueSnackbar(data)),
+    closeSnackbar: (data) => dispatch(closeSnackbar(data)),
   }
 }
 export default connect(setStateToProps, setDispatchToProps)(ModalAuthMailsQuery)

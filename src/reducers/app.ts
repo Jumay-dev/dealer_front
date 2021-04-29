@@ -5,7 +5,8 @@ import {
   SIDEBAR_OPENED,
   SIDEBAR_CLOSED,
   ADD_MAIL,
-  CLEAR_MAILS
+  CLEAR_MAILS,
+  TOGGLE_MAIL
 } from "../store/types";
 
 export function appReducer(
@@ -51,6 +52,16 @@ export function appReducer(
     case CLEAR_MAILS: {
       return Object.assign({}, state, {
         mails: [],
+      });
+    }
+
+    case TOGGLE_MAIL: {
+      let localState = state.mails.splice(0)
+      localState.forEach( mail => {
+        if (+mail.provider_id === +action.payload) mail.checked = !mail.checked
+      })
+      return Object.assign({}, state, {
+        mails: localState,
       });
     }
     default:

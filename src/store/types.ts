@@ -140,6 +140,7 @@ export const PUSH_NOTIFICATION = "UPDATE_NOTIFICATION";
 export const POP_NOTIFICATION = "POP_NOTIFICATION";
 export const ADD_MAIL = "ADD_MAIL"
 export const CLEAR_MAILS = "CLEAR_MAILS"
+export const TOGGLE_MAIL = "TOGGLE_MAIL"
 
 export interface AppState {
   isFetching: boolean;

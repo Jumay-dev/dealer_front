@@ -5,7 +5,8 @@ import {
     SIDEBAR_OPENED,
     SIDEBAR_CLOSED,
     ADD_MAIL,
-    CLEAR_MAILS
+    CLEAR_MAILS,
+    TOGGLE_MAIL
 } from '../store/types'
 
 export function setSuccess() {
@@ -35,6 +36,13 @@ export function closeSidebar() {
 export function addMail(result?) {
     return {
         type: ADD_MAIL,
+        payload: result
+    };
+}
+
+export function toggleMail(result?) {
+    return {
+        type: TOGGLE_MAIL,
         payload: result
     };
 }
