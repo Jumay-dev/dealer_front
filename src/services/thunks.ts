@@ -21,8 +21,7 @@ import {
   LIST_CATEGORIES,
   LIST_USERS,
   AUTH_CHECK,
-  GET_DETAILS,
-  LIST_PROVIDERS
+  LIST_PROVIDERS,
 } from "../store/types";
 
 export const thunkAuth = (
@@ -71,7 +70,6 @@ export const thunkData = (
     response = await getData({type})
     dispatch(listProviders(response))
   }
-
 }
 
 function dispatchListProject(dispatch, type, response) {

@@ -9,6 +9,7 @@ import { toolReducer } from "../reducers/tool";
 import { appReducer } from "../reducers/app";
 import { userReducer } from "../reducers/user";
 import { companyReducer } from "../reducers/company";
+import { searchReducer } from "../reducers/search";
 import snackbarReducer from "../reducers/snackbar";
 
 const rootReducer = (history) => combineReducers({
@@ -19,7 +20,8 @@ const rootReducer = (history) => combineReducers({
     user: userReducer,
     company: companyReducer,
     router: connectRouter(history),
-    snackbar: snackbarReducer
+    snackbar: snackbarReducer,
+    search: searchReducer
 })
 export const history = createBrowserHistory()
 export type AppState = ReturnType<typeof rootReducer>;

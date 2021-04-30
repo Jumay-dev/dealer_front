@@ -210,3 +210,35 @@ export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR';
 export const OPEN_SNACKBAR = "OPEN_SNACKBAR";
 
 export const LIST_PROVIDERS = "LIST_PROVIDERS"
+
+//search state
+export const SEARCH_PROJECTS = "SEARCH_PROJECTS";
+export const SET_SEARCH = "SET_SEARCH";
+
+export interface searchState {
+  inn?: string; 
+  kladr?: string; 
+  tool?: string; 
+  toolType?: number;
+  datetime_start?: string; 
+  datetime_end?: string;
+  lu_name?: string;
+  manager?: string;
+  query?: string;
+}
+
+interface searchQuery {
+  inn?: string; 
+  kladr?: string; 
+  tool?: string; 
+  toolType?: string; 
+  date?: string; 
+  lu_name?: string;
+  manager?: string;
+  query: string;
+}
+
+export interface searchAction {
+  type: string;
+  payload: searchQuery;
+}

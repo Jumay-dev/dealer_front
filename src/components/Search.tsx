@@ -9,12 +9,13 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
-import $ from "jquery";
 import { connect } from 'react-redux'
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { listProjects } from '../actions/project'
-import { backend } from "../config/server"
-const token = localStorage.getItem("react-crm-token")
+import { setSearch } from '../actions/search'
+import _ from 'lodash'
+import { thunkData } from '../services/thunks'
+import { SatelliteTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,9 +93,38 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Search({listProjects}) {
+function Search({listProjects, setSearch, search, project}) {
   const classes = useStyles();
   const [searchType, setSearchType] = React.useState("all");
+  const [loading, setLoading] = React.useState(false)
+
+  function getProjectsByFilter(event, datetime_start?, datetime_end?) {
+    setLoading(true)
+    switch(searchType) {
+      case 'all': {
+        setSearch({
+          query: event.target.value
+        })
+        break
+      }
+      case 'date': {
+        setSearch({
+          datetime_start: '123123',
+          datetime_end: '321321'
+        })
+        break
+      }
+      default: {
+        let data = {}
+        data[searchType] = event.target.value
+        setSearch(data)
+      }
+    }
+  }
+
+  React.useEffect(() => {
+    // listProjects(project);
+  }, [search])
 
   function DatePickerForSearchByDate() {
     const [startRangeDate, setStartRangeDate] = React.useState(
@@ -147,7 +177,7 @@ function Search({listProjects}) {
   }
 
   function DefaultTextField() {
-    return <TextField fullWidth placeholder="Поиск" />;
+    return <TextField fullWidth placeholder="Поиск" onChange={_.debounce(getProjectsByFilter, 1000)}/>;
   }
 
   function GetSearchFieldByType(searchType: string) {
@@ -180,17 +210,6 @@ function Search({listProjects}) {
     );
   }
 
-  function getDataFromBackend() {
-    // return fetch(`${backend}/api/project/list?page=${action.data.page}&limit=${action.data.limit}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Authorization": token
-    //   }
-    // })
-    // .then(res => res.json())
-    // .then(res => res.projects)
-  }
-
   return (
     <div className={classes.mainWrapper}>
       <Typography
@@ -218,12 +237,12 @@ function Search({listProjects}) {
             >
               <MenuItem value={"all"}>Все проекты</MenuItem>
               <MenuItem value={"inn"}>По ИНН</MenuItem>
-              <MenuItem value="kladr">По КЛАДР</MenuItem>
-              <MenuItem value="tool">По оборудованию</MenuItem>
-              <MenuItem value="tool_type">По типу оборудования</MenuItem>
-              <MenuItem value="date">По датам</MenuItem>
-              <MenuItem value="lu_name">По названию ЛУ</MenuItem>
-              <MenuItem value="manager">По сотруднику</MenuItem>
+              <MenuItem value={"kladr"}>По КЛАДР</MenuItem>
+              <MenuItem value={"tool"}>По оборудованию</MenuItem>
+              <MenuItem value={"toolType"}>По типу оборудования</MenuItem>
+              <MenuItem value={"date"}>По датам</MenuItem>
+              <MenuItem value={"lu_name"}>По названию ЛУ</MenuItem>
+              <MenuItem value={"manager"}>По сотруднику</MenuItem>
             </Select>
           </FormControl>
           {GetSearchFieldByType(searchType)}
@@ -235,13 +254,15 @@ function Search({listProjects}) {
 
 function mapStateToProps(state) {
   return {
-
+    search: state.search,
+    project: state.project
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    listProjects: (data) => dispatch(listProjects(data))
+    listProjects: (data) => dispatch(listProjects(data)),
+    setSearch: (data) => dispatch(setSearch(data))
   }
 }
 

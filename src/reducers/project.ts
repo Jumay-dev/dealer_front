@@ -16,8 +16,8 @@ export function projectReducer(
         deleted: false,
         updated: false,
         page: 1,
-        limit: 5,
-        total: 0
+        limit: 10,
+        total: 0,
     },
     action: ProjectActionTypes
 ) {
