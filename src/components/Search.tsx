@@ -9,12 +9,14 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 import { connect } from 'react-redux'
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { listProjects } from '../actions/project'
+import { listProjects, updateState } from '../actions/project'
 import { setSearch } from '../actions/search'
 import _ from 'lodash'
 import { thunkData } from '../services/thunks'
+import { LIST_PROJECTS } from '../store/types'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -101,11 +103,20 @@ type searchTypeEnum = "all"
 | "lu_name"
 | "manager"
 
-function Search({listProjects, setSearch, search, project}) {
+function Search({listProjects, setSearch, search, project, updateState}) {
   const classes = useStyles();
   const [searchType, setSearchType] = React.useState<searchTypeEnum>("all");
 
-  function getProjectsByFilter(event, datetime_start?, datetime_end?) {
+  function searchProjects() {
+    updateState({isFetching: true, page: 1})
+    let listProjectsAction = {
+      type: LIST_PROJECTS,
+      data: {...search, page: 1, limit: 10}
+    }
+    listProjects(listProjectsAction)
+  }
+
+  function setFiltersByAction(event, datetime_start?, datetime_end?) {
     switch(searchType) {
       case 'all': {
         setSearch({
@@ -201,7 +212,7 @@ function Search({listProjects, setSearch, search, project}) {
     //_.debounce(getProjectsByFilter, 1000)
     return (
       <TextField
-        onChange={(event) => getProjectsByFilter(event)}
+        onChange={(event) => setFiltersByAction(event)}
         value={search[searchType]}
         fullWidth
         placeholder="Поиск"
@@ -212,7 +223,7 @@ function Search({listProjects, setSearch, search, project}) {
 
   function SelectorForSearchByToolsType() {
     return (
-      <Select value={search.tool_type} onChange={(event) => getProjectsByFilter(event)} id="select" fullWidth>
+      <Select value={search.tool_type} onChange={(event) => setFiltersByAction(event)} id="select" fullWidth>
         <MenuItem value={'all_tools'}>Всё оборудование</MenuItem>
         <MenuItem value={'monitors'}>Мониторы пациента</MenuItem>
         <MenuItem value={'xray'}>Рентген-аппараты</MenuItem>
@@ -256,6 +267,12 @@ function Search({listProjects, setSearch, search, project}) {
             </Select>
           </FormControl>
           {GetSearchFieldByType(searchType)}
+          <Button 
+          variant="contained" 
+          color="primary" 
+          onClick={searchProjects}
+          disabled={project.isFetching}
+          >Поиск</Button>
         </div>
       </div>
     </div>
@@ -271,8 +288,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    listProjects: (data) => dispatch(listProjects(data)),
-    setSearch: (data) => dispatch(setSearch(data))
+    listProjects: (action) => dispatch(thunkData(action)),
+    setSearch: (data) => dispatch(setSearch(data)),
+    updateState: (data) => dispatch(updateState(data))
   }
 }
 
