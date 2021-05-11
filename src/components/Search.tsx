@@ -15,7 +15,6 @@ import { listProjects } from '../actions/project'
 import { setSearch } from '../actions/search'
 import _ from 'lodash'
 import { thunkData } from '../services/thunks'
-import { SatelliteTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -93,17 +92,24 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+type searchTypeEnum = "all"
+| "inn"
+| "kladr"
+| "tool"
+| "tool_type"
+| "date"
+| "lu_name"
+| "manager"
+
 function Search({listProjects, setSearch, search, project}) {
   const classes = useStyles();
-  const [searchType, setSearchType] = React.useState("all");
-  const [loading, setLoading] = React.useState(false)
+  const [searchType, setSearchType] = React.useState<searchTypeEnum>("all");
 
   function getProjectsByFilter(event, datetime_start?, datetime_end?) {
-    setLoading(true)
     switch(searchType) {
       case 'all': {
         setSearch({
-          query: event.target.value
+          all: event.target.value
         })
         break
       }
@@ -122,19 +128,34 @@ function Search({listProjects, setSearch, search, project}) {
     }
   }
 
-  React.useEffect(() => {
-    // listProjects(project);
-  }, [search])
+  function GetSearchFieldByType(searchType: string) {
+    switch (searchType) {
+      case "tool_type":
+        return (
+          <div style={{ display: "inline-block", flex: "1 0 auto" }}>
+            <SelectorForSearchByToolsType />
+          </div>
+        );
+      case "date":
+        return (
+          <div style={{ display: "inline-block", flex: "1 0 auto" }}>
+            <DatePickerForSearchByDate />
+          </div>
+        );
+      default:
+        return <DefaultTextField />;
+    }
+  }
 
   function DatePickerForSearchByDate() {
+    const classes = useStyles();
     const [startRangeDate, setStartRangeDate] = React.useState(
       new Date("2014-08-18T21:11:54")
     );
     const [endRangeDate, setEndRangeDate] = React.useState(
       new Date("2014-08-18T21:11:54")
     );
-    const classes = useStyles();
-
+    // getProjectsByFilter(event)
     return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <div className={classes.datepickerWrapper}>
@@ -177,35 +198,24 @@ function Search({listProjects, setSearch, search, project}) {
   }
 
   function DefaultTextField() {
-    return <TextField fullWidth placeholder="Поиск" onChange={_.debounce(getProjectsByFilter, 1000)}/>;
-  }
-
-  function GetSearchFieldByType(searchType: string) {
-    const classes = useStyles();
-    switch (searchType) {
-      case "tool_type":
-        return (
-          <div style={{ display: "inline-block", flex: "1 0 auto" }}>
-            <SelectorForSearchByToolsType />
-          </div>
-        );
-      case "date":
-        return (
-          <div style={{ display: "inline-block", flex: "1 0 auto" }}>
-            <DatePickerForSearchByDate />
-          </div>
-        );
-      default:
-        return <DefaultTextField />;
-    }
+    //_.debounce(getProjectsByFilter, 1000)
+    return (
+      <TextField
+        onChange={(event) => getProjectsByFilter(event)}
+        value={search[searchType]}
+        fullWidth
+        placeholder="Поиск"
+        autoFocus
+      />
+    );
   }
 
   function SelectorForSearchByToolsType() {
     return (
-      <Select value={0} id="select" fullWidth>
-        <MenuItem value={0}>Всё оборудование</MenuItem>
-        <MenuItem value={1}>Мониторы пациента</MenuItem>
-        <MenuItem value={2}>Рентген-аппараты</MenuItem>
+      <Select value={search.tool_type} onChange={(event) => getProjectsByFilter(event)} id="select" fullWidth>
+        <MenuItem value={'all_tools'}>Всё оборудование</MenuItem>
+        <MenuItem value={'monitors'}>Мониторы пациента</MenuItem>
+        <MenuItem value={'xray'}>Рентген-аппараты</MenuItem>
       </Select>
     );
   }
@@ -230,7 +240,7 @@ function Search({listProjects, setSearch, search, project}) {
               onChange={(
                 e: React.ChangeEvent<{
                   name?: string;
-                  value: string;
+                  value: searchTypeEnum;
                 }>
               ) => setSearchType(e.target.value)}
               value={searchType}
@@ -239,7 +249,7 @@ function Search({listProjects, setSearch, search, project}) {
               <MenuItem value={"inn"}>По ИНН</MenuItem>
               <MenuItem value={"kladr"}>По КЛАДР</MenuItem>
               <MenuItem value={"tool"}>По оборудованию</MenuItem>
-              <MenuItem value={"toolType"}>По типу оборудования</MenuItem>
+              <MenuItem value={"tool_type"}>По типу оборудования</MenuItem>
               <MenuItem value={"date"}>По датам</MenuItem>
               <MenuItem value={"lu_name"}>По названию ЛУ</MenuItem>
               <MenuItem value={"manager"}>По сотруднику</MenuItem>

@@ -10,12 +10,12 @@ export function searchReducer(
         inn: '',
         kladr: '',
         tool: '',
-        toolType: 0,
+        tool_type: 'all',
         datetime_start: '',
         datetime_end: '',
         lu_name: '',
         manager: '',
-        query: ''
+        all: ''
     },
     action: searchAction
 ) 
