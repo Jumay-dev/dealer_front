@@ -219,12 +219,12 @@ export interface searchState {
   inn?: string; 
   kladr?: string; 
   tool?: string; 
-  toolType?: number;
+  tool_type?: string;
   datetime_start?: string; 
   datetime_end?: string;
   lu_name?: string;
   manager?: string;
-  query?: string;
+  all?: string;
 }
 
 interface searchQuery {
