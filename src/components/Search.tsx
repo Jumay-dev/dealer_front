@@ -10,13 +10,13 @@ import DateFnsUtils from "@date-io/date-fns";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { listProjects, updateState } from '../actions/project'
-import { setSearch } from '../actions/search'
-import _ from 'lodash'
-import { thunkData } from '../services/thunks'
-import { LIST_PROJECTS } from '../store/types'
+import { listProjects, updateState } from "../actions/project";
+import { setSearch } from "../actions/search";
+import _ from "lodash";
+import { thunkData } from "../services/thunks";
+import { LIST_PROJECTS } from "../store/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -94,47 +94,55 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type searchTypeEnum = "all"
-| "inn"
-| "kladr"
-| "tool"
-| "tool_type"
-| "date"
-| "lu_name"
-| "manager"
+type searchTypeEnum =
+  | "all"
+  | "inn"
+  | "kladr"
+  | "tool"
+  | "tool_type"
+  | "date"
+  | "lu_name"
+  | "manager";
 
-function Search({listProjects, setSearch, search, project, updateState}) {
+function Search({
+  listProjects,
+  setSearch,
+  search,
+  project,
+  updateState,
+  categories,
+}) {
   const classes = useStyles();
   const [searchType, setSearchType] = React.useState<searchTypeEnum>("all");
 
   function searchProjects() {
-    updateState({isFetching: true, page: 1})
+    updateState({ isFetching: true, page: 1 });
     let listProjectsAction = {
       type: LIST_PROJECTS,
-      data: {...search, page: 1, limit: 10}
-    }
-    listProjects(listProjectsAction)
+      data: { ...search, page: 1, limit: 10 },
+    };
+    listProjects(listProjectsAction);
   }
 
   function setFiltersByAction(event, datetime_start?, datetime_end?) {
-    switch(searchType) {
-      case 'all': {
+    switch (searchType) {
+      case "all": {
         setSearch({
-          all: event.target.value
-        })
-        break
+          all: event.target.value,
+        });
+        break;
       }
-      case 'date': {
+      case "date": {
         setSearch({
-          datetime_start: '123123',
-          datetime_end: '321321'
-        })
-        break
+          datetime_start: "123123",
+          datetime_end: "321321",
+        });
+        break;
       }
       default: {
-        let data = {}
-        data[searchType] = event.target.value
-        setSearch(data)
+        let data = {};
+        data[searchType] = event.target.value;
+        setSearch(data);
       }
     }
   }
@@ -223,10 +231,13 @@ function Search({listProjects, setSearch, search, project, updateState}) {
 
   function SelectorForSearchByToolsType() {
     return (
-      <Select value={search.tool_type} onChange={(event) => setFiltersByAction(event)} id="select" fullWidth>
-        <MenuItem value={'all_tools'}>Всё оборудование</MenuItem>
-        <MenuItem value={'monitors'}>Мониторы пациента</MenuItem>
-        <MenuItem value={'xray'}>Рентген-аппараты</MenuItem>
+      <Select
+        value={search.tool_type}
+        onChange={(event) => setFiltersByAction(event)}
+        id="select"
+        fullWidth
+      >
+        {categories.map( category => <MenuItem value={category.category.id}>{category.category.category_name}</MenuItem>)}
       </Select>
     );
   }
@@ -240,7 +251,7 @@ function Search({listProjects, setSearch, search, project, updateState}) {
           marginRight: 5,
         }}
       >
-        Статусы проектов:
+        Поиск:
       </Typography>
       <div className={classes.toolsWrapper}>
         <div className={classes.formContainer}>
@@ -267,12 +278,15 @@ function Search({listProjects, setSearch, search, project, updateState}) {
             </Select>
           </FormControl>
           {GetSearchFieldByType(searchType)}
-          <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={searchProjects}
-          disabled={project.isFetching}
-          >Поиск</Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={searchProjects}
+            disabled={project.isFetching}
+            style={{marginLeft: "20px"}}
+          >
+            Поиск
+          </Button>
         </div>
       </div>
     </div>
@@ -282,16 +296,17 @@ function Search({listProjects, setSearch, search, project, updateState}) {
 function mapStateToProps(state) {
   return {
     search: state.search,
-    project: state.project
-  }
+    project: state.project,
+    categories: state.tool.categoriesList,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     listProjects: (action) => dispatch(thunkData(action)),
     setSearch: (data) => dispatch(setSearch(data)),
-    updateState: (data) => dispatch(updateState(data))
-  }
+    updateState: (data) => dispatch(updateState(data)),
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
