@@ -7,7 +7,7 @@ export default function ToolsRegistratum({ tools, toolsMeta }) {
     return +b.status_id - +a.status_id;
   }));
   function Tool(localTool) {
-    const localToolMeta = toolsMeta.find((item) => item.id === localTool.id);
+    const localToolMeta = toolsMeta.find((item) => +item.id === +localTool.tool_id);
     const toolDescs = getStatusNameByID(+localTool.status_id)
     return (
         <div style={{ color: "#666b73", display: "flex", justifyContent: "space-between"}}>

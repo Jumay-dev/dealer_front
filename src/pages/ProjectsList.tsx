@@ -149,11 +149,6 @@ function ProjectsList(
           user={{}}
           onClose={() => setModalOpen(false)}
         />
-        <Snackbar open={app.projectSuccesfullyAdded} autoHideDuration={6000} onClose={() => unsetSuccess()}>
-          <Alert onClose={() => unsetSuccess()} severity="success">
-            Проект успешно добавлен
-          </Alert>
-        </Snackbar>
       </div>
   )
 }

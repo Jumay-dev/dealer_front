@@ -58,13 +58,12 @@ export function getData(action: any): Promise<TODO> {
   switch (action.type) {
     case LIST_PROJECTS:
       let params = '';
-      console.log(action.data)
       for (let key in action.data) {
         if (action.data[key]) {
           params += `${key}=${action.data[key]}&`
         }
       }
-      return fetch(`${backend}/api/project/list?page=${params}`, {
+      return fetch(`${backend}/api/project/list?${params}`, {
         method: "POST",
         headers: {
           "Authorization": token

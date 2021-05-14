@@ -23,6 +23,7 @@ export function projectReducer(
 ) {
     switch (action.type) {
         case LIST_PROJECTS: {
+            console.log(action.payload)
             return Object.assign({}, state, {
                 isFetching: false,
                 projectsList: action.payload.data,
