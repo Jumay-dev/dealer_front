@@ -167,23 +167,14 @@ function Search({
 
   function DatePickerForSearchByDate() {
     const classes = useStyles();
-    const [startRangeDate, setStartRangeDate] = React.useState(
-      new Date("2014-08-18T21:11:54")
-    );
-    const [endRangeDate, setEndRangeDate] = React.useState(
-      new Date("2014-08-18T21:11:54")
-    );
-
     type changesType = "range_start"
     | "range_end";
 
-    const changeDateRange = (changeType: changesType, value) => {
+    const changeDateRange = (changeType: changesType, value, anys) => {
       if (changeType === 'range_start') {
-        setStartRangeDate(value)      
         setFiltersByAction(null, value)
       }
       if(changeType === 'range_end') {
-        setEndRangeDate(value)
         setFiltersByAction(null, false, value)
       }
     }
@@ -195,17 +186,17 @@ function Search({
           <KeyboardDatePicker
             disableToolbar
             variant="inline"
-            format="dd.mm.yyyy"
+            format="dd.MM.yyyy"
             margin="normal"
             id="date-start"
             value={search.datetime_start}
-            onChange={(date) => changeDateRange("range_start", date)}
+            onChange={(date, value) => changeDateRange("range_start", date, value)}
             KeyboardButtonProps={{
               "aria-label": "change date",
             }}
             style={{
               margin: 0,
-              maxWidth: 120,
+              maxWidth: 140,
               marginLeft: 10,
               marginRight: 10,
             }}
@@ -214,15 +205,15 @@ function Search({
           <KeyboardDatePicker
             disableToolbar
             variant="inline"
-            format="dd.mm.yyyy"
+            format="dd.MM.yyyy"
             margin="normal"
             id="date-end"
             value={search.datetime_end}
-            onChange={(date) => changeDateRange('range_end', date)}
+            onChange={(date, value) => changeDateRange('range_end', date, value)}
             KeyboardButtonProps={{
               "aria-label": "change date",
             }}
-            style={{ margin: 0, marginLeft: 10, maxWidth: 120 }}
+            style={{ margin: 0, marginLeft: 10, maxWidth: 140 }}
           />
         </div>
       </MuiPickersUtilsProvider>

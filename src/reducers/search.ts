@@ -21,7 +21,7 @@ export function searchReducer(
     state: searchState = initialState,
     action: searchAction
 ) 
-{console.log(action.payload)
+{
     switch (action.type) {
         case SET_SEARCH: {
             return Object.assign({}, state, { ...initialState, ...action.payload });

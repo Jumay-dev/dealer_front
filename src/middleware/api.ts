@@ -61,8 +61,12 @@ export function getData(action: any): Promise<TODO> {
       const queryBuilder = new URLSearchParams()
       for (let key in action.data) {
         if (action.data[key]) {
-          queryBuilder.append(key, action.data[key])
-          params += `${key}=${action.data[key]}&`
+          if (key === 'datetime_start' || key === 'datetime_end') {
+            const timestampDate = +(new Date(action.data[key]))/1000
+            queryBuilder.append(key, timestampDate.toString())
+          } else {
+            queryBuilder.append(key, action.data[key])
+          }
         }
       }
       return fetch(`${backend}/api/project/list?${queryBuilder.toString()}`, {
