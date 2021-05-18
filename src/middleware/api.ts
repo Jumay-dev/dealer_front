@@ -58,12 +58,14 @@ export function getData(action: any): Promise<TODO> {
   switch (action.type) {
     case LIST_PROJECTS:
       let params = '';
+      const queryBuilder = new URLSearchParams()
       for (let key in action.data) {
         if (action.data[key]) {
+          queryBuilder.append(key, action.data[key])
           params += `${key}=${action.data[key]}&`
         }
       }
-      return fetch(`${backend}/api/project/list?${params}`, {
+      return fetch(`${backend}/api/project/list?${queryBuilder.toString()}`, {
         method: "POST",
         headers: {
           "Authorization": token

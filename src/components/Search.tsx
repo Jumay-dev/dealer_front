@@ -95,7 +95,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type searchTypeEnum =
-  | "all"
   | "inn"
   | "kladr"
   | "tool"
@@ -113,7 +112,7 @@ function Search({
   categories,
 }) {
   const classes = useStyles();
-  const [searchType, setSearchType] = React.useState<searchTypeEnum>("all");
+  const [searchType, setSearchType] = React.useState<searchTypeEnum>("tool");
 
   function searchProjects() {
     updateState({ isFetching: true, page: 1 });
@@ -126,16 +125,16 @@ function Search({
 
   function setFiltersByAction(event, datetime_start?, datetime_end?) {
     switch (searchType) {
-      case "all": {
-        setSearch({
-          all: event.target.value,
-        });
-        break;
-      }
+      // case "all": {
+      //   setSearch({
+      //     all: event.target.value,
+      //   });
+      //   break;
+      // }
       case "date": {
         setSearch({
-          datetime_start: "123123",
-          datetime_end: "321321",
+          datetime_start: datetime_start ? datetime_start : search.datetime_start,
+          datetime_end: datetime_end ? datetime_end : search.datetime_end,
         });
         break;
       }
@@ -174,6 +173,20 @@ function Search({
     const [endRangeDate, setEndRangeDate] = React.useState(
       new Date("2014-08-18T21:11:54")
     );
+
+    type changesType = "range_start"
+    | "range_end";
+
+    const changeDateRange = (changeType: changesType, value) => {
+      if (changeType === 'range_start') {
+        setStartRangeDate(value)      
+        setFiltersByAction(null, value)
+      }
+      if(changeType === 'range_end') {
+        setEndRangeDate(value)
+        setFiltersByAction(null, false, value)
+      }
+    }
     // getProjectsByFilter(event)
     return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -184,9 +197,9 @@ function Search({
             variant="inline"
             format="dd.mm.yyyy"
             margin="normal"
-            id="date-picker-inline"
-            value={startRangeDate}
-            onChange={(date) => setStartRangeDate(date)}
+            id="date-start"
+            value={search.datetime_start}
+            onChange={(date) => changeDateRange("range_start", date)}
             KeyboardButtonProps={{
               "aria-label": "change date",
             }}
@@ -203,9 +216,9 @@ function Search({
             variant="inline"
             format="dd.mm.yyyy"
             margin="normal"
-            id="date-picker-inline"
-            value={endRangeDate}
-            onChange={(date) => setEndRangeDate(date)}
+            id="date-end"
+            value={search.datetime_end}
+            onChange={(date) => changeDateRange('range_end', date)}
             KeyboardButtonProps={{
               "aria-label": "change date",
             }}
@@ -267,10 +280,9 @@ function Search({
               ) => setSearchType(e.target.value)}
               value={searchType}
             >
-              <MenuItem value={"all"}>Все проекты</MenuItem>
+              <MenuItem value={"tool"}>По оборудованию</MenuItem>
               <MenuItem value={"inn"}>По ИНН</MenuItem>
               <MenuItem value={"kladr"}>По КЛАДР</MenuItem>
-              <MenuItem value={"tool"}>По оборудованию</MenuItem>
               <MenuItem value={"tool_type"}>По типу оборудования</MenuItem>
               <MenuItem value={"date"}>По датам</MenuItem>
               <MenuItem value={"lu_name"}>По названию ЛУ</MenuItem>
