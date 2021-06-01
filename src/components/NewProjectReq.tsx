@@ -6,6 +6,25 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ModalProjectPresend from '../components/ModalProjectPresend'
+import MaskedInput from 'react-text-mask';
+
+const INN_MASK = '999_999_999_999';
+
+function TextMaskCustom(props) {
+    const { inputRef, ...other } = props;
+  
+    return (
+      <MaskedInput
+        {...other}
+        ref={(ref) => {
+          inputRef(ref ? ref.inputElement : null);
+        }}
+        mask={[/\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/,]}
+        placeholderChar={'\u2000'}
+        showMask
+      />
+    );
+  }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginTop: 10,
         padding: theme.spacing(3),
         display: "flex",
+        alignItems: "center"
     },
     headerWrapper: {
         width: "100%",
@@ -84,16 +104,18 @@ export default function NewProjectReq(
     <Paper className={classes.paper} key="unikey">
         <Grid container className={classes.gridContainer}>
             <Grid item md={6} sm={12}>
-                <TextField 
-                style={{margin: 5, width: "20vw"}}
-                fullWidth
-                size="small"
-                variant="outlined"
-                label="ИНН клиники"
-                required
-                value={clinicInn}
-                onChange={event => setClinicInn(event.target.value)}
-                />
+                    <TextField 
+                    style={{margin: 5, width: "20vw"}}
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    label="ИНН клиники"
+                    required
+                    value={clinicInn}
+                    onChange={event => setClinicInn(event.target.value)}
+                    InputProps={{inputComponent: TextMaskCustom}}
+                    />
+
             </Grid>
             <Grid item md={6} sm={12}>
                 <TextField 
@@ -129,7 +151,7 @@ export default function NewProjectReq(
                 />
             </Grid>
         </Grid>
-        <Button variant="outlined" onClick={() => setShowAdditionalReq(!showAdditionalReq)}>Добавить промежуточного дилера</Button>
+        <Button style={{height: 40}} variant="outlined" onClick={() => setShowAdditionalReq(!showAdditionalReq)}>Добавить промежуточного дилера</Button>
     </Paper>
     <ModalProjectPresend 
         open={openPresend}

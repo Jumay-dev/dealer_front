@@ -73,10 +73,12 @@ export default function ModalAuthorisation(
   };
 
   function Tool(localTool) {
-    const localToolMeta = toolsMeta.find( item => item.id === localTool.id)
+    const localToolMeta = toolsMeta.find( item => +item.id === +localTool.tool_id)
+    console.log(toolsMeta)
+    console.log(localTool)
 
     return (
-      <span>{localToolMeta.tool_name} ({getStatusNameByID(+localTool.status_id)}){status !== '' ? `->${getStatusNameByID(+status)}` : null}</span>
+      <span>{localToolMeta.tool_name} ({getStatusNameByID(+localTool.status_id).text}){status !== '' ? ` -> ${getStatusNameByID(+status).text}` : null}</span>
     )
 }
 
