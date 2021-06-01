@@ -103,12 +103,6 @@ function MainListItems({app}) {
                 <ListItemText primary="Регистратура"/>
             </StyledMenuItem>
         </Link>
-        <Link to="/admin" className={styles.linkItem } key="6">
-            <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/admin"}>
-                <ListItemIcon><img src={HomeIcon} /></ListItemIcon>
-                <ListItemText primary="Админ.панель"/>
-            </StyledMenuItem>
-        </Link>
 
         {app.sidebarOpened && <InlineDivider text="Оповещение"/>}
         <StyledMenuItem className={styles.menuItem } key="7">
