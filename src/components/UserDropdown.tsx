@@ -27,10 +27,10 @@ avatarDiv: {
     justifyContent: "space-between"
 },
 avatarIcon: {
-    float: "left" as TODO,
-    display: "block" as TODO,
+    display: "flex",
+    justifyContent: "center",
     marginRight: 15,
-    boxShadow: "0px 0px 0px 3px rgba(0,0,0,0.2)" as TODO,
+    boxShadow: "0px 0px 0px 3px rgba(0,0,0,0.2)",
 },
 avatarSpan: {
     paddingTop: 0,
@@ -72,7 +72,7 @@ const withMenu = ({
       open={open}
       onClose={handleClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <Link to="/user">
             <VpnKey />
             <Typography style={{ paddingLeft: "1em" }} variant="inherit">
@@ -87,7 +87,7 @@ const withMenu = ({
                 Страница организации
             </Typography>
         </Link>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={signoutClick}>
         <SettingsPower />
         <Typography style={{ paddingLeft: "1em" }} variant="inherit" >
@@ -123,7 +123,6 @@ function UserDropdown<AppUserMenuProps>({
   
   const signoutClick = (event: React.ChangeEvent<unknown>) => {
     event.preventDefault();
-    console.log('logout UserDropdown')
     signOutUser(signOutAction);
   };
 
@@ -138,11 +137,11 @@ function UserDropdown<AppUserMenuProps>({
         alignItems: "center"
       }}>
         <Avatar
-        src={"https://peopletalk.ru/wp-content/uploads/2017/11/1480331127.jpg?opt=true"}
+        // src={"https://peopletalk.ru/wp-content/uploads/2017/11/1480331127.jpg?opt=true"}
         style={styles.avatarIcon}
         />
         <Typography style={styles.user} variant="inherit">
-          {user !== undefined ? user.firstname : null}
+          {user ? user.login : null}
         </Typography>
       </span>
       <span style={styles.avatarSpan}>
