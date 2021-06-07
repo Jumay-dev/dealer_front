@@ -105,6 +105,7 @@ function Login(props) {
             onClick={() => {
               setLoading(true)
               props.userLoginAction(login, password)
+              // props.history.push('/')
             }}
           >
             Войти
