@@ -42,6 +42,17 @@ const useStyles = makeStyles(() =>
   })
 );
 
+function isRole(accessebleRoles: Array<string>, roles) {
+    let containsFlag = false
+    roles.forEach(role => {
+        if (accessebleRoles.includes(role.name)) {
+            console.log(role.name)
+            containsFlag = true
+        }
+    })
+    return containsFlag
+}
+
 function MainListItems({app, roles}) {
     const styles = useStyles();
     return (
@@ -78,29 +89,31 @@ function MainListItems({app, roles}) {
         </Link>
 
         {app.sidebarOpened && <InlineDivider text="Организация"/>}
-        <Link to="/user" className={styles.linkItem } key="4">
+        {isRole(['admin'], roles) ? <Link to="/user" className={styles.linkItem } key="4">
             <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/user"}>
                 <ListItemIcon><img src={UserIcon} /></ListItemIcon>
                 <ListItemText primary="Мой кабинет"/>
             </StyledMenuItem>
-        </Link>
-        <Link key="5" to="/coworkers" className={styles.linkItem}>
+        </Link> : null}
+        
+        {isRole(['admin', 'dealer'], roles) ? <Link key="5" to="/coworkers" className={styles.linkItem}>
             <StyledMenuItem key={4} className={styles.menuItem} selected={window.location.pathname === "/coworkers"}>
             <ListItemIcon ><img src={UsersGroupIcon} /></ListItemIcon>
             <ListItemText primary="Сотрудники"/>
             </StyledMenuItem>
-        </Link>
-        <Link to="/company" className={styles.linkItem } key="6">
+        </Link> : null}
+
+        {isRole(['admin', 'manager', 'employee'], roles) ? <Link to="/company" className={styles.linkItem } key="6">
             <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/company"}>
                 <ListItemIcon><img src={HomeIcon} /></ListItemIcon>
                 <ListItemText primary="Организация"/>
             </StyledMenuItem>
-        </Link>
+        </Link> : null}
 
-        {roles.find(role => role.name === 'admin') ||  roles.find(role => role.name === 'authorisator')? <Link to="/registratum" className={styles.linkItem } key="7">
+        {isRole(['admin', 'authorizator'], roles) ? <Link to="/registratum" className={styles.linkItem } key="7">
             <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/registratum"}>
                 <ListItemIcon><img src={HomeIcon} /></ListItemIcon>
-                <ListItemText primary="Регистратура"/>
+                <ListItemText primary="Авторизация"/>
             </StyledMenuItem>
         </Link> : null}
 
