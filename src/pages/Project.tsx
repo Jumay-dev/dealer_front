@@ -142,8 +142,8 @@ function Project({
     }
 
     let data = new FormData();
-    for (let catkey in project) {
-      data.append(catkey, project[catkey]);
+    for (let key in project) {
+      data.append(key, project[key]);
     }
 
     const token = localStorage.getItem("react-crm-token");
@@ -160,10 +160,10 @@ function Project({
         enqueueSnackbar({
           message: "Ваш проект отправлен на авторизацию",
           options: {
-            catkey: uuidv4(),
+            key: uuidv4(),
             variant: "success",
-            action: (catkey) => (
-              <Button onClick={() => closeSnackbar(catkey)}>Закрыть</Button>
+            action: (key) => (
+              <Button onClick={() => closeSnackbar(key)}>Закрыть</Button>
             ),
           },
         });
@@ -182,10 +182,9 @@ function Project({
     category_tools?: Array<any>;
   }
 
-  function Subcategory({catkey, categories}) {
-    console.log(catkey)
+  function Subcategory({catkey, categories, allTools, setTools}) {
     return (
-      <React.Fragment>
+      <div>
         <Typography
           component="h2"
           variant="h5"
@@ -209,11 +208,11 @@ function Project({
           handleInfoClick={handleInfoClick}
           />
         ))}
-      </React.Fragment>
+      </div>
     )
   }
 
-  function CategoriesSortedBySubcategories({categories, dictionary}) {
+  function CategoriesSortedBySubcategories({categories, dictionary, allTools, setTools}) {
     const sortedCategoryObj = {};
     categories.forEach(category => {
       if (dictionary[category.category.subcategory_tag]) {
@@ -232,10 +231,9 @@ function Project({
         }
       }
     })
-    Object.keys(sortedCategoryObj).map(catkey => console.log(catkey))
     return (
       <React.Fragment>
-        {Object.keys(sortedCategoryObj).map(catkey => <Subcategory catkey={catkey} categories={sortedCategoryObj[catkey]}/>)}
+        {Object.keys(sortedCategoryObj).map(catkey => <Subcategory catkey={catkey} categories={sortedCategoryObj[catkey]} allTools={allTools} setTools={setTools}/>)}
       </React.Fragment>
     )
   }
@@ -283,13 +281,15 @@ function Project({
                 filteredToolsByCategory={getFilteredToolsByCategory}
                 allTools={allTools}
                 setTools={setTools}
-                catkey={category.id}
+                key={category.id}
                 handleInfoClick={handleInfoClick}
               />
             ))} */}
             <CategoriesSortedBySubcategories 
               categories={categoriesList}
               dictionary={categoriesDicitionary}
+              allTools={allTools}
+              setTools={setTools}
             />
 
             <ToolInfoInProject

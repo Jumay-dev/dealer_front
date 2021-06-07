@@ -110,6 +110,7 @@ function Search({
   project,
   updateState,
   categories,
+  user
 }) {
   const classes = useStyles();
   const [searchType, setSearchType] = React.useState<searchTypeEnum>("tool");
@@ -246,6 +247,16 @@ function Search({
     );
   }
 
+  function isRole(accessebleRoles: Array<string>, roles) {
+    let containsFlag = false
+    roles.forEach(role => {
+        if (accessebleRoles.includes(role.name)) {
+            containsFlag = true
+        }
+    })
+    return containsFlag
+}
+
   return (
     <div className={classes.mainWrapper}>
       <Typography
@@ -278,6 +289,7 @@ function Search({
               <MenuItem value={"date"}>По датам</MenuItem>
               <MenuItem value={"lu_name"}>По названию ЛУ</MenuItem>
               <MenuItem value={"manager"}>По сотруднику</MenuItem>
+              {isRole(['admin', 'authorizator', 'manager'], user.roles) ? <MenuItem value={"dealer"}>По дилеру</MenuItem> : null}
             </Select>
           </FormControl>
           {GetSearchFieldByType(searchType)}
@@ -301,6 +313,7 @@ function mapStateToProps(state) {
     search: state.search,
     project: state.project,
     categories: state.tool.categoriesList,
+    user: state.auth.user
   };
 }
 

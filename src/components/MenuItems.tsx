@@ -46,7 +46,6 @@ function isRole(accessebleRoles: Array<string>, roles) {
     let containsFlag = false
     roles.forEach(role => {
         if (accessebleRoles.includes(role.name)) {
-            console.log(role.name)
             containsFlag = true
         }
     })
