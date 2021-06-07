@@ -156,7 +156,7 @@ function ProjectOneByCard(
                   variant="subtitle2"
                   style={{ color: "white", fontWeight: "bold" }}
                 >
-                  # ND{item.id}
+                  Проект {item.id}
                 </Typography>
               </TableCell>
               <TableCell

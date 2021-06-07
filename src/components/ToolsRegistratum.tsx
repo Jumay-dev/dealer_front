@@ -47,6 +47,7 @@ export default function ToolsRegistratum({
       setMeta(meta)
     }, [toolsMeta])
 
+    const toolStatus = getStatusNameByID(+localTool.status_id)
 
     return (
       <div
@@ -77,8 +78,8 @@ export default function ToolsRegistratum({
             alignItems: "center",
           }}
         >
-          <span style={{ fontWeight: "bold", color: "#666b73" }}>
-            {getStatusNameByID(+localTool.status_id)}
+          <span style={{ fontWeight: "bold", color: toolStatus.color }}>
+            {toolStatus.text}
           </span>
           <Tooltip
             title={
@@ -100,17 +101,23 @@ export default function ToolsRegistratum({
     );
   }
 
-  return (
-    <Grid container spacing={2}>
-      {tools ? (
-        tools.map((item) => (
-          <Grid item xs={12}>
-            {Tool(item)}
-          </Grid>
-        ))
-      ) : (
-        <span>Ошибка загрузки оборудования</span>
-      )}
-    </Grid>
-  );
+  try {
+    return (
+      <Grid container spacing={2}>
+        {tools ? (
+          tools.map((item) => (
+            <Grid item xs={12}>
+              {Tool(item)}
+            </Grid>
+          ))
+        ) : (
+          <span>Ошибка загрузки оборудования</span>
+        )}
+      </Grid>
+    );
+  }
+  catch {
+    return <span>Ошибка загрузки оборудования</span>
+  }
+
 }

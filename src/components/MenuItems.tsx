@@ -42,7 +42,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-function MainListItems({app}) {
+function MainListItems({app, roles}) {
     const styles = useStyles();
     return (
     <div key="mainmenu">
@@ -97,26 +97,20 @@ function MainListItems({app}) {
             </StyledMenuItem>
         </Link>
 
-        <Link to="/registratum" className={styles.linkItem } key="7">
+        {roles.find(role => role.name === 'admin') ||  roles.find(role => role.name === 'authorisator')? <Link to="/registratum" className={styles.linkItem } key="7">
             <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/registratum"}>
                 <ListItemIcon><img src={HomeIcon} /></ListItemIcon>
                 <ListItemText primary="Регистратура"/>
             </StyledMenuItem>
-        </Link>
-        <Link to="/admin" className={styles.linkItem } key="6">
-            <StyledMenuItem className={styles.menuItem} selected={window.location.pathname === "/admin"}>
-                <ListItemIcon><img src={HomeIcon} /></ListItemIcon>
-                <ListItemText primary="Админ.панель"/>
-            </StyledMenuItem>
-        </Link>
+        </Link> : null}
 
-        {app.sidebarOpened && <InlineDivider text="Оповещение"/>}
+        {/* {app.sidebarOpened && <InlineDivider text="Оповещение"/>}
         <StyledMenuItem className={styles.menuItem } key="7">
             <NotificationsMenu />
         </StyledMenuItem>
         <StyledMenuItem className={styles.menuItem } key="8">
             <MailsMenu />
-        </StyledMenuItem>    
+        </StyledMenuItem>     */}
     </div>
     )
 }
@@ -161,7 +155,8 @@ const StyledMenuItem = withStyles((theme) => ({
 
 function mapStateToProps(state) {
     return {
-      app: state.app
+      app: state.app,
+      roles: state.auth.user.roles
     }
 }
   

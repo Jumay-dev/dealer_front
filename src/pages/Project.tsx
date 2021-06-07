@@ -20,6 +20,10 @@ import {
   closeSnackbar as closeSnackbarAction,
 } from "../actions/snackbar";
 
+const categoriesDicitionary = {
+  'default': "Остальные"
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
@@ -138,8 +142,8 @@ function Project({
     }
 
     let data = new FormData();
-    for (let key in project) {
-      data.append(key, project[key]);
+    for (let catkey in project) {
+      data.append(catkey, project[catkey]);
     }
 
     const token = localStorage.getItem("react-crm-token");
@@ -156,10 +160,10 @@ function Project({
         enqueueSnackbar({
           message: "Ваш проект отправлен на авторизацию",
           options: {
-            key: uuidv4(),
+            catkey: uuidv4(),
             variant: "success",
-            action: (key) => (
-              <Button onClick={() => closeSnackbar(key)}>Закрыть</Button>
+            action: (catkey) => (
+              <Button onClick={() => closeSnackbar(catkey)}>Закрыть</Button>
             ),
           },
         });
@@ -171,6 +175,69 @@ function Project({
     if (Array.isArray(tools) && tools.length !== 0) {
       return tools.filter((tool) => +tool.category_id === +categoryID);
     }
+  }
+
+  interface categorySignature {
+    category: any;
+    category_tools?: Array<any>;
+  }
+
+  function Subcategory({catkey, categories}) {
+    console.log(catkey)
+    return (
+      <React.Fragment>
+        <Typography
+          component="h2"
+          variant="h5"
+          style={{
+            color: "#688cbc",
+            display: "block",
+            marginTop: 20,
+            marginBottom: 10,
+          }}
+        >
+          {categoriesDicitionary[catkey]}
+        </Typography>
+        {categories.map(category => (
+          <AccordionOfTools
+          categoryName={category.category.category_name}
+          category={category.category}
+          filteredToolsByCategory={getFilteredToolsByCategory}
+          allTools={allTools}
+          setTools={setTools}
+          key={category.id}
+          handleInfoClick={handleInfoClick}
+          />
+        ))}
+      </React.Fragment>
+    )
+  }
+
+  function CategoriesSortedBySubcategories({categories, dictionary}) {
+    const sortedCategoryObj = {};
+    categories.forEach(category => {
+      if (dictionary[category.category.subcategory_tag]) {
+        if(sortedCategoryObj[category.category.subcategory_tag] && Array.isArray(sortedCategoryObj[category.category.subcategory_tag])) {
+          sortedCategoryObj[category.category.subcategory_tag].push(category)
+        } else {
+          sortedCategoryObj[category.category.subcategory_tag] = [];
+          sortedCategoryObj[category.category.subcategory_tag].push(category)
+        }
+      } else {
+        if (sortedCategoryObj['default'] && Array.isArray(sortedCategoryObj['default'])) {
+          sortedCategoryObj['default'].push(category)
+        } else {
+          sortedCategoryObj['default'] = []
+          sortedCategoryObj['default'].push(category)
+        }
+      }
+    })
+    Object.keys(sortedCategoryObj).map(catkey => console.log(catkey))
+    return (
+      <React.Fragment>
+        {Object.keys(sortedCategoryObj).map(catkey => <Subcategory catkey={catkey} categories={sortedCategoryObj[catkey]}/>)}
+      </React.Fragment>
+    )
   }
 
   return (
@@ -209,17 +276,21 @@ function Project({
               Авторизуемое оборудование
             </Typography>
 
-            {categoriesList.map((category) => (
+            {/* {categoriesList.map((category) => (
               <AccordionOfTools
                 categoryName={category.category.category_name}
                 category={category.category}
                 filteredToolsByCategory={getFilteredToolsByCategory}
                 allTools={allTools}
                 setTools={setTools}
-                key={category.id}
+                catkey={category.id}
                 handleInfoClick={handleInfoClick}
               />
-            ))}
+            ))} */}
+            <CategoriesSortedBySubcategories 
+              categories={categoriesList}
+              dictionary={categoriesDicitionary}
+            />
 
             <ToolInfoInProject
               toolName={toolInfo.tool_name}

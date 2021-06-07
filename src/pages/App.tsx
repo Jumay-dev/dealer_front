@@ -11,7 +11,6 @@ import UserPage from "../pages/User";
 import mainLayout from "../layouts/mainLayout";
 import AppIsLoading from "../pages/AppIsLoading";
 import Registratum from "../pages/Registratum";
-import Admin from "../pages/Admin";
 import { connect } from "react-redux";
 import { thunkAuth } from "../services/thunks";
 import { SIGN_IN, AUTH_CHECK, LIST_CATEGORIES, LIST_TOOLS } from "../store/types";
@@ -123,14 +122,6 @@ function App(props) {
               exact
               path="/registratum"
               component={Registratum}
-              layout={mainLayout}
-            />
-          )}
-          {isAdmin && (
-            <RouteWrapper
-              exact
-              path="/admin"
-              component={Admin}
               layout={mainLayout}
             />
           )}
