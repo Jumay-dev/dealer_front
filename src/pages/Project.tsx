@@ -21,6 +21,9 @@ import {
 } from "../actions/snackbar";
 
 const categoriesDicitionary = {
+  'EXCLUSIVE': "Эксклюзивное оборудование",
+  'MANDATORY': "Обязательная авторизация проекта",
+  'DIRECT_DELIVERIES': "Прямые поставки, авторизация в рамках нашей компании",
   'default': "Остальные"
 }
 
@@ -225,12 +228,12 @@ function Project({
           sortedCategoryObj[category.category.subcategory_tag].push(category)
         }
       } else {
-        if (sortedCategoryObj['default'] && Array.isArray(sortedCategoryObj['default'])) {
-          sortedCategoryObj['default'].push(category)
-        } else {
-          sortedCategoryObj['default'] = []
-          sortedCategoryObj['default'].push(category)
-        }
+        // if (sortedCategoryObj['default'] && Array.isArray(sortedCategoryObj['default'])) {
+        //   sortedCategoryObj['default'].push(category)
+        // } else {
+        //   sortedCategoryObj['default'] = []
+        //   sortedCategoryObj['default'].push(category)
+        // }
       }
     })
     return (

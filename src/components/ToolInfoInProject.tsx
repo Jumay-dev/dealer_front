@@ -62,7 +62,7 @@ function ToolInfoInProject(
                     </Typography>
                 </CardContent>
             </Card> */}
-            <Card style={{width: "40vw", height: "60vh"}}>
+            <Card style={{width: "60vw", height: "80vh"}}>
                 <iframe width="100%" height="100%" src={source_link} title="any"></iframe>
             </Card>
         </Popover>
