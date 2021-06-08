@@ -228,7 +228,7 @@ function AccordionOfTools({
                                     <TableRow key={oneTool.id}>
                                         <TableCell component="th" scope="row">
                                             {oneTool.tool_name}
-                                            <IconButton onClick={(event) => handleInfoClick(event, oneTool)}><img src={InfoIcon} /></IconButton>
+                                            {oneTool.source_link !== 'NONE' ? <IconButton onClick={(event) => handleInfoClick(event, oneTool)}><img src={InfoIcon} /></IconButton> : null}
                                         </TableCell>
 
                                         <TableCell align="center" scope="row" component="th">
