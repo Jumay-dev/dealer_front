@@ -266,19 +266,6 @@ function Project({
               setOpenPresend={setOpenPresend}
             />
 
-            <Typography
-              component="h2"
-              variant="h5"
-              style={{
-                color: "#688cbc",
-                display: "inline-block",
-                marginTop: 20,
-                marginBottom: 10,
-              }}
-            >
-              Авторизуемое оборудование
-            </Typography>
-
             {/* {categoriesList.map((category) => (
               <AccordionOfTools
                 categoryName={category.category.category_name}
