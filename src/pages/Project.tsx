@@ -82,6 +82,7 @@ function Project({
     price_cur: "",
     img: "",
     description: "",
+    source_link: ""
   });
 
   React.useEffect(() => {
@@ -108,6 +109,7 @@ function Project({
       price_cur: tool.price_cur,
       img: "",
       description: "",
+      source_link: tool.source_link
     });
     setAnchorEl(event.currentTarget);
   };
@@ -302,6 +304,7 @@ function Project({
               id={id}
               price={toolInfo.price}
               price_cur={toolInfo.price_cur}
+              source_link={toolInfo.source_link}
             />
 
             <Button

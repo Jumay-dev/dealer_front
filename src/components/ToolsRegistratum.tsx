@@ -37,6 +37,7 @@ export default function ToolsRegistratum({
       updated_at: string;
       price: string;
       price_cur: string;
+      source_link: string;
     }
     const [localToolMeta, setMeta] = React.useState<undefined | toolObj>(undefined)
 
