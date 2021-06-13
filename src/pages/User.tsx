@@ -98,9 +98,15 @@ function User({ getProjects, projectsList, user }) {
     getProjects(projectListAction);
   }, []);
 
-  const isAdmin = () => {
-    return user.roles.includes("admin");
-  };
+	function isRole(accessebleRoles: Array<string>, roles) {
+    let containsFlag = false
+    roles.forEach(role => {
+        if (accessebleRoles.includes(role.name)) {
+            containsFlag = true
+        }
+    })
+    return containsFlag
+}
 
   const syncWithBX = () => {
 		setSyncLoading(true)
@@ -192,7 +198,7 @@ function User({ getProjects, projectsList, user }) {
         </Grid>
       </div>
 
-      {isAdmin() ? (
+      {isRole(['admin'], user.roles) ? (
         <div className={classes.contentWrapper}>
           <Typography
             component="h2"
