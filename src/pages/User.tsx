@@ -188,16 +188,6 @@ function User({ getProjects, projectsList, user }) {
             >
               Изменить
             </Button>
-            {isAdmin ? (
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ width: 200 }}
-                onClick={syncWithBX}
-              >
-                Синхронизировать с Битрикс
-              </Button>
-            ) : null}
           </Grid>
         </Grid>
       </div>
