@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Login(props) {
   const classes = useStyles();
-  const [ login, setLogin ] = React.useState('testuser@lara.ru')
-  const [ password, setPassword ] = React.useState('102030Abc')
+  const [ login, setLogin ] = React.useState('')
+  const [ password, setPassword ] = React.useState('')
   const [ loading, setLoading ] = React.useState(false)
 
 

@@ -192,7 +192,7 @@ function User({ getProjects, projectsList, user }) {
         </Grid>
       </div>
 
-      {isAdmin ? (
+      {isAdmin() ? (
         <div className={classes.contentWrapper}>
           <Typography
             component="h2"
@@ -212,6 +212,7 @@ function User({ getProjects, projectsList, user }) {
               color="primary"
               style={{ width: 200 }}
               onClick={syncWithBX}
+							disabled={syncLoading}
             >
               Синхронизировать с Битрикс
             </Button>
