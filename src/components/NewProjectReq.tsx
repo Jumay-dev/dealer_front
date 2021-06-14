@@ -109,7 +109,7 @@ export default function NewProjectReq(
                     fullWidth
                     size="small"
                     variant="outlined"
-                    label="ИНН клиники"
+                    label="ИНН клиники (7727063616)"
                     required
                     value={clinicInn}
                     onChange={event => setClinicInn(event.target.value)}
