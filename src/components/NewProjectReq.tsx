@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ModalProjectPresend from "../components/ModalProjectPresend";
 import MaskedInput from "react-text-mask";
@@ -105,6 +106,9 @@ export default function NewProjectReq({
   setDealerName,
   dealerUr,
   setDealerUr,
+  clinicLoading,
+  clinicUrAddress,
+  setClinicUrAddress
 }) {
   const classes = useStyles();
 
@@ -130,12 +134,13 @@ export default function NewProjectReq({
               fullWidth
               size="small"
               variant="outlined"
-              label="ИНН клиники (7727063616)"
+              label="ИНН клиники"
               required
               value={clinicInn}
               onChange={(event) => setClinicInn(event.target.value)}
               // InputProps={{ inputComponent: TextMaskCustom }}
             />
+            {clinicLoading === true ? <CircularProgress/> : null}
           </Grid>
           <Grid item md={4} sm={12}>
             <TextField
@@ -155,8 +160,8 @@ export default function NewProjectReq({
               size="small"
               variant="outlined"
               style={{ margin: 5, width: "20vw" }}
-              // value={clinicName}
-              // onChange={(event) => setClinicName(event.target.value)}
+              value={clinicUrAddress}
+              onChange={(event) => setClinicUrAddress(event.target.value)}
             />
           </Grid>
           <Grid item md={4} sm={12}>

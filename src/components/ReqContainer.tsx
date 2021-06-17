@@ -12,9 +12,11 @@ export default function ReqContainer({
 }) {
   const [showAdditionalReq, setShowAdditionalReq] = React.useState(false);
   const [clinicInn, setClinicInn] = React.useState<string>("");
+  const [clinicLoading, setClinicLoading] = React.useState<boolean>(false)
   const [clinicAddress, setClinicAddress] = React.useState<string>("");
   const [clinicName, setClinicName] = React.useState<string>("");
   const [clinicUr, setClinicUr] = React.useState<string>('');
+  const [clinicUrAddress, setClinicUrAddress] = React.useState<string>('');
   const [dealerInn, setDealerInn] = React.useState<string>("");
   const [dealerAddress, setDealerAddress] = React.useState<string>("");
   const [dealerName, setDealerName] = React.useState<string>("");
@@ -22,12 +24,17 @@ export default function ReqContainer({
 
   const callApi = (inn) => {
     console.log(inn);
+    setClinicLoading(true)
     getClinicReq(inn.split(" ").join("").trim())
       .then((res) => res.json())
       .then((res) => {
+        setClinicLoading(false)
         const resFromBack = res.result.result;
         if (res.result.result.success) {
           setClinicName(resFromBack.clinic.TITLE);
+          setClinicUr(resFromBack.clinic.RQ_COMPANY_NAME)
+          setClinicUrAddress(`${resFromBack.clinic.CITY} ${resFromBack.clinic.ADDRESS_1} ${resFromBack.clinic.ADDRESS_2}`)
+          setClinicAddress(`${resFromBack.clinic.CITY} ${resFromBack.clinic.ADDRESS_1} ${resFromBack.clinic.ADDRESS_2}`)
         }
       });
   };
@@ -35,9 +42,11 @@ export default function ReqContainer({
     _.debounce((inn) => callApi(inn), 1000)
   );
 
-  const onInnChange = (inn) => {
+  const onInnChange = (inn:string) => {
     setClinicInn(inn);
-    debouncedCallApi(inn);
+    if (inn.length > 9) {
+      debouncedCallApi(inn);
+    }
   };
 
   return (
@@ -65,6 +74,9 @@ export default function ReqContainer({
         setDealerName={setDealerName}
         dealerUr={dealerUr}
         setDealerUr={setDealerUr}
+        clinicLoading={clinicLoading}
+        clinicUrAddress={clinicUrAddress}
+        setClinicUrAddress={setClinicUrAddress}
       />
       {showAdditionalReq ? (
         <AdditionalDealerReq
