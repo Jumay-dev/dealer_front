@@ -188,11 +188,11 @@ export default function NewProjectReq({
           </Grid>
         </Grid>
         <Button
-          style={{ height: 40 }}
+          style={{ height: 40, justifySelf: "flexStart", color: "white", background: "green" }}
           variant="outlined"
           onClick={() => setShowAdditionalReq(!showAdditionalReq)}
         >
-          Добавить промежуточного дилера
+          Промежуточый дилер
         </Button>
       </Paper>
       <ModalProjectPresend
