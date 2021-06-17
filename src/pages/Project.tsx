@@ -21,11 +21,11 @@ import {
 } from "../actions/snackbar";
 
 const categoriesDicitionary = {
-  'EXCLUSIVE': "Эксклюзивное оборудование",
-  'MANDATORY': "Обязательная авторизация проекта",
-  'DIRECT_DELIVERIES': "Прямые поставки, авторизация в рамках нашей компании",
-  'default': "Остальные"
-}
+  EXCLUSIVE: "Эксклюзивное оборудование",
+  MANDATORY: "Обязательная авторизация проекта",
+  DIRECT_DELIVERIES: "Прямые поставки, авторизация в рамках нашей компании",
+  default: "Остальные",
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -85,7 +85,7 @@ function Project({
     price_cur: "",
     img: "",
     description: "",
-    source_link: ""
+    source_link: "",
   });
 
   React.useEffect(() => {
@@ -105,14 +105,13 @@ function Project({
     setOpenPresend(true);
   }
   const handleInfoClick = (event, tool) => {
-    console.log(tool);
     setToolInfo({
       tool_name: tool.tool_name,
       price: tool.price,
       price_cur: tool.price_cur,
       img: "",
       description: "",
-      source_link: tool.source_link
+      source_link: tool.source_link,
     });
     setAnchorEl(event.currentTarget);
   };
@@ -187,9 +186,9 @@ function Project({
     category_tools?: Array<any>;
   }
 
-  function Subcategory({catkey, categories, allTools, setTools}) {
+  function Subcategory({ catkey, categories, allTools, setTools }) {
     return (
-      <div>
+      <div key={catkey}>
         <Typography
           component="h2"
           variant="h5"
@@ -202,30 +201,38 @@ function Project({
         >
           {categoriesDicitionary[catkey]}
         </Typography>
-        {categories.map(category => (
+        {categories.map((category) => (
           <AccordionOfTools
-          categoryName={category.category.category_name}
-          category={category.category}
-          filteredToolsByCategory={getFilteredToolsByCategory}
-          allTools={allTools}
-          setTools={setTools}
-          key={category.id}
-          handleInfoClick={handleInfoClick}
+            categoryName={category.category.category_name}
+            category={category.category}
+            filteredToolsByCategory={getFilteredToolsByCategory}
+            allTools={allTools}
+            setTools={setTools}
+            key={category.id}
+            handleInfoClick={handleInfoClick}
           />
         ))}
       </div>
-    )
+    );
   }
 
-  function CategoriesSortedBySubcategories({categories, dictionary, allTools, setTools}) {
+  function CategoriesSortedBySubcategories({
+    categories,
+    dictionary,
+    allTools,
+    setTools,
+  }) {
     const sortedCategoryObj = {};
-    categories.forEach(category => {
+    categories.forEach((category) => {
       if (dictionary[category.category.subcategory_tag]) {
-        if(sortedCategoryObj[category.category.subcategory_tag] && Array.isArray(sortedCategoryObj[category.category.subcategory_tag])) {
-          sortedCategoryObj[category.category.subcategory_tag].push(category)
+        if (
+          sortedCategoryObj[category.category.subcategory_tag] &&
+          Array.isArray(sortedCategoryObj[category.category.subcategory_tag])
+        ) {
+          sortedCategoryObj[category.category.subcategory_tag].push(category);
         } else {
           sortedCategoryObj[category.category.subcategory_tag] = [];
-          sortedCategoryObj[category.category.subcategory_tag].push(category)
+          sortedCategoryObj[category.category.subcategory_tag].push(category);
         }
       } else {
         // if (sortedCategoryObj['default'] && Array.isArray(sortedCategoryObj['default'])) {
@@ -235,12 +242,20 @@ function Project({
         //   sortedCategoryObj['default'].push(category)
         // }
       }
-    })
+    });
     return (
       <React.Fragment>
-        {Object.keys(sortedCategoryObj).map(catkey => <Subcategory catkey={catkey} categories={sortedCategoryObj[catkey]} allTools={allTools} setTools={setTools}/>)}
+        {Object.keys(sortedCategoryObj).map((catkey, index) => (
+          <Subcategory
+            catkey={catkey}
+            key={index}
+            categories={sortedCategoryObj[catkey]}
+            allTools={allTools}
+            setTools={setTools}
+          />
+        ))}
       </React.Fragment>
-    )
+    );
   }
 
   return (
@@ -277,12 +292,12 @@ function Project({
                 handleInfoClick={handleInfoClick}
               />
             ))} */}
-            <CategoriesSortedBySubcategories 
+            {categoriesList.length ? <CategoriesSortedBySubcategories
               categories={categoriesList}
               dictionary={categoriesDicitionary}
               allTools={allTools}
               setTools={setTools}
-            />
+            /> : null}
 
             <ToolInfoInProject
               toolName={toolInfo.tool_name}

@@ -122,7 +122,12 @@ function AccordionOfTools({
     const [checkedCount, setCheckedCount] = React.useState(0)
     const [expanded, setExpanded] = React.useState(false);
 
-    const oneToolChecked = (tool) => {
+    React.useEffect(() => {
+        console.log("rerender")
+    }, [])
+
+    const oneToolChecked = (event, tool) => {
+        event.preventDefault()
         let currentAllTools = allTools.splice(0)
 
         currentAllTools.forEach( elem => {
@@ -130,13 +135,11 @@ function AccordionOfTools({
                 elem.isChecked = !tool.isChecked
             }
         })
-        setTools(prev => currentAllTools)
+        setTools(currentAllTools)
 
         let checkedTools = []
         let uncheckedTools = []
         toolsInAccordion.forEach( item => item.isChecked === true ? checkedTools.push(item) : uncheckedTools.push(item))
-
-        console.log(checkedTools)
 
         let checkedLength = checkedTools.length
 
@@ -234,7 +237,7 @@ function AccordionOfTools({
                                         <TableCell align="center" scope="row" component="th">
                                             <Checkbox 
                                                 checked={oneTool.isChecked} 
-                                                onChange={() => oneToolChecked(oneTool)} 
+                                                onChange={(event) => oneToolChecked(event, oneTool)} 
                                                 color="primary"
                                             />
                                         </TableCell>
