@@ -11,18 +11,14 @@ export default function ReqContainer({
   setOpenPresend,
 }) {
   const [showAdditionalReq, setShowAdditionalReq] = React.useState(false);
-  const [clinicInn, setClinicInn] = React.useState("555 666 777 888 000");
-  const [clinicAddress, setClinicAddress] = React.useState(
-    "г.Москва, ул.Пушкина, д.2"
-  );
-  const [clinicName, setClinicName] = React.useState("Добромед");
-  const [clinicUr, setClinicUr] = React.useState('ООО "Добромед"');
-  const [dealerInn, setDealerInn] = React.useState("555 666 777 888 000");
-  const [dealerAddress, setDealerAddress] = React.useState(
-    "г.Москва, ул.Пушкина, д.2"
-  );
-  const [dealerName, setDealerName] = React.useState("Добромед");
-  const [dealerUr, setDealerUr] = React.useState('ООО "Добромед"');
+  const [clinicInn, setClinicInn] = React.useState<string>("");
+  const [clinicAddress, setClinicAddress] = React.useState<string>("");
+  const [clinicName, setClinicName] = React.useState<string>("");
+  const [clinicUr, setClinicUr] = React.useState<string>('');
+  const [dealerInn, setDealerInn] = React.useState<string>("");
+  const [dealerAddress, setDealerAddress] = React.useState<string>("");
+  const [dealerName, setDealerName] = React.useState<string>("");
+  const [dealerUr, setDealerUr] = React.useState<string>('');
 
   const callApi = (inn) => {
     console.log(inn);
