@@ -186,6 +186,19 @@ function AccordionOfTools({
         setExpanded(!expanded);
     };
 
+    const getProviderLogos = () => {
+        const logos = JSON.parse(category.logo)
+        if (Array.isArray(logos)) {
+            console.log(logos)
+            return (
+                <div style={{display: 'flex', marginRight: "1em"}}>
+                   {logos.map( logo => logo !== null ? <img style={{width: 60}} src={logo} alt="..."/> : null)}
+                </div>
+            )
+        }
+        return logos !== null && <img style={{width: 40}} src={logos} alt="..."/>
+    }
+
     return (
         <div className={classes.accordionContainer}>
             <Accordion className={styleSelector(choosingType)}>
@@ -198,6 +211,7 @@ function AccordionOfTools({
                         <Typography className={classes.heading}>{categoryName}</Typography>
                         <div style={{display: "flex", alignItems: "center"}}>
                             {filteredToolsByCategory ? spanCounterSelector(choosingType) : null}
+                            {getProviderLogos()}
                             <Button 
                             variant="outlined" 
                             color="primary"
