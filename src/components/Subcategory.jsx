@@ -6,10 +6,7 @@ const Subcategory = (props) => {
   const {
     catkey,
     categories,
-    allTools,
-    setTools,
     categoriesDicitionary,
-    getFilteredToolsByCategory,
     handleInfoClick,
   } = props;
 
@@ -31,9 +28,6 @@ const Subcategory = (props) => {
         <AccordionOfTools
           categoryName={category.category.category_name}
           category={category.category}
-          filteredToolsByCategory={getFilteredToolsByCategory}
-          allTools={allTools}
-          setTools={setTools}
           key={category.id}
           handleInfoClick={handleInfoClick}
         />

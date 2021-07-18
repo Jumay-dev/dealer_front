@@ -100,10 +100,13 @@ export type ProjectActionTypes =
 export const LIST_TOOLS = "LIST_TOOLS";
 export const LIST_CATEGORIES = "LIST_CATEGORIES";
 export const CHECK_TOOL = "CHECK_TOOL";
+export const UNCHECK_TOOL = "UNCHECK_TOOL";
+export const RESET_CHECKED_TOOLS = "RESET_CHECKED_TOOLS";
 
 export interface ToolsState {
   isFetching: boolean;
   toolsList: any;
+  checkedTools: Array<any>;
   categoriesList: Category[];
   tool: Tool;
   error?: null;
@@ -113,7 +116,7 @@ export interface ToolsState {
 }
 
 interface ListToolsAction {
-  type: typeof LIST_TOOLS | typeof LIST_CATEGORIES | typeof CHECK_TOOL;
+  type: typeof LIST_TOOLS | typeof LIST_CATEGORIES | typeof CHECK_TOOL | typeof UNCHECK_TOOL | typeof RESET_CHECKED_TOOLS;
   payload: any;
 }
 
@@ -127,7 +130,7 @@ interface ListProvidersAction {
   payload: any;
 }
 
-export type ToolsActions = typeof LIST_TOOLS | typeof LIST_CATEGORIES | typeof LIST_PROVIDERS;
+export type ToolsActions = typeof LIST_TOOLS | typeof LIST_CATEGORIES | typeof LIST_PROVIDERS 
 
 export type ToolsActionsTypes = ListToolsAction | ListCategoriesAction | ListProvidersAction;
 

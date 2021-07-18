@@ -3,6 +3,8 @@ import {
     LIST_CATEGORIES,
     LIST_PROVIDERS,
     CHECK_TOOL,
+    UNCHECK_TOOL,
+    RESET_CHECKED_TOOLS,
     ToolsActionsTypes,
     ToolsState,
 } from '../store/types'
@@ -12,6 +14,7 @@ export function toolReducer(
     state: ToolsState = {
         isFetching: true,
         toolsList: [],
+        checkedTools: [],
         categoriesList: [],
         tool: new ToolModel() as Tool,
         deleted: false,
@@ -31,15 +34,10 @@ export function toolReducer(
             })
         }
         case LIST_CATEGORIES: {
-            let toolsList = []
-            action.payload.tools.forEach(tool => {
-                tool.checked = false
-                toolsList.push(tool)
-            })
             return Object.assign({}, state, {
                 isFetching: false,
                 categoriesList: action.payload.categories,
-                toolsList
+                toolsList: action.payload.tools
             })
         }
         case LIST_PROVIDERS: {
@@ -48,16 +46,21 @@ export function toolReducer(
             })
         }
         case CHECK_TOOL: {
-            let toolsList = []
-            console.log('payload', action.payload)
-            state.toolsList.forEach(tool => {
-                if (+tool.id === +action.payload.id) {
-                    tool.checked = true
-                }
-                toolsList.push(tool)
-            })
+            let checkedTools = state.checkedTools
+            checkedTools.push(action.payload)
             return Object.assign({}, state, {
-                toolsList
+                checkedTools
+            })
+        }
+        case UNCHECK_TOOL: {
+            let checkedTools = state.checkedTools.filter(tool => +tool.id !== +action.payload.id)
+            return Object.assign({}, state, {
+                checkedTools
+            })
+        }
+        case RESET_CHECKED_TOOLS: {
+            return Object.assign({}, state, {
+                checkedTools: []
             })
         }
         default: return state

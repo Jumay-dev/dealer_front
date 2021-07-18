@@ -13,11 +13,14 @@ import { thunkData } from "../services/thunks";
 import { backend } from "../config/server";
 import { v4 as uuidv4 } from "uuid";
 import Subcategory from "../components/Subcategory";
+import { listCategories } from "../actions/tool";
 
 import {
   enqueueSnackbar as enqueueSnackbarAction,
   closeSnackbar as closeSnackbarAction,
 } from "../actions/snackbar";
+import { resetCheckedTools } from "../actions/tool";
+import { LIST_CATEGORIES } from "../store/types";
 
 const categoriesDicitionary = {
   EXCLUSIVE: "Эксклюзивное оборудование",
@@ -69,12 +72,12 @@ function Project({
   history,
   categoriesList,
   toolsList,
-  getCategories,
   user,
+  checkedTools,
+  getCategories
 }) {
   const classes = useStyles();
   const [openPresend, setOpenPresend] = React.useState(false);
-  const [allTools, setTools] = React.useState([]);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -86,6 +89,13 @@ function Project({
     description: "",
     source_link: "",
   });
+
+  React.useEffect(() => {
+    let categoriesListAction = {
+      type: LIST_CATEGORIES,
+    };
+    getCategories(categoriesListAction)
+  }, [])
 
   function presendHandler() {
     setOpenPresend(true);
@@ -109,11 +119,7 @@ function Project({
 
   function handleNewProject(clinicInfo, subDealerInfo, isDealerAdded) {
     let toolsIDs = [];
-    getCheckedTools(toolsList).forEach((item) => toolsIDs.push(item.id));
-
-    function getCheckedTools(tools) {
-      return tools.filter((tool) => tool.isChecked === true);
-    }
+    checkedTools.forEach((item) => toolsIDs.push(item.id));
 
     const project = {
       tools: toolsIDs,
@@ -147,6 +153,7 @@ function Project({
       .then((res) => res.json())
       .then((res) => {
         // setSuccess()
+        resetCheckedTools()
         enqueueSnackbar({
           message: "Ваш проект отправлен на авторизацию",
           options: {
@@ -161,17 +168,9 @@ function Project({
     history.push("/projects");
   }
 
-  function getFilteredToolsByCategory(tools, categoryID) {
-    if (Array.isArray(tools) && tools.length !== 0) {
-      return tools.filter((tool) => +tool.category_id === +categoryID);
-    }
-  }
-
   function CategoriesSortedBySubcategories({
     categories,
-    dictionary,
-    allTools,
-    setTools,
+    dictionary
   }) {
     const sortedCategoryObj = {};
     categories.forEach((category) => {
@@ -201,10 +200,7 @@ function Project({
             catkey={catkey}
             key={index}
             categories={sortedCategoryObj[catkey]}
-            allTools={toolsList}
-            setTools={setTools}
             categoriesDicitionary={categoriesDicitionary}
-            getFilteredToolsByCategory={getFilteredToolsByCategory}
             handleInfoClick={handleInfoClick}
           />
         ))}
@@ -235,11 +231,10 @@ function Project({
               setOpenPresend={setOpenPresend}
             />
 
-            {categoriesList.length ? <CategoriesSortedBySubcategories
+            {categoriesList.length ? 
+            <CategoriesSortedBySubcategories
               categories={categoriesList}
               dictionary={categoriesDicitionary}
-              allTools={toolsList}
-              setTools={setTools}
             /> : null}
 
             <ToolInfoInProject
@@ -283,6 +278,7 @@ function mapStateToProps(state) {
     categoriesList: state.tool.categoriesList,
     toolsList: state.tool.toolsList,
     user: state.auth.user,
+    checkedTools: state.tool.checkedTools
   };
 }
 
@@ -294,6 +290,7 @@ function mapDispatchToProps(dispatch) {
     getCategories: (action: TODO) => dispatch(thunkData(action)),
     enqueueSnackbar: (data) => dispatch(enqueueSnackbarAction(data)),
     closeSnackbar: (data) => dispatch(closeSnackbarAction(data)),
+    resetChechedTools: () => dispatch(resetCheckedTools())
   };
 }
 

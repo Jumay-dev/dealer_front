@@ -16,6 +16,7 @@ import maico  from '../assets/logos/maico.png'
 import medstar from '../assets/logos/medstar.png'
 import norland from '../assets/logos/norland.png'
 import votem from '../assets/logos/votem.png'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function ProjectPresend(
+function ProjectPresend(
     {
         onClose, 
         open, 
@@ -75,7 +76,8 @@ export default function ProjectPresend(
         dealerName, 
         setDealerName, 
         dealerUr, 
-        setDealerUr
+        setDealerUr,
+        checkedTools
     }) {
     const classes = useStyles();
 
@@ -223,7 +225,7 @@ export default function ProjectPresend(
                     {ToolsProducers(getCheckedTools(tools))}
                     
                     <Grid container>
-                        {getCheckedTools(tools).map(tool => (
+                        {checkedTools.map(tool => (
                             <Grid className={classes.tableCellValue} md={6}  sm={12} style={{marginBottom: 5}}>
                                 {tool.tool_name}
                             </Grid>
@@ -234,3 +236,11 @@ export default function ProjectPresend(
         </Dialog>
     );
 }
+
+const setStateToProps = (state) => {
+    return {
+        checkedTools: state.tool.checkedTools
+    }
+}
+
+export default connect(setStateToProps, null)(ProjectPresend)
