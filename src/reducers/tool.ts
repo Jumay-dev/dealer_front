@@ -23,7 +23,7 @@ export function toolReducer(
         case LIST_TOOLS: {
             return Object.assign({}, state, {
                 isFetching: false,
-                toolsList: action.payload.tools,
+                toolsList: action.payload.tools.map(tool => tool.checked = false),
                 tool: new ToolModel() as Tool,
                 deleted: false,
                 updated: false,

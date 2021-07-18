@@ -189,7 +189,6 @@ function AccordionOfTools({
     const getProviderLogos = () => {
         const logos = JSON.parse(category.logo)
         if (Array.isArray(logos)) {
-            console.log(logos)
             return (
                 <div style={{display: 'flex', marginRight: "1em"}}>
                    {logos.map( logo => logo !== null ? <img style={{width: 60}} src={logo} alt="..."/> : null)}

@@ -3,17 +3,16 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import AccordionOfTools from "../components/AccordionOfTools";
 import ReqContainer from "../components/ReqContainer";
 import { newProject } from "../actions/project";
-import { setSuccess, unsetSuccess } from "../actions/app";
+import { setSuccess } from "../actions/app";
 import { connect } from "react-redux";
 import ToolInfoInProject from "../components/ToolInfoInProject";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { thunkData } from "../services/thunks";
 import { backend } from "../config/server";
-import { LIST_CATEGORIES } from "../store/types";
 import { v4 as uuidv4 } from "uuid";
+import Subcategory from "../components/Subcategory";
 
 import {
   enqueueSnackbar as enqueueSnackbarAction,
@@ -87,19 +86,6 @@ function Project({
     description: "",
     source_link: "",
   });
-
-  React.useEffect(() => {
-    if (toolsList.length !== 0) {
-      setTools([...toolsList]);
-    } else {
-      let categoriesListAction = {
-        type: LIST_CATEGORIES,
-        endpoint: "projects/",
-        data: {},
-      };
-      getCategories(categoriesListAction);
-    }
-  }, [toolsList]);
 
   function presendHandler() {
     setOpenPresend(true);
@@ -181,41 +167,6 @@ function Project({
     }
   }
 
-  interface categorySignature {
-    category: any;
-    category_tools?: Array<any>;
-  }
-
-  function Subcategory({ catkey, categories, allTools, setTools }) {
-    return (
-      <div key={catkey}>
-        <Typography
-          component="h2"
-          variant="h5"
-          style={{
-            color: "#688cbc",
-            display: "block",
-            marginTop: 20,
-            marginBottom: 10,
-          }}
-        >
-          {categoriesDicitionary[catkey]}
-        </Typography>
-        {categories.map((category) => (
-          <AccordionOfTools
-            categoryName={category.category.category_name}
-            category={category.category}
-            filteredToolsByCategory={getFilteredToolsByCategory}
-            allTools={allTools}
-            setTools={setTools}
-            key={category.id}
-            handleInfoClick={handleInfoClick}
-          />
-        ))}
-      </div>
-    );
-  }
-
   function CategoriesSortedBySubcategories({
     categories,
     dictionary,
@@ -252,6 +203,9 @@ function Project({
             categories={sortedCategoryObj[catkey]}
             allTools={allTools}
             setTools={setTools}
+            categoriesDicitionary={categoriesDicitionary}
+            getFilteredToolsByCategory={getFilteredToolsByCategory}
+            handleInfoClick={handleInfoClick}
           />
         ))}
       </React.Fragment>
@@ -281,21 +235,10 @@ function Project({
               setOpenPresend={setOpenPresend}
             />
 
-            {/* {categoriesList.map((category) => (
-              <AccordionOfTools
-                categoryName={category.category.category_name}
-                category={category.category}
-                filteredToolsByCategory={getFilteredToolsByCategory}
-                allTools={allTools}
-                setTools={setTools}
-                key={category.id}
-                handleInfoClick={handleInfoClick}
-              />
-            ))} */}
             {categoriesList.length ? <CategoriesSortedBySubcategories
               categories={categoriesList}
               dictionary={categoriesDicitionary}
-              allTools={allTools}
+              allTools={toolsList}
               setTools={setTools}
             /> : null}
 
