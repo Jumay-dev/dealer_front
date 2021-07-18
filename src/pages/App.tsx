@@ -55,14 +55,15 @@ function App(props) {
 
   React.useEffect(() => {
     document.title = "DS.Med - система авторизации оборудования";
-
+    
     let categoriesListAction = {
       type: LIST_CATEGORIES,
       endpoint: "categories/",
       data: {},
     };
-    props.getTools(categoriesListAction);
 
+    isAuthenticated && props.getTools(categoriesListAction)
+    
     let checkAuthAction = {
       type: AUTH_CHECK,
       endpoint: "categories/",

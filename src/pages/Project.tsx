@@ -109,7 +109,7 @@ function Project({
 
   function handleNewProject(clinicInfo, subDealerInfo, isDealerAdded) {
     let toolsIDs = [];
-    getCheckedTools(allTools).forEach((item) => toolsIDs.push(item.id));
+    getCheckedTools(toolsList).forEach((item) => toolsIDs.push(item.id));
 
     function getCheckedTools(tools) {
       return tools.filter((tool) => tool.isChecked === true);
@@ -201,7 +201,7 @@ function Project({
             catkey={catkey}
             key={index}
             categories={sortedCategoryObj[catkey]}
-            allTools={allTools}
+            allTools={toolsList}
             setTools={setTools}
             categoriesDicitionary={categoriesDicitionary}
             getFilteredToolsByCategory={getFilteredToolsByCategory}
@@ -229,7 +229,7 @@ function Project({
           </div>
           <div className={classes.contentWrapper}>
             <ReqContainer
-              allTools={allTools}
+              allTools={toolsList}
               handleNewProject={handleNewProject}
               openPresend={openPresend}
               setOpenPresend={setOpenPresend}
@@ -267,7 +267,7 @@ function Project({
       ) : null}
       <Box
         visibility={
-          allTools.length !== 0 && categoriesList.length !== 0
+          toolsList.length !== 0 && categoriesList.length !== 0
             ? "hidden"
             : "visible"
         }

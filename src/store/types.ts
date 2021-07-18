@@ -103,7 +103,7 @@ export const CHECK_TOOL = "CHECK_TOOL";
 
 export interface ToolsState {
   isFetching: boolean;
-  toolsList: Tool[];
+  toolsList: any;
   categoriesList: Category[];
   tool: Tool;
   error?: null;
@@ -113,7 +113,7 @@ export interface ToolsState {
 }
 
 interface ListToolsAction {
-  type: typeof LIST_TOOLS | typeof LIST_CATEGORIES;
+  type: typeof LIST_TOOLS | typeof LIST_CATEGORIES | typeof CHECK_TOOL;
   payload: any;
 }
 

@@ -2,6 +2,7 @@ import {
     LIST_TOOLS,
     LIST_CATEGORIES,
     LIST_PROVIDERS,
+    CHECK_TOOL,
     ToolsActionsTypes,
     ToolsState,
 } from '../store/types'
@@ -44,6 +45,19 @@ export function toolReducer(
         case LIST_PROVIDERS: {
             return Object.assign({}, state, {
                 providers: action.payload.providers
+            })
+        }
+        case CHECK_TOOL: {
+            let toolsList = []
+            console.log('payload', action.payload)
+            state.toolsList.forEach(tool => {
+                if (+tool.id === +action.payload.id) {
+                    tool.checked = true
+                }
+                toolsList.push(tool)
+            })
+            return Object.assign({}, state, {
+                toolsList
             })
         }
         default: return state

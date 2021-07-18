@@ -15,6 +15,8 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from "../assets/icons/Info circle.svg"
 import clsx from 'clsx';
+import { connect } from 'react-redux'
+import { checkTool } from '../actions/tool';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -114,6 +116,7 @@ function AccordionOfTools({
         filteredToolsByCategory,
         allTools,
         setTools,
+        checkTool,
         handleInfoClick
     }) {
     const classes = useStyles();
@@ -128,18 +131,19 @@ function AccordionOfTools({
 
     const oneToolChecked = (event, tool) => {
         event.preventDefault()
-        let currentAllTools = allTools.splice(0)
+        // let currentAllTools = allTools.splice(0)
 
-        currentAllTools.forEach( elem => {
-            if (elem.id === tool.id) {
-                elem.isChecked = !tool.isChecked
-            }
-        })
-        setTools(currentAllTools)
+        // currentAllTools.forEach( elem => {
+        //     if (elem.id === tool.id) {
+        //         elem.isChecked = !tool.isChecked
+        //     }
+        // })
+        // setTools(currentAllTools)
+        checkTool(tool)
 
         let checkedTools = []
         let uncheckedTools = []
-        toolsInAccordion.forEach( item => item.isChecked === true ? checkedTools.push(item) : uncheckedTools.push(item))
+        toolsInAccordion.forEach( item => item.checked === true ? checkedTools.push(item) : uncheckedTools.push(item))
 
         let checkedLength = checkedTools.length
 
@@ -265,4 +269,10 @@ function AccordionOfTools({
     )
 }
 
-export default AccordionOfTools
+const setDistpatchToProps = (dispatch) => {
+    return {
+        checkTool: (data) => dispatch(checkTool(data))
+    }
+}
+
+export default connect(null, setDistpatchToProps)(AccordionOfTools)
