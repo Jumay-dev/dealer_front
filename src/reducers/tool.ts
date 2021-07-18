@@ -23,19 +23,22 @@ export function toolReducer(
         case LIST_TOOLS: {
             return Object.assign({}, state, {
                 isFetching: false,
-                toolsList: action.payload.tools.map(tool => tool.checked = false),
+                toolsList: action.payload.tools,
                 tool: new ToolModel() as Tool,
                 deleted: false,
                 updated: false,
             })
         }
         case LIST_CATEGORIES: {
+            let toolsList = []
+            action.payload.tools.forEach(tool => {
+                tool.checked = false
+                toolsList.push(tool)
+            })
             return Object.assign({}, state, {
                 isFetching: false,
                 categoriesList: action.payload.categories,
-                toolsList: action.payload.tools,
-                deleted: false,
-                updated: false,
+                toolsList
             })
         }
         case LIST_PROVIDERS: {

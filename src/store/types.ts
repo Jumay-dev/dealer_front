@@ -99,6 +99,7 @@ export type ProjectActionTypes =
 // Tools types
 export const LIST_TOOLS = "LIST_TOOLS";
 export const LIST_CATEGORIES = "LIST_CATEGORIES";
+export const CHECK_TOOL = "CHECK_TOOL";
 
 export interface ToolsState {
   isFetching: boolean;

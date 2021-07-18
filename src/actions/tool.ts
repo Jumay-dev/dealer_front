@@ -2,7 +2,8 @@ import {
     ToolsActions,
     LIST_TOOLS,
     LIST_CATEGORIES,
-    LIST_PROVIDERS
+    LIST_PROVIDERS,
+    CHECK_TOOL
 } from "../store/types";
 
 export function listTools(result?: TODO) {
@@ -22,6 +23,13 @@ export function listCategories(result?: TODO) {
 export function listProviders(result?: TODO) {
     return {
         type: LIST_PROVIDERS,
+        payload: result
+    }
+}
+
+export function checkTool(result?: TODO) {
+    return {
+        type: CHECK_TOOL,
         payload: result
     }
 }
