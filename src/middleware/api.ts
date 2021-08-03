@@ -125,3 +125,11 @@ export function getData(action: any): Promise<TODO> {
     }
   }
 }
+export function getClinicReq(inn: any): Promise<TODO> {
+  const token = localStorage.getItem("react-crm-token")
+  return fetch(`${backend}/api/clinic/find?inn=${inn}`, {
+    headers: {
+      "Authorization": token
+    }
+  })
+}

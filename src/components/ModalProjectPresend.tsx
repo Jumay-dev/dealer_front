@@ -7,6 +7,16 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import CloseIcon from '../assets/icons/Close circle.svg'
 import { Typography } from '@material-ui/core';
+import furuno  from '../assets/logos/furuno.png'
+import listem  from '../assets/logos/listem.png'
+import dssurg from '../assets/logos/logo_ds-surg.png'
+import dsvision from '../assets/logos/logo_ds-vision.png'
+import mahe from '../assets/logos/mahe.png'
+import maico  from '../assets/logos/maico.png'
+import medstar from '../assets/logos/medstar.png'
+import norland from '../assets/logos/norland.png'
+import votem from '../assets/logos/votem.png'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function ProjectPresend(
+function ProjectPresend(
     {
         onClose, 
         open, 
@@ -66,12 +76,61 @@ export default function ProjectPresend(
         dealerName, 
         setDealerName, 
         dealerUr, 
-        setDealerUr
+        setDealerUr,
+        checkedTools
     }) {
     const classes = useStyles();
 
     function getCheckedTools(tools) {
         return tools.filter( tool => tool.isChecked === true)
+    }
+
+    function getLogoByProducerName(producer) {
+        let img = ''
+        switch (producer) {
+            case 'ds.surg': img = dssurg; break
+            case 'ds.vision': img = dsvision; break
+            case 'votem': img = votem; break
+            case 'listem': img = listem; break
+            case 'medstar': img = medstar; break
+            case 'maico': img = maico; break
+            case 'mahe': img = mahe; break
+            case 'furuno': img = furuno; break
+            case 'norland': img = norland; break
+            default: img = ''
+        }
+        return img
+    }
+
+    function logoOrNot(producer) {
+        if (getLogoByProducerName(producer)) {
+            return (<span style={{marginLeft: 10}}><img width="70" src={getLogoByProducerName(producer)} /></span>)
+        }
+        return null
+    }
+    
+    function ToolsProducers(tools) {
+        const producers = ['ds.surg', 'ds.vision', 'votem', 'listem', 'medstar', 'maico', 'mahe', 'furuno', 'norland']
+        const toolsProductor = []
+        tools.forEach(tool => {
+            producers.forEach(producer => {
+                console.log(producer, tool.tool_name.toLowerCase())
+                if (tool.tool_name.toLowerCase().indexOf(producer) >= 0) {
+                    console.log('aha', producer)
+                    toolsProductor.push(producer)
+                }
+            })
+        })
+       
+        for (var i = toolsProductor.length - 1; i >= 0; i--) {
+            if (toolsProductor.indexOf(toolsProductor[i]) != i)
+              toolsProductor.splice(i, 1);
+          }
+        return (
+            <div style={{display: "flex", alignItems: "center"}}>
+                {toolsProductor.map( prod => logoOrNot(prod))}
+            </div>
+        )
     }
 
     return (
@@ -109,57 +168,64 @@ export default function ProjectPresend(
             </DialogTitle>
             <div className={classes.containerRoot}>
                 <div style={{display: "flex", flexDirection: "column"}}>
-                    
-                    <Typography variant="h5" style={{marginTop: 15, marginBottom: 10, color: "rgb(104, 140, 188)"}}>
-                       Реквизиты клиента
-                    </Typography>
-                    <Typography>
-                        <span className={classes.tableCellName}>ИНН клиники:</span>
-                        <span className={classes.tableCellValue}>{clinicInn}</span>
-                    </Typography>
-                    <Typography>
-                        <span className={classes.tableCellName}>Название клиники:</span>
-                        <span className={classes.tableCellValue}>{clinicName}</span>
-                    </Typography>
-                    <Typography>
-                        <span className={classes.tableCellName}>Адрес клиники:</span>
-                        <span className={classes.tableCellValue}>{clinicAddress}</span>
-                    </Typography>
-                    <Typography>
-                        <span className={classes.tableCellName}>Юр.лицо клиники:</span>
-                        <span className={classes.tableCellValue}>{clinicUr}</span>
-                    </Typography>
+                    <div style={{display: "flex", flexDirection: "row"}}>
+                        
+                        <div style={{display: "flex", flexDirection: "column"}}>
+                            <Typography variant="h5" style={{marginTop: 15, marginBottom: 10, color: "rgb(104, 140, 188)"}}>
+                            Реквизиты клиента
+                            </Typography>
+                            <Typography>
+                                <span className={classes.tableCellName}>ИНН клиники:</span>
+                                <span className={classes.tableCellValue}>{clinicInn}</span>
+                            </Typography>
+                            <Typography>
+                                <span className={classes.tableCellName}>Название клиники:</span>
+                                <span className={classes.tableCellValue}>{clinicName}</span>
+                            </Typography>
+                            <Typography>
+                                <span className={classes.tableCellName}>Адрес клиники:</span>
+                                <span className={classes.tableCellValue}>{clinicAddress}</span>
+                            </Typography>
+                            <Typography>
+                                <span className={classes.tableCellName}>Юр.лицо клиники:</span>
+                                <span className={classes.tableCellValue}>{clinicUr}</span>
+                            </Typography>
+                        </div>
 
-                    {showAdditionalReq ? (
-                        <React.Fragment>
-                        <Typography variant="h5" style={{marginTop: 15, marginBottom: 10, color: "rgb(104, 140, 188)"}}>
-                        Реквизиты промежуточного дилера
-                        </Typography>
-                        <Typography>
-                            <span className={classes.tableCellName}>ИНН дилера:</span>
-                            <span className={classes.tableCellValue}>{dealerInn}</span>
-                        </Typography>
-                        <Typography>
-                            <span className={classes.tableCellName}>Название дилера:</span>
-                            <span className={classes.tableCellValue}>{dealerName}</span>
-                        </Typography>
-                        <Typography>
-                            <span className={classes.tableCellName}>Адрес дилера:</span>
-                            <span className={classes.tableCellValue}>{dealerAddress}</span>
-                        </Typography>
-                        <Typography>
-                            <span className={classes.tableCellName}>Юр.лицо дилера:</span>
-                            <span className={classes.tableCellValue}>{dealerUr}</span>
-                        </Typography>
-                        </React.Fragment>
-                    ) : null}
+
+                        {showAdditionalReq ? (
+                            <div style={{display: "flex", flexDirection: "column", marginLeft: 20}}>
+                            <Typography variant="h5" style={{marginTop: 15, marginBottom: 10, color: "rgb(104, 140, 188)"}}>
+                            Реквизиты промежуточного дилера
+                            </Typography>
+                            <Typography>
+                                <span className={classes.tableCellName}>ИНН дилера:</span>
+                                <span className={classes.tableCellValue}>{dealerInn}</span>
+                            </Typography>
+                            <Typography>
+                                <span className={classes.tableCellName}>Название дилера:</span>
+                                <span className={classes.tableCellValue}>{dealerName}</span>
+                            </Typography>
+                            <Typography>
+                                <span className={classes.tableCellName}>Адрес дилера:</span>
+                                <span className={classes.tableCellValue}>{dealerAddress}</span>
+                            </Typography>
+                            <Typography>
+                                <span className={classes.tableCellName}>Юр.лицо дилера:</span>
+                                <span className={classes.tableCellValue}>{dealerUr}</span>
+                            </Typography>
+                            </div>
+                        ) : null}
+                    </div>
+
 
                     <Typography variant="h5" style={{marginTop: 15, marginBottom: 10, color: "rgb(104, 140, 188)"}}>
                        Состав проекта
                     </Typography>
+                    {ToolsProducers(getCheckedTools(tools))}
                     
                     <Grid container>
-                        {getCheckedTools(tools).map(tool => (
+                        {checkedTools.map(tool => (
                             <Grid className={classes.tableCellValue} md={6}  sm={12} style={{marginBottom: 5}}>
                                 {tool.tool_name}
                             </Grid>
@@ -170,3 +236,11 @@ export default function ProjectPresend(
         </Dialog>
     );
 }
+
+const setStateToProps = (state) => {
+    return {
+        checkedTools: state.tool.checkedTools
+    }
+}
+
+export default connect(setStateToProps, null)(ProjectPresend)

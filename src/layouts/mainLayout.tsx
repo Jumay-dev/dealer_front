@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function MainLayout({ children, openSidebar, closeSidebar, app }) {
+function MainLayout({ children, openSidebar, closeSidebar, app, user }) {
     const classes = useStyles();
 
     React.useEffect(() => {
@@ -94,9 +94,10 @@ function MainLayout({ children, openSidebar, closeSidebar, app }) {
             </Link>
           </div>
           
-          {/* <UserDropdown />
-          <Divider /> */}
+          
           <List><MainListItems /></List>
+
+          <UserDropdown user={user}/>
         </Drawer>
 
         <main className={classes.content}>
@@ -108,7 +109,8 @@ function MainLayout({ children, openSidebar, closeSidebar, app }) {
 
 function mapStateToProps(state) {
   return {
-    app: state.app
+    app: state.app,
+    user: state.auth.user
   }
 }
 

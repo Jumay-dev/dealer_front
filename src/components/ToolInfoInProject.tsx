@@ -26,7 +26,8 @@ function ToolInfoInProject(
         handleClose,
         id,
         price,
-        price_cur
+        price_cur,
+        source_link
     }) {
     const classes = useStyles();
 
@@ -45,7 +46,7 @@ function ToolInfoInProject(
             horizontal: 'center',
         }}
         >
-            <Card style={{maxWidth: "20vw"}}>
+            {/* <Card style={{maxWidth: "20vw"}}>
                 <CardHeader
                     title={toolName}
                     subheader={+price !== 0 ? `${price} ${price_cur} в рознице` : null}
@@ -60,6 +61,9 @@ function ToolInfoInProject(
                         {description !== '' ? description : "Подробности вы можете уточнить у менеджера"}
                     </Typography>
                 </CardContent>
+            </Card> */}
+            <Card style={{width: "60vw", height: "80vh"}}>
+                <iframe width="100%" height="100%" src={source_link} title="any"></iframe>
             </Card>
         </Popover>
 
